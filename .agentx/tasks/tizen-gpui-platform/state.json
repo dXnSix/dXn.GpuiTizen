@@ -1,12 +1,12 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 71,
-  "planRevision": 10,
+  "revision": 92,
+  "planRevision": 13,
   "specHashes": {
-    "requirements": "fdbb9b1d376b5476de6a7e93cb708a87ee252cdb7ae6f4cee090000a3f18debc",
-    "design": "18adcf247683f92e6fe1c044622ef914232705de9cd6f1cb543557daa0dc37dd",
-    "plan": "c1913490dd482cc9714404857da0dcdfb4b84db8683b0d8de512cff4463f94d3"
+    "requirements": "1e52bbf45b2317dc42e7e3bdc9f513240a41288c0d96b3211e25b9cc4223f22a",
+    "design": "f6c2e3d33399e789a3e1394f9e5ba71ccd50d5ada1a87a989d0d77e300ec036c",
+    "plan": "036452b36f6dc6607deb2dc272af4380fb5bf1e31ccc0812a66f0f6f1f53b6ad"
   },
   "tasks": {
     "t1-workspace": {
@@ -76,19 +76,34 @@
       ]
     },
     "t4-gles-device": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t4-backend-env": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t4-pipeline-cache": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t4-integration": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t4-release": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t5-dispatcher": {
       "status": "pending"
@@ -425,6 +440,30 @@
         }
       },
       "recordedAt": "2026-11-08T22:42:57Z"
+    },
+    "e43688b8061959b474b661721f47e7f74ec02ced8077d30fdd5bfac7861c69d1": {
+      "snapshot": {
+        "specHash": "8343c52d973b512c573a41ce164ae37c78ce448a9915337cac79489dde606aec",
+        "repositories": {
+          "gpuitizen": "6fefc26592f9dfe8b664b7b17fc47459bd02dcc5c75fda452876f6896f163bea",
+          "gpui-fast": "fdfe58c6059b2fd052b8fd76ed534533e3edb5be2e88159fa7a1bf8c55aaa5c0",
+          "wgpu": "593a0f2f051a329f2703d9ead1daf9f7906493105f4fba31d3fd91867a528ec2",
+          "nsh": "44cd091043852019714da3ec9eda618bc3e237317015dcf281d4f1afb8693e3f"
+        }
+      },
+      "recordedAt": "2026-11-08T23:09:23Z"
+    },
+    "500749b43ee11588fc638f693601f5243e47463e172073381371c0a6690f13b7": {
+      "snapshot": {
+        "specHash": "cf5b59e870941a11a8b6485d5efa65d8ccf905b95d378674a3d6142e36884a85",
+        "repositories": {
+          "gpuitizen": "6fefc26592f9dfe8b664b7b17fc47459bd02dcc5c75fda452876f6896f163bea",
+          "gpui-fast": "fdfe58c6059b2fd052b8fd76ed534533e3edb5be2e88159fa7a1bf8c55aaa5c0",
+          "wgpu": "593a0f2f051a329f2703d9ead1daf9f7906493105f4fba31d3fd91867a528ec2",
+          "nsh": "44cd091043852019714da3ec9eda618bc3e237317015dcf281d4f1afb8693e3f"
+        }
+      },
+      "recordedAt": "2026-11-08T23:10:06Z"
     }
   },
   "checkResults": {
@@ -767,6 +806,125 @@
       "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s3-diag-final-ba350a47bbb6.log",
       "logSha256": "aba3b661a1258826fc89d5f25d25599e75dd66d505613641d62ca75bbf8fb9f3",
       "inputsHash": "e8a56d286ad2c54519533bb852cf5631071d820bef840a109ac1e74eb80e0025"
+    },
+    "s4-gpui-fast/chk-gf-gles-device/final": {
+      "checkId": "chk-gf-gles-device",
+      "boundaryId": "s4-gpui-fast",
+      "phase": "final",
+      "batchId": "e43688b8061959b474b661721f47e7f74ec02ced8077d30fdd5bfac7861c69d1",
+      "definitionHash": "ea2023022f91ef30be917cdd9301bfdeb0a10fcf153aba527ccacc747591d8c5",
+      "basisHash": "12df0f37fe98a4126268ed5bc84b44f1e29a17d09c1f4c51316c4841193a7fae",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 5,
+      "durationSeconds": 11.2443,
+      "recordedAt": "2026-11-08T23:07:55Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s4-gpui-fast-final-ca1e9ce32dc6.log",
+      "logSha256": "610d5fbaeecd03d2a03688096d9161e6e3dd6148d193b6f373d4bbfd4903d941",
+      "inputsHash": "1875a39fe263ce637085ef53c5aafc83ca42da39ba1aef1d8f8edc3803298b56"
+    },
+    "s4-gpui-fast/chk-gf-gles-backends/final": {
+      "checkId": "chk-gf-gles-backends",
+      "boundaryId": "s4-gpui-fast",
+      "phase": "final",
+      "batchId": "e43688b8061959b474b661721f47e7f74ec02ced8077d30fdd5bfac7861c69d1",
+      "definitionHash": "6c2a314188b3b87a0ff8b9fa1bdcf429172b858019ec9b0c018724f15034f03e",
+      "basisHash": "48b20a3adb3aaa44d3d3ca1f682ebb92dba6dda6313c4cb8080aab71d2a1c687",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 3,
+      "durationSeconds": 0.3057,
+      "recordedAt": "2026-11-08T23:07:55Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s4-gpui-fast-final-8b9c43c8ba72.log",
+      "logSha256": "1d24c4b98c7749cc7746e99407ee8dfece9ae2d7c2d59b43b1713a1815f6fadf",
+      "inputsHash": "1875a39fe263ce637085ef53c5aafc83ca42da39ba1aef1d8f8edc3803298b56"
+    },
+    "s4-gpui-fast/chk-gf-pipeline-cache/final": {
+      "checkId": "chk-gf-pipeline-cache",
+      "boundaryId": "s4-gpui-fast",
+      "phase": "final",
+      "batchId": "e43688b8061959b474b661721f47e7f74ec02ced8077d30fdd5bfac7861c69d1",
+      "definitionHash": "071b15133b64386899a9d3c95b8a6692f0fd690f0e5310709df97033ac506cfd",
+      "basisHash": "20b4d58f0c55de04befff97c983c5e08d8c075b4fd702a2f5e3b25ddb2211fef",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 5,
+      "durationSeconds": 0.2063,
+      "recordedAt": "2026-11-08T23:07:55Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s4-gpui-fast-final-534dcbfc8275.log",
+      "logSha256": "e9a77587aa15b0e1338f71a23b738978d90b3a1c251c223a6216c02392e5f3ae",
+      "inputsHash": "1875a39fe263ce637085ef53c5aafc83ca42da39ba1aef1d8f8edc3803298b56"
+    },
+    "s4-gpui-fast/chk-gf-check-upstream/final": {
+      "checkId": "chk-gf-check-upstream",
+      "boundaryId": "s4-gpui-fast",
+      "phase": "final",
+      "batchId": "e43688b8061959b474b661721f47e7f74ec02ced8077d30fdd5bfac7861c69d1",
+      "definitionHash": "325cf7713b8a7381b79561f8b5fb535cadb56abe2963189d0accfc2fe32d530a",
+      "basisHash": "ee4affe268f0f3f329608532afd4fa8002fae4fa1d0f228ec10569df2bc7d53c",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 2.2698,
+      "recordedAt": "2026-11-08T23:07:58Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s4-gpui-fast-final-ab843833a7b5.log",
+      "logSha256": "d9f816e6249018ca2faabb83c56d046f5d4b6b13250fb9eeb31903e443fe4b44",
+      "inputsHash": "7edfc40e9ba3c40e70a5ed6c7d308f9558139626afc150e71cabbeec6d7d96ae"
+    },
+    "s4-gpui-fast/chk-gf-clippy/final": {
+      "checkId": "chk-gf-clippy",
+      "boundaryId": "s4-gpui-fast",
+      "phase": "final",
+      "batchId": "e43688b8061959b474b661721f47e7f74ec02ced8077d30fdd5bfac7861c69d1",
+      "definitionHash": "6210c8f9ffd02fab8295f1c70c442921093b877892f607a51a9834d49784de75",
+      "basisHash": "145df3823a069b0e70cadf73756390aa056455aa31e6157f4e548d77dbf3e1f2",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 3.4709,
+      "recordedAt": "2026-11-08T23:08:01Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s4-gpui-fast-final-95e7e5a86b76.log",
+      "logSha256": "baa7b6212288423a39dd4a07168c50fb2d6d346a1d2f3471637c4e26112b6db9",
+      "inputsHash": "d68c4c1c8eeaeeb989ecf516748824d524bf456e5423a975772052d9b72d2066"
+    },
+    "s4-gpui-fast/chk-xtask-release/final": {
+      "checkId": "chk-xtask-release",
+      "boundaryId": "s4-gpui-fast",
+      "phase": "final",
+      "batchId": "e43688b8061959b474b661721f47e7f74ec02ced8077d30fdd5bfac7861c69d1",
+      "definitionHash": "f510e7d16ecbedaa5ebb805b0420c1cdea899f39c52ea4daf5e70bf65178df08",
+      "basisHash": "028860929cd51b01a07762cebc2ba03542ebf4a177f2d4225c295b18daef2c2b",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 8,
+      "durationSeconds": 0.0777,
+      "recordedAt": "2026-11-08T23:08:01Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s4-gpui-fast-final-a83ff58f4424.log",
+      "logSha256": "279b9c6e4d1cfe018f0d375eb01d6b88d0f7f1380b0e6e75187e2723cb18e96d",
+      "inputsHash": "99aa0da17b975703a90b26f0c91025e31f11c1f388b52d848cac49d80ae4ce90"
+    },
+    "s4-gpui-fast/chk-gf-release/final": {
+      "checkId": "chk-gf-release",
+      "boundaryId": "s4-gpui-fast",
+      "phase": "final",
+      "batchId": "500749b43ee11588fc638f693601f5243e47463e172073381371c0a6690f13b7",
+      "definitionHash": "44bc68fe0dafd089441686890151bbd098d3682c60b008da53c97c0f59875c4f",
+      "basisHash": "a2452a31c44970343a5397acb3ca2253fa422646fd8b7f35c0ac7ebde60c7cb1",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 27.7084,
+      "recordedAt": "2026-11-08T23:10:05Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s4-gpui-fast-final-f0ff79feb102.log",
+      "logSha256": "b8bf9e9dbad7ede78c7b12be88dccd26f6cbd5d3a2fc278228e63235f0ac47cc",
+      "inputsHash": "2c5222a85f778ae090e5d53dfa63f51cd2ccfb098c8f9e263e7b37fee0f0287a"
     }
   },
   "reviews": {
@@ -1467,6 +1625,147 @@
         "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
       }
+    },
+    "s4-gpui-fast": {
+      "reviewerId": "reviewer-s4-independent",
+      "snapshotId": "500749b43ee11588fc638f693601f5243e47463e172073381371c0a6690f13b7",
+      "criterionIds": [
+        "GF-1",
+        "GF-2",
+        "GF-3",
+        "GF-4",
+        "GF-5"
+      ],
+      "verdict": "passed",
+      "anchors": [
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/gles.rs",
+          "kind": "source",
+          "criterionIds": [
+            "GF-1",
+            "GF-2"
+          ],
+          "sha256": "da37b04d50a145f269e6f0b0f0fb5441461dceb1ab5bf149974ad39e394a95ee"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/gles.rs",
+          "kind": "test",
+          "criterionIds": [
+            "GF-1",
+            "GF-2"
+          ],
+          "sha256": "da37b04d50a145f269e6f0b0f0fb5441461dceb1ab5bf149974ad39e394a95ee"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/wgpu_context.rs",
+          "kind": "source",
+          "criterionIds": [
+            "GF-1",
+            "GF-2",
+            "GF-3",
+            "GF-4"
+          ],
+          "sha256": "bf888c13e03cd22f5362266bbb088fb41eff1ee0b1cf8216b3eb228ea07d9f6d"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/wgpu_renderer.rs",
+          "kind": "source",
+          "criterionIds": [
+            "GF-3",
+            "GF-4"
+          ],
+          "sha256": "e405e52aa99e6f7bd1c947cfaa5cbf31e2ef313cef991565e3dc2cf969e8a01a"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/pipeline_cache.rs",
+          "kind": "source",
+          "criterionIds": [
+            "GF-3"
+          ],
+          "sha256": "ae408e9935651aa1d97906585d713fc81e4eccd318df22fba40a735d4918504d"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/pipeline_cache.rs",
+          "kind": "test",
+          "criterionIds": [
+            "GF-3"
+          ],
+          "sha256": "ae408e9935651aa1d97906585d713fc81e4eccd318df22fba40a735d4918504d"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "GF-4"
+          ],
+          "sha256": "fc266eb3c841c3cd303631e89e0bb6292b611c05be068379d8f21b29ed4bd931"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/layers/rounded_clip_texture_tests.rs",
+          "kind": "source",
+          "criterionIds": [
+            "GF-4"
+          ],
+          "sha256": "735a46e6ab8b8802dc969b70ecbbdbd45b8dcdd03cfe62e6c917f760d28c64b2"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "script/check-upstream",
+          "kind": "runtime",
+          "criterionIds": [
+            "GF-4"
+          ],
+          "sha256": "853b588d0f3a87e5c137ce617e4e6948130f6702ccb2d48f71416ef9e9df9d4d"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/release/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "GF-5"
+          ],
+          "sha256": "4305490f81af903223144c038cbe7eecb99f85199ef4c0355709096470c17f04"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/release/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "GF-5"
+          ],
+          "sha256": "84960eb4d2f0527c58d15f6acb49d2d472d9c7207d41382a19c118754a060e03"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/main.rs",
+          "kind": "source",
+          "criterionIds": [
+            "GF-5"
+          ],
+          "sha256": "8d1af2b6aa9fcf47d8ed55b8967b32d1c17f4cc16e3cdaf67138ce07638ddfc8"
+        }
+      ],
+      "summaryMarkdown": "Full re-review at the amended GF-4. Changes 1-3 are unchanged except the one-line `open` fix, still logic-only in `src/fast/` with full-path hooks and no new public API; `tizen` = cd20d12 + five commits from the four branches, each branch cut from fb8cf94. Rerun here: check-upstream 0 violations; `fast::gles::tests::device` 5, `::backends` 3, `fast::pipeline_cache::tests` 5, `release::tests` 8, all passing; root `Cargo.lock` stays equal to HEAD. All five findings resolved. Observation (not blocking): GF-5's text still speaks of a \"patch was not used\" warning and parsing `cargo tree` output, while the check now reads the same fact from the scratch lockfile's `[[patch.unused]]` over all targets, which is stricter and recorded in d35; tightening GF-5's wording at the next amendment would keep the record exact.",
+      "findingIds": [
+        "s4-verify-rewrites-cargo-lock",
+        "s4-verify-graph-unchecked",
+        "s4-gf4-fourth-branch-unrecorded",
+        "s4-release-branch-holds-cargo-lock",
+        "s4-pipeline-cache-stale-device"
+      ],
+      "recordedAt": "2026-11-08T23:12:00Z",
+      "recordHashes": {
+        "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
     }
   },
   "checkpoints": {
@@ -1923,6 +2222,115 @@
           "symbol": "resume"
         }
       ]
+    },
+    {
+      "id": "s4-verify-rewrites-cargo-lock",
+      "boundaryId": "s4-gpui-fast",
+      "criterionIds": [
+        "GF-5"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "Resolved. `--verify` seeds `release::SCRATCH_LOCK` (`artifacts-temp/locks/gpui-fast-patch/Cargo.lock`, ignored) from `Cargo.lock` and passes `resolver.lockfile-path` through `cross::lockfile_config`; `run_gpui_fast_release` compares `Cargo.lock`'s bytes before/after the patched `cargo tree`, restores and fails on a difference. `cargo xtask cross` routes any build whose cargo args carry `--config …gpui-fast-patch.toml` to the same scratch lock (`release::uses_patch_config`, test `patched_builds_are_recognized`); its own unpatched `cargo_metadata` call stays on the committed lock. Verified: the scratch lock holds the patched resolution (path-sourced `gpui-fast`/`-macros`/`-wgpu`, six desktop `[[patch.unused]]`), the root `Cargo.lock` equals HEAD after the re-executed verify and after my scoped xtask test run. Rule recorded in `d35-tizen-lints-scratch-lock`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/main.rs",
+          "symbol": "run_gpui_fast_release"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/release/mod.rs",
+          "symbol": "uses_patch_config"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/release/tests.rs",
+          "symbol": "patched_builds_are_recognized"
+        }
+      ]
+    },
+    {
+      "id": "s4-verify-graph-unchecked",
+      "boundaryId": "s4-gpui-fast",
+      "criterionIds": [
+        "GF-5"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "Resolved. The unchecked second `cargo tree --workspace` is gone. `release::verify_lock` parses the patched lockfile (every target, not only armv7): it fails when the lock does not parse or holds no packages, when a `[[patch.unused]]` name is also a `[[package]]` name (that sibling came from crates.io), and when `gpui-fast` is absent or still has a `source`; `verify_tree` keeps the `-i gpui-fast` root-path check, and a failed `cargo tree` bails. An unreadable scratch lock becomes an empty string and fails as \"no packages\". Covered by `the_patched_lock_passes_with_only_desktop_patches_unused`, `an_unused_patch_of_a_crate_the_graph_holds_fails`, `gpui_fast_from_the_registry_or_an_empty_graph_fails`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/release/mod.rs",
+          "symbol": "verify_lock"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/release/tests.rs",
+          "symbol": "an_unused_patch_of_a_crate_the_graph_holds_fails"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/release/tests.rs",
+          "symbol": "gpui_fast_from_the_registry_or_an_empty_graph_fails"
+        }
+      ]
+    },
+    {
+      "id": "s4-gf4-fourth-branch-unrecorded",
+      "boundaryId": "s4-gpui-fast",
+      "criterionIds": [
+        "GF-4"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "Resolved by amendment. GF-4 now names `wgpu-test-lints` (cut from upstream `main`, cherry-picked into `tizen`); d06's invariants say each change branch passes library-target clippy on its own and the `--all-targets` clippy runs on `tizen`; the new decision `d35-tizen-lints-scratch-lock` records the fourth branch. Verified against git: `wgpu-test-lints` is one commit on fb8cf94 touching only `src/fast/`, and `tizen` = cd20d12 + the four branches' commits.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/layers/rounded_clip_texture_tests.rs"
+        }
+      ]
+    },
+    {
+      "id": "s4-release-branch-holds-cargo-lock",
+      "boundaryId": "s4-gpui-fast",
+      "criterionIds": [
+        "GF-5"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "Resolved. `copy_tree` skips `release::NOT_RELEASED` (`target`, `Cargo.lock`, `.git`; test `the_release_branch_keeps_only_generated_files`). `tizen-release` is now 4305248 (parent b01dbc8, generated from `tizen` at 8e8825327589): its 478 files equal `target/release-workspace` minus `target/` and the cargo-written `Cargo.lock`, and no `Cargo.lock` or `target` path is in the tree. The release workspace has no nested entry with those names, so the recursive skip removes nothing prepare-release wrote.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/release/mod.rs",
+          "symbol": "NOT_RELEASED"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/main.rs",
+          "symbol": "copy_tree"
+        }
+      ]
+    },
+    {
+      "id": "s4-pipeline-cache-stale-device",
+      "boundaryId": "s4-gpui-fast",
+      "criterionIds": [
+        "GF-3"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "Resolved. `pipeline_cache::open` now clears `CURRENT` before deciding whether the new device gets a cache (commit 5fa71b0 on `pipeline-cache`, still unstacked on fb8cf94; cherry-picked to `tizen` as 8e88253, file identical on both). A rejected adapter's device is no longer kept alive by the slot, matching the module comment. No GPU test was added for the slot (it needs a device); the optional temporary cache directory for GPU tests was not taken, which I accept as non-blocking.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/pipeline_cache.rs",
+          "symbol": "open"
+        }
+      ]
     }
   ],
   "handoffMarkdown": "",
@@ -1931,10 +2339,10 @@
       "gpuitizen:.agentx/memory/**": "94784ab15131a5a4ff6827a67fa677677a923e04a068e1e4335659b7b6e5c11e"
     },
     "gpui-fast": {
-      "gpui-fast:.github/**": "9a880375271b7351df90aa2d18ba1df9f310a6fce96ce56b5871dea59596a12f",
+      "gpui-fast:.github/**": "afb0e41cb35d09218188ae9de83b2634e412165058dd5bd2c877058b6503cc3b",
       "gpui-fast:UPSTREAM": "11301ca7cc73e478eab2cf1b6230fa959113eae10960c9dd7fff00e46bf02595",
       "gpui-fast:crates/gpui_platform/**": "619906436f770d4b8734676145557caf7bf784fb9063bb90cc98beca442f8809",
-      "gpui-fast:crates/gpui_linux/**": "182834efcbdec1d903df7e3aaba26412ec5eecc7e328c5de8de33f6b945b14d0"
+      "gpui-fast:crates/gpui_linux/**": "f62d27b5c1b792285d1e474f84a6509068b262c66b4111a304a372fc07b98973"
     },
     "wgpu": {
       "wgpu:.github/**": "09cf735204ba28ec9a161a57156f060765b362bc3bfcfe3877ad67f93c9ffc22"

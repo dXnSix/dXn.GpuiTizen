@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 10,
+  "revision": 13,
   "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
   "repositories": [
     {
@@ -39,15 +39,15 @@
     ],
     "forbiddenPaths": [
       "gpuitizen:.agentx/memory/**",
-      "gpui-fast:.github/**",
-      "gpui-fast:UPSTREAM",
-      "gpui-fast:crates/gpui_platform/**",
-      "gpui-fast:crates/gpui_linux/**",
       "wgpu:.github/**",
       "nsh:.github/workflows/release.yml",
       "nsh:.github/workflows/release-crate.yml",
       "nsh:.github/workflows/fork-release.yml",
-      "nsh:rust-toolchain.toml"
+      "nsh:rust-toolchain.toml",
+      "gpui-fast:.github/**",
+      "gpui-fast:UPSTREAM",
+      "gpui-fast:crates/gpui_platform/**",
+      "gpui-fast:crates/gpui_linux/**"
     ]
   },
   "validationMode": "sprint",
@@ -3379,14 +3379,15 @@
         {
           "id": "t4-integration",
           "title": "The `tizen` integration branch",
-          "descriptionMarkdown": "Make `tizen` exactly the `v0.1.13` tag commit plus the cherry-picked commits of the three change branches (design\n`d05-gpui-fast-pin`); if `v0.1.13` and `upstream/main` differ in files the changes touch, port the changes so each\nbranch stays based on `main` and `tizen` stays on the tag. Leave the checkout on `tizen`. Run `script/check-upstream`\nand the clippy of `GF-4` there, and on each change branch before cherry-picking. Commit nothing to `main`.",
+          "descriptionMarkdown": "Make `tizen` exactly the `v0.1.13` tag commit plus the cherry-picked commits of the three change branches (design\n`d05-gpui-fast-pin`); if `v0.1.13` and `upstream/main` differ in files the changes touch, port the changes so each\nbranch stays based on `main` and `tizen` stays on the tag. Leave the checkout on `tizen`. Run `script/check-upstream`\nand the clippy of `GF-4` there, and on each change branch before cherry-picking. Commit nothing to `main`.\n\nAlso cherry-pick `wgpu-test-lints` (cut from upstream `main`): the `--all-targets` clippy of `GF-4` fails on upstream\n`main` itself (`clippy::duplicate_mod` on the deliberately twice-included rounded-clip fixtures, `manual_is_multiple_of`\nin `fast/frame/tests.rs`, which does not exist at the tag), so the fix is its own branch.",
           "criterionIds": [
             "GF-4"
           ],
           "designIds": [
+            "d01-repositories",
             "d05-gpui-fast-pin",
             "d06-gpui-fast-changes",
-            "d01-repositories"
+            "d35-tizen-lints-scratch-lock"
           ],
           "dependsOn": [
             "t4-gles-device",
@@ -3406,7 +3407,8 @@
             "GF-5"
           ],
           "designIds": [
-            "d05-gpui-fast-pin"
+            "d05-gpui-fast-pin",
+            "d35-tizen-lints-scratch-lock"
           ],
           "dependsOn": [
             "t4-integration"
