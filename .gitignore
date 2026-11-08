@@ -7,3 +7,7 @@
 # Tizen rootstraps (installed by the Tizen SDK; never committed) and generated TPK staging trees
 /rootstraps
 /target/tpk
+
+# C# host build output
+/host/bin
+/host/obj

@@ -1,0 +1,75 @@
+# Tizen symbols dxn_gpui_tizen_sys may declare and a TV library may import, each with the public
+# Tizen 8.0 native API module (and header) that documents it. One `<symbol> <module>` per line.
+# A new symbol enters only together with its declaration (`symbols::tests` keeps both in step);
+# Ecore, Ecore_Wl2 and Ecore_IMF are documented under "EFL (Deprecated)".
+
+# libcapi-appfw-application.so
+ui_app_main Application Framework > Application (appfw/app.h)
+ui_app_exit Application Framework > Application (appfw/app.h)
+
+# libcapi-appfw-app-common.so
+app_get_cache_path Application Framework > Application > Common (appfw/app_common.h)
+app_get_resource_path Application Framework > Application > Common (appfw/app_common.h)
+app_get_data_path Application Framework > Application > Common (appfw/app_common.h)
+
+# libcapi-appfw-app-control.so
+app_control_get_extra_data Application Framework > Application > App Control (appfw/app_control.h)
+
+# libecore.so
+ecore_main_loop_thread_safe_call_async EFL > Ecore (ecore-1/Ecore.h)
+ecore_timer_add EFL > Ecore (ecore-1/Ecore.h)
+ecore_timer_del EFL > Ecore (ecore-1/Ecore.h)
+ecore_event_handler_add EFL > Ecore (ecore-1/Ecore.h)
+ecore_event_handler_del EFL > Ecore (ecore-1/Ecore.h)
+
+# libecore_input.so
+ECORE_EVENT_KEY_DOWN EFL > Ecore > Ecore Input (ecore-input-1/Ecore_Input.h)
+ECORE_EVENT_KEY_UP EFL > Ecore > Ecore Input (ecore-input-1/Ecore_Input.h)
+
+# libecore_wl2.so
+ecore_wl2_init EFL > Ecore > Ecore_Wl2 (ecore-wl2-1/Ecore_Wayland2.h)
+ecore_wl2_shutdown EFL > Ecore > Ecore_Wl2 (ecore-wl2-1/Ecore_Wayland2.h)
+ecore_wl2_connected_display_get EFL > Ecore > Ecore_Wl2 (ecore-wl2-1/Ecore_Wayland2.h)
+ecore_wl2_display_connect EFL > Ecore > Ecore_Wl2 (ecore-wl2-1/Ecore_Wayland2.h)
+ecore_wl2_display_native_get EFL > Ecore > Ecore_Wl2 (ecore-wl2-1/Ecore_Wayland2.h)
+ecore_wl2_display_screen_size_get EFL > Ecore > Ecore_Wl2 (ecore-wl2-1/Ecore_Wayland2.h)
+ecore_wl2_window_new EFL > Ecore > Ecore_Wl2 (ecore-wl2-1/Ecore_Wayland2.h)
+ecore_wl2_window_free EFL > Ecore > Ecore_Wl2 (ecore-wl2-1/Ecore_Wayland2.h)
+ecore_wl2_window_id_get EFL > Ecore > Ecore_Wl2 (ecore-wl2-1/Ecore_Wayland2.h)
+ecore_wl2_window_alpha_set EFL > Ecore > Ecore_Wl2 (ecore-wl2-1/Ecore_Wayland2.h)
+ecore_wl2_window_show EFL > Ecore > Ecore_Wl2 (ecore-wl2-1/Ecore_Wayland2.h)
+ecore_wl2_window_hide EFL > Ecore > Ecore_Wl2 (ecore-wl2-1/Ecore_Wayland2.h)
+ecore_wl2_window_activate EFL > Ecore > Ecore_Wl2 (ecore-wl2-1/Ecore_Wayland2.h)
+ecore_wl2_window_commit EFL > Ecore > Ecore_Wl2 (ecore-wl2-1/Ecore_Wayland2.h)
+ecore_wl2_window_native_surface_get EFL > Ecore > Ecore_Wl2 (ecore-wl2-1/Ecore_Wayland2.h)
+ecore_wl2_window_frame_callback_add EFL > Ecore > Ecore_Wl2 (ecore-wl2-1/Ecore_Wayland2.h)
+ecore_wl2_window_frame_callback_del EFL > Ecore > Ecore_Wl2 (ecore-wl2-1/Ecore_Wayland2.h)
+ecore_wl2_window_keygrab_set EFL > Ecore > Ecore_Wl2 (ecore-wl2-1/Ecore_Wayland2.h)
+ecore_wl2_window_keygrab_unset EFL > Ecore > Ecore_Wl2 (ecore-wl2-1/Ecore_Wayland2.h)
+
+# libecore_imf.so
+ecore_imf_init EFL > Ecore > Ecore IMF (ecore-imf-1/Ecore_IMF.h)
+ecore_imf_shutdown EFL > Ecore > Ecore IMF (ecore-imf-1/Ecore_IMF.h)
+ecore_imf_context_default_id_get EFL > Ecore > Ecore IMF (ecore-imf-1/Ecore_IMF.h)
+ecore_imf_context_add EFL > Ecore > Ecore IMF (ecore-imf-1/Ecore_IMF.h)
+ecore_imf_context_del EFL > Ecore > Ecore IMF (ecore-imf-1/Ecore_IMF.h)
+ecore_imf_context_client_window_set EFL > Ecore > Ecore IMF (ecore-imf-1/Ecore_IMF.h)
+ecore_imf_context_focus_in EFL > Ecore > Ecore IMF (ecore-imf-1/Ecore_IMF.h)
+ecore_imf_context_focus_out EFL > Ecore > Ecore IMF (ecore-imf-1/Ecore_IMF.h)
+ecore_imf_context_reset EFL > Ecore > Ecore IMF (ecore-imf-1/Ecore_IMF.h)
+ecore_imf_context_cursor_position_set EFL > Ecore > Ecore IMF (ecore-imf-1/Ecore_IMF.h)
+ecore_imf_context_input_panel_show EFL > Ecore > Ecore IMF (ecore-imf-1/Ecore_IMF.h)
+ecore_imf_context_input_panel_hide EFL > Ecore > Ecore IMF (ecore-imf-1/Ecore_IMF.h)
+ecore_imf_context_preedit_string_get EFL > Ecore > Ecore IMF (ecore-imf-1/Ecore_IMF.h)
+ecore_imf_context_event_callback_add EFL > Ecore > Ecore IMF (ecore-imf-1/Ecore_IMF.h)
+ecore_imf_context_event_callback_del EFL > Ecore > Ecore IMF (ecore-imf-1/Ecore_IMF.h)
+
+# libcapi-system-system-settings.so
+system_settings_get_value_int System > System Settings (system/system_settings.h)
+system_settings_get_value_bool System > System Settings (system/system_settings.h)
+system_settings_get_value_string System > System Settings (system/system_settings.h)
+system_settings_add_changed_cb System > System Settings (system/system_settings.h)
+system_settings_remove_changed_cb System > System Settings (system/system_settings.h)
+
+# libdlog.so
+dlog_print System > dlog (dlog/dlog.h)
