@@ -541,6 +541,16 @@ dependencies = [
 [[package]]
 name = "dxn_gpui_tizen_diag"
 version = "0.1.0"
+dependencies = [
+ "dxn_gpui_tizen_sys",
+ "libc",
+ "libloading",
+ "pollster",
+ "raw-window-handle",
+ "serde",
+ "serde_json",
+ "wgpu",
+]
 
 [[package]]
 name = "dxn_gpui_tizen_sys"
@@ -3795,6 +3805,7 @@ name = "xtask"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "dxn_gpui_tizen_diag",
  "dxn_gpui_tizen_sys",
  "serde_json",
  "toml",

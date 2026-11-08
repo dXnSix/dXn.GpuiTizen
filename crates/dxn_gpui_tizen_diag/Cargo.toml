@@ -10,5 +10,19 @@ publish.workspace = true
 [lib]
 crate-type = ["cdylib", "rlib"]
 
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json.workspace = true
+
+# Tizen only: the bindings, wgpu with only its GL backend (the major version gpui-fast-wgpu uses, so
+# the workspace holds one wgpu), and run-time loading of EGL / GL ES.
+[target.'cfg(target_vendor = "tizen")'.dependencies]
+dxn_gpui_tizen_sys = { path = "../dxn_gpui_tizen_sys" }
+libc = "0.2"
+libloading = "0.8"
+pollster = "0.4"
+raw-window-handle = "0.6"
+wgpu = { version = "30", default-features = false, features = ["gles", "wgsl", "std"] }
+
 [lints]
 workspace = true
