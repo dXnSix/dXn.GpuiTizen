@@ -9,3 +9,9 @@ publish.workspace = true
 
 [lints]
 workspace = true
+
+# Tizen-only: GPUI (gpui-fast) and its wgpu renderer. Desktop builds never pull them through this
+# crate, and no desktop platform crate (`gpui-fast-platform`, `gpui-fast-linux`) is ever a dependency.
+[target.'cfg(target_vendor = "tizen")'.dependencies]
+gpui.workspace = true
+gpui_wgpu.workspace = true
