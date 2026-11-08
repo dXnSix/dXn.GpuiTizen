@@ -30,12 +30,17 @@ are ordinary Cargo commands; cross builds go through `xtask`:
 ```bash
 cargo xtask cross --target armv7 -p dxn_gpui_tizen            # 32-bit ARM TVs (softfp, NEON)
 cargo xtask cross --target x86_64 --release --all-tv-libs     # the Tizen emulator
+cargo xtask cross --target aarch64 -p dxn_gpui_tizen          # 64-bit ARM devices
 ```
 
 Linking a TV library (a `cdylib`) needs the public Tizen 8.0 common rootstrap, installed with the Tizen SDK and found
-through `TIZEN_ROOTSTRAP_ARMV7` / `TIZEN_ROOTSTRAP_X86_64` or the SDK's default location;
-C code is compiled with clang and linked with `lld` against it. Rootstraps and Samsung certificates are never
-committed.
+through `TIZEN_ROOTSTRAP_ARMV7` / `TIZEN_ROOTSTRAP_X86_64` / `TIZEN_ROOTSTRAP_AARCH64` or the SDK's default
+location;
+C code is compiled with clang against it. Linking also needs the SDK's GCC 9.2 toolchain (`NativeToolchain-Gcc-9.2`,
+found under the SDK's `tools/` or through `TIZEN_GCC_TOOLCHAIN_ARMV7` / `_X86_64` / `_AARCH64`): it supplies the
+start files and `libgcc_s` the rootstrap leaves out, and its GNU `ld`, since lld rejects the rootstrap's libraries.
+[docs/setup.md](docs/setup.md) installs all of it on a clean macOS or Linux machine. Rootstraps and Samsung
+certificates are never committed.
 
 ## Licence
 

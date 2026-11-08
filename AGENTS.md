@@ -13,6 +13,7 @@ the gpui-fast and wgpu forks and reach builds only through `[patch.crates-io]` o
   (`cfg(target_vendor = "tizen")`).
 - `crates/dxn_gpui_tizen_diag/`: the diagnostic app (`cdylib` + `rlib`).
 - `examples/counter`, `examples/long_list` (packages `example_counter`, `example_long_list`).
+- `docs/setup.md`: installing the Tizen SDK, rootstraps and GCC toolchain on a clean machine.
 - `host/`: the C# host; `targets/`: the Tizen target specs; `xtask/`: build tooling; `scripts/`: Lima and CI helpers.
 
 ## Rules
@@ -45,8 +46,10 @@ cargo xtask cross --target armv7 --clippy --all-tv-libs
 cargo xtask cross --target armv7 -p dxn_gpui_tizen
 ```
 
-Cross builds always go through `cargo xtask cross --target <armv7|x86_64>`; linking a TV library needs the Tizen 8.0
-rootstrap (`TIZEN_ROOTSTRAP_ARMV7`, `TIZEN_ROOTSTRAP_X86_64`, or the Tizen SDK's default location).
+Cross builds always go through `cargo xtask cross --target <armv7|x86_64|aarch64>`; linking a TV library needs the
+Tizen 8.0 rootstrap (`TIZEN_ROOTSTRAP_ARMV7`, `TIZEN_ROOTSTRAP_X86_64`, `TIZEN_ROOTSTRAP_AARCH64`, or the Tizen SDK's
+default location) and the SDK's GCC 9.2 toolchain (`TIZEN_GCC_TOOLCHAIN_<ARCH>`, or `<SDK>/tools/`). On a machine
+without the Tizen SDK, follow `docs/setup.md` first; never install Tizen Studio (deprecated).
 
 <!-- agentx:begin -->
 ## AgentX
