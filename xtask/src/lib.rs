@@ -5,7 +5,9 @@ use std::path::PathBuf;
 
 pub mod cross;
 pub mod gcc;
+pub mod package;
 pub mod policy;
+pub mod symcheck;
 pub mod targets;
 
 /// The pinned toolchain channel from `rust-toolchain.toml`.

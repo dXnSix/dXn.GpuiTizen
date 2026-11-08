@@ -20,6 +20,8 @@ pub struct Options {
     pub release: bool,
     pub clippy: bool,
     pub check_symbols: bool,
+    /// The entry symbol `--check-symbols` expects (`--entry`, default `dxn_gpui_tizen_main`).
+    pub entry: Option<String>,
     pub all_tv_libs: bool,
     /// Cargo selection and feature flags, passed through unchanged (`-p`, `--manifest-path`,
     /// `--features`, `--no-default-features`, ...).
@@ -27,7 +29,8 @@ pub struct Options {
 }
 
 pub const USAGE: &str = "\
-cargo xtask cross --target <armv7|x86_64|aarch64> [--release] [--clippy] [--check-symbols] [--all-tv-libs]
+cargo xtask cross --target <armv7|x86_64|aarch64> [--release] [--clippy] [--check-symbols [--entry <symbol>]]
+                  [--all-tv-libs]
                   [-p <package>]... [--manifest-path <Cargo.toml>] [--features <f>] [--no-default-features]
                   [other cargo flags]";
 
@@ -39,6 +42,7 @@ impl Options {
             release: false,
             clippy: false,
             check_symbols: false,
+            entry: None,
             all_tv_libs: false,
             cargo_args: Vec::new(),
         };
@@ -55,6 +59,12 @@ impl Options {
                 "--release" => options.release = true,
                 "--clippy" => options.clippy = true,
                 "--check-symbols" => options.check_symbols = true,
+                "--entry" => {
+                    let Some(name) = args.next() else {
+                        bail!("`--entry` needs a value\n{USAGE}");
+                    };
+                    options.entry = Some(name.clone());
+                }
                 "--all-tv-libs" => options.all_tv_libs = true,
                 _ => options.cargo_args.push(arg.clone()),
             }
@@ -252,10 +262,8 @@ pub fn plan(options: &Options, ctx: &Context, tv_libs: &[String]) -> Result<Invo
             "`--all-tv-libs` selects this workspace's TV libraries; it cannot be combined with `--manifest-path`"
         );
     }
-    if options.check_symbols {
-        bail!(
-            "`--check-symbols` is not wired yet: the symbol checker arrives with `cargo xtask check-symbols`"
-        );
+    if options.check_symbols && options.clippy {
+        bail!("`--check-symbols` checks built libraries; it cannot be combined with `--clippy`");
     }
     let links = ctx.needs_link && !options.clippy;
     if links && ctx.rootstrap.is_none() {
@@ -349,6 +357,62 @@ pub fn plan(options: &Options, ctx: &Context, tv_libs: &[String]) -> Result<Invo
         env,
         env_remove: vec!["RUSTFLAGS".to_owned()],
     })
+}
+
+/// The `cdylib`s a build produced: `<target dir>/<spec>/<debug|release>/lib<crate>.so` for each
+/// selected `cdylib` package (`-` in package names becomes `_`).
+pub fn built_libraries(
+    target_dir: &Path,
+    target: Target,
+    release: bool,
+    packages: &[String],
+) -> Vec<PathBuf> {
+    let profile = if release { "release" } else { "debug" };
+    packages
+        .iter()
+        .map(|package| {
+            target_dir
+                .join(target.spec_name())
+                .join(profile)
+                .join(format!("lib{}.so", package.replace('-', "_")))
+        })
+        .collect()
+}
+
+/// The selected packages that build a `cdylib` (the same selection as [`selection_needs_link`]).
+pub fn selected_cdylibs(metadata: &Value, options: &Options, tv_libs: &[String]) -> Vec<String> {
+    if options.all_tv_libs {
+        return tv_libs.to_vec();
+    }
+    let named = options.packages();
+    let all = cdylib_packages(metadata);
+    if !named.is_empty() {
+        return all
+            .into_iter()
+            .filter(|p| named.contains(&p.as_str()))
+            .collect();
+    }
+    let ids = |key: &str| -> Vec<&str> {
+        metadata[key]
+            .as_array()
+            .map(|a| a.iter().filter_map(Value::as_str).collect())
+            .unwrap_or_default()
+    };
+    let members = if options.workspace() {
+        ids("workspace_members")
+    } else {
+        let defaults = ids("workspace_default_members");
+        if defaults.is_empty() {
+            ids("workspace_members")
+        } else {
+            defaults
+        }
+    };
+    packages(metadata)
+        .filter(|p| is_cdylib(p))
+        .filter(|p| p["id"].as_str().is_some_and(|id| members.contains(&id)))
+        .filter_map(|p| p["name"].as_str().map(str::to_owned))
+        .collect()
 }
 
 /// Packages of a `cargo metadata --no-deps` document that build a `cdylib`.

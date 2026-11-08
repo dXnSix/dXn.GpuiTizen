@@ -378,19 +378,77 @@ fn link_arguments_survive_inherited_rustflags() {
 }
 
 #[test]
-fn check_symbols_fails_before_cargo_while_unwired() {
+fn check_symbols_stays_out_of_cargo_and_finds_the_built_libraries() {
     let options = Options::parse(&args(&[
         "--target",
         "armv7",
+        "--release",
         "--check-symbols",
+        "--entry",
+        "nsh_tizen_main",
         "-p",
         "example_counter",
     ]))
     .unwrap();
-    let err = plan(&options, &ctx(Some("/rs"), true), &[])
-        .unwrap_err()
-        .to_string();
-    assert!(err.contains("check-symbols"), "{err}");
+    assert!(options.check_symbols);
+    assert_eq!(options.entry.as_deref(), Some("nsh_tizen_main"));
+    let inv = plan(&options, &ctx(Some("/rs"), true), &[]).unwrap();
+    assert!(
+        !inv.args
+            .iter()
+            .any(|a| a == "--check-symbols" || a == "--entry" || a == "nsh_tizen_main")
+    );
+    assert_eq!(
+        built_libraries(
+            Path::new("/repo/target"),
+            Target::Armv7,
+            true,
+            &["example-counter".into()]
+        ),
+        [PathBuf::from(
+            "/repo/target/armv7-tizen-linux-gnueabi/release/libexample_counter.so"
+        )]
+    );
+    let clippy =
+        Options::parse(&args(&["--target", "armv7", "--clippy", "--check-symbols"])).unwrap();
+    assert!(plan(&clippy, &ctx(None, true), &[]).is_err());
+}
+
+#[test]
+fn selected_cdylibs_follow_the_selection() {
+    let metadata = json!({
+        "packages": [
+            {"id": "sys", "name": "dxn_gpui_tizen_sys", "targets": [{"crate_types": ["lib"]}]},
+            {"id": "diag", "name": "dxn_gpui_tizen_diag", "targets": [{"crate_types": ["cdylib", "rlib"]}]},
+            {"id": "ctr", "name": "example_counter", "targets": [{"crate_types": ["cdylib", "rlib"]}]}
+        ],
+        "workspace_members": ["sys", "diag", "ctr"],
+        "workspace_default_members": ["sys", "diag"]
+    });
+    let opts = |list: &[&str]| Options::parse(&args(list)).unwrap();
+    assert_eq!(
+        selected_cdylibs(&metadata, &opts(&["--target", "armv7"]), &[]),
+        ["dxn_gpui_tizen_diag"]
+    );
+    assert_eq!(
+        selected_cdylibs(
+            &metadata,
+            &opts(&[
+                "--target",
+                "armv7",
+                "-p",
+                "example_counter",
+                "-p",
+                "dxn_gpui_tizen_sys"
+            ]),
+            &[]
+        ),
+        ["example_counter"]
+    );
+    assert_eq!(
+        selected_cdylibs(&metadata, &opts(&["--target", "armv7", "--workspace"]), &[]),
+        ["dxn_gpui_tizen_diag", "example_counter"]
+    );
 }
 
 #[test]
