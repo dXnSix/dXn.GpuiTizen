@@ -1,0 +1,9 @@
+/target
+/artifacts-temp
+
+# Project Claude config is tracked; per-user settings are not
+/.claude/settings.local.json
+
+# Tizen rootstraps (installed by the Tizen SDK; never committed) and generated TPK staging trees
+/rootstraps
+/target/tpk

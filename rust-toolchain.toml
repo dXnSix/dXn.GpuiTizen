@@ -1,0 +1,5 @@
+# One dated nightly for host tests and cross builds: `-Zbuild-std` needs nightly.
+[toolchain]
+channel = "nightly-2026-10-18"
+components = ["rust-src", "rustfmt", "clippy", "llvm-tools"]
+profile = "minimal"

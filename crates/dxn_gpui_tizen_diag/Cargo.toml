@@ -1,0 +1,14 @@
+[package]
+name = "dxn_gpui_tizen_diag"
+description = "Diagnostic app reporting a Tizen TV's EGL, GL ES, CPU, display and launch timings."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[lints]
+workspace = true

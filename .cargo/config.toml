@@ -1,0 +1,5 @@
+# Host-only settings. Cross builds go through `cargo xtask cross`, which adds `-Zbuild-std`,
+# the target spec and the Tizen C toolchain; those cannot live here because they would also apply
+# to host builds.
+[alias]
+xtask = "run --package xtask --"

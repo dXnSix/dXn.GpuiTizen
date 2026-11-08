@@ -1,0 +1,55 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/dxn_gpui_tizen_sys",
+    "crates/dxn_gpui_tizen",
+    "crates/dxn_gpui_tizen_diag",
+    "examples/counter",
+    "examples/long_list",
+    "xtask",
+]
+default-members = [
+    "crates/dxn_gpui_tizen_sys",
+    "crates/dxn_gpui_tizen",
+    "crates/dxn_gpui_tizen_diag",
+    "examples/counter",
+    "examples/long_list",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/dXnSix/dXn.GpuiTizen"
+publish = false
+
+[workspace.dependencies]
+# GPUI is gpui-fast, imported under GPUI's library names and pinned exactly to the version
+# `nsh-platform-gpui` uses. Renderer changes reach builds only through `[patch.crates-io]` over all
+# nine `gpui-fast-*` crates (never a local path in this committed manifest).
+gpui = { package = "gpui-fast", version = "=0.1.13", default-features = false }
+gpui_wgpu = { package = "gpui-fast-wgpu", version = "=0.1.13" }
+
+anyhow = "1"
+serde_json = "1"
+toml = "0.8"
+
+[workspace.lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(target_vendor, values("tizen"))'] }
+unsafe_op_in_unsafe_fn = "deny"
+
+[workspace.lints.clippy]
+undocumented_unsafe_blocks = "deny"
+dbg_macro = "deny"
+todo = "deny"
+
+# TV libraries: one exported entry symbol, no unwinding, everything inlined across crates.
+[profile.release]
+panic = "abort"
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+strip = "symbols"
+
+[profile.dev]
+panic = "abort"
