@@ -45,6 +45,11 @@
           "id": "TGT-4",
           "descriptionMarkdown": "The workspace's release profile builds TV libraries with `panic = \"abort\"`, `opt-level = 3`, `lto = \"fat\"`,\n`codegen-units = 1` and stripped symbols; the `policy::tests` group of `xtask` fails when any of these change.",
           "verification": "automated"
+        },
+        {
+          "id": "TGT-5",
+          "verification": "automated",
+          "descriptionMarkdown": "Linking a TV library against a Tizen 8.0 rootstrap uses the Tizen SDK's GCC 9.2 toolchain (`NativeToolchain-Gcc-9.2`):\nclang drives the link with `--ld-path=<toolchain>/<gcc triple>/bin/ld.bfd` (GNU ld: lld rejects the rootstraps' shared\nlibraries, which list imported symbols as LOCAL after `.dynsym`'s first global), `-B`/`-L<toolchain>/lib/gcc/<gcc\ntriple>/9.2.0` for the start files and `libgcc`, and `-L` for `libgcc_s` (`lib` on armv7, `lib64` on x86_64 and\naarch64). The toolchain comes from `TIZEN_GCC_TOOLCHAIN_<ARCH>`, else `<SDK>/tools/<arch>-gcc-9.2`; a linking build\nwithout it fails before Cargo with install instructions. When the toolchain is installed, every build (gate,\nclippy, linking) passes these arguments, so their rustflags match and switching causes no rebuild; without it, only\nnon-linking builds run, with the pinned toolchain's lld standing in. C code is\nstill compiled by clang. The `gcc::tests` group checks the arguments, lookup and failure for every target, and\n`docs/setup.md` documents the SDK installation. This replaces `TGT-2`'s \"links with clang and `lld`\" for linking\nbuilds."
         }
       ]
     },

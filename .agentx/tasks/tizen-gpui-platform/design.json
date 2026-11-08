@@ -500,6 +500,25 @@
           "path": "upstream-pr/README.md"
         }
       ]
+    },
+    {
+      "id": "d34-gnu-ld-link",
+      "requirementIds": [
+        "TGT"
+      ],
+      "descriptionMarkdown": "Linking against the Tizen 8.0 rootstraps goes through the SDK's GCC 9.2 toolchain: GNU `ld.bfd` (via clang's\n`--ld-path`), GCC's start files and `libgcc_s`, all from `<SDK>/tools/<arch>-gcc-9.2` (`xtask/src/gcc/`). Rootstraps\nand toolchains are found per target (`TIZEN_ROOTSTRAP_<ARCH>`, `TIZEN_GCC_TOOLCHAIN_<ARCH>`, else `TIZEN_SDK` /\n`~/tizen-studio`), installed with the CLI Tizen SDK as `docs/setup.md` describes. This changes `d03-targets-build-std`'s\n\"links with `lld`\" for linking builds.",
+      "invariantsMarkdown": "- C code is compiled by clang only; nothing else from the GCC toolchain is used (no C++).\n- A linking build without the toolchain fails before Cargo with install instructions.\n- Tizen Studio is never installed or used.\n- With the toolchain installed, every build passes the same link arguments; lld appears only in non-linking builds on machines without it.",
+      "rationaleMarkdown": "Found at the s1b gate on 2026-11-08 with the SDK installed: the rootstraps leave out `crtbeginS.o`, `crtendS.o` and\n`libgcc_s`, and lld fails on their shared libraries (`invalid local symbol '' in global part of symbol table`), which\nGNU ld accepts.",
+      "sourceRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/gcc/mod.rs"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/setup.md"
+        }
+      ]
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 8,
+  "revision": 10,
   "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
   "repositories": [
     {
@@ -2920,6 +2920,29 @@
       },
       "timeoutSeconds": 5400,
       "reuse": false
+    },
+    {
+      "id": "chk-xtask-gcc",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "TGT-5"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "xtask",
+        "--lib",
+        "gcc::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "xtask/**"
+      ]
     }
   ],
   "finalCheckIds": [
@@ -3006,7 +3029,8 @@
         "chk-gate-armv7",
         "chk-gate-x86_64",
         "chk-xtask-targets",
-        "chk-gate-aarch64"
+        "chk-gate-aarch64",
+        "chk-xtask-gcc"
       ],
       "tasks": [
         {
@@ -3062,6 +3086,34 @@
             "t1-gate"
           ],
           "checkIds": []
+        },
+        {
+          "id": "t1-gcc-link",
+          "title": "Link against the rootstraps with the SDK's GCC toolchain",
+          "descriptionMarkdown": "Corrective task from the s1b gate (2026-11-08): with the Tizen SDK installed, lld cannot link against the Tizen 8.0\nrootstraps and the rootstraps lack GCC's start files and `libgcc_s`. Implement `TGT-5` in `xtask/src/gcc/` and the\ncross driver (lookup, link arguments, early failure), the `gcc::tests` group, and `docs/setup.md` (clean-machine SDK\ninstall, lookups, troubleshooting); align `AGENTS.md` and `README.md`.",
+          "criterionIds": [
+            "TGT-5"
+          ],
+          "designIds": [
+            "d34-gnu-ld-link",
+            "d03-targets-build-std"
+          ],
+          "dependsOn": [
+            "t1-aarch64"
+          ],
+          "checkIds": [
+            "chk-xtask-gcc"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "gpuitizen",
+              "path": "xtask/src/gcc/mod.rs"
+            },
+            {
+              "repositoryId": "gpuitizen",
+              "path": "docs/setup.md"
+            }
+          ]
         }
       ]
     },

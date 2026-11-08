@@ -1,12 +1,12 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 22,
-  "planRevision": 8,
+  "revision": 33,
+  "planRevision": 10,
   "specHashes": {
-    "requirements": "1eb66e0a1d01d034206d6e198cb68ad59592fdcdab8c680459ddc71dce67cedb",
-    "design": "23be8baa3532ca09c7ae0a3605c9b363de2344821a0dce86768a4e9eee7ad35d",
-    "plan": "b2211765059ebf9b6ca00f97f14cdb74c138aee272b0b7ba82be2da3992c26ce"
+    "requirements": "fdbb9b1d376b5476de6a7e93cb708a87ee252cdb7ae6f4cee090000a3f18debc",
+    "design": "18adcf247683f92e6fe1c044622ef914232705de9cd6f1cb543557daa0dc37dd",
+    "plan": "c1913490dd482cc9714404857da0dcdfb4b84db8683b0d8de512cff4463f94d3"
   },
   "tasks": {
     "t1-workspace": {
@@ -22,7 +22,7 @@
       ]
     },
     "t1-gate": {
-      "status": "implemented",
+      "status": "done",
       "workerIds": [
         "eec00bdf-648f-4be5-813b-008fb1a323d7"
       ]
@@ -130,13 +130,13 @@
       "status": "pending"
     },
     "t1-aarch64": {
-      "status": "implemented",
+      "status": "done",
       "workerIds": [
         "eec00bdf-648f-4be5-813b-008fb1a323d7"
       ]
     },
     "t1-nsh-gate": {
-      "status": "implemented",
+      "status": "done",
       "workerIds": [
         "eec00bdf-648f-4be5-813b-008fb1a323d7"
       ]
@@ -320,6 +320,12 @@
     },
     "t25-crates": {
       "status": "pending"
+    },
+    "t1-gcc-link": {
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     }
   },
   "validationBatches": {
@@ -347,6 +353,18 @@
         }
       },
       "recordedAt": "2026-11-08T20:44:41Z"
+    },
+    "87b9f00d00b6f469e1784798a26cea0bbf7f56d5a4029202704aee7fce56311e": {
+      "snapshot": {
+        "specHash": "761cf487fef6a3d711d4e08c3e2d1a9442fc2ed9e9f41866cffe96401ee0c2ae",
+        "repositories": {
+          "gpuitizen": "5fc3517a0a74171aaa1409982a0a50a648b6bb10b38871ce6a64db67423ca260",
+          "gpui-fast": "45bfdb19f80137dade846785da5c72e1cd56b0507124338c62ea7739296cd8b8",
+          "wgpu": "593a0f2f051a329f2703d9ead1daf9f7906493105f4fba31d3fd91867a528ec2",
+          "nsh": "44cd091043852019714da3ec9eda618bc3e237317015dcf281d4f1afb8693e3f"
+        }
+      },
+      "recordedAt": "2026-11-08T22:05:40Z"
     }
   },
   "checkResults": {
@@ -405,69 +423,69 @@
       "checkId": "chk-xtask-targets",
       "boundaryId": "s1b-gates",
       "phase": "final",
-      "batchId": "5d3fe513ee889d5e57e554a68e0518400fb3e843a9d129ec5abc1363da4abaf9",
+      "batchId": "87b9f00d00b6f469e1784798a26cea0bbf7f56d5a4029202704aee7fce56311e",
       "definitionHash": "7918efaf1fc5d886db8cc60008ede620f187d207c4f9b7a02e0a51034bb7407d",
-      "basisHash": "c6e885e71fe7994130ba33acff28752425e002a5ce63f3be2667cd0d6663a746",
-      "status": "failed",
+      "basisHash": "455b45bed2576cbe5a56c0b50b426b6acb6e5f6dbda75d97c2e44624a6468f0c",
+      "status": "passed",
       "exitCode": 0,
       "testCount": 5,
-      "durationSeconds": 9.1565,
-      "recordedAt": "2026-11-08T20:42:23Z",
-      "messageMarkdown": "Product inputs changed during validation; inspect the changes and rerun",
-      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s1b-gates-final-818eb49a5aca.log",
-      "logSha256": "d133a3ef2320e7d8a6cba6031faeb0119ab4e20f2caeb92a651cafe5803cb833",
-      "inputsHash": "ca80dafd13b88d76608a3dc2104f037524a18a1e86e3ec2535498125b2e81326"
+      "durationSeconds": 1.1506,
+      "recordedAt": "2026-11-08T22:05:38Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s1b-gates-final-d261bffe24db.log",
+      "logSha256": "a63d4a0dc6bc62b9cb2d0144f6d3218a0783a11f0f92802a27115fede07f2581",
+      "inputsHash": "dae75fd4ae11e62e098e36ba6d5ba0b83e0d1d396f57ce55b752c57d2657a05a"
     },
     "s1b-gates/chk-gate-armv7/final": {
       "checkId": "chk-gate-armv7",
       "boundaryId": "s1b-gates",
       "phase": "final",
-      "batchId": "5d3fe513ee889d5e57e554a68e0518400fb3e843a9d129ec5abc1363da4abaf9",
+      "batchId": "87b9f00d00b6f469e1784798a26cea0bbf7f56d5a4029202704aee7fce56311e",
       "definitionHash": "fda869d6d2eba7f140007b393b087c506d398847b4cc41de2010be752d401115",
-      "basisHash": "4b27b7c938382d2bcbc1ec705d74cb399204acd47b5cdbf34d53230cc22653ee",
-      "status": "failed",
+      "basisHash": "3dda07689d89edcd963757a5fde44c3744f413353d7e9d8092a3a46ec6bf0cb7",
+      "status": "passed",
       "exitCode": 0,
       "testCount": 0,
-      "durationSeconds": 43.3924,
-      "recordedAt": "2026-11-08T20:43:07Z",
-      "messageMarkdown": "Product inputs changed during validation; inspect the changes and rerun",
-      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s1b-gates-final-148f57814036.log",
-      "logSha256": "197c40898ab21c53fda78f1eb97cd704d9f4c28f5f5cf5a3c721f08b41110ce2",
-      "inputsHash": "d9fafa9aed4e804dbc214299e684a00049fc745e6e5e5a8577a2d6778e5043e6"
+      "durationSeconds": 1.0612,
+      "recordedAt": "2026-11-08T22:05:39Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s1b-gates-final-8380b0612a06.log",
+      "logSha256": "faa3aa373a7f3ac89666e50850494aaa2d18539fb9072d6d71116fcf24810023",
+      "inputsHash": "2e905cc7f601bff9d5bff5984db34a443e5faf63d6eb5a299e77398bcad226ff"
     },
     "s1b-gates/chk-gate-x86_64/final": {
       "checkId": "chk-gate-x86_64",
       "boundaryId": "s1b-gates",
       "phase": "final",
-      "batchId": "5d3fe513ee889d5e57e554a68e0518400fb3e843a9d129ec5abc1363da4abaf9",
+      "batchId": "87b9f00d00b6f469e1784798a26cea0bbf7f56d5a4029202704aee7fce56311e",
       "definitionHash": "283b86320897f84510e32c07f67e2ea2799145cc3041a328ec90c0f0d7a88efd",
-      "basisHash": "da95d52be65ba2c1b516513cce1e604f9a229ec5b9bbeffd8a5d4a98cfece819",
-      "status": "failed",
+      "basisHash": "fbfaa0ae6c84a42f60bb24a2b119f4129e2bf99982b3ed7114f978d428ab5ad8",
+      "status": "passed",
       "exitCode": 0,
       "testCount": 0,
-      "durationSeconds": 34.6984,
-      "recordedAt": "2026-11-08T20:43:41Z",
-      "messageMarkdown": "Product inputs changed during validation; inspect the changes and rerun",
-      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s1b-gates-final-8ee5e3b4689d.log",
-      "logSha256": "735fb2079306b4ab2343b54aacef5e3a51c0d647ff2fab70f4fa038cd5464cfa",
-      "inputsHash": "d9fafa9aed4e804dbc214299e684a00049fc745e6e5e5a8577a2d6778e5043e6"
+      "durationSeconds": 0.5527,
+      "recordedAt": "2026-11-08T22:05:39Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s1b-gates-final-964f20a81530.log",
+      "logSha256": "98d8d1a8253ad9d6f5e18339eda70d08423149d32b264c29c0f466b4a293a2cf",
+      "inputsHash": "2e905cc7f601bff9d5bff5984db34a443e5faf63d6eb5a299e77398bcad226ff"
     },
     "s1b-gates/chk-gate-aarch64/final": {
       "checkId": "chk-gate-aarch64",
       "boundaryId": "s1b-gates",
       "phase": "final",
-      "batchId": "5d3fe513ee889d5e57e554a68e0518400fb3e843a9d129ec5abc1363da4abaf9",
+      "batchId": "87b9f00d00b6f469e1784798a26cea0bbf7f56d5a4029202704aee7fce56311e",
       "definitionHash": "3fa8b5e6031cd0baee452cee4d67e3fb31ee722a7867ecc0b583d2b50dbac8c7",
-      "basisHash": "d0408c2bdcde5c07cd2a65c5a40430691ee07fee8bd9f82f76519339dd52b6ec",
-      "status": "failed",
+      "basisHash": "9a20675057b1d0f2ca48f90bf8758e259fcc6b85ed31b6820cc897d9b56897f5",
+      "status": "passed",
       "exitCode": 0,
       "testCount": 0,
-      "durationSeconds": 35.0893,
-      "recordedAt": "2026-11-08T20:44:16Z",
-      "messageMarkdown": "Product inputs changed during validation; inspect the changes and rerun",
-      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s1b-gates-final-b269cf5067c9.log",
-      "logSha256": "293173dbd118aa1a1064609b0fe964f1449974adf518b5953d7ea0ede804abd2",
-      "inputsHash": "d9fafa9aed4e804dbc214299e684a00049fc745e6e5e5a8577a2d6778e5043e6"
+      "durationSeconds": 0.5208,
+      "recordedAt": "2026-11-08T22:05:40Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s1b-gates-final-34fedb148dd1.log",
+      "logSha256": "463bb3f7b81007476d5561f75d831dbef16edadcadf9169fd2016b8aab5866dc",
+      "inputsHash": "2e905cc7f601bff9d5bff5984db34a443e5faf63d6eb5a299e77398bcad226ff"
     },
     "s1b-gates/chk-nsh-gate-armv7/final": {
       "checkId": "chk-nsh-gate-armv7",
@@ -485,6 +503,23 @@
       "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s1b-gates-final-be6c5dfa56f1.log",
       "logSha256": "8ed333a5322ec6794254223f9aa42f820db52327dcff0cf5d03ea4d21c4ee829",
       "inputsHash": "fe1bf501d913713dbd4e1405391a6c6f43ccdf00778df7d04b1bfc6114d36d0d"
+    },
+    "s1b-gates/chk-xtask-gcc/final": {
+      "checkId": "chk-xtask-gcc",
+      "boundaryId": "s1b-gates",
+      "phase": "final",
+      "batchId": "87b9f00d00b6f469e1784798a26cea0bbf7f56d5a4029202704aee7fce56311e",
+      "definitionHash": "dcef9de1054eb680e0188169c9add27cde6eda5f3aa87c4f8a81567db180b631",
+      "basisHash": "fa29505547065e1a539260ddabbef2918138af6bc8ce3bb4a2cd48e34ee2e5ba",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 6,
+      "durationSeconds": 0.0528,
+      "recordedAt": "2026-11-08T22:05:40Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s1b-gates-final-913724e663e7.log",
+      "logSha256": "21b1dd9914378c76cb30535bd08f315327c421dd2e6a0f51f8d7ccaad2642684",
+      "inputsHash": "aa5ff54b969d3eca7c66b245f8fa95bedfe0e42d17c885c3450aaf0cb17c4068"
     }
   },
   "reviews": {
@@ -668,6 +703,153 @@
         "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
       }
+    },
+    "s1b-gates": {
+      "reviewerId": "reviewer-s1b-independent",
+      "snapshotId": "87b9f00d00b6f469e1784798a26cea0bbf7f56d5a4029202704aee7fce56311e",
+      "criterionIds": [
+        "TGT-3",
+        "ARM64-1",
+        "TGT-5"
+      ],
+      "verdict": "passed",
+      "anchors": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "Cargo.toml",
+          "kind": "source",
+          "criterionIds": [
+            "TGT-3"
+          ],
+          "sha256": "bf675d2f4c5a00b8244add6ef7c1aa39459051ee49632d4c46b725129877121c"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/Cargo.toml",
+          "kind": "source",
+          "criterionIds": [
+            "TGT-3",
+            "ARM64-1"
+          ],
+          "sha256": "66f9921048c1a2c9c244fe02ff867c35a5234b708f119d9cb05aa235984320c7"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/lib.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TGT-3",
+            "ARM64-1"
+          ],
+          "sha256": "541be98f0394df277dedd696631f3d6832ab76fbac4660b60165bc490e5206fd"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/lib.rs",
+          "kind": "runtime",
+          "criterionIds": [
+            "TGT-3",
+            "ARM64-1"
+          ],
+          "sha256": "541be98f0394df277dedd696631f3d6832ab76fbac4660b60165bc490e5206fd"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "targets/aarch64-tizen-linux-gnu.json",
+          "kind": "source",
+          "criterionIds": [
+            "ARM64-1"
+          ],
+          "sha256": "0e6fb244a4175fc7d7fcf6ca510a9c17b4cca41a95f2d135fdf9b8363d3be40f"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/targets/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "ARM64-1",
+            "TGT-5"
+          ],
+          "sha256": "841a699f04dafbea2e295eae03c274a6cddfcc6803873820977673aae9fddeef"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/targets/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "ARM64-1"
+          ],
+          "sha256": "f599ebbfdb97225bb4523d0b2910b148f07da925a978a812f6a6ae91a69bdd7b"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/cross/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "ARM64-1",
+            "TGT-5"
+          ],
+          "sha256": "6379c3786fb442b7e9e361d0d2c99bcb3182f6346548330adf1d806fa7e7962f"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/cross/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "ARM64-1",
+            "TGT-5"
+          ],
+          "sha256": "7481e10689b9c51c0776de5ac96b0a71209f71156f6d85a780fa9a097d819d8b"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/main.rs",
+          "kind": "source",
+          "criterionIds": [
+            "ARM64-1",
+            "TGT-5"
+          ],
+          "sha256": "0b9f624556c3a14780295516c4f3f31a28f122324c8b8a7427e3d3c04ba06be5"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/gcc/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TGT-5"
+          ],
+          "sha256": "d0fa69f10d86e878ed5953197b78818333e770c9eebeeaae2e984b8f9864c5e8"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/gcc/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "TGT-5"
+          ],
+          "sha256": "ac532f80bac9a9d16aa822d6b3d7f190a686ae038c3d054b62d04c0fff9c21e9"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/setup.md",
+          "kind": "source",
+          "criterionIds": [
+            "TGT-5"
+          ],
+          "sha256": "81fb73803722490778468ac31fde879036d1dd21276b08ac4a40e41078f3c4c6"
+        }
+      ],
+      "summaryMarkdown": "TGT-3 and ARM64-1 hold as in the first review: Tizen-only `gpui-fast`/`gpui-fast-wgpu` `=0.1.13` under `cfg(target_vendor = \"tizen\")`, no desktop platform, font-kit, freetype or fontconfig-sys crates in any of the three Tizen graphs (`cargo tree`), the aarch64 spec checked by `targets::tests` and wired through `TIZEN_ROOTSTRAP_AARCH64`, gates passing. TGT-5 (amended) now matches the code: lookup, `ld.bfd`/`-B`/`-L` arguments matching the installed SDK layout, early failure, clang-only C, the linker choice keyed on toolchain presence with stable rustflags, accurate module docs and `docs/setup.md`, and `gcc::tests` (6 tests, run by the reviewer) covering arguments, lookup and failure for every target. All three earlier findings are resolved.",
+      "findingIds": [
+        "s1b-lld-nonlinking",
+        "s1b-stale-lld-docs",
+        "s1b-gcc-tests-every-target"
+      ],
+      "recordedAt": "2026-11-08T22:06:22Z",
+      "recordHashes": {
+        "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
     }
   },
   "checkpoints": {
@@ -681,6 +863,17 @@
       },
       "reviewHash": "9d428b008be14f84d9cad64390be7fd708ebbb851ce2edbfbdf3c3f47a0a6aaf",
       "recordedAt": "2026-11-08T20:41:10Z"
+    },
+    "s1b-gates": {
+      "snapshotId": "87b9f00d00b6f469e1784798a26cea0bbf7f56d5a4029202704aee7fce56311e",
+      "commits": {
+        "gpuitizen": "f7e773721540f0895554c16cca397d059a36411a",
+        "gpui-fast": "fb8cf9413777e43e7c38bf5917647ee984453f37",
+        "wgpu": "b672a540043b7177cdd53858340d7aca7ff8eb68",
+        "nsh": "7be66038d6cef63581f6bf0180b2bc8087bbf224"
+      },
+      "reviewHash": "56c83ffd4d94cb0dc54ca49da90362a9cfe105cbf4f394f00a191f64bfe1592e",
+      "recordedAt": "2026-11-08T22:06:37Z"
     }
   },
   "findings": [
@@ -728,6 +921,65 @@
           "repositoryId": "gpuitizen",
           "path": "xtask/src/cross/tests.rs",
           "symbol": "link_arguments_survive_inherited_rustflags"
+        }
+      ]
+    },
+    {
+      "id": "s1b-lld-nonlinking",
+      "boundaryId": "s1b-gates",
+      "criterionIds": [
+        "TGT-5"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected (TGT-5):** \"Non-linking builds keep the pinned toolchain's lld.\" **Observed:** `cross::plan` (`xtask/src/cross/mod.rs`, the `match &ctx.gcc_toolchain` block) chooses the linker by whether a GCC toolchain was *found*, not by whether the build links (`links = ctx.needs_link && !options.clippy`). On any machine with the SDK installed, the gate (`-p dxn_gpui_tizen`, an rlib build) and `--clippy` get `--ld-path=.../ld.bfd`/`-B`/`-L` instead of `-fuse-ld=lld -B<rustlib>/gcc-ld`; lld is used only when no toolchain exists. Harmless at run time (nothing is linked), and keying on presence keeps `CARGO_ENCODED_RUSTFLAGS` identical between gate and linking builds (no full rebuild when switching), but the criterion text and the in-code comment on the `None` arm (\"Non-linking builds (rlibs, clippy) never reach the linker; keep the pinned toolchain's lld\") both state a condition the code does not implement, and no test exercises the lld branch at all (no `lld` assertion in `cross::tests`; `gcc::tests::missing_toolchain_fails_only_linking_builds` only checks `is_ok()`). **Repair:** pick one and make spec, comment and test agree: (a) preferred, amend TGT-5/`d34-gnu-ld-link` to \"builds that do not link do not need the GCC toolchain; when none is found they keep the pinned toolchain's lld, otherwise they get the same GNU ld arguments as linking builds (stable rustflags)\", reword the comment, and add an assertion in `gcc::tests` that `plan` with `ctx(None, false)` yields `-Clink-arg=-fuse-ld=lld` and `-Clink-arg=-B/tc/bin/gcc-ld` and no `--ld-path`; or (b) key the branch on `links` and add tests for both sides.\n\n**Resolved:** TGT-5 and `d34-gnu-ld-link` now state the implemented rule (with the toolchain installed every build passes the GCC link arguments so rustflags match; without it only non-linking builds run, with lld standing in); the `None`-arm comment in `cross::plan` says the same; `gcc::tests::non_linking_builds_without_the_toolchain_use_lld` asserts `-fuse-ld=lld`, `-B/tc/bin/gcc-ld` and no `--ld-path` for `ctx(None, false)` and identical `CARGO_ENCODED_RUSTFLAGS` for gate vs linking builds with the toolchain.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/gcc/tests.rs",
+          "symbol": "non_linking_builds_without_the_toolchain_use_lld"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/cross/mod.rs",
+          "symbol": "plan"
+        }
+      ]
+    },
+    {
+      "id": "s1b-stale-lld-docs",
+      "boundaryId": "s1b-gates",
+      "criterionIds": [
+        "TGT-5"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** after TGT-5, the code documentation matches GNU-ld linking (the brief: \"the docs match the code\"). **Observed:** two module docs still describe the superseded TGT-2 lld link: `xtask/src/cross/mod.rs` lines 1-2 (\"clang for C dependencies and clang + lld for linking against the Tizen rootstrap\") and `xtask/src/gcc/mod.rs` lines 3-4 (\"clang + lld find them through the `-B` / `-L` arguments built here\"), contradicting `gcc::linker`, `gcc::link_args` and `docs/setup.md`, which say linking against the rootstrap uses `ld.bfd` because lld rejects it. `docs/setup.md`, `README.md` and `AGENTS.md` themselves are accurate. **Repair:** reword both module docs to \"clang drives the link with the SDK's GNU `ld.bfd` (`--ld-path`), GCC's start files and `libgcc_s` (`gcc` module); lld only when no GCC toolchain is present for a non-linking build\".\n\n**Resolved:** Module docs of `xtask/src/cross/mod.rs` and `xtask/src/gcc/mod.rs` now say clang drives the SDK's GNU `ld.bfd` (`--ld-path`), with lld only for builds that never link on machines without the SDK toolchain.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/cross/mod.rs"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/gcc/mod.rs"
+        }
+      ]
+    },
+    {
+      "id": "s1b-gcc-tests-every-target",
+      "boundaryId": "s1b-gates",
+      "criterionIds": [
+        "TGT-5"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected (TGT-5):** \"The `gcc::tests` group checks the arguments, lookup and failure for every target.\" **Observed (`xtask/src/gcc/tests.rs`):** arguments are asserted in full for armv7 and aarch64, but for x86_64 only `link_args(...)[3]` (`-L.../lib64`); its `--ld-path`, `-B` and GCC-lib `-L` are unchecked. `env()` is asserted only for armv7, so `TIZEN_GCC_TOOLCHAIN_X86_64` / `TIZEN_GCC_TOOLCHAIN_AARCH64` (the names `docs/setup.md` and `README.md` document) are asserted nowhere; the failure path (`missing_toolchain_fails_only_linking_builds`) and `gcc::missing` are exercised only for armv7, so the x86_64/aarch64 error text (directory `x86_64-linux-gnu-gcc-9.2` / `aarch64-linux-gnu-gcc-9.2`, env name, `NativeToolchain-Gcc-9.2`) is untested. Lookup is covered once per target (env/SDK/home split across targets), which is acceptable. **Repair:** replace the per-target spot checks with a loop over `Target::ALL` and an expected table `(target, env name, sdk dir, gcc triple, runtime lib dir)` asserting the full four-element `link_args`, `env(target)`, `candidates(target, None, Some(\"/sdk\"), None) == [/sdk/tools/<dir>]`, and that `plan` with a linking `ctx(None, true)` for that target fails with an error naming the dir, the env variable and `NativeToolchain-Gcc-9.2`.\n\n**Resolved:** `gcc::tests::every_target_has_link_args_lookup_and_failure` iterates a table sized to `Target::ALL` and asserts, per target, the full four-element `link_args` (ld.bfd, `-B`, GCC-lib `-L`, `lib`/`lib64`), `env()`, the SDK candidate `/sdk/tools/<dir>`, and that `missing()` names the dir, env variable, `NativeToolchain-Gcc-9.2` and the searched path; the armv7 `plan` failure path stays covered by `missing_toolchain_fails_only_linking_builds`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/gcc/tests.rs",
+          "symbol": "every_target_has_link_args_lookup_and_failure"
         }
       ]
     }
