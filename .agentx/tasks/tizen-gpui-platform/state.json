@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 33,
+  "revision": 49,
   "planRevision": 10,
   "specHashes": {
     "requirements": "fdbb9b1d376b5476de6a7e93cb708a87ee252cdb7ae6f4cee090000a3f18debc",
@@ -28,16 +28,28 @@
       ]
     },
     "t2-sys": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t2-symcheck": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t2-host": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t2-package": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t3-report": {
       "status": "pending"
@@ -365,6 +377,30 @@
         }
       },
       "recordedAt": "2026-11-08T22:05:40Z"
+    },
+    "14aa6219e0a004cba56ffd20f35aad09fd51e31dc29ede0336f524e126c96de9": {
+      "snapshot": {
+        "specHash": "761cf487fef6a3d711d4e08c3e2d1a9442fc2ed9e9f41866cffe96401ee0c2ae",
+        "repositories": {
+          "gpuitizen": "33ff5f2eb37d71be036b17febe000894df6f61dc5b2b3d5ca519a571983dc131",
+          "gpui-fast": "45bfdb19f80137dade846785da5c72e1cd56b0507124338c62ea7739296cd8b8",
+          "wgpu": "593a0f2f051a329f2703d9ead1daf9f7906493105f4fba31d3fd91867a528ec2",
+          "nsh": "44cd091043852019714da3ec9eda618bc3e237317015dcf281d4f1afb8693e3f"
+        }
+      },
+      "recordedAt": "2026-11-08T22:13:56Z"
+    },
+    "b960865cd8b818483aab82d277b35b2e3c86d1ce4acad50e0c22d423d43f39e7": {
+      "snapshot": {
+        "specHash": "761cf487fef6a3d711d4e08c3e2d1a9442fc2ed9e9f41866cffe96401ee0c2ae",
+        "repositories": {
+          "gpuitizen": "d63e395bcca3b6be124a8c66bcc2bce8859a91638daca7555b96b4a9cf5fd7e2",
+          "gpui-fast": "45bfdb19f80137dade846785da5c72e1cd56b0507124338c62ea7739296cd8b8",
+          "wgpu": "593a0f2f051a329f2703d9ead1daf9f7906493105f4fba31d3fd91867a528ec2",
+          "nsh": "44cd091043852019714da3ec9eda618bc3e237317015dcf281d4f1afb8693e3f"
+        }
+      },
+      "recordedAt": "2026-11-08T22:21:41Z"
     }
   },
   "checkResults": {
@@ -520,6 +556,74 @@
       "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s1b-gates-final-913724e663e7.log",
       "logSha256": "21b1dd9914378c76cb30535bd08f315327c421dd2e6a0f51f8d7ccaad2642684",
       "inputsHash": "aa5ff54b969d3eca7c66b245f8fa95bedfe0e42d17c885c3450aaf0cb17c4068"
+    },
+    "s2-bindings-host/chk-sys-symbols/final": {
+      "checkId": "chk-sys-symbols",
+      "boundaryId": "s2-bindings-host",
+      "phase": "final",
+      "batchId": "14aa6219e0a004cba56ffd20f35aad09fd51e31dc29ede0336f524e126c96de9",
+      "definitionHash": "bc6db3abf82d07af49648e6e0ccdbc087609ec33a3eef54b09ea05667702f192",
+      "basisHash": "756cb4f3b8142cde3b93728103a002831c0ae24eab5279b38c433df4370bd118",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 6,
+      "durationSeconds": 0.0717,
+      "recordedAt": "2026-11-08T22:13:55Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s2-bindings-host-final-e1cf7f33bbe4.log",
+      "logSha256": "f0611eb493d360238a14c635cbdb54ffc572e2f88510b443b935e5fae26ff609",
+      "inputsHash": "2adf6d37628c20ff95e0731ee910aee0cf1e873d089fef4f5d981d29347936b2"
+    },
+    "s2-bindings-host/chk-xtask-symcheck/final": {
+      "checkId": "chk-xtask-symcheck",
+      "boundaryId": "s2-bindings-host",
+      "phase": "final",
+      "batchId": "b960865cd8b818483aab82d277b35b2e3c86d1ce4acad50e0c22d423d43f39e7",
+      "definitionHash": "f46d6e79f04bf3ae0ed8fd46b5d2a7ecfdfcabe58bca377b94e92aa3b1f8bcb1",
+      "basisHash": "9520875a1ac1b461fed0040ca7eb4d61444a05779a380fc0ba36f8122f903a29",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 8,
+      "durationSeconds": 0.056,
+      "recordedAt": "2026-11-08T22:21:40Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s2-bindings-host-final-03fc38c683ec.log",
+      "logSha256": "9d7253fb717baeec1d8b8e866f4418e2c16f26b803dcaa5b1ac355ab919b372a",
+      "inputsHash": "17a5cf4fd6daf68b8ef89e2a6056ba827ee19bc78716eedca9ff39159155a109"
+    },
+    "s2-bindings-host/chk-host-build/final": {
+      "checkId": "chk-host-build",
+      "boundaryId": "s2-bindings-host",
+      "phase": "final",
+      "batchId": "b960865cd8b818483aab82d277b35b2e3c86d1ce4acad50e0c22d423d43f39e7",
+      "definitionHash": "d36a72f1801c429ea671ce3e2cc12e4b0b2d9db5a32d8b7587c05e40ac3d5742",
+      "basisHash": "e3df0815d42e35f7453a89a6813ee75beb535a1c4bf3127200af6008b06e977d",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 0.4567,
+      "recordedAt": "2026-11-08T22:21:40Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s2-bindings-host-final-15ad30657a47.log",
+      "logSha256": "10c83ef8b3d4fbe7f8c125a0861a63451cfdc3e1f7bf9f1dbb784f4076629c85",
+      "inputsHash": "50a28e67b8375aef023951614cb6949d844c67e3c6d8ce9cca9740c0313b302c"
+    },
+    "s2-bindings-host/chk-xtask-package/final": {
+      "checkId": "chk-xtask-package",
+      "boundaryId": "s2-bindings-host",
+      "phase": "final",
+      "batchId": "b960865cd8b818483aab82d277b35b2e3c86d1ce4acad50e0c22d423d43f39e7",
+      "definitionHash": "e8d75b094ee965bc199fd4b13b0f1c1ac301529b94c6b6cb260ccd53f39d2c04",
+      "basisHash": "10c2a549b3dc281c43250dac0292a53e3f211898c141699f04d763c8d6bebff4",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 6,
+      "durationSeconds": 0.0556,
+      "recordedAt": "2026-11-08T22:21:40Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s2-bindings-host-final-b039ecd82540.log",
+      "logSha256": "a20fccc80bb94f7d7b99f128ea32c1dbcc524ca28b8e8cfd8634b6eb4fe4617f",
+      "inputsHash": "59e60d82dd6f8d53a3df6f0281cdacf2aca7f7ac629086a3a8425f1627c2dfce"
     }
   },
   "reviews": {
@@ -850,6 +954,201 @@
         "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
       }
+    },
+    "s2-bindings-host": {
+      "reviewerId": "reviewer-s2-independent",
+      "snapshotId": "b960865cd8b818483aab82d277b35b2e3c86d1ce4acad50e0c22d423d43f39e7",
+      "criterionIds": [
+        "SYS-1",
+        "SYS-2",
+        "SYS-3",
+        "HOST-1",
+        "HOST-2"
+      ],
+      "verdict": "passed",
+      "anchors": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_sys/src/lib.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SYS-1",
+            "SYS-2"
+          ],
+          "sha256": "21ce51e5b6fb231bfdaf8e95121b1bed4eebc48c16a2186715b20e30289a2fbf"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_sys/Cargo.toml",
+          "kind": "source",
+          "criterionIds": [
+            "SYS-1"
+          ],
+          "sha256": "f2a8ee54a557f99a74a45b4d79c490b34620b0f5d314b5fc45a119bea1d4f59a"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_sys/src/symbols/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SYS-2",
+            "SYS-3"
+          ],
+          "sha256": "46312eb7b002daf5554bfaf7450dffdd39547ef79f76904aa57fee1c7ed16c7e"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_sys/symbols.allow",
+          "kind": "source",
+          "criterionIds": [
+            "SYS-2",
+            "SYS-3"
+          ],
+          "sha256": "39d3b5fa0e9f1df0a4070d09a9d028af5671f3c7d8868bfc137a03ad962aa8a4"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_sys/src/symbols/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "SYS-1",
+            "SYS-2"
+          ],
+          "sha256": "27a6c1d2e1255d0d5906a0d88c239baef5b35cf6f5a6a16e24a7f7be27a996de"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/symcheck/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SYS-3"
+          ],
+          "sha256": "b0c2213d984d715dc257b46e0cac2be19de36fade9bd571bab99db20ffa79202"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/symcheck/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "SYS-3"
+          ],
+          "sha256": "1a4bbd137001b070758c3133fa591f241feb7403285a2e65aebdc58918152ae7"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/main.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SYS-3",
+            "HOST-2"
+          ],
+          "sha256": "edd093f035c86e6ea7ef4a8b6b156f73f8e69ded72ca7fcc7e86bca580471e5e"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/cross/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SYS-3",
+            "HOST-2"
+          ],
+          "sha256": "e2ef4852dda4230e4a5ceab8e52e41bed667d37d60afc91fd4c09e79719eb4ca"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/cross/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "SYS-3"
+          ],
+          "sha256": "f2f99d2b09146371b695ef71068f5b8786eeb7a40605f4235537b54a7232cdbd"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "host/Program.cs",
+          "kind": "source",
+          "criterionIds": [
+            "HOST-1"
+          ],
+          "sha256": "d4c33cab75fe0945fd8d187a40286f35b84f07fdb5ec9712a6d1b0e9bb002b01"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "host/Dxn.GpuiTizen.Host.csproj",
+          "kind": "source",
+          "criterionIds": [
+            "HOST-1"
+          ],
+          "sha256": "6bff0b50875858ec8d4b6805479628f986e53e6b7803068dc597575ea4ad6d7e"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "host/Dxn.GpuiTizen.Host.csproj",
+          "kind": "runtime",
+          "criterionIds": [
+            "HOST-1"
+          ],
+          "sha256": "6bff0b50875858ec8d4b6805479628f986e53e6b7803068dc597575ea4ad6d7e"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "host/tizen-manifest.template.xml",
+          "kind": "source",
+          "criterionIds": [
+            "HOST-2"
+          ],
+          "sha256": "fdfc1cbeac37231efa678d10f1f69c5da868c50c33dff13a0140a095315b58cf"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "host/shared/res/icon.png",
+          "kind": "source",
+          "criterionIds": [
+            "HOST-2"
+          ],
+          "sha256": "366cf33fb96aa2b107d76ce699491259e098eb861ce1b692a5d09a7909f2cdbf"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/package/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "HOST-2"
+          ],
+          "sha256": "d60f7935f05b6cb2a80f4b9b4a5f4173f0be83909fe14ef9d94aa9fb08bc9838"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/package/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "HOST-1",
+            "HOST-2"
+          ],
+          "sha256": "68462ca206aa2f49e43b5288a2155a66a34ecd91696bce6c15418812ab343124"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": ".gitignore",
+          "kind": "source",
+          "criterionIds": [
+            "HOST-1"
+          ],
+          "sha256": "81b080a593357eb237e3da4e4e6dc060fa933492b7a23be205dc264c21851ada"
+        }
+      ],
+      "summaryMarkdown": "SYS-1 through HOST-2 hold at this snapshot. The bindings match the Tizen 8.0 headers and libraries, and the allowlist drift and forbidden-prefix tests fail on drift. `check-symbols` now counts every dynsym definition as an export, catching the IFUNC `i` and unique `u` cases. It also limits `DT_NEEDED` to glibc's five libraries, `libgcc_s`, the loader, and the declared Tizen libraries by exact soname, and all real rootstrap sonames pass. `package` stages exactly the library that was built and checked under cargo's `target_directory`, and feeds `dotnet build` that library and the rendered manifest. The four s2 findings are resolved (I reran symcheck::tests 8/8 and package::tests 6/6).",
+      "findingIds": [
+        "s2-symcheck-lowercase-exports",
+        "s2-symcheck-glibc-by-version",
+        "s2-package-target-dir",
+        "s2-host-include-unwired"
+      ],
+      "recordedAt": "2026-11-08T22:22:50Z",
+      "recordHashes": {
+        "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
     }
   },
   "checkpoints": {
@@ -874,6 +1173,17 @@
       },
       "reviewHash": "56c83ffd4d94cb0dc54ca49da90362a9cfe105cbf4f394f00a191f64bfe1592e",
       "recordedAt": "2026-11-08T22:06:37Z"
+    },
+    "s2-bindings-host": {
+      "snapshotId": "b960865cd8b818483aab82d277b35b2e3c86d1ce4acad50e0c22d423d43f39e7",
+      "commits": {
+        "gpuitizen": "eb8f7f58c44721caf1470ad6ef603b49768c6528",
+        "gpui-fast": "fb8cf9413777e43e7c38bf5917647ee984453f37",
+        "wgpu": "b672a540043b7177cdd53858340d7aca7ff8eb68",
+        "nsh": "7be66038d6cef63581f6bf0180b2bc8087bbf224"
+      },
+      "reviewHash": "86f4242b785f9576f6824fc63b5b9296660baace684615fcd3c04595816325d8",
+      "recordedAt": "2026-11-08T22:23:09Z"
     }
   },
   "findings": [
@@ -980,6 +1290,98 @@
           "repositoryId": "gpuitizen",
           "path": "xtask/src/gcc/tests.rs",
           "symbol": "every_target_has_link_args_lookup_and_failure"
+        }
+      ]
+    },
+    {
+      "id": "s2-symcheck-lowercase-exports",
+      "boundaryId": "s2-bindings-host",
+      "criterionIds": [
+        "SYS-3"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected (SYS-3, d07):** `check-symbols` fails unless the library exports exactly one global symbol. **Observed:** `symcheck::check` (`xtask/src/symcheck/mod.rs`) counts as exports only defined symbols whose nm letter is uppercase (`filter(|s| s.kind.is_ascii_uppercase())`). The pinned toolchain's `llvm-nm` prints global exports in lowercase for two ELF kinds: STT_GNU_IFUNC as `i` and STB_GNU_UNIQUE as `u`. Verified by linking a probe with the pinned `rust-lld -shared`: `llvm-nm -D --defined-only` printed `00000000000012f4 i my_ifunc` and `0000000000003368 u uniq` next to `D entry`. Both are real `.dynsym` exports, and the checker would let them pass without a word. So the one-export gate can give false negatives. **Repair:** treat every line of `llvm-nm -D --defined-only` as an export (lld writes no local symbols into `.dynsym`), and keep `W`/`V` as the weak ones. Add `symcheck::tests` fixtures with an `i` line and a `u` line that must report `ExtraExport`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/symcheck/mod.rs",
+          "symbol": "check"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/symcheck/tests.rs",
+          "symbol": "ifunc_and_unique_exports_count_as_exports"
+        }
+      ]
+    },
+    {
+      "id": "s2-symcheck-glibc-by-version",
+      "boundaryId": "s2-bindings-host",
+      "criterionIds": [
+        "SYS-3"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected (SYS-3):** imports come only from `symbols.allow` plus glibc's `libc`, `libm`, `libdl`, `libpthread`, `librt`, `ld-linux`, plus `libgcc_s` and the loader. **Observed:** the checker accepts any undefined symbol whose version starts with `GLIBC_` or `GCC_` (`SYSTEM_VERSION_PREFIXES`). It never looks at which library provides the symbol. Imports from other glibc libraries therefore pass: for example `res_query@GLIBC_2.4` from `libresolv`, `forkpty@GLIBC_2.4` from `libutil`, `getaddrinfo_a` from `libanl`, `libnsl`, `libcrypt`, or `libmvec` on x86_64. None of these is in the criterion's list. **Repair:** also read `DT_NEEDED` with the pinned `llvm-readobj --needed-libs` (it ships next to `llvm-nm` in rustlib/bin). Require every needed entry to be `libc.so.6`, `libm.so.6`, `libdl.so.2`, `libpthread.so.0`, `librt.so.1`, an `ld-linux*.so.*`, `libgcc_s.so.1`, or `lib<name>.so*` for a library recorded in `DECLARED_SYMBOLS`. Report each other entry by name, and add a fixture test with an extra `libresolv.so.2`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/symcheck/mod.rs",
+          "symbol": "library_allowed"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/symcheck/tests.rs",
+          "symbol": "needed_libraries_are_glibc_libgcc_loader_or_declared_tizen_ones"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/main.rs",
+          "symbol": "check_symbols"
+        }
+      ]
+    },
+    {
+      "id": "s2-package-target-dir",
+      "boundaryId": "s2-bindings-host",
+      "criterionIds": [
+        "HOST-2"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected (HOST-2):** `package` stages the library that `cargo xtask cross` just built and symbol-checked. **Observed:** `run_cross` finds built libraries under `cargo metadata`'s `target_directory`. `run_package` (`xtask/src/main.rs`) then copies from `cross::built_libraries(&root.join(\"target\"), ...)`. When `CARGO_TARGET_DIR` or `build.target-dir` is set, the two paths differ: `package` copies a stale, unchecked `target/<spec>/release/lib<app>.so` if one exists, and fails at the copy otherwise. **Repair:** have `run_cross` return, or let `run_package` look up, the libraries under the metadata `target_directory`. Stage exactly the paths that went through `check_symbols`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/main.rs",
+          "symbol": "cross_build"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/main.rs",
+          "symbol": "run_package"
+        }
+      ]
+    },
+    {
+      "id": "s2-host-include-unwired",
+      "boundaryId": "s2-bindings-host",
+      "criterionIds": [
+        "HOST-1"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected (HOST-1, d08):** the csproj includes the staged library through `TizenTpkUserIncludeFiles`, and that inclusion is part of how TPKs are built. **Observed:** the `TizenTpkUserIncludeFiles` item only applies when `$(DxnAppLibrary)` is set. Its comment says ``passed by `cargo xtask package` (`-p:DxnAppLibrary=...`)``, but `run_package` runs `dotnet build -c Release <csproj>` without that property. The SDK path is also off (`TizenCreateTpkOnBuild=false`), so the item is never used. `TizenManifestFile` points at `tizen-manifest.template.xml`, which still has its `{{...}}` placeholders, so any SDK-built TPK would ship an unrendered manifest. **Repair:** pick one: (a) pass `-p:DxnAppLibrary=<the checked library>` from `run_package`, and point `TizenManifestFile` at the rendered manifest for SDK builds; or (b) correct the comment to say the item serves only an SDK-built TPK and that `cargo xtask package` stages `lib/libdxn_app.so` itself, and make sure the template is never used as an SDK manifest.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/main.rs",
+          "symbol": "run_package"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "host/Dxn.GpuiTizen.Host.csproj"
         }
       ]
     }
