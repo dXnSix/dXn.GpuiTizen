@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 93,
+  "revision": 110,
   "planRevision": 13,
   "specHashes": {
     "requirements": "1e52bbf45b2317dc42e7e3bdc9f513240a41288c0d96b3211e25b9cc4223f22a",
@@ -106,13 +106,22 @@
       ]
     },
     "t5-dispatcher": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t5-frame-lifecycle": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t5-keys-display": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t6-platform": {
       "status": "pending"
@@ -464,6 +473,18 @@
         }
       },
       "recordedAt": "2026-11-08T23:10:06Z"
+    },
+    "9b876454c93a3f0a1f9768f1501d4c9d9bac432a905b3c75d1bc168ee3cd8d61": {
+      "snapshot": {
+        "specHash": "cf5b59e870941a11a8b6485d5efa65d8ccf905b95d378674a3d6142e36884a85",
+        "repositories": {
+          "gpuitizen": "ad268a8a335b5f0d6837d634faad11a86620002c15b270d66140db5ea42a3442",
+          "gpui-fast": "fdfe58c6059b2fd052b8fd76ed534533e3edb5be2e88159fa7a1bf8c55aaa5c0",
+          "wgpu": "593a0f2f051a329f2703d9ead1daf9f7906493105f4fba31d3fd91867a528ec2",
+          "nsh": "44cd091043852019714da3ec9eda618bc3e237317015dcf281d4f1afb8693e3f"
+        }
+      },
+      "recordedAt": "2026-11-08T23:25:20Z"
     }
   },
   "checkResults": {
@@ -925,6 +946,91 @@
       "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s4-gpui-fast-final-f0ff79feb102.log",
       "logSha256": "b8bf9e9dbad7ede78c7b12be88dccd26f6cbd5d3a2fc278228e63235f0ac47cc",
       "inputsHash": "2c5222a85f778ae090e5d53dfa63f51cd2ccfb098c8f9e263e7b37fee0f0287a"
+    },
+    "s5-core/chk-core-dispatcher/final": {
+      "checkId": "chk-core-dispatcher",
+      "boundaryId": "s5-core",
+      "phase": "final",
+      "batchId": "9b876454c93a3f0a1f9768f1501d4c9d9bac432a905b3c75d1bc168ee3cd8d61",
+      "definitionHash": "27ba89a18360a164e6319a52fa40cc0cf78a541e9163a3512fc7becab0f74421",
+      "basisHash": "5377f9f0d52922207e76b3a3bb2304e08451a763cc911d9193b4a863aeb797ee",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 7,
+      "durationSeconds": 0.1092,
+      "recordedAt": "2026-11-08T23:25:19Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s5-core-final-f042d8634043.log",
+      "logSha256": "16b1a88fedaa8880f6684ff7df8454f63632d1fd26e4356869f12986a2b64a6c",
+      "inputsHash": "4416eaf5c00c4d28c0bf53cb3caf429a79b4e6cddc7c07742e021fa14fcea07f"
+    },
+    "s5-core/chk-core-frame/final": {
+      "checkId": "chk-core-frame",
+      "boundaryId": "s5-core",
+      "phase": "final",
+      "batchId": "9b876454c93a3f0a1f9768f1501d4c9d9bac432a905b3c75d1bc168ee3cd8d61",
+      "definitionHash": "b6015f75ef56477de1625c336b2f15129b4f4aa7da0b8934df3876883bffa93c",
+      "basisHash": "a66e0d6196987c79c026caa3a524d32f982494cd51d079f4bbf0b21e3e427648",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 6,
+      "durationSeconds": 0.0975,
+      "recordedAt": "2026-11-08T23:25:19Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s5-core-final-a32bdeabae3c.log",
+      "logSha256": "fe75cfeedb7e00addd6870dafd2787634bb69bda2fc47f3aae7553c900d45b82",
+      "inputsHash": "4416eaf5c00c4d28c0bf53cb3caf429a79b4e6cddc7c07742e021fa14fcea07f"
+    },
+    "s5-core/chk-core-lifecycle/final": {
+      "checkId": "chk-core-lifecycle",
+      "boundaryId": "s5-core",
+      "phase": "final",
+      "batchId": "9b876454c93a3f0a1f9768f1501d4c9d9bac432a905b3c75d1bc168ee3cd8d61",
+      "definitionHash": "b771a9baa061973b1b08b4833e6442c8beae0f3cc6ebaf6eca5a823f169a98ee",
+      "basisHash": "fb67feb6f6a88e041ae962cd22bcfa1006ba8682230eca4bb60e1b46b8853a18",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 5,
+      "durationSeconds": 0.0978,
+      "recordedAt": "2026-11-08T23:25:19Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s5-core-final-3c1f72631017.log",
+      "logSha256": "35e733c21dc0a4d7d09007b6ca215eedb43c6956c61fd422830807cc20932a92",
+      "inputsHash": "4416eaf5c00c4d28c0bf53cb3caf429a79b4e6cddc7c07742e021fa14fcea07f"
+    },
+    "s5-core/chk-core-keys/final": {
+      "checkId": "chk-core-keys",
+      "boundaryId": "s5-core",
+      "phase": "final",
+      "batchId": "9b876454c93a3f0a1f9768f1501d4c9d9bac432a905b3c75d1bc168ee3cd8d61",
+      "definitionHash": "92618e3822805afffad6bcce6e853f2e25de9e64e86a6cadbdde38f30b251d2a",
+      "basisHash": "f2f8ad22727b1f0807f2e80045547d32a8d21320f4237ac28e344d943ad5da70",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 5,
+      "durationSeconds": 0.0986,
+      "recordedAt": "2026-11-08T23:25:20Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s5-core-final-cb804a187c9e.log",
+      "logSha256": "e2473a2b84d63b1f7238e23d974d5052e9b86672283ddae3f4f0f7119c59afab",
+      "inputsHash": "4416eaf5c00c4d28c0bf53cb3caf429a79b4e6cddc7c07742e021fa14fcea07f"
+    },
+    "s5-core/chk-core-display/final": {
+      "checkId": "chk-core-display",
+      "boundaryId": "s5-core",
+      "phase": "final",
+      "batchId": "9b876454c93a3f0a1f9768f1501d4c9d9bac432a905b3c75d1bc168ee3cd8d61",
+      "definitionHash": "9945329296b94c11967c3261042edd3384f442a5372f7985b9bf46edb9db02be",
+      "basisHash": "f25cce6ef19e6df998706b324a79a933b74eb53e7f48747721268c622e9e6b9e",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 7,
+      "durationSeconds": 0.0972,
+      "recordedAt": "2026-11-08T23:25:20Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s5-core-final-c67a5e940346.log",
+      "logSha256": "5d09c75b208f55e1d91f6d35d25fcd6fb453581b9f7a92d1b9277bed1e7a8f15",
+      "inputsHash": "4416eaf5c00c4d28c0bf53cb3caf429a79b4e6cddc7c07742e021fa14fcea07f"
     }
   },
   "reviews": {
@@ -1766,6 +1872,147 @@
         "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
       }
+    },
+    "s5-core": {
+      "reviewerId": "reviewer-s5-independent",
+      "snapshotId": "9b876454c93a3f0a1f9768f1501d4c9d9bac432a905b3c75d1bc168ee3cd8d61",
+      "criterionIds": [
+        "CORE-1",
+        "CORE-2",
+        "CORE-3",
+        "CORE-4",
+        "CORE-5"
+      ],
+      "verdict": "passed",
+      "anchors": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/Cargo.toml",
+          "kind": "source",
+          "criterionIds": [
+            "CORE-1",
+            "CORE-2",
+            "CORE-3",
+            "CORE-4",
+            "CORE-5"
+          ],
+          "sha256": "ed1138aa4ca9ac8831f5732b4d31926388d17325f67ad2fb5c11028214218f12"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/lib.rs",
+          "kind": "source",
+          "criterionIds": [
+            "CORE-1",
+            "CORE-2",
+            "CORE-3",
+            "CORE-4",
+            "CORE-5"
+          ],
+          "sha256": "d197038640777c919e78ac688e1b815bd5eac874f72ce9490a8f96efd2ffe3bc"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/dispatcher/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "CORE-1"
+          ],
+          "sha256": "90350be0ec162452fa0d009c3efaafe6d64d45a8f4edad5137dbd28227d6c1b0"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/dispatcher/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "CORE-1"
+          ],
+          "sha256": "37a6e0233913ad0df89a4b9efba2b6ed10e00954fe4043ffda6192671c15db66"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/frame/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "CORE-2"
+          ],
+          "sha256": "6aad275b19fd269ed5069a10b080a712366add4571883e1177b6002ea78cd7e0"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/frame/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "CORE-2"
+          ],
+          "sha256": "e23760ea75e8e2e70fca8cbb2f0ee1ccf3647baf79fc1a7d8df786678f9bff30"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/lifecycle/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "CORE-3"
+          ],
+          "sha256": "9d912b334dd13332e1582d37ef9a3dff185df064a22c0fe8c6bc8e07edf5d0ae"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/lifecycle/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "CORE-3"
+          ],
+          "sha256": "69a8c99086f4f3fe1ff38601934711b4518b4eb2ff86df8ac8870c57f46de6e5"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/keys/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "CORE-4"
+          ],
+          "sha256": "25f46a791ca4c6dba7469db71f6587cb0757e64900c610959b8f2482a6a59868"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/keys/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "CORE-4"
+          ],
+          "sha256": "e6fb087db4c964e354415d14b904003ff729aaf174e631047cec123ef6041808"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/display/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "CORE-5"
+          ],
+          "sha256": "2ce94c7e45977538f395d29e558d8f75a46d401e198be6a06fd1c1c591b404ee"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/display/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "CORE-5"
+          ],
+          "sha256": "ac005215e34fddf8eacda10829fd611bbf7bb70b548d6c178bd35bf4d22909a6"
+        }
+      ],
+      "summaryMarkdown": "Full review at snapshot 9b876454. All five criteria pass and the three findings are resolved. CORE-1: strict-priority FIFO queues, posting from other threads, main-thread timers that never fire early, `is_main_thread`, the background pool, and nothing running after shutdown. Discarded runnables are forgotten off the main thread, and each drain runs one batch before handing the main loop back to Ecore. CORE-2: the frame scheduler draws only when asked and no callback is pending, forces the first frame and the one after resume, coalesces requests, and never draws while paused. CORE-3: lifecycle transitions, the ignored callbacks, quitting once, and the extras map. CORE-4: the full d14 table, modifiers, held repeats, and lowercased unknown names. CORE-5: the scale default, both overrides and their precedence, the 1.0-4.0 range, logical sizes, and refresh measured by `RefreshMeter`. Each test group would fail (the drain test would hang) if its rule regressed. The decisions sit in the feature modules, so d10 holds, and no desktop platform crate is pulled in.",
+      "findingIds": [
+        "s5-dispatcher-drop-after-shutdown",
+        "s5-dispatcher-unbounded-drain",
+        "s5-display-refresh-measurement"
+      ],
+      "recordedAt": "2026-11-08T23:25:47Z",
+      "recordHashes": {
+        "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
     }
   },
   "checkpoints": {
@@ -1826,6 +2073,17 @@
       "refs": {
         "gpui-fast": "agentx/tizen-gpui-platform"
       }
+    },
+    "s5-core": {
+      "snapshotId": "9b876454c93a3f0a1f9768f1501d4c9d9bac432a905b3c75d1bc168ee3cd8d61",
+      "commits": {
+        "gpuitizen": "3929eeabd8032ca7fc03aa9c2ea2cad2888474d5",
+        "gpui-fast": "8e882532758900c80f0958238c4a6e624dd1e262",
+        "wgpu": "b672a540043b7177cdd53858340d7aca7ff8eb68",
+        "nsh": "7be66038d6cef63581f6bf0180b2bc8087bbf224"
+      },
+      "reviewHash": "7f128c00001b459090a33cfd0c221ba86abdedb165aaa943080b57e62be0870f",
+      "recordedAt": "2026-11-08T23:26:07Z"
     }
   },
   "findings": [
@@ -2343,6 +2601,77 @@
           "repositoryId": "gpui-fast",
           "path": "crates/gpui_wgpu/src/fast/pipeline_cache.rs",
           "symbol": "open"
+        }
+      ]
+    },
+    {
+      "id": "s5-dispatcher-drop-after-shutdown",
+      "boundaryId": "s5-core",
+      "criterionIds": [
+        "CORE-1"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "Resolved. `MainThread::dispatch` and `dispatch_after` now `std::mem::forget` the task once shut down, and so does a timer that fires after shutdown. Work that was already queued is dropped only on the main thread, by `shut_down` or by the rest of a drain's batch. `a_foreground_runnable_from_another_thread_after_shutdown_is_not_dropped_there` dispatches `async_task::spawn_local` runnables from a spawned thread through `dispatch_on_main_thread` and `dispatch_after` after shutdown. It asserts the thread joins without a panic and the runnable never runs. If either path dropped the runnable instead of forgetting it, the thread would panic and the test would fail.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/dispatcher/mod.rs",
+          "symbol": "MainThread::dispatch"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/dispatcher/mod.rs",
+          "symbol": "MainThread::dispatch_after"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/dispatcher/tests.rs",
+          "symbol": "a_foreground_runnable_from_another_thread_after_shutdown_is_not_dropped_there"
+        }
+      ]
+    },
+    {
+      "id": "s5-dispatcher-unbounded-drain",
+      "boundaryId": "s5-core",
+      "criterionIds": [
+        "CORE-1"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "Resolved. `Inner::drain` takes the queued work as one batch in priority order and runs it. Only then does it clear `drain_posted` and post another drain if work remains, so Ecore events queued during the batch run first. I checked the races: work pushed during the batch, after the flag clears, or between the length check and the push always gets exactly one next drain, and no wake-up is lost. One trade-off is accepted: high-priority work dispatched mid-batch waits for the next batch rather than overtaking lower work already taken. CORE-1's FIFO and high-before-low ordering still hold among work queued together. `work_dispatched_while_draining_runs_in_a_later_batch` pumps one post at a time with a self-rescheduling task. It asserts that the batch contains only what was queued at its start, that an Ecore event posted during the batch runs before the next batch, and that the next batch is posted rather than run inline. Under the old drain-to-empty loop this test never finishes, so a regression shows up as a hang rather than a clean failure.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/dispatcher/mod.rs",
+          "symbol": "Inner::drain"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/dispatcher/tests.rs",
+          "symbol": "work_dispatched_while_draining_runs_in_a_later_batch"
+        }
+      ]
+    },
+    {
+      "id": "s5-display-refresh-measurement",
+      "boundaryId": "s5-core",
+      "criterionIds": [
+        "CORE-5"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "Resolved. `display::RefreshMeter` now owns the refresh measurement, as d10 requires. It counts only back-to-back intervals, skips timestamps that do not advance, starts a new chain after `pause`, keeps the last 30 intervals, takes the 20th percentile, and reports 60 Hz until the window is full. `idle_gaps_pauses_and_stale_timestamps_add_no_sample` feeds 29 valid intervals to a fresh meter. It asserts `interval() == None` after a 2 s callback with `back_to_back: false`, after `pause()` followed by a back-to-back callback, and after a repeated timestamp, then `Some(16_667 µs)` after one real interval. Each regression now fails the test: ignoring `back_to_back` counts the 2 s sample, a no-op `pause` counts a 7 s sample, and dropping the `timestamp > last` guard counts a zero sample. Any of these fills the window early. Together with the warm-up/120 Hz and missed-vsync tests, CORE-5's refresh rule is covered.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/display/mod.rs",
+          "symbol": "RefreshMeter"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/display/tests.rs",
+          "symbol": "idle_gaps_pauses_and_stale_timestamps_add_no_sample"
         }
       ]
     }
