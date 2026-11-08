@@ -61,6 +61,17 @@ fn x86_64_is_the_emulator_with_tizen_vendor() {
     assert_eq!(pointer_width(&spec), Some(64));
 }
 
+#[test]
+fn aarch64_is_stock_aarch64_with_tizen_vendor() {
+    let spec = spec(Target::Aarch64);
+    assert_eq!(spec["arch"], "aarch64");
+    assert_eq!(spec["llvm-target"], "aarch64-unknown-linux-gnu");
+    assert_eq!(spec["os"], "linux");
+    assert_eq!(spec["env"], "gnu");
+    assert_eq!(spec["vendor"], "tizen");
+    assert_eq!(pointer_width(&spec), Some(64));
+}
+
 /// The pinned nightly (this test runs on it through `rust-toolchain.toml`) accepts every spec and
 /// derives the cfgs the platform code depends on.
 #[test]
@@ -92,7 +103,15 @@ fn pinned_nightly_accepts_every_spec() {
 fn names_and_environment_keys() {
     assert_eq!(Target::parse("armv7").unwrap(), Target::Armv7);
     assert_eq!(Target::parse("x86_64").unwrap(), Target::X86_64);
+    assert_eq!(Target::parse("aarch64").unwrap(), Target::Aarch64);
     assert!(Target::parse("mips").is_err());
+    assert_eq!(Target::Aarch64.rootstrap_env(), "TIZEN_ROOTSTRAP_AARCH64");
+    assert_eq!(Target::Aarch64.clang_triple(), "aarch64-tizen-linux-gnu");
+    assert!(
+        Target::Aarch64
+            .sdk_rootstrap(Path::new("/sdk"))
+            .ends_with("rootstraps/tizen-8.0-device64.core")
+    );
     assert_eq!(Target::Armv7.env_suffix(), "armv7_tizen_linux_gnueabi");
     assert_eq!(
         Target::X86_64.cargo_env("LINKER"),

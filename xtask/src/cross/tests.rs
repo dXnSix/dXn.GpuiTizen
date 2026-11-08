@@ -18,8 +18,11 @@ fn ctx(rootstrap: Option<&str>, needs_link: bool) -> Context {
         rootstrap_searched: vec![PathBuf::from(
             "/home/me/tizen-studio/platforms/tizen-8.0/tizen/rootstraps/tizen-8.0-device.core",
         )],
+        gcc_toolchain: rootstrap.map(|_| PathBuf::from("/gcc")),
+        gcc_toolchain_searched: Vec::new(),
         needs_link,
         inherited_rustflags: Vec::new(),
+        lockfile: None,
     }
 }
 
@@ -79,8 +82,7 @@ fn armv7_build_command_and_environment() {
     for expected in [
         "-Clink-arg=--target=armv7l-tizen-linux-gnueabi",
         "-Clink-arg=--sysroot=/rs/armv7",
-        "-Clink-arg=-fuse-ld=lld",
-        "-Clink-arg=-B/tc/lib/rustlib/aarch64-apple-darwin/bin/gcc-ld",
+        "-Clink-arg=--ld-path=/gcc/arm-tizen-linux-gnueabi/bin/ld.bfd",
         "-Clink-arg=-mfloat-abi=softfp",
     ] {
         assert!(
@@ -364,7 +366,10 @@ fn link_arguments_survive_inherited_rustflags() {
         flags.contains(&"-Clink-arg=--sysroot=/rs/armv7"),
         "{flags:?}"
     );
-    assert!(flags.contains(&"-Clink-arg=-fuse-ld=lld"), "{flags:?}");
+    assert!(
+        flags.contains(&"-Clink-arg=--ld-path=/gcc/arm-tizen-linux-gnueabi/bin/ld.bfd"),
+        "{flags:?}"
+    );
     assert_eq!(
         inv.env_remove,
         ["RUSTFLAGS"],
@@ -386,4 +391,89 @@ fn check_symbols_fails_before_cargo_while_unwired() {
         .unwrap_err()
         .to_string();
     assert!(err.contains("check-symbols"), "{err}");
+}
+
+#[test]
+fn aarch64_uses_its_own_rootstrap_and_no_arm32_flags() {
+    let mut ctx = ctx(Some("/rs/aarch64"), true);
+    ctx.rootstrap_searched = rootstrap_candidates(Target::Aarch64, None, Some("/sdk"), None);
+    let inv = plan_for(&["--target", "aarch64", "-p", "example_counter"], &ctx);
+    assert!(
+        inv.args
+            .contains(&"/repo/targets/aarch64-tizen-linux-gnu.json".to_owned())
+    );
+    assert_eq!(
+        inv.env_value("CFLAGS_aarch64_tizen_linux_gnu"),
+        Some("--target=aarch64-tizen-linux-gnu --sysroot=/rs/aarch64")
+    );
+    assert_eq!(
+        inv.env_value("CARGO_TARGET_AARCH64_TIZEN_LINUX_GNU_LINKER"),
+        Some("clang")
+    );
+
+    let options = Options::parse(&args(&["--target", "aarch64", "-p", "example_counter"])).unwrap();
+    let mut missing = ctx.clone();
+    missing.rootstrap = None;
+    let err = plan(&options, &missing, &[]).unwrap_err().to_string();
+    assert!(err.contains("TIZEN_ROOTSTRAP_AARCH64"), "{err}");
+    assert!(err.contains("tizen-8.0-device64.core"), "{err}");
+}
+
+#[test]
+fn foreign_workspaces_keep_their_lockfile_here() {
+    let root = Path::new("/work/dXn.GpuiTizen");
+    assert_eq!(
+        foreign_lockfile(root, Path::new("/work/dXn.GpuiTizen")),
+        None
+    );
+    assert_eq!(
+        foreign_lockfile(root, Path::new("/work/nsh/nsh-wt/tizen/crates/gpui")),
+        Some(PathBuf::from(
+            "/work/dXn.GpuiTizen/artifacts-temp/locks/work_nsh_nsh-wt_tizen_crates_gpui/Cargo.lock"
+        ))
+    );
+
+    let files = |path: &Path| -> Option<String> {
+        match path.to_str()? {
+            "/nsh/crates/gpui/Cargo.toml" => {
+                Some("[workspace]\nmembers = [\"nsh-platform-gpui\"]\n".into())
+            }
+            "/nsh/crates/gpui/nsh-platform-gpui/Cargo.toml" => {
+                Some("[package]\nname = \"nsh-platform-gpui\"\n".into())
+            }
+            _ => None,
+        }
+    };
+    assert_eq!(
+        workspace_root_of(
+            Path::new("/nsh/crates/gpui/nsh-platform-gpui/Cargo.toml"),
+            files
+        ),
+        PathBuf::from("/nsh/crates/gpui")
+    );
+    assert_eq!(
+        workspace_root_of(Path::new("/nsh/crates/gpui/Cargo.toml"), files),
+        PathBuf::from("/nsh/crates/gpui")
+    );
+
+    let mut ctx = ctx(None, false);
+    ctx.lockfile = Some(PathBuf::from("/repo/artifacts-temp/locks/nsh/Cargo.lock"));
+    let inv = plan_for(
+        &[
+            "--target",
+            "armv7",
+            "--manifest-path",
+            "/nsh/crates/gpui/Cargo.toml",
+        ],
+        &ctx,
+    );
+    assert!(
+        inv.args.windows(2).any(|w| w
+            == [
+                "--config",
+                "resolver.lockfile-path='/repo/artifacts-temp/locks/nsh/Cargo.lock'"
+            ]),
+        "{:?}",
+        inv.args
+    );
 }

@@ -12,17 +12,20 @@ pub enum Target {
     Armv7,
     /// The Tizen emulator.
     X86_64,
+    /// 64-bit ARM devices (no retail TV is confirmed 64-bit yet).
+    Aarch64,
 }
 
 impl Target {
-    pub const ALL: &[Target] = &[Target::Armv7, Target::X86_64];
+    pub const ALL: &[Target] = &[Target::Armv7, Target::X86_64, Target::Aarch64];
 
     /// Parses the `--target` value (`armv7`, `x86_64`, or a full spec name).
     pub fn parse(name: &str) -> Result<Self> {
         Ok(match name {
             "armv7" | "arm" | "armv7-tizen-linux-gnueabi" => Target::Armv7,
             "x86_64" | "x86-64" | "emulator" | "x86_64-tizen-linux-gnu" => Target::X86_64,
-            other => bail!("unknown target `{other}`; expected one of armv7, x86_64"),
+            "aarch64" | "arm64" | "aarch64-tizen-linux-gnu" => Target::Aarch64,
+            other => bail!("unknown target `{other}`; expected one of armv7, x86_64, aarch64"),
         })
     }
 
@@ -31,6 +34,7 @@ impl Target {
         match self {
             Target::Armv7 => "armv7-tizen-linux-gnueabi",
             Target::X86_64 => "x86_64-tizen-linux-gnu",
+            Target::Aarch64 => "aarch64-tizen-linux-gnu",
         }
     }
 
@@ -45,6 +49,7 @@ impl Target {
         match self {
             Target::Armv7 => "armv7l-tizen-linux-gnueabi",
             Target::X86_64 => "x86_64-tizen-linux-gnu",
+            Target::Aarch64 => "aarch64-tizen-linux-gnu",
         }
     }
 
@@ -52,7 +57,7 @@ impl Target {
     pub fn c_flags(self) -> &'static [&'static str] {
         match self {
             Target::Armv7 => &["-march=armv7-a", "-mfloat-abi=softfp", "-mfpu=neon"],
-            Target::X86_64 => &[],
+            Target::X86_64 | Target::Aarch64 => &[],
         }
     }
 
@@ -61,6 +66,7 @@ impl Target {
         match self {
             Target::Armv7 => "TIZEN_ROOTSTRAP_ARMV7",
             Target::X86_64 => "TIZEN_ROOTSTRAP_X86_64",
+            Target::Aarch64 => "TIZEN_ROOTSTRAP_AARCH64",
         }
     }
 
@@ -69,6 +75,7 @@ impl Target {
         match self {
             Target::Armv7 => "tizen-8.0-device.core",
             Target::X86_64 => "tizen-8.0-emulator64.core",
+            Target::Aarch64 => "tizen-8.0-device64.core",
         }
     }
 
@@ -86,6 +93,15 @@ impl Target {
     /// `CARGO_TARGET_<SUFFIX>_...`.
     pub fn cargo_env(self, key: &str) -> String {
         format!("CARGO_TARGET_{}_{key}", self.env_suffix().to_uppercase())
+    }
+}
+
+/// The Tizen SDK installation: `TIZEN_SDK`, else `~/tizen-studio` (the SDK installer's default).
+pub fn sdk_root(tizen_sdk: Option<&str>, home: Option<&Path>) -> Option<PathBuf> {
+    match (tizen_sdk.filter(|v| !v.is_empty()), home) {
+        (Some(sdk), _) => Some(PathBuf::from(sdk)),
+        (None, Some(home)) => Some(home.join("tizen-studio")),
+        (None, None) => None,
     }
 }
 

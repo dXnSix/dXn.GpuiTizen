@@ -25,7 +25,7 @@ pub struct Options {
 }
 
 pub const USAGE: &str = "\
-cargo xtask cross --target <armv7|x86_64> [--release] [--clippy] [--check-symbols] [--all-tv-libs]
+cargo xtask cross --target <armv7|x86_64|aarch64> [--release] [--clippy] [--check-symbols] [--all-tv-libs]
                   [-p <package>]... [--manifest-path <Cargo.toml>] [--features <f>] [--no-default-features]
                   [other cargo flags]";
 
@@ -119,11 +119,62 @@ pub struct Context {
     pub rootstrap: Option<PathBuf>,
     /// Where the rootstrap was looked for, for the error message.
     pub rootstrap_searched: Vec<PathBuf>,
+    /// The Tizen SDK's GCC toolchain for the target (start files and `libgcc_s`), when one exists.
+    pub gcc_toolchain: Option<PathBuf>,
+    /// Where the GCC toolchain was looked for, for the error message.
+    pub gcc_toolchain_searched: Vec<PathBuf>,
     /// Whether the selected packages produce a linked artifact (a `cdylib`).
     pub needs_link: bool,
     /// Flags the caller's environment already passes to rustc (`CARGO_ENCODED_RUSTFLAGS`, else
     /// `RUSTFLAGS`). Cargo reads only one flag source, so they are merged with the link arguments.
     pub inherited_rustflags: Vec<String>,
+    /// For a workspace outside this repository: where its lockfile is kept, so Cargo never
+    /// rewrites a lockfile in another checkout (see [`foreign_lockfile`]).
+    pub lockfile: Option<PathBuf>,
+}
+
+/// The workspace root that owns `manifest`: the nearest ancestor directory (the manifest's own
+/// included) whose `Cargo.toml` declares `[workspace]`, else the manifest's directory.
+pub fn workspace_root_of(manifest: &Path, read: impl Fn(&Path) -> Option<String>) -> PathBuf {
+    let start = manifest.parent().unwrap_or(Path::new("."));
+    start
+        .ancestors()
+        .find(|dir| {
+            read(&dir.join("Cargo.toml"))
+                .is_some_and(|text| text.lines().any(|line| line.trim() == "[workspace]"))
+        })
+        .unwrap_or(start)
+        .to_path_buf()
+}
+
+/// Where a foreign workspace's lockfile is kept: `artifacts-temp/locks/<workspace path>/Cargo.lock`
+/// under this repository. Returns `None` for this repository's own workspace. The caller seeds it
+/// from the workspace's committed `Cargo.lock` before each build.
+pub fn foreign_lockfile(root: &Path, workspace: &Path) -> Option<PathBuf> {
+    if workspace.starts_with(root) {
+        return None;
+    }
+    let name: String = workspace
+        .components()
+        .filter_map(|c| match c {
+            std::path::Component::Normal(part) => part.to_str(),
+            _ => None,
+        })
+        .collect::<Vec<_>>()
+        .join("_");
+    Some(
+        root.join("artifacts-temp/locks")
+            .join(name)
+            .join("Cargo.lock"),
+    )
+}
+
+/// `--config resolver.lockfile-path=...` for a kept lockfile.
+pub fn lockfile_config(lockfile: &Path) -> [String; 2] {
+    [
+        "--config".to_owned(),
+        format!("resolver.lockfile-path='{}'", lockfile.display()),
+    ]
 }
 
 /// The caller's rustc flags from `CARGO_ENCODED_RUSTFLAGS` (unit-separated) or `RUSTFLAGS`
@@ -168,12 +219,9 @@ pub fn rootstrap_candidates(
     if let Some(value) = env_value.filter(|v| !v.is_empty()) {
         return vec![PathBuf::from(value)];
     }
-    let sdk = match (tizen_sdk.filter(|v| !v.is_empty()), home) {
-        (Some(sdk), _) => PathBuf::from(sdk),
-        (None, Some(home)) => home.join("tizen-studio"),
-        (None, None) => return Vec::new(),
-    };
-    vec![target.sdk_rootstrap(&sdk)]
+    crate::targets::sdk_root(tizen_sdk, home)
+        .map(|sdk| vec![target.sdk_rootstrap(&sdk)])
+        .unwrap_or_default()
 }
 
 /// The error for a linking build without a rootstrap.
@@ -182,8 +230,7 @@ pub fn missing_rootstrap(target: Target, searched: &[PathBuf]) -> String {
     format!(
         "linking for {} needs the Tizen 8.0 common rootstrap `{}`, which was not found (looked in: {}).\n\
          Install it with the Tizen SDK's package manager (`package-manager-cli install \
-         NativeToolchain-Gcc-9.2 TIZEN-8.0-NativeAppDevelopment-CLI`, or the Tizen 8.0 rootstraps in \
-         Tizen Studio's Package Manager), or point `{}` at an extracted rootstrap.",
+         TIZEN-8.0-NativeAppDevelopment-CLI`), or point `{}` at an extracted rootstrap.",
         target.spec_name(),
         target.sdk_rootstrap_name(),
         if searched.is_empty() {
@@ -212,6 +259,9 @@ pub fn plan(options: &Options, ctx: &Context, tv_libs: &[String]) -> Result<Invo
     if links && ctx.rootstrap.is_none() {
         bail!(missing_rootstrap(target, &ctx.rootstrap_searched));
     }
+    if links && ctx.gcc_toolchain.is_none() {
+        bail!(crate::gcc::missing(target, &ctx.gcc_toolchain_searched));
+    }
 
     let mut args = vec![
         if options.clippy { "clippy" } else { "build" }.to_owned(),
@@ -222,6 +272,9 @@ pub fn plan(options: &Options, ctx: &Context, tv_libs: &[String]) -> Result<Invo
     ];
     if options.release {
         args.push("--release".to_owned());
+    }
+    if let Some(lockfile) = &ctx.lockfile {
+        args.extend(lockfile_config(lockfile));
     }
     let (cargo_args, trailing) = match options.cargo_args.iter().position(|a| a == "--") {
         Some(i) => (&options.cargo_args[..i], &options.cargo_args[i + 1..]),
@@ -268,8 +321,15 @@ pub fn plan(options: &Options, ctx: &Context, tv_libs: &[String]) -> Result<Invo
     ];
     let mut link_args = vec![format!("--target={triple}")];
     link_args.extend(sysroot);
-    link_args.push("-fuse-ld=lld".to_owned());
-    link_args.push(format!("-B{}", ctx.rustlib_bin.join("gcc-ld").display()));
+    match &ctx.gcc_toolchain {
+        // Linking against the rootstrap: the SDK's GNU ld (see `gcc::linker` for why not lld).
+        Some(gcc_toolchain) => link_args.extend(crate::gcc::link_args(target, gcc_toolchain)),
+        // Non-linking builds (rlibs, clippy) never reach the linker; keep the pinned toolchain's lld.
+        None => {
+            link_args.push("-fuse-ld=lld".to_owned());
+            link_args.push(format!("-B{}", ctx.rustlib_bin.join("gcc-ld").display()));
+        }
+    }
     link_args.extend(target.c_flags().iter().map(|f| (*f).to_owned()));
     // Cargo takes rustc flags from exactly one source (`CARGO_ENCODED_RUSTFLAGS`, then `RUSTFLAGS`,
     // then the per-target setting), so the caller's flags and the link arguments go together into
