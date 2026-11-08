@@ -14,11 +14,13 @@ app_get_data_path Application Framework > Application > Common (appfw/app_common
 
 # libcapi-appfw-app-control.so
 app_control_get_extra_data Application Framework > Application > App Control (appfw/app_control.h)
+app_control_foreach_extra_data Application Framework > Application > App Control (appfw/app_control.h)
 
 # libecore.so
 ecore_main_loop_thread_safe_call_async EFL > Ecore (ecore-1/Ecore.h)
 ecore_timer_add EFL > Ecore (ecore-1/Ecore.h)
 ecore_timer_del EFL > Ecore (ecore-1/Ecore.h)
+ecore_job_add EFL > Ecore > Ecore Job (ecore-1/Ecore_Legacy.h)
 ecore_event_handler_add EFL > Ecore (ecore-1/Ecore.h)
 ecore_event_handler_del EFL > Ecore (ecore-1/Ecore.h)
 

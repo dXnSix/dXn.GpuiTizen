@@ -72,6 +72,8 @@ opaque!(
     app_control_s,
     /// `Ecore_Timer` (`ecore-1/Ecore_Common.h`).
     Ecore_Timer,
+    /// `Ecore_Job` (`ecore-1/Ecore_Legacy.h`).
+    Ecore_Job,
     /// `Ecore_Event_Handler` (`ecore-1/Ecore_Common.h`).
     Ecore_Event_Handler,
     /// `Ecore_Wl2_Display` (`ecore-wl2-1/Ecore_Wayland2.h`).
@@ -96,6 +98,15 @@ pub type app_pause_cb = Option<unsafe extern "C" fn(user_data: *mut c_void)>;
 pub type app_resume_cb = Option<unsafe extern "C" fn(user_data: *mut c_void)>;
 pub type app_control_cb =
     Option<unsafe extern "C" fn(app_control: app_control_h, user_data: *mut c_void)>;
+
+/// `app_control_extra_data_cb` (`appfw/app_control.h`): return `true` to continue.
+pub type app_control_extra_data_cb = Option<
+    unsafe extern "C" fn(
+        app_control: app_control_h,
+        key: *const c_char,
+        user_data: *mut c_void,
+    ) -> bool,
+>;
 
 /// `ui_app_lifecycle_callback_s` (`appfw/app.h`), in header order.
 #[repr(C)]
@@ -228,12 +239,18 @@ tizen_extern! {
             key: *const c_char,
             value: *mut *mut c_char
         ) -> c_int;
+        fn app_control_foreach_extra_data(
+            app_control: app_control_h,
+            callback: app_control_extra_data_cb,
+            user_data: *mut c_void
+        ) -> c_int;
     }
     // ecore-1/Ecore_Common.h, Ecore_Legacy.h (EFL > Ecore)
     "ecore" {
         fn ecore_main_loop_thread_safe_call_async(callback: Ecore_Cb, data: *mut c_void);
         fn ecore_timer_add(seconds: c_double, func: Ecore_Task_Cb, data: *const c_void) -> *mut Ecore_Timer;
         fn ecore_timer_del(timer: *mut Ecore_Timer) -> *mut c_void;
+        fn ecore_job_add(func: Ecore_Cb, data: *const c_void) -> *mut Ecore_Job;
         fn ecore_event_handler_add(
             kind: c_int,
             func: Ecore_Event_Handler_Cb,
