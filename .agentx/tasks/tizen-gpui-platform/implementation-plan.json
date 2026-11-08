@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 7,
+  "revision": 8,
   "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
   "repositories": [
     {
@@ -3006,8 +3006,7 @@
         "chk-gate-armv7",
         "chk-gate-x86_64",
         "chk-xtask-targets",
-        "chk-gate-aarch64",
-        "chk-nsh-gate-armv7"
+        "chk-gate-aarch64"
       ],
       "tasks": [
         {
@@ -3052,10 +3051,8 @@
         {
           "id": "t1-nsh-gate",
           "title": "The NSH half of the gate",
-          "descriptionMarkdown": "Extend `cargo xtask cross` with Cargo selection pass-through (`--manifest-path`, `--features`, `--no-default-features`) and run `NTZ-1` against `../nsh/nsh-wt/tizen/crates/gpui/Cargo.toml` (do not edit NSH here). If it fails for an NSH reason, record the error in the handoff for `s17-nsh-gpui-tizen`; if gpui-fast is the cause, apply `d04-gate`.",
-          "criterionIds": [
-            "NTZ-1"
-          ],
+          "descriptionMarkdown": "Extend `cargo xtask cross` with Cargo selection pass-through (`--manifest-path`, `--features`, `--no-default-features`) and run `NTZ-1` against `../nsh/nsh-wt/tizen/crates/gpui/Cargo.toml` (do not edit NSH here). If it fails for an NSH reason, record the error in the handoff for `s17-nsh-gpui-tizen`; if gpui-fast is the cause, apply `d04-gate`.\n\n**Outcome (owner decision, 2026-11-08):** the pass-through is done; the gate failed for an NSH reason and `NTZ-1` with `chk-nsh-gate-armv7` moved to `t17-gpui-optional`, the first task of `s17-nsh-gpui-tizen`. `cargo xtask cross --target armv7 --manifest-path ../nsh/nsh-wt/tizen/crates/gpui/Cargo.toml -p nsh-platform-gpui --no-default-features` failed on 2026-11-08 (Tizen 8.0 rootstrap and SDK GCC toolchain present, `feat/tizen` at `7be66038d`): the build scripts of `freetype-sys` 0.20.1 (`string.h` not found; it builds FreeType as C++) and `yeslogic-fontconfig-sys` 6.0.1 (pkg-config not configured for cross-compilation) fail. Both arrive through `nsh-platform-gpui -> gpui-fast-platform -> gpui-fast-linux -> gpui-fast-wgpu -> zed-font-kit`, because `gpui_platform` is a non-optional dependency of `nsh-platform-gpui` (`crates/gpui/nsh-platform-gpui/Cargo.toml`). This is NSH's (`NTZ-3`), not gpui-fast's, so `d04-gate` does not apply; the gate moves to `t17-gpui-optional`. Not to be worked around in `xtask` (C++ compiler support would put C++ into a TV library). Log: `artifacts-temp/gate-nsh-armv7.log`.",
+          "criterionIds": [],
           "designIds": [
             "d04-gate",
             "d03-targets-build-std",
@@ -3064,9 +3061,7 @@
           "dependsOn": [
             "t1-gate"
           ],
-          "checkIds": [
-            "chk-nsh-gate-armv7"
-          ]
+          "checkIds": []
         }
       ]
     },
@@ -4530,6 +4525,7 @@
         "s16-nsh-tv"
       ],
       "checkIds": [
+        "chk-nsh-gate-armv7",
         "chk-nsh-os-tizen",
         "chk-nsh-tv-env",
         "chk-nsh-gpui-default",
@@ -4537,6 +4533,31 @@
         "chk-nsh-gpui-tizen-build"
       ],
       "tasks": [
+        {
+          "id": "t17-gpui-optional",
+          "title": "gpui-fast change 4: `gpui_platform` optional",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/tizen/02-gpui-platform-optional`.\n\nImplement `NTZ-3` (feature `platform` in `nsh-platform-gpui`'s defaults; `run_app`, `examples/embed.rs` and the headless text test behind it).\n\n**First task of the sprint: it carries the NSH half of the G0 gate (`NTZ-1`)** recorded at `s1b-gates`. `cargo xtask cross --target armv7 --manifest-path ../nsh/nsh-wt/tizen/crates/gpui/Cargo.toml -p nsh-platform-gpui --no-default-features` failed on 2026-11-08 (Tizen 8.0 rootstrap and SDK GCC toolchain present, `feat/tizen` at `7be66038d`): the build scripts of `freetype-sys` 0.20.1 (`string.h` not found; it builds FreeType as C++) and `yeslogic-fontconfig-sys` 6.0.1 (pkg-config not configured for cross-compilation) fail. Both arrive through `nsh-platform-gpui -> gpui-fast-platform -> gpui-fast-linux -> gpui-fast-wgpu -> zed-font-kit`, because `gpui_platform` is a non-optional dependency of `nsh-platform-gpui` (`crates/gpui/nsh-platform-gpui/Cargo.toml`). This is NSH's (`NTZ-3`), not gpui-fast's, so `d04-gate` does not apply; the gate moves to `t17-gpui-optional`. Not to be worked around in `xtask` (C++ compiler support would put C++ into a TV library). Log: `artifacts-temp/gate-nsh-armv7.log`. Once `gpui_platform` is optional, `chk-nsh-gate-armv7` must pass; any further NSH failure it shows (for example `wayland-backend` needing `libwayland-client`, which the armv7 rootstrap lacks) is fixed here or in `t17-gpui-tizen-cfg`.",
+          "criterionIds": [
+            "NTZ-1",
+            "NTZ-3"
+          ],
+          "designIds": [
+            "d31-nsh-platform-tizen"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-nsh-gate-armv7",
+            "chk-nsh-gpui-default",
+            "chk-nsh-gpui-tizen-deps"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "nsh",
+              "path": "crates/gpui/nsh-platform-gpui/src/app.rs",
+              "symbol": "run_app"
+            }
+          ]
+        },
         {
           "id": "t17-os",
           "title": "`Os::Tizen`",
@@ -4557,29 +4578,6 @@
               "repositoryId": "nsh",
               "path": "crates/nsh-core/src/platform.rs",
               "symbol": "Os"
-            }
-          ]
-        },
-        {
-          "id": "t17-gpui-optional",
-          "title": "gpui-fast change 4: `gpui_platform` optional",
-          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/tizen/02-gpui-platform-optional`.\n\nImplement `NTZ-3` (feature `platform` in `nsh-platform-gpui`'s defaults; `run_app`, `examples/embed.rs` and the headless text test behind it).",
-          "criterionIds": [
-            "NTZ-3"
-          ],
-          "designIds": [
-            "d31-nsh-platform-tizen"
-          ],
-          "dependsOn": [],
-          "checkIds": [
-            "chk-nsh-gpui-default",
-            "chk-nsh-gpui-tizen-deps"
-          ],
-          "sourceRefs": [
-            {
-              "repositoryId": "nsh",
-              "path": "crates/gpui/nsh-platform-gpui/src/app.rs",
-              "symbol": "run_app"
             }
           ]
         },

@@ -1,12 +1,12 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 16,
-  "planRevision": 7,
+  "revision": 22,
+  "planRevision": 8,
   "specHashes": {
     "requirements": "1eb66e0a1d01d034206d6e198cb68ad59592fdcdab8c680459ddc71dce67cedb",
     "design": "23be8baa3532ca09c7ae0a3605c9b363de2344821a0dce86768a4e9eee7ad35d",
-    "plan": "0bd14d2d826f8798ed52b3f56589520274401ad86d63964a68223951073eb0e7"
+    "plan": "b2211765059ebf9b6ca00f97f14cdb74c138aee272b0b7ba82be2da3992c26ce"
   },
   "tasks": {
     "t1-workspace": {
@@ -22,7 +22,10 @@
       ]
     },
     "t1-gate": {
-      "status": "pending"
+      "status": "implemented",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t2-sys": {
       "status": "pending"
@@ -127,10 +130,16 @@
       "status": "pending"
     },
     "t1-aarch64": {
-      "status": "pending"
+      "status": "implemented",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t1-nsh-gate": {
-      "status": "pending"
+      "status": "implemented",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t6-long-list": {
       "status": "pending"
@@ -326,6 +335,18 @@
         }
       },
       "recordedAt": "2026-11-08T20:06:31Z"
+    },
+    "5d3fe513ee889d5e57e554a68e0518400fb3e843a9d129ec5abc1363da4abaf9": {
+      "snapshot": {
+        "specHash": "5c6745ceaf46d30810ae77d5eb837c544df872d7e55fe9c2f5076357111c8e54",
+        "repositories": {
+          "gpuitizen": "dcebd0b0ff4562b491a21dde492848dca9369127c509748f9b9e919f46244632",
+          "gpui-fast": "45bfdb19f80137dade846785da5c72e1cd56b0507124338c62ea7739296cd8b8",
+          "wgpu": "593a0f2f051a329f2703d9ead1daf9f7906493105f4fba31d3fd91867a528ec2",
+          "nsh": "44cd091043852019714da3ec9eda618bc3e237317015dcf281d4f1afb8693e3f"
+        }
+      },
+      "recordedAt": "2026-11-08T20:44:41Z"
     }
   },
   "checkResults": {
@@ -379,6 +400,91 @@
       "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s1-workspace-gate-final-cd060e5b4729.log",
       "logSha256": "ce170d0f67fd6cecea68cc18db27302ed324990fff522b3389735cc83820969b",
       "inputsHash": "5b3be4d7926f95e99f2fa3b445d34b11cf7b1b0f205d3d165fdf47dbd74d9c9d"
+    },
+    "s1b-gates/chk-xtask-targets/final": {
+      "checkId": "chk-xtask-targets",
+      "boundaryId": "s1b-gates",
+      "phase": "final",
+      "batchId": "5d3fe513ee889d5e57e554a68e0518400fb3e843a9d129ec5abc1363da4abaf9",
+      "definitionHash": "7918efaf1fc5d886db8cc60008ede620f187d207c4f9b7a02e0a51034bb7407d",
+      "basisHash": "c6e885e71fe7994130ba33acff28752425e002a5ce63f3be2667cd0d6663a746",
+      "status": "failed",
+      "exitCode": 0,
+      "testCount": 5,
+      "durationSeconds": 9.1565,
+      "recordedAt": "2026-11-08T20:42:23Z",
+      "messageMarkdown": "Product inputs changed during validation; inspect the changes and rerun",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s1b-gates-final-818eb49a5aca.log",
+      "logSha256": "d133a3ef2320e7d8a6cba6031faeb0119ab4e20f2caeb92a651cafe5803cb833",
+      "inputsHash": "ca80dafd13b88d76608a3dc2104f037524a18a1e86e3ec2535498125b2e81326"
+    },
+    "s1b-gates/chk-gate-armv7/final": {
+      "checkId": "chk-gate-armv7",
+      "boundaryId": "s1b-gates",
+      "phase": "final",
+      "batchId": "5d3fe513ee889d5e57e554a68e0518400fb3e843a9d129ec5abc1363da4abaf9",
+      "definitionHash": "fda869d6d2eba7f140007b393b087c506d398847b4cc41de2010be752d401115",
+      "basisHash": "4b27b7c938382d2bcbc1ec705d74cb399204acd47b5cdbf34d53230cc22653ee",
+      "status": "failed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 43.3924,
+      "recordedAt": "2026-11-08T20:43:07Z",
+      "messageMarkdown": "Product inputs changed during validation; inspect the changes and rerun",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s1b-gates-final-148f57814036.log",
+      "logSha256": "197c40898ab21c53fda78f1eb97cd704d9f4c28f5f5cf5a3c721f08b41110ce2",
+      "inputsHash": "d9fafa9aed4e804dbc214299e684a00049fc745e6e5e5a8577a2d6778e5043e6"
+    },
+    "s1b-gates/chk-gate-x86_64/final": {
+      "checkId": "chk-gate-x86_64",
+      "boundaryId": "s1b-gates",
+      "phase": "final",
+      "batchId": "5d3fe513ee889d5e57e554a68e0518400fb3e843a9d129ec5abc1363da4abaf9",
+      "definitionHash": "283b86320897f84510e32c07f67e2ea2799145cc3041a328ec90c0f0d7a88efd",
+      "basisHash": "da95d52be65ba2c1b516513cce1e604f9a229ec5b9bbeffd8a5d4a98cfece819",
+      "status": "failed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 34.6984,
+      "recordedAt": "2026-11-08T20:43:41Z",
+      "messageMarkdown": "Product inputs changed during validation; inspect the changes and rerun",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s1b-gates-final-8ee5e3b4689d.log",
+      "logSha256": "735fb2079306b4ab2343b54aacef5e3a51c0d647ff2fab70f4fa038cd5464cfa",
+      "inputsHash": "d9fafa9aed4e804dbc214299e684a00049fc745e6e5e5a8577a2d6778e5043e6"
+    },
+    "s1b-gates/chk-gate-aarch64/final": {
+      "checkId": "chk-gate-aarch64",
+      "boundaryId": "s1b-gates",
+      "phase": "final",
+      "batchId": "5d3fe513ee889d5e57e554a68e0518400fb3e843a9d129ec5abc1363da4abaf9",
+      "definitionHash": "3fa8b5e6031cd0baee452cee4d67e3fb31ee722a7867ecc0b583d2b50dbac8c7",
+      "basisHash": "d0408c2bdcde5c07cd2a65c5a40430691ee07fee8bd9f82f76519339dd52b6ec",
+      "status": "failed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 35.0893,
+      "recordedAt": "2026-11-08T20:44:16Z",
+      "messageMarkdown": "Product inputs changed during validation; inspect the changes and rerun",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s1b-gates-final-b269cf5067c9.log",
+      "logSha256": "293173dbd118aa1a1064609b0fe964f1449974adf518b5953d7ea0ede804abd2",
+      "inputsHash": "d9fafa9aed4e804dbc214299e684a00049fc745e6e5e5a8577a2d6778e5043e6"
+    },
+    "s1b-gates/chk-nsh-gate-armv7/final": {
+      "checkId": "chk-nsh-gate-armv7",
+      "boundaryId": "s1b-gates",
+      "phase": "final",
+      "batchId": "5d3fe513ee889d5e57e554a68e0518400fb3e843a9d129ec5abc1363da4abaf9",
+      "definitionHash": "ac37c006bdd8fff12d1041aab09573d81a0f897b08c31c8e8eb7805b18742a02",
+      "basisHash": "28960887a746c24c4472e95f3143568934c82bff13e7a937ca265ececc4faea3",
+      "status": "failed",
+      "exitCode": 1,
+      "testCount": 0,
+      "durationSeconds": 24.1541,
+      "recordedAt": "2026-11-08T20:44:41Z",
+      "messageMarkdown": "Product inputs changed during validation; inspect the changes and rerun",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s1b-gates-final-be6c5dfa56f1.log",
+      "logSha256": "8ed333a5322ec6794254223f9aa42f820db52327dcff0cf5d03ea4d21c4ee829",
+      "inputsHash": "fe1bf501d913713dbd4e1405391a6c6f43ccdf00778df7d04b1bfc6114d36d0d"
     }
   },
   "reviews": {
