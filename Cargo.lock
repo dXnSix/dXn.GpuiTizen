@@ -534,6 +534,7 @@ dependencies = [
 name = "dxn_gpui_tizen"
 version = "0.1.0"
 dependencies = [
+ "async-task",
  "gpui-fast",
  "gpui-fast-wgpu",
 ]
