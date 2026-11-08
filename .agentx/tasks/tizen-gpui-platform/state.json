@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 49,
+  "revision": 71,
   "planRevision": 10,
   "specHashes": {
     "requirements": "fdbb9b1d376b5476de6a7e93cb708a87ee252cdb7ae6f4cee090000a3f18debc",
@@ -52,16 +52,28 @@
       ]
     },
     "t3-report": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t3-probe": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t3-transport": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t3-link": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t4-gles-device": {
       "status": "pending"
@@ -401,6 +413,18 @@
         }
       },
       "recordedAt": "2026-11-08T22:21:41Z"
+    },
+    "8e193a62a6abfba322664fac731ac9f44b9d8412aaec12e1a30bb0f8a75ff2f9": {
+      "snapshot": {
+        "specHash": "761cf487fef6a3d711d4e08c3e2d1a9442fc2ed9e9f41866cffe96401ee0c2ae",
+        "repositories": {
+          "gpuitizen": "0144d3a9c96cdaf2058291fb41aa7d416449d7a036b58b9d7cf2271fad868eb6",
+          "gpui-fast": "45bfdb19f80137dade846785da5c72e1cd56b0507124338c62ea7739296cd8b8",
+          "wgpu": "593a0f2f051a329f2703d9ead1daf9f7906493105f4fba31d3fd91867a528ec2",
+          "nsh": "44cd091043852019714da3ec9eda618bc3e237317015dcf281d4f1afb8693e3f"
+        }
+      },
+      "recordedAt": "2026-11-08T22:42:57Z"
     }
   },
   "checkResults": {
@@ -624,6 +648,125 @@
       "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s2-bindings-host-final-b039ecd82540.log",
       "logSha256": "a20fccc80bb94f7d7b99f128ea32c1dbcc524ca28b8e8cfd8634b6eb4fe4617f",
       "inputsHash": "59e60d82dd6f8d53a3df6f0281cdacf2aca7f7ac629086a3a8425f1627c2dfce"
+    },
+    "s3-diag/chk-diag-report/final": {
+      "checkId": "chk-diag-report",
+      "boundaryId": "s3-diag",
+      "phase": "final",
+      "batchId": "8e193a62a6abfba322664fac731ac9f44b9d8412aaec12e1a30bb0f8a75ff2f9",
+      "definitionHash": "cfce3f1b916a5901230232a02f45fc52e8b9edf9c21b99dcfaba53ca702caaad",
+      "basisHash": "7b9db5f51892fc0579e20484733d865f5e02a29cae7bcc261cf71f897cec609c",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 8,
+      "durationSeconds": 0.0918,
+      "recordedAt": "2026-11-08T22:42:50Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s3-diag-final-0fec76cd8957.log",
+      "logSha256": "beed6fbfc853b7d03b0bf8be4058d544c9ea81695bd7d1ad777bed94188b4f41",
+      "inputsHash": "57400e7abe509f1600e5f108bd8575c87eb742dc43a2f573cad50e9b5162e776"
+    },
+    "s3-diag/chk-diag-probe/final": {
+      "checkId": "chk-diag-probe",
+      "boundaryId": "s3-diag",
+      "phase": "final",
+      "batchId": "8e193a62a6abfba322664fac731ac9f44b9d8412aaec12e1a30bb0f8a75ff2f9",
+      "definitionHash": "2e3b5abbfa42d2687051a29a486e412addd01567fee39ed7317462c7a3bd56fc",
+      "basisHash": "c03322317e2939fe02ef3e0b4072759028f10c2876a0d9ca6e6ea92cbb877b2a",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 5,
+      "durationSeconds": 0.0566,
+      "recordedAt": "2026-11-08T22:42:50Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s3-diag-final-097fda851091.log",
+      "logSha256": "479f9865a900d36994b2309fa42865eb0b0caf9fb0ba141beaf2f8859baaf60a",
+      "inputsHash": "57400e7abe509f1600e5f108bd8575c87eb742dc43a2f573cad50e9b5162e776"
+    },
+    "s3-diag/chk-diag-transport/final": {
+      "checkId": "chk-diag-transport",
+      "boundaryId": "s3-diag",
+      "phase": "final",
+      "batchId": "8e193a62a6abfba322664fac731ac9f44b9d8412aaec12e1a30bb0f8a75ff2f9",
+      "definitionHash": "11e5fd85045633be97b7558a1bbd55bb977ec2622d7c19fe7d6d9cacba2cf01c",
+      "basisHash": "2179188ac1f965b93b8ad866a962aa8394bdd1f5a1ef6d6cb9d3a2948f3493c8",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 9,
+      "durationSeconds": 0.2663,
+      "recordedAt": "2026-11-08T22:42:51Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s3-diag-final-1a0c0ac814ae.log",
+      "logSha256": "0645fac1dc90fc4e3b0179036aea36d77a44799efe62c0a37ff281210195e00f",
+      "inputsHash": "57400e7abe509f1600e5f108bd8575c87eb742dc43a2f573cad50e9b5162e776"
+    },
+    "s3-diag/chk-link-armv7/final": {
+      "checkId": "chk-link-armv7",
+      "boundaryId": "s3-diag",
+      "phase": "final",
+      "batchId": "8e193a62a6abfba322664fac731ac9f44b9d8412aaec12e1a30bb0f8a75ff2f9",
+      "definitionHash": "cad541758880eab21ab50bda063b3323648dc8d136b6e30ba8b9aebb1f79be87",
+      "basisHash": "b70e7d5a3f466e8eb1f7bff2417c0694565e663af6fdec0679345ec89b3c75dd",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 2.5813,
+      "recordedAt": "2026-11-08T22:42:53Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s3-diag-final-8f64771b3e08.log",
+      "logSha256": "55caa56f21764400cdcd740bcb464e77e889c941253bea3a98054efc78423ff5",
+      "inputsHash": "e8a56d286ad2c54519533bb852cf5631071d820bef840a109ac1e74eb80e0025"
+    },
+    "s3-diag/chk-link-x86_64/final": {
+      "checkId": "chk-link-x86_64",
+      "boundaryId": "s3-diag",
+      "phase": "final",
+      "batchId": "8e193a62a6abfba322664fac731ac9f44b9d8412aaec12e1a30bb0f8a75ff2f9",
+      "definitionHash": "fdd7f2a500315251c3c2ad62f51069ce873d44715a4af8873ea7dcf514f7ee7c",
+      "basisHash": "6b1c48643bc3e15b7583edb10e6a8c14c0f6d624b9b64ec701de1be6f164decf",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 3.0648,
+      "recordedAt": "2026-11-08T22:42:56Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s3-diag-final-8668d9e14705.log",
+      "logSha256": "f8216016b86ecf92f982da6490a7588d8cb4616451e5c26699564cd63a7b4e96",
+      "inputsHash": "e8a56d286ad2c54519533bb852cf5631071d820bef840a109ac1e74eb80e0025"
+    },
+    "s3-diag/chk-tizen-deps-armv7/final": {
+      "checkId": "chk-tizen-deps-armv7",
+      "boundaryId": "s3-diag",
+      "phase": "final",
+      "batchId": "8e193a62a6abfba322664fac731ac9f44b9d8412aaec12e1a30bb0f8a75ff2f9",
+      "definitionHash": "69a815083fb3ae9bbf2a937a2bfa4c83f602ccf3827c881168ef18d0f22677be",
+      "basisHash": "9210d18120ad7aa71fbb86340aa74d724476fa5659dd36abb40cfc969e06ecac",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 0.4474,
+      "recordedAt": "2026-11-08T22:42:57Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s3-diag-final-a9bf5892a114.log",
+      "logSha256": "1057ab63d04cd64c3b1373fea38e28671eef2f83402e186e8a974026276bc0c3",
+      "inputsHash": "e8a56d286ad2c54519533bb852cf5631071d820bef840a109ac1e74eb80e0025"
+    },
+    "s3-diag/chk-tizen-deps-x86_64/final": {
+      "checkId": "chk-tizen-deps-x86_64",
+      "boundaryId": "s3-diag",
+      "phase": "final",
+      "batchId": "8e193a62a6abfba322664fac731ac9f44b9d8412aaec12e1a30bb0f8a75ff2f9",
+      "definitionHash": "e01b3bfaa077fb72435d908a0c3000223e641135851136f15da59ea09972c058",
+      "basisHash": "11800c2baba732565194e16f937520a4e3fc87ede4f20b2281f2f21906b5b611",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 0.4383,
+      "recordedAt": "2026-11-08T22:42:57Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s3-diag-final-ba350a47bbb6.log",
+      "logSha256": "aba3b661a1258826fc89d5f25d25599e75dd66d505613641d62ca75bbf8fb9f3",
+      "inputsHash": "e8a56d286ad2c54519533bb852cf5631071d820bef840a109ac1e74eb80e0025"
     }
   },
   "reviews": {
@@ -1149,6 +1292,181 @@
         "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
       }
+    },
+    "s3-diag": {
+      "reviewerId": "reviewer-s3-independent",
+      "snapshotId": "8e193a62a6abfba322664fac731ac9f44b9d8412aaec12e1a30bb0f8a75ff2f9",
+      "criterionIds": [
+        "DIAG-1",
+        "DIAG-2",
+        "DIAG-3",
+        "DIAG-4"
+      ],
+      "verdict": "passed",
+      "anchors": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/report/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "DIAG-1"
+          ],
+          "sha256": "48808582b78832aa639ce5c5861f893af6e0efb68489afb5b31d8ff003d836e4"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/tizen/egl.rs",
+          "kind": "source",
+          "criterionIds": [
+            "DIAG-1"
+          ],
+          "sha256": "7faecd3de8b9b62061c874b3dcfca0ff9179f55ba3a65783f20c705da1fec81c"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/tizen/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "DIAG-1",
+            "DIAG-2",
+            "DIAG-3"
+          ],
+          "sha256": "2f3f190f874a924020253a10da830fdf38dc3fccb03732cb716ba067db4f4063"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/report/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "DIAG-1"
+          ],
+          "sha256": "5ac74c0968f927b4e0319d28e384eff92b81f56c2a629e4cb1cce781d308f0d3"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/probe/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "DIAG-2"
+          ],
+          "sha256": "e89a2a2973cfdf93a0bc6004d374faaaff87210fee2d0814906d54f4228bd6bc"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/tizen/wgpu_backend.rs",
+          "kind": "source",
+          "criterionIds": [
+            "DIAG-2"
+          ],
+          "sha256": "6088f68ee91f62b60b6f8bf7bf641c284fcb41a82b59c39145c8c98dc9cc8ec1"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/probe/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "DIAG-2"
+          ],
+          "sha256": "5388f28e56f0c4d37da8eeb269d5cc67e4ccbd6e81e23ac1987302ed925ce0fc"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/transport/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "DIAG-3"
+          ],
+          "sha256": "c8fa9ea1c6f6be2360993428e20bd8f870ee4b4f2efebc84bea8f21b9026faa2"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/main.rs",
+          "kind": "source",
+          "criterionIds": [
+            "DIAG-3",
+            "DIAG-4"
+          ],
+          "sha256": "a357ae3c6138af6d911f97ca22b9f42e1f9e86cfbce0f482de34dc27c4fe7e12"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/transport/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "DIAG-3"
+          ],
+          "sha256": "5db782f307ca8a7a8221a9898beae053c0f259027549d77cc0c1f24aa06006a5"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/tizen_deps/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "DIAG-4"
+          ],
+          "sha256": "5155cebd2c53a4a990f873084699ffcd0c2deb2fb7b7967c767271dc5880b010"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/tizen_deps/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "DIAG-4"
+          ],
+          "sha256": "3d8abf0f2a510114eafbfb388c24efeb3552cce4fcb43327d63de416529e16fb"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/Cargo.toml",
+          "kind": "source",
+          "criterionIds": [
+            "DIAG-4"
+          ],
+          "sha256": "c1eed9bb18c3ecabca342ef94702eb745a5555566c839eddebf59ada1ddc71be"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_sys/symbols.allow",
+          "kind": "source",
+          "criterionIds": [
+            "DIAG-4"
+          ],
+          "sha256": "4b907091d1a484e0fd3dfa5dd6b6189b1063d7abdbecd93bc3fb7f31e4496aee"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/link-armv7.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "DIAG-4"
+          ],
+          "sha256": "e1ef72e0192d66e11d03fda46a93d6d7082664dd3fa2b04e3e17a52c89b4552f"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/link-x86_64.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "DIAG-4"
+          ],
+          "sha256": "7d1ddcd454d071928590a91878b9d8ab4d569c86320afc4b45fed227dfcc24d0"
+        }
+      ],
+      "summaryMarkdown": "Full review at snapshot 8e193a62: all seven findings are resolved and verified in source.\n\n- **wgpu errors**: error scopes wrap configure and every frame, and the uncaptured-error handler records errors instead of panicking. A panic hook writes to dlog.\n- **EGL loading**: libEGL and libGLESv2 are held in process-lifetime `OnceLock` statics and never unloaded.\n- **Partial reports**: the `complete` flag and the server waiting for the complete report work. `App::finish()` is used on every terminal path, including the cases where no window was created.\n- **`diag pull`**: it runs `sdb forward`, with a `--no-forward` opt-out.\n- **Server**: it binds loopback and sets a write timeout on each client.\n- **`tizen-deps`**: it requires one wgpu in the workspace Tizen graph, which includes gpui-fast-wgpu, and requires the diag's wgpu to be that one.\n- **Pause**: pause and resume delete and re-add the Ecore timer.\n\nDIAG-1..4 are met. Reruns pass: report 8, probe 5, transport 9 and tizen_deps 5 tests, plus armv7 Clippy. The latest logs show both release links with `--check-symbols` (only `dxn_gpui_tizen_main` exported, no EGL or GLES linked) and both tizen-deps runs passing.\n\nThe behaviour on a real TV or the emulator is still unproven: this review is by reading only, and that check belongs to the owner-run device sprints.",
+      "findingIds": [
+        "s3-wgpu-errors-abort",
+        "s3-egl-dlclose",
+        "s3-partial-report-served-as-final",
+        "s3-diag-pull-no-sdb-forward",
+        "s3-transport-bind-all",
+        "s3-tizen-deps-hardcoded-wgpu",
+        "s3-probe-ignores-pause"
+      ],
+      "recordedAt": "2026-11-08T22:43:33Z",
+      "recordHashes": {
+        "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
     }
   },
   "checkpoints": {
@@ -1184,6 +1502,17 @@
       },
       "reviewHash": "86f4242b785f9576f6824fc63b5b9296660baace684615fcd3c04595816325d8",
       "recordedAt": "2026-11-08T22:23:09Z"
+    },
+    "s3-diag": {
+      "snapshotId": "8e193a62a6abfba322664fac731ac9f44b9d8412aaec12e1a30bb0f8a75ff2f9",
+      "commits": {
+        "gpuitizen": "1b70edfa80ec5b199149543056ebb0ccd16053b6",
+        "gpui-fast": "fb8cf9413777e43e7c38bf5917647ee984453f37",
+        "wgpu": "b672a540043b7177cdd53858340d7aca7ff8eb68",
+        "nsh": "7be66038d6cef63581f6bf0180b2bc8087bbf224"
+      },
+      "reviewHash": "e67fae97f9f76530d9012c299ce10fb780a15581431d0134e90a0ddaba448cde",
+      "recordedAt": "2026-11-08T22:43:48Z"
     }
   },
   "findings": [
@@ -1382,6 +1711,216 @@
         {
           "repositoryId": "gpuitizen",
           "path": "host/Dxn.GpuiTizen.Host.csproj"
+        }
+      ]
+    },
+    {
+      "id": "s3-wgpu-errors-abort",
+      "boundaryId": "s3-diag",
+      "criterionIds": [
+        "DIAG-2"
+      ],
+      "descriptionMarkdown": "**Expected** (DIAG-2, t3-probe): a failed stage is recorded with its name and error text; the probe never panics and a failure never stops the report from being served.\n\n**Observed** `src/tizen/wgpu_backend.rs` installs no uncaptured-error handler and no error scope. In wgpu 30.0.1, `Surface::configure` sends its error to the device's error sink (`backend/wgpu_core.rs:3975-3981`), and the default handler is `panic!(\"wgpu error: ...\")` (`backend/wgpu_core.rs:692-695`). `queue.submit` and `begin_render_pass` validation errors take the same path. With `panic = \"abort\"`, a configure failure on the TV's EGL (an unsupported format or extent, exactly the #10708 class of failure) aborts the process: the report server thread dies with it, nothing is served, and the panic text goes only to stderr. `configure()` returns `Ok` without checking whether configuration succeeded.\n\n**Repair**: after `request_device`, call `device.on_uncaptured_error(...)` with a handler that only records the error (an `Arc<Mutex<Option<String>>>` the backend reads) and never panics. Wrap `surface.configure` and each frame's encode/submit/present in `device.push_error_scope(wgpu::ErrorFilter::Validation)` and `pollster::block_on(scope.pop())`, and turn `Some(err)` into the stage's `Err(..)`. Also install a `std::panic::set_hook` in `dxn_gpui_tizen_main` that sends the panic message to dlog (tag `DXN_DIAG`), so a wgpu-hal internal panic (for example the `unwrap`s in `wgpu-hal/src/gles/egl.rs`) at least leaves a trace before the abort. Optionally, also write the last report and the panic to the app's data directory, so the next launch can serve them.",
+      "severity": "major",
+      "status": "resolved",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/tizen/wgpu_backend.rs",
+          "symbol": "WgpuBackend::scoped"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/tizen/wgpu_backend.rs",
+          "symbol": "Backend::device"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/tizen/mod.rs",
+          "symbol": "install_panic_hook"
+        }
+      ]
+    },
+    {
+      "id": "s3-egl-dlclose",
+      "boundaryId": "s3-diag",
+      "criterionIds": [
+        "DIAG-1"
+      ],
+      "descriptionMarkdown": "**Expected** (DIAG-1, `egl.rs` module doc): EGL and GL ES are loaded at run time, and the display is left initialized for wgpu.\n\n**Observed** in `src/tizen/egl.rs`: `query()` owns the `libEGL` `Library` in a local, so it is `dlclose`d when `query` returns. `read_gles()` drops `libGLESv2` before `gles_query` releases the still-current context. Nothing else in the process links libEGL (the cdylib's NEEDED list has no EGL or GLES), so the reference count can reach zero and glibc can unmap the GPU driver. That happens while the `EGLDisplay` is still initialized (no `eglTerminate`) and while any threads or atexit handlers the driver created are still live. The result is undefined behaviour, a likely crash on Mali drivers, and the doc's claim that the display is \"left initialized for wgpu\" does not hold.\n\n**Repair**: keep both libraries loaded for the life of the process. Either store them in a `static OnceLock<Library>` or in `App`, or open them with `libloading::os::unix::Library::open(Some(name), RTLD_NOW | RTLD_NODELETE)`. Release the context (`eglMakeCurrent(NO_*)`) before the GL library handle can go away.",
+      "severity": "major",
+      "status": "resolved",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/tizen/egl.rs",
+          "symbol": "loaded"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/tizen/egl.rs",
+          "symbol": "gles_query"
+        }
+      ]
+    },
+    {
+      "id": "s3-partial-report-served-as-final",
+      "boundaryId": "s3-diag",
+      "criterionIds": [
+        "DIAG-2",
+        "DIAG-3"
+      ],
+      "descriptionMarkdown": "**Expected**: a client receives the complete report once it exists. A partial report is served only after a timeout, marked incomplete. Every terminal path, including the cases where no window was created, marks the report complete.\n\n**Resolution**:\n- `Report.complete` exists, and `Shared::wait` waits for a complete report, falling back to the latest partial one on timeout.\n- `summary()` prints `running (partial report ...)` for an incomplete report.\n- `App::finish()` sets `complete` and `finished`, clears the timer handle and publishes. It is used by both window-failure branches of `create` and both terminal paths of `tick`.\n- The only plain `publish()` left is the partial report published after the collectors run.\n- Covered by the tests `a_partial_report_waits_for_the_complete_one` and `a_timeout_serves_the_latest_partial_report_marked_running`.",
+      "severity": "major",
+      "status": "resolved",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/tizen/mod.rs",
+          "symbol": "App::finish"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/tizen/mod.rs",
+          "symbol": "create"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/tizen/mod.rs",
+          "symbol": "tick"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/transport/mod.rs",
+          "symbol": "Shared::wait"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/transport/tests.rs",
+          "symbol": "a_partial_report_waits_for_the_complete_one"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/transport/tests.rs",
+          "symbol": "a_timeout_serves_the_latest_partial_report_marked_running"
+        }
+      ]
+    },
+    {
+      "id": "s3-diag-pull-no-sdb-forward",
+      "boundaryId": "s3-diag",
+      "criterionIds": [
+        "DIAG-3"
+      ],
+      "descriptionMarkdown": "**Expected** (DIAG-3, and the help text \"fetch the diagnostic app's report through `sdb forward`\"): `cargo xtask diag pull [--port <p>]` connects through `sdb forward tcp:<p> tcp:<p>`.\n\n**Observed**: `run_diag` (`xtask/src/main.rs`) only connects to `127.0.0.1:<port>`. It never sets up the forward, and only mentions it in the error context.\n\n**Repair**: before connecting, run `sdb forward tcp:<p> tcp:<p>`. Find `sdb` on `PATH` or under `$TIZEN_SDK`/`~/tizen-studio/tools/sdb`, and report a clear error if `sdb` or a device is missing. Keep an opt-out such as `--no-forward` for a tunnel the user sets up by hand. Put the argument and path resolution in a testable helper with a unit test.",
+      "severity": "minor",
+      "status": "resolved",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/main.rs",
+          "symbol": "run_diag"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/main.rs",
+          "symbol": "find_sdb"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/transport/mod.rs",
+          "symbol": "sdb_forward_args"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/transport/tests.rs",
+          "symbol": "sdb_forward_arguments"
+        }
+      ]
+    },
+    {
+      "id": "s3-transport-bind-all",
+      "boundaryId": "s3-diag",
+      "criterionIds": [
+        "DIAG-3"
+      ],
+      "descriptionMarkdown": "**Expected**: the report is reached from the Mac through `sdb forward`, which connects to the device's loopback interface.\n\n**Observed**: `transport::start` binds `0.0.0.0:<port>` (`src/transport/mod.rs:96-102`). Anyone on the TV's LAN can read the device model, the driver strings and the logs. Accepted streams also have no write timeout, so a peer that connects and never reads can block the single-client server.\n\n**Repair**: bind `127.0.0.1`, unless LAN access is an intended use, in which case document it as a design decision. Call `set_write_timeout` on each accepted stream, for example 10 s.",
+      "severity": "minor",
+      "status": "resolved",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/transport/mod.rs",
+          "symbol": "start"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/transport/mod.rs",
+          "symbol": "serve"
+        }
+      ]
+    },
+    {
+      "id": "s3-tizen-deps-hardcoded-wgpu",
+      "boundaryId": "s3-diag",
+      "criterionIds": [
+        "DIAG-4"
+      ],
+      "descriptionMarkdown": "**Expected** (DIAG-4, d09): `tizen-deps` shows that the diag graph holds one wgpu, *the version gpui-fast-wgpu uses*, so that the workspace lock holds one wgpu.\n\n**Observed**: `xtask/src/tizen_deps/mod.rs` compares the diag graph against the constant `WGPU_MAJOR = 30`. Suppose the gpui-fast pin moves to a release built on wgpu 31 and the constant is not updated. The workspace Tizen graph would then hold two wgpu, while the diag graph still holds exactly one 30.x, and the check would still print the OK line. The lock holds one wgpu today, so the criterion is met at this snapshot.\n\n**Repair**: compute the expected version from the workspace Tizen graph instead of hard-coding it. Either take the wgpu that `gpui-fast-wgpu` resolves to (`cargo tree -p gpui-fast-wgpu` or `-i wgpu`), or require that the workspace graph (`tree(None)`) holds exactly one `wgpu` and that the diag's wgpu is that one. Add a test for a workspace graph with two wgpu versions.",
+      "severity": "minor",
+      "status": "resolved",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/tizen_deps/mod.rs",
+          "symbol": "single_wgpu"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/tizen_deps/mod.rs",
+          "symbol": "diag_violations"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/tizen_deps/tests.rs",
+          "symbol": "the_workspace_graph_holds_one_wgpu"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/tizen_deps/tests.rs",
+          "symbol": "the_diag_rejects_gpui_and_a_second_or_other_wgpu"
+        }
+      ]
+    },
+    {
+      "id": "s3-probe-ignores-pause",
+      "boundaryId": "s3-diag",
+      "criterionIds": [
+        "DIAG-2"
+      ],
+      "descriptionMarkdown": "**Expected** (constraint: the main thread stays responsive; d11: Fifo paced by Ecore_Wl2 frame callbacks): no Ecore callback blocks for long.\n\n**Observed**: `pause` and `resume` only log (`src/tizen/mod.rs:336-344`). If the app is sent to the background during the 120-frame probe, the 0.0 s Ecore timer keeps calling `present`. With Fifo, the Wayland EGL swap may wait indefinitely for a frame callback that a hidden surface never receives. That would block the main loop until the watchdog kills the app.\n\n**Repair**: record `paused` in `App`. While paused, `tick` skips probe steps (it returns RENEW without presenting, or the timer is frozen with `ecore_timer_freeze` and thawed on `resume`). Log the pause in the report, and have the probe report state that the probe was interrupted if it never resumes.",
+      "severity": "minor",
+      "status": "resolved",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/tizen/mod.rs",
+          "symbol": "start_ticks"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/tizen/mod.rs",
+          "symbol": "stop_ticks"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/tizen/mod.rs",
+          "symbol": "pause"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_diag/src/tizen/mod.rs",
+          "symbol": "resume"
         }
       ]
     }
