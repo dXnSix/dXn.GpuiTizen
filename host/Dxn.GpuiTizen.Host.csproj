@@ -1,0 +1,40 @@
+<Project Sdk="Tizen.NET.Sdk/1.2.1">
+
+  <!--
+    The host of this repository's TPKs. `cargo xtask package` renders tizen-manifest.xml into the
+    staging tree (target/tpk/<app>-<target>/), builds this project with
+    `-p:DxnAppLibrary=<the checked library> -p:TizenManifestFile=<the rendered manifest>`, stages
+    the tree with the library as lib/libdxn_app.so, and signs it with `tz pack` only with the
+    owner's certificate profile. The SDK's own TPK step stays off (TizenCreateTpkOnBuild); turned
+    on, it packages the same inputs through TizenTpkUserIncludeFiles. Building alone
+    (`dotnet build -c Release`) produces just the DLL: no TPK, no signing.
+  -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <!-- .NET 6 (Tizen 8.0); also runs on the .NET 8 of 2026 TVs. -->
+    <TargetFramework>tizen80</TargetFramework>
+    <AssemblyName>Dxn.GpuiTizen.Host</AssemblyName>
+    <RootNamespace>Dxn.GpuiTizen.Host</RootNamespace>
+    <LangVersion>10.0</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Nullable>enable</Nullable>
+    <TizenCreateTpkOnBuild>false</TizenCreateTpkOnBuild>
+    <!-- The compile-time framework references (no TizenFX assembly is called or shipped). -->
+    <TizenNetPackageVersion>11.0.0.18033</TizenNetPackageVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <Optimize>true</Optimize>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
+  <!-- The staged Rust library, passed by `cargo xtask package` (`-p:DxnAppLibrary=...`). -->
+  <ItemGroup Condition="'$(DxnAppLibrary)' != '' And Exists('$(DxnAppLibrary)')">
+    <TizenTpkUserIncludeFiles Include="$(DxnAppLibrary)">
+      <TizenTpkSubDir>lib</TizenTpkSubDir>
+      <TizenTpkFileName>libdxn_app.so</TizenTpkFileName>
+    </TizenTpkUserIncludeFiles>
+  </ItemGroup>
+
+</Project>

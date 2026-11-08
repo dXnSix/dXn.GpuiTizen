@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Rendered by `cargo xtask package`: {{PACKAGE_ID}}, {{APP_ID}}, {{LABEL}} and {{VERSION}}. -->
+<manifest xmlns="http://tizen.org/ns/packages" api-version="8.0" package="{{PACKAGE_ID}}" version="{{VERSION}}">
+  <profile name="tv-samsung" />
+  <ui-application appid="{{APP_ID}}" exec="Dxn.GpuiTizen.Host.dll" type="dotnet" multiple="false" taskmanage="true" nodisplay="false" launch_mode="single">
+    <label>{{LABEL}}</label>
+    <icon>icon.png</icon>
+    <metadata key="http://tizen.org/metadata/prefer_dotnet_aot" value="true" />
+  </ui-application>
+  <privileges>
+    <privilege>http://tizen.org/privilege/internet</privilege>
+  </privileges>
+</manifest>
