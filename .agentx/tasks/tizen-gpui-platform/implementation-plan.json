@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 6,
+  "revision": 7,
   "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
   "repositories": [
     {
@@ -27,7 +27,7 @@
     {
       "id": "nsh-root",
       "path": "../nsh/nsh-root",
-      "role": "execution"
+      "role": "reference"
     }
   ],
   "boundaries": {
@@ -35,8 +35,7 @@
       "gpuitizen",
       "gpui-fast",
       "wgpu",
-      "nsh",
-      "nsh-root"
+      "nsh"
     ],
     "forbiddenPaths": [
       "gpuitizen:.agentx/memory/**",
@@ -54,8 +53,7 @@
   "validationMode": "sprint",
   "recordPaths": [
     "gpuitizen:docs/verification/**",
-    "gpuitizen:docs/upstream/**",
-    "nsh-root:upstream-pr/**"
+    "gpuitizen:docs/pr/**"
   ],
   "checks": [
     {
@@ -5009,7 +5007,7 @@
         {
           "id": "t22-nsh-prs",
           "title": "NSH PR folders and issue drafts",
-          "descriptionMarkdown": "Write `UP-1` in `../nsh/nsh-root/upstream-pr/pr/<area>/<topic>/` for every NSH branch of this epic (areas `focus`, `tv`, `engine`, `tizen`, `tizen-web`), following `upstream-pr/README.md` and existing folders (for example `pr/windows/`); area READMEs with the order; issue drafts for focus navigation, TV keys and category, the desktop Tab change of `FOC-4`, and `Os::Tizen` with the targets. Run each branch's listed checks. Add the rows to the workspace's upstream list as its README says. Commit in `nsh-root`.",
+          "descriptionMarkdown": "Write `UP-1` in this repository's `docs/pr/nsh/<area>/<topic>/` for every NSH branch of this epic (areas `focus`, `tv`, `engine`, `tizen`, `tizen-web`), in the format of `../nsh/nsh-root/upstream-pr/` (read-only reference: its `README.md` and existing folders such as `pr/windows/`); `docs/pr/README.md` (the index and how folders are kept, as `upstream-pr/README.md`) and area READMEs with the order; issue drafts for focus navigation, TV keys and category, the desktop Tab change of `FOC-4`, and `Os::Tizen` with the targets. Run each branch's listed checks. Never write to `../nsh/nsh-root`. Commit in this repository.",
           "criterionIds": [
             "UP-1"
           ],
@@ -5021,15 +5019,15 @@
           "checkIds": [],
           "sourceRefs": [
             {
-              "repositoryId": "nsh-root",
-              "path": "upstream-pr/README.md"
+              "repositoryId": "gpuitizen",
+              "path": "AGENTS.md"
             }
           ]
         },
         {
           "id": "t22-gpui-fast-texts",
           "title": "gpui-fast issue and PR texts",
-          "descriptionMarkdown": "Write `UP-2` in `docs/upstream/gpui-fast/` (issue, one PR text per branch: `gles-instance-path`, `wgpu-backend-env`, `pipeline-cache`, `scene-damage`, `external-target`, `video-hole`); leave the `DEV-3` numbers as marked placeholders for the owner sprint.",
+          "descriptionMarkdown": "Write `UP-2` in `docs/pr/gpui-fast/` (in the format of `../nsh/nsh-root/upstream-pr/` (read-only reference: its `README.md` and existing folders such as `pr/windows/`)) (issue, one PR text per branch: `gles-instance-path`, `wgpu-backend-env`, `pipeline-cache`, `scene-damage`, `external-target`, `video-hole`); leave the `DEV-3` numbers as marked placeholders for the owner sprint.",
           "criterionIds": [
             "UP-2"
           ],
@@ -5043,7 +5041,7 @@
         {
           "id": "t22-wgpu-trunk",
           "title": "wgpu PR branches on `trunk`",
-          "descriptionMarkdown": "Implement `UP-3`: in `../wgpu`, cut `egl14-wayland` and `gles-program-binaries` from `upstream/trunk`, port the `v30` changes and tests, run the unit tests there through the Lima VM, record command and result in `docs/upstream/wgpu/*.md`, and switch the checkout back to `v30-tizen`.",
+          "descriptionMarkdown": "Implement `UP-3`: in `../wgpu`, cut `egl14-wayland` and `gles-program-binaries` from `upstream/trunk`, port the `v30` changes and tests, run the unit tests there through the Lima VM, record command and result in `docs/pr/wgpu/<topic>/` (in the format of `../nsh/nsh-root/upstream-pr/` (read-only reference: its `README.md` and existing folders such as `pr/windows/`)), and switch the checkout back to `v30-tizen`.",
           "criterionIds": [
             "UP-3"
           ],
@@ -5227,7 +5225,7 @@
         {
           "id": "t25-upstream",
           "title": "Open the upstream issues and PRs, in order (owner)",
-          "descriptionMarkdown": "`UP-4`, each on the owner's explicit go, updating the PR folders and `docs/upstream/` with links and states.",
+          "descriptionMarkdown": "`UP-4`, each on the owner's explicit go, updating the PR folders under `docs/pr/` with links and states.",
           "criterionIds": [
             "UP-4"
           ],

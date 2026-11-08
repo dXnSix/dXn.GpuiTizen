@@ -1,22 +1,22 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 11,
-  "planRevision": 6,
+  "revision": 16,
+  "planRevision": 7,
   "specHashes": {
-    "requirements": "c0a7184b7c3b9f8ab965bbb3c8fcc1fe551ed9e955b0ee76bb37370180f4a127",
-    "design": "38578f70acd900a338f8fa2308fcdc9e9c5ef7976a470f21542ae0695f04971c",
-    "plan": "e45da08fefb7c3e7d2b6a71152f3df8d6406525e3f1fa3a52e50fef1fab47b99"
+    "requirements": "1eb66e0a1d01d034206d6e198cb68ad59592fdcdab8c680459ddc71dce67cedb",
+    "design": "23be8baa3532ca09c7ae0a3605c9b363de2344821a0dce86768a4e9eee7ad35d",
+    "plan": "0bd14d2d826f8798ed52b3f56589520274401ad86d63964a68223951073eb0e7"
   },
   "tasks": {
     "t1-workspace": {
-      "status": "implemented",
+      "status": "done",
       "workerIds": [
         "eec00bdf-648f-4be5-813b-008fb1a323d7"
       ]
     },
     "t1-targets": {
-      "status": "implemented",
+      "status": "done",
       "workerIds": [
         "eec00bdf-648f-4be5-813b-008fb1a323d7"
       ]
@@ -384,7 +384,7 @@
   "reviews": {
     "s1-workspace-gate": {
       "reviewerId": "reviewer-s1-independent",
-      "snapshotId": "212d1e1b904b9fa13219f29ba6ea20948c42181dbab05da8898539bf7b4ea2ca",
+      "snapshotId": "2a98276254846ea578fecd9018aea15c4a3d8c76e02456146882b726fddb27a4",
       "criterionIds": [
         "WS-1",
         "WS-2",
@@ -392,7 +392,7 @@
         "TGT-2",
         "TGT-4"
       ],
-      "verdict": "failed",
+      "verdict": "passed",
       "anchors": [
         {
           "repositoryId": "gpuitizen",
@@ -429,7 +429,7 @@
           "criterionIds": [
             "WS-1"
           ],
-          "sha256": "91f4fc830f8377aca660cc09b44bdc3927c7aa6ec03d6f33fe472618bb8a858a"
+          "sha256": "a81517b8a7369e2af9b544bcbfca979ba2de39b6ef34fa4a34f38786eef67dec"
         },
         {
           "repositoryId": "gpuitizen",
@@ -476,7 +476,7 @@
           "criterionIds": [
             "WS-2"
           ],
-          "sha256": "755867444efc0e008fb89afab2e240bc9dfc8e9369eaa30c7822e60a3a71804e"
+          "sha256": "a514a380086c9c44de566a55b2b4df70a0db3741db43bfddce9cb37a389efe3c"
         },
         {
           "repositoryId": "gpuitizen",
@@ -513,7 +513,7 @@
             "TGT-1",
             "TGT-2"
           ],
-          "sha256": "00ed3c57ad81f01984a2331e53b357b24710685763f5c0f786b2539a26de563d"
+          "sha256": "bbc8038e99fc68b938e3172c4701869a50c1829f3fa26e4f07cf65f9fbbc4f79"
         },
         {
           "repositoryId": "gpuitizen",
@@ -531,7 +531,7 @@
           "criterionIds": [
             "TGT-2"
           ],
-          "sha256": "683189ae3d4e9d584a64a5945ad0c23f086715e1544e84c292ef55a7b594e10f"
+          "sha256": "255ab5a36b4b78bb75bd915ad0108ad825d77d385e2d19f0fdd29eb8eba58e23"
         },
         {
           "repositoryId": "gpuitizen",
@@ -540,7 +540,7 @@
           "criterionIds": [
             "TGT-2"
           ],
-          "sha256": "99b411d71b3c7a4d1e69929d259fa0cefcc4ff6fdd8c71f83c1e54162b3eed05"
+          "sha256": "4daa4784fd6027c6f27fc8be9536d430899b51ea0465f6bdd7d363dd64a4e2cc"
         },
         {
           "repositoryId": "gpuitizen",
@@ -549,23 +549,34 @@
           "criterionIds": [
             "TGT-2"
           ],
-          "sha256": "e5b98a97f72e9d6f9ee7a74cbba93806e85110910c3938789b4af2b62c23c29e"
+          "sha256": "f8137f8cec928cbb5f904bde9cb30719a1683ec700c285cb968a4337f23468aa"
         }
       ],
-      "summaryMarkdown": "Workspace, pins, lints, release profile, toolchain, alias and licences match WS-1/TGT-4, and `policy::tests` mutates the real manifests and fails on each drift (pins, local-path patch, lints, check-cfg, profile fields, members, edition, licence, components, dated channel, alias). Both target specs match TGT-1 (armv7: `llvm-floatabi = soft`, `+v7,+thumb2,+vfp3,+neon`, no `+soft-float`, vendor `tizen`, 32-bit), and `targets::tests` checks the fields and that the pinned nightly accepts both specs (`target_vendor=\"tizen\"`, neon/vfp3 cfgs). `cross` builds the right command line and environment for both targets: `-Zbuild-std=std,panic_abort -Zjson-target-spec --target <abs spec>`, `CC_`/`CFLAGS_` with clang `--target`/`--sysroot` plus the flutter-tizen armv7 flags, `CARGO_TARGET_<T>_LINKER=clang` with `-fuse-ld=lld -B<rustlib>/gcc-ld`, pinned `RUSTUP_TOOLCHAIN`, `--clippy` with `-- ... -D warnings`, passthrough flags, `--all-tv-libs` from the workspace's cdylibs, and the early missing-rootstrap failure only for linking (cdylib, non-clippy) builds. I confirmed that the pinned cargo has `-Zjson-target-spec` and that the toolchain ships `llvm-ar`, `rust-lld` and `gcc-ld/ld.lld`. No `nsh-*` dependency. Two minor findings stay open: AGENTS.md documents commands that are not available yet, and inherited RUSTFLAGS silently drops the link args. One unverified risk for s3, not a finding: the x86_64 default rootstrap name `tizen-8.0-emulator.core` may be the 32-bit (i586) emulator rootstrap, with a separate 64-bit one; check it against the installed SDK at the first link.",
+      "summaryMarkdown": "Full re-review after the owner's epic amendment (`nsh-root` becomes a read-only reference, PR texts move to `gpuitizen:docs/pr/**`), which invalidated the stored review; the s1 criteria, tasks, checks and product source are unchanged since my reattested pass. Nothing in s1 depends on nsh-root: both tasks map only to `gpuitizen` paths, and no s1 file references `nsh-root`, `upstream-pr` or `docs/upstream`. README.md lists exactly the four execution repositories of the amended d01, and AGENTS.md keeps the no-NSH rule. WS-1/TGT-4: the workspace, pins, lints, release profile, toolchain, alias and licences comply, and `policy::tests` fails on each drift. TGT-1: both specs are correct (armv7 softfp with +v7,+thumb2,+vfp3,+neon, vendor tizen, 32-bit; x86_64 vendor tizen), and `targets::tests` checks the fields and that the pinned nightly accepts both. TGT-2: `cross::tests` covers the command lines and environment for both targets: build-std, the json spec, clang --target/--sysroot plus the armv7 flags, clang+lld linking via gcc-ld, the pinned RUSTUP_TOOLCHAIN, clippy with -D warnings, passthrough, --all-tv-libs, the early missing-rootstrap failure for linking builds only, inherited RUSTFLAGS merged into CARGO_ENCODED_RUSTFLAGS, and --check-symbols rejected before Cargo. WS-2: AGENTS.md matches the workspace. Both earlier findings stay resolved. Risk to confirm at the first real link in s3: the x86_64 default rootstrap name `tizen-8.0-emulator64.core`.",
       "findingIds": [
         "s1-agents-doc-unavailable-commands",
         "s1-cross-rustflags-override"
       ],
-      "recordedAt": "2026-11-08T20:04:28Z",
+      "recordedAt": "2026-11-08T20:40:57Z",
       "recordHashes": {
         "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
-        "gpuitizen:docs/upstream/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
-        "nsh-root:upstream-pr/**": "0a0b9a236359c7ebaef3850dc312cc172d1535caa1808fb8bf2f1d20488a800e"
+        "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
       }
     }
   },
-  "checkpoints": {},
+  "checkpoints": {
+    "s1-workspace-gate": {
+      "snapshotId": "2a98276254846ea578fecd9018aea15c4a3d8c76e02456146882b726fddb27a4",
+      "commits": {
+        "gpuitizen": "d6e9695d83aa376dee6733d0196c4bbb233168cf",
+        "gpui-fast": "fb8cf9413777e43e7c38bf5917647ee984453f37",
+        "wgpu": "b672a540043b7177cdd53858340d7aca7ff8eb68",
+        "nsh": "7be66038d6cef63581f6bf0180b2bc8087bbf224"
+      },
+      "reviewHash": "9d428b008be14f84d9cad64390be7fd708ebbb851ce2edbfbdf3c3f47a0a6aaf",
+      "recordedAt": "2026-11-08T20:41:10Z"
+    }
+  },
   "findings": [
     {
       "id": "s1-agents-doc-unavailable-commands",
@@ -574,8 +585,23 @@
         "WS-2"
       ],
       "severity": "minor",
-      "status": "open",
-      "descriptionMarkdown": "**Expected (WS-2):** `AGENTS.md`'s validation commands and cross-build text match the workspace, so an agent can run them.\n\n**Observed:** (1) `AGENTS.md` says cross builds go through `cargo xtask cross --target <armv7|x86_64|aarch64>` and names `TIZEN_ROOTSTRAP_AARCH64` (README.md repeats the variable), but `Target::parse` in `xtask/src/targets/mod.rs` rejects `aarch64` (`unknown target ... expected one of armv7, x86_64`); aarch64 is `d26-aarch64`, a later sprint. (2) The listed validation command `cargo xtask cross --target armv7 --release --check-symbols --all-tv-libs` can never succeed today: `run_cross` in `xtask/src/main.rs` (lines 92-96) runs the full release build and then fails with \"`--check-symbols` is not wired yet\".\n\n**Repair:** Document only what exists now: `--target <armv7|x86_64>` and the two rootstrap variables in `AGENTS.md` and `README.md`, adding aarch64 in the change that implements `d26-aarch64`. Either drop the `--check-symbols` validation line until `t2-symcheck` wires the checker, or mark it as arriving with `cargo xtask check-symbols`; preferably also make `--check-symbols` fail before Cargo runs (not after a full build) while it is unwired."
+      "status": "resolved",
+      "descriptionMarkdown": "AGENTS.md and README.md documented the unavailable aarch64 target and a `--check-symbols` validation command that always failed after a full build. Resolved: the docs list only armv7/x86_64 and runnable validation commands, and `--check-symbols` now fails in `cross::plan` before Cargo runs.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "AGENTS.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "README.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/cross/tests.rs",
+          "symbol": "check_symbols_fails_before_cargo_while_unwired"
+        }
+      ]
     },
     {
       "id": "s1-cross-rustflags-override",
@@ -584,8 +610,20 @@
         "TGT-2"
       ],
       "severity": "minor",
-      "status": "open",
-      "descriptionMarkdown": "**Expected (TGT-2):** every `cargo xtask cross` build links with clang and `lld` against the rootstrap sysroot.\n\n**Observed:** `plan` in `xtask/src/cross/mod.rs` delivers the whole link configuration (`--target=<triple>`, `--sysroot`, `-fuse-ld=lld`, `-B<rustlib>/gcc-ld`, the armv7 flags) only through `CARGO_TARGET_<T>_RUSTFLAGS`, i.e. `target.<triple>.rustflags`. Cargo's flag sources are mutually exclusive in the order `CARGO_ENCODED_RUSTFLAGS`, `RUSTFLAGS`, `target.<triple>.rustflags`, `build.rustflags`, so when the caller's environment has `RUSTFLAGS` or `CARGO_ENCODED_RUSTFLAGS` set (common in CI: `actions-rust-lang/setup-rust-toolchain` sets `RUSTFLAGS=-D warnings` by default), all link args are silently dropped and clang links with its default linker and no sysroot. `execute` inherits the parent environment, and `Context` has no view of it, so `cross::tests` cannot catch this.\n\n**Repair:** Make the plan independent of inherited flags: pass the inherited `RUSTFLAGS`/`CARGO_ENCODED_RUSTFLAGS` into `Context`, then emit one `CARGO_ENCODED_RUSTFLAGS` (unit-separator-joined) that merges them with the link args and clear `RUSTFLAGS`; or fail early with a clear message when they are set. Add a `cross::tests` case asserting the link args survive an inherited `RUSTFLAGS=-D warnings`."
+      "status": "resolved",
+      "descriptionMarkdown": "Link args passed only via `CARGO_TARGET_<T>_RUSTFLAGS` were silently dropped when the caller set `RUSTFLAGS`/`CARGO_ENCODED_RUSTFLAGS`. Resolved: inherited flags are merged with the link args into one `CARGO_ENCODED_RUSTFLAGS` and `RUSTFLAGS` is removed from the child environment.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/cross/mod.rs",
+          "symbol": "plan"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/cross/tests.rs",
+          "symbol": "link_arguments_survive_inherited_rustflags"
+        }
+      ]
     }
   ],
   "handoffMarkdown": "",
@@ -607,7 +645,6 @@
       "nsh:.github/workflows/release-crate.yml": "646a8c5b00adc51452dd892c0021377f9b772aad20e0f968bd9dfc5de8605b48",
       "nsh:.github/workflows/fork-release.yml": "a292d9d79c6db4ed1bed47ab4a866326e9a6c71e47b76ff2a5aaef570db57217",
       "nsh:rust-toolchain.toml": "cd6dd07de5dbdf30603671584a278f9f9828c72d2b5866b09375ed14fae67267"
-    },
-    "nsh-root": {}
+    }
   }
 }
