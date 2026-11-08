@@ -1,0 +1,45 @@
+{
+  "abi": "eabi",
+  "arch": "arm",
+  "crt-objects-fallback": "false",
+  "crt-static-respected": true,
+  "data-layout": "e-m:e-p:32:32-Fi8-i64:64-v128:64:128-a:0:32-n32-S64",
+  "default-uwtable": true,
+  "dynamic-linking": true,
+  "env": "gnu",
+  "features": "+v7,+db,+dsp,+aclass,+perfmon,+thumb-mode,+thumb2,+vfp3,+neon",
+  "has-rpath": true,
+  "has-thread-local": true,
+  "linker-flavor": "gnu-cc",
+  "llvm-floatabi": "soft",
+  "llvm-mcount-intrinsic": "llvm.arm.gnu.eabi.mcount",
+  "llvm-target": "armv7-unknown-linux-gnueabi",
+  "max-atomic-width": 64,
+  "os": "linux",
+  "position-independent-executables": true,
+  "pre-link-args": {
+    "gnu-cc": [
+      "-march=armv7-a",
+      "-mfloat-abi=softfp",
+      "-mfpu=neon"
+    ],
+    "gnu-lld-cc": [
+      "-march=armv7-a",
+      "-mfloat-abi=softfp",
+      "-mfpu=neon"
+    ]
+  },
+  "relro-level": "full",
+  "static-position-independent-executables": true,
+  "supported-split-debuginfo": [
+    "packed",
+    "unpacked",
+    "off"
+  ],
+  "target-family": [
+    "unix"
+  ],
+  "target-mcount": "\u0001__gnu_mcount_nc",
+  "target-pointer-width": 32,
+  "vendor": "tizen"
+}
