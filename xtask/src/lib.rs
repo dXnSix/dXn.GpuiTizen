@@ -9,6 +9,7 @@ pub mod package;
 pub mod policy;
 pub mod symcheck;
 pub mod targets;
+pub mod tizen_deps;
 
 /// The pinned toolchain channel from `rust-toolchain.toml`.
 pub fn pinned_toolchain(root: &std::path::Path) -> anyhow::Result<String> {

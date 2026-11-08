@@ -15,8 +15,10 @@ cargo xtask <command>
 Commands:
   cross          cross-build for a Tizen target (see `cargo xtask cross --help`)
   check-symbols  check a built TV library's dynamic symbols: <lib.so> [--entry <symbol>]
+  diag pull      fetch the diagnostic app's report through `sdb forward`: [--port <p>] [--no-forward]
   package        stage (and with --sign, sign) a TPK: --app <diag|counter|long_list>
                  --target <armv7|x86_64|aarch64> [--sign <profile>]
+  tizen-deps     check the Tizen dependency graph: --target <armv7|x86_64|aarch64>
   policy         check the workspace pins, lints, release profile, alias and toolchain
   help           show this text
 ";
@@ -58,7 +60,9 @@ fn run(args: Vec<String>) -> Result<ExitCode> {
                 ExitCode::FAILURE
             })
         }
+        "diag" => run_diag(rest),
         "package" => run_package(rest),
+        "tizen-deps" => run_tizen_deps(rest),
         "policy" => {
             let errors = policy::check(&policy::Inputs::read(&workspace_root())?);
             for error in &errors {
@@ -178,6 +182,118 @@ fn cross_build(options: &Options) -> Result<Option<Vec<PathBuf>>> {
         }
     }
     Ok(Some(libraries))
+}
+
+fn run_tizen_deps(args: &[String]) -> Result<ExitCode> {
+    use xtask::tizen_deps;
+    let target = match args {
+        [flag, target] if flag == "--target" => Target::parse(target)?,
+        _ => bail!("usage: cargo xtask tizen-deps --target <armv7|x86_64|aarch64>"),
+    };
+    let root = workspace_root();
+    let toolchain = pinned_toolchain(&root)?;
+    let tree = |package: Option<&str>| -> Result<String> {
+        let mut command = Command::new("cargo");
+        command
+            .env("RUSTUP_TOOLCHAIN", &toolchain)
+            .current_dir(&root)
+            .args(["tree", "-Zjson-target-spec", "--target"])
+            .arg(target.spec_path(&root))
+            .args(["-e", "normal", "--prefix", "none", "--format", "{p}"]);
+        match package {
+            Some(package) => command.args(["-p", package]),
+            None => command.arg("--workspace"),
+        };
+        let output = command.output().context("running cargo tree")?;
+        if !output.status.success() {
+            bail!(
+                "cargo tree failed: {}",
+                String::from_utf8_lossy(&output.stderr)
+            );
+        }
+        Ok(String::from_utf8_lossy(&output.stdout).into_owned())
+    };
+    let workspace = tizen_deps::parse_tree(&tree(None)?);
+    let mut violations = tizen_deps::desktop_crates(&workspace);
+    let wgpu = match tizen_deps::single_wgpu(&workspace) {
+        Ok(version) => Some(version),
+        Err(violation) => {
+            violations.push(violation);
+            None
+        }
+    };
+    let diag = tizen_deps::parse_tree(&tree(Some("dxn_gpui_tizen_diag"))?);
+    violations.extend(tizen_deps::diag_violations(&diag, wgpu.as_deref()));
+    for violation in &violations {
+        eprintln!("{}: {violation}", target.spec_name());
+    }
+    if violations.is_empty() {
+        println!(
+            "{}: {}; one wgpu ({}), shared by the diagnostic app, which has no GPUI crate",
+            target.spec_name(),
+            tizen_deps::OK_LINE,
+            wgpu.as_deref().unwrap_or("-")
+        );
+        Ok(ExitCode::SUCCESS)
+    } else {
+        Ok(ExitCode::FAILURE)
+    }
+}
+
+/// `sdb` on `PATH`, else in the Tizen SDK's `tools/`.
+fn find_sdb() -> Option<PathBuf> {
+    let on_path = std::env::var_os("PATH").and_then(|paths| {
+        std::env::split_paths(&paths)
+            .map(|dir| dir.join("sdb"))
+            .find(|p| p.is_file())
+    });
+    on_path.or_else(|| {
+        let home = std::env::var_os("HOME").map(PathBuf::from);
+        xtask::targets::sdk_root(std::env::var("TIZEN_SDK").ok().as_deref(), home.as_deref())
+            .map(|sdk| sdk.join("tools/sdb"))
+            .filter(|p| p.is_file())
+    })
+}
+
+fn run_diag(args: &[String]) -> Result<ExitCode> {
+    use dxn_gpui_tizen_diag::transport;
+    let no_forward = args.iter().any(|a| a == "--no-forward");
+    let args: Vec<&String> = args.iter().filter(|a| *a != "--no-forward").collect();
+    let port = match args.as_slice() {
+        [pull] if *pull == "pull" => transport::DEFAULT_PORT,
+        [pull, flag, port] if *pull == "pull" && *flag == "--port" => {
+            port.parse().context("--port")?
+        }
+        _ => bail!("usage: cargo xtask diag pull [--port <p>] [--no-forward]"),
+    };
+    if !no_forward {
+        let sdb = find_sdb().context(
+            "`sdb` not found on PATH or in the Tizen SDK (`<SDK>/tools/sdb`); install the SDK or pass --no-forward",
+        )?;
+        let status = Command::new(&sdb)
+            .args(transport::sdb_forward_args(port))
+            .status()
+            .with_context(|| format!("running {}", sdb.display()))?;
+        if !status.success() {
+            bail!("`sdb forward tcp:{port} tcp:{port}` failed; is a TV connected (`sdb devices`)?");
+        }
+    }
+    let pulled = transport::pull(("127.0.0.1", port), std::time::Duration::from_secs(180))
+        .with_context(|| format!("connecting to 127.0.0.1:{port}; is `sdb forward tcp:{port} tcp:{port}` set up and the diag app running?"))?;
+    let dir = workspace_root().join("artifacts-temp/diag");
+    std::fs::create_dir_all(&dir)?;
+    let path = dir.join(transport::report_file_name(
+        &pulled.report,
+        std::time::SystemTime::now(),
+    ));
+    let mut contents = pulled.json.clone();
+    contents.push('\n');
+    std::fs::write(&path, contents)?;
+    let log_path = path.with_extension("log");
+    std::fs::write(&log_path, pulled.log.join("\n") + "\n")?;
+    print!("{}", transport::summary(&pulled.report));
+    eprintln!("saved {} and {}", path.display(), log_path.display());
+    Ok(ExitCode::SUCCESS)
 }
 
 fn run_package(args: &[String]) -> Result<ExitCode> {
