@@ -1,12 +1,12 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 110,
-  "planRevision": 13,
+  "revision": 130,
+  "planRevision": 14,
   "specHashes": {
-    "requirements": "1e52bbf45b2317dc42e7e3bdc9f513240a41288c0d96b3211e25b9cc4223f22a",
-    "design": "f6c2e3d33399e789a3e1394f9e5ba71ccd50d5ada1a87a989d0d77e300ec036c",
-    "plan": "036452b36f6dc6607deb2dc272af4380fb5bf1e31ccc0812a66f0f6f1f53b6ad"
+    "requirements": "7f40eabea8018da7c092adab5d640322247fd6e8c5649948c00a60d816e6b895",
+    "design": "7181301ed4bad314a845da9594e230ab2ea2a32d071ff92ea081d5f0563714b5",
+    "plan": "331a8b71aa09d76704dfa5ee42fc09299b53b0bd5520252f9ae8a984ab7b52e5"
   },
   "tasks": {
     "t1-workspace": {
@@ -124,13 +124,22 @@
       ]
     },
     "t6-platform": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t6-window": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t6-examples": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t6-gles-smoke": {
       "status": "pending"
@@ -485,6 +494,30 @@
         }
       },
       "recordedAt": "2026-11-08T23:25:20Z"
+    },
+    "03c9ad9f4e203b91db53d79dc0af95e8c5e4f9d66f9abf03ae8a8e66f7bff06d": {
+      "snapshot": {
+        "specHash": "cf5b59e870941a11a8b6485d5efa65d8ccf905b95d378674a3d6142e36884a85",
+        "repositories": {
+          "gpuitizen": "ffb532bd91e4c619ba5509f120f96533cdef964a90eef912ff58e7d8f4c885bc",
+          "gpui-fast": "fdfe58c6059b2fd052b8fd76ed534533e3edb5be2e88159fa7a1bf8c55aaa5c0",
+          "wgpu": "593a0f2f051a329f2703d9ead1daf9f7906493105f4fba31d3fd91867a528ec2",
+          "nsh": "44cd091043852019714da3ec9eda618bc3e237317015dcf281d4f1afb8693e3f"
+        }
+      },
+      "recordedAt": "2026-11-08T23:38:13Z"
+    },
+    "923ff1d48ce613d89d7bdfb4899acfa3592e2a041c59d1f84c65eb4406d89ec0": {
+      "snapshot": {
+        "specHash": "d2572f5071dbbdf3543eb7b8e1f62649f6fc6bac4bf4aea31ff08d067d0096e9",
+        "repositories": {
+          "gpuitizen": "d4efef15b690975ea2d9446a9e31172e67b232bf141e95d356e44e5f4c8d775a",
+          "gpui-fast": "fdfe58c6059b2fd052b8fd76ed534533e3edb5be2e88159fa7a1bf8c55aaa5c0",
+          "wgpu": "593a0f2f051a329f2703d9ead1daf9f7906493105f4fba31d3fd91867a528ec2",
+          "nsh": "44cd091043852019714da3ec9eda618bc3e237317015dcf281d4f1afb8693e3f"
+        }
+      },
+      "recordedAt": "2026-11-08T23:54:01Z"
     }
   },
   "checkResults": {
@@ -1031,6 +1064,91 @@
       "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s5-core-final-c67a5e940346.log",
       "logSha256": "5d09c75b208f55e1d91f6d35d25fcd6fb453581b9f7a92d1b9277bed1e7a8f15",
       "inputsHash": "4416eaf5c00c4d28c0bf53cb3caf429a79b4e6cddc7c07742e021fa14fcea07f"
+    },
+    "s6-shell/chk-ex-counter/final": {
+      "checkId": "chk-ex-counter",
+      "boundaryId": "s6-shell",
+      "phase": "final",
+      "batchId": "03c9ad9f4e203b91db53d79dc0af95e8c5e4f9d66f9abf03ae8a8e66f7bff06d",
+      "definitionHash": "b10fd3f42d9468d11b3123b8ea90a2661e9d6144892f7aaf8891ba30b245540e",
+      "basisHash": "c0b8be17e0872729744833e8bcdc3b45dc47121e28c7f92dd2f0411109d375ad",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 5,
+      "durationSeconds": 0.33,
+      "recordedAt": "2026-11-08T23:38:09Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s6-shell-final-a2ebff491fe1.log",
+      "logSha256": "07979e4500e38c5388253b76769191c705a9ae408b4cac69498be64d384f0f83",
+      "inputsHash": "101f37429a1f1b744cde60f421e7ba6abab1a01846c00f5c5fe6fffda127c716"
+    },
+    "s6-shell/chk-link-armv7/final": {
+      "checkId": "chk-link-armv7",
+      "boundaryId": "s6-shell",
+      "phase": "final",
+      "batchId": "923ff1d48ce613d89d7bdfb4899acfa3592e2a041c59d1f84c65eb4406d89ec0",
+      "definitionHash": "cad541758880eab21ab50bda063b3323648dc8d136b6e30ba8b9aebb1f79be87",
+      "basisHash": "0b918fbca3771a0fea70d1096e5398f8c517fb6296ee2656fe52b6f6f698b5ce",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 6.1231,
+      "recordedAt": "2026-11-08T23:53:53Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s6-shell-final-19ec0e7a7097.log",
+      "logSha256": "c7fa820a712b48b42cdd50bcc0801f492eedd6b748845130a74a4e12629a1d18",
+      "inputsHash": "ec1b3492c71ae2f8cd9490b77721a85e48ed9ad23d41fd4a490c66c015ec6d97"
+    },
+    "s6-shell/chk-link-x86_64/final": {
+      "checkId": "chk-link-x86_64",
+      "boundaryId": "s6-shell",
+      "phase": "final",
+      "batchId": "923ff1d48ce613d89d7bdfb4899acfa3592e2a041c59d1f84c65eb4406d89ec0",
+      "definitionHash": "fdd7f2a500315251c3c2ad62f51069ce873d44715a4af8873ea7dcf514f7ee7c",
+      "basisHash": "20852779151fff4a6a5f5c4901ff8749098fd9e00c85e2a7246b8936d79b4fea",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 5.1939,
+      "recordedAt": "2026-11-08T23:53:59Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s6-shell-final-fe8b67a01ca9.log",
+      "logSha256": "8da2910827ef18dd09f65f67d0d5663ada3c77c09b362303096499e2d29f9ca9",
+      "inputsHash": "ec1b3492c71ae2f8cd9490b77721a85e48ed9ad23d41fd4a490c66c015ec6d97"
+    },
+    "s6-shell/chk-tizen-deps-armv7/final": {
+      "checkId": "chk-tizen-deps-armv7",
+      "boundaryId": "s6-shell",
+      "phase": "final",
+      "batchId": "923ff1d48ce613d89d7bdfb4899acfa3592e2a041c59d1f84c65eb4406d89ec0",
+      "definitionHash": "69a815083fb3ae9bbf2a937a2bfa4c83f602ccf3827c881168ef18d0f22677be",
+      "basisHash": "3491f5efb85c28751828ca1287922c0cf6df148b239fb9e2e46645fc7b87c4c0",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 1.3254,
+      "recordedAt": "2026-11-08T23:54:00Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s6-shell-final-29196374152f.log",
+      "logSha256": "454c145d86655faa86a08e8c2dbe79ded4ed48be2a22488adbd602dcc3d98b86",
+      "inputsHash": "ec1b3492c71ae2f8cd9490b77721a85e48ed9ad23d41fd4a490c66c015ec6d97"
+    },
+    "s6-shell/chk-tizen-deps-x86_64/final": {
+      "checkId": "chk-tizen-deps-x86_64",
+      "boundaryId": "s6-shell",
+      "phase": "final",
+      "batchId": "923ff1d48ce613d89d7bdfb4899acfa3592e2a041c59d1f84c65eb4406d89ec0",
+      "definitionHash": "e01b3bfaa077fb72435d908a0c3000223e641135851136f15da59ea09972c058",
+      "basisHash": "3c4f2abcdbc2cd061f2960cdbb1b762d8002a6b757957835ffd9dd2941d83a46",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 0.5026,
+      "recordedAt": "2026-11-08T23:54:00Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s6-shell-final-4e0854c4ec79.log",
+      "logSha256": "56e68d712dc95d255a3d3d8a149e0bcb7c7f70645302e8c2612d85792965b079",
+      "inputsHash": "ec1b3492c71ae2f8cd9490b77721a85e48ed9ad23d41fd4a490c66c015ec6d97"
     }
   },
   "reviews": {
@@ -2013,6 +2131,238 @@
         "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
       }
+    },
+    "s6-shell": {
+      "reviewerId": "reviewer-s6-independent",
+      "snapshotId": "923ff1d48ce613d89d7bdfb4899acfa3592e2a041c59d1f84c65eb4406d89ec0",
+      "criterionIds": [
+        "SHELL-1",
+        "SHELL-2",
+        "SHELL-3"
+      ],
+      "verdict": "passed",
+      "anchors": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/app.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-1"
+          ],
+          "sha256": "393ebef701c68f675a28cf4ec53d6b5ca2da649c36c1cacb61c45bf2c99aa633"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/platform.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-1",
+            "SHELL-2"
+          ],
+          "sha256": "1f2338e990b96f7171ecfa0e77fe1b7b333318a270e7d80eb47cca478a0879e4"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/main_loop.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-1",
+            "SHELL-2"
+          ],
+          "sha256": "7d91e38ab58fe745f2409ec651660d6d66f9fe5dc546dff39662f74d8ee304e0"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/window.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-2"
+          ],
+          "sha256": "8ab5bd7ebe3b744deb80a104a060975bc17513f27a79edb4c61de4cf50ea6797"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/display.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-2"
+          ],
+          "sha256": "d21777e56b5c278b24da751d8bd04baf384388e0c320546c19151f56824640b4"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/frame/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-2"
+          ],
+          "sha256": "ae40c21e70a6d1850d86dd9066f80cec4231c138af777abb78469c132b447e9b"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/keys/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-2"
+          ],
+          "sha256": "5a9ced88f195e8aecb1510024e3958730a8c6c1d0318854622553133446b8972"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/frame/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "SHELL-2"
+          ],
+          "sha256": "6e776abd78dd5b90440102af6e167939d63e02909b11aef2e0cecd58ebc324e4"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/keys/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "SHELL-2"
+          ],
+          "sha256": "4cb7dbbc2256c3bd181a85e38382f96a3aba61880d439f48462fa458aedf0f03"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/tizen_deps/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-1"
+          ],
+          "sha256": "5155cebd2c53a4a990f873084699ffcd0c2deb2fb7b7967c767271dc5880b010"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/tizen_deps/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "SHELL-1"
+          ],
+          "sha256": "3d8abf0f2a510114eafbfb388c24efeb3552cce4fcb43327d63de416529e16fb"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "examples/counter/src/lib.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-3"
+          ],
+          "sha256": "3d7eeda314edfcc91628660134f57ff152f28121ee24233464a2a6053097e9eb"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "examples/counter/src/main.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-3"
+          ],
+          "sha256": "50283adecb655dcf3851666a10fe0f8c8a64c77c08f873d5559541760ef7f1d2"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "examples/counter/src/view/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-3"
+          ],
+          "sha256": "d3f4b5f9801482e6def6ad09fa195debb1adc7527ab925256b9cdce11a20c991"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "examples/counter/src/view/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "SHELL-3"
+          ],
+          "sha256": "5734b7c659f9fee40c0f495a2354ad65a260ff242bee136f480d589f433c41bf"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/link-armv7.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "SHELL-2",
+            "SHELL-3"
+          ],
+          "sha256": "72833ee149e75756e92a1196258f8fa3129f4b480d81be811ba0b259ca7b62e9"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/link-x86_64.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "SHELL-2",
+            "SHELL-3"
+          ],
+          "sha256": "9e92dfc5dc309f5469e74c353fe1eaf94e06df7bfbb200bfbce4593d54bf07c1"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/dispatcher/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-1",
+            "SHELL-2"
+          ],
+          "sha256": "b19828ccf391379b4c86c03abd2e7c7218b9ddc00a3cc0c8869048d42b293567"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/dispatcher/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "SHELL-1",
+            "SHELL-2"
+          ],
+          "sha256": "cf8e61978738522a55d6a4bb8f4520f115b08bbde40a09a82593b6cd810ceb24"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/lifecycle/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-2"
+          ],
+          "sha256": "0f1b113cb25800d61f5d84540fc1b5d584e4b40c0648c3f988ba55f5b921176d"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_sys/src/lib.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-1",
+            "SHELL-2"
+          ],
+          "sha256": "86f4ac3ac863ade81ba3588227dd34bd9d0166cecf75ec98ec2f39270794e145"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_sys/symbols.allow",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-1",
+            "SHELL-2"
+          ],
+          "sha256": "540b900f2ec7e07236432116c202ddaa76c6c575609944c2038d4dc7a67a3a19"
+        }
+      ],
+      "summaryMarkdown": "Full review at snapshot 923ff1d4 against the amended SHELL-2 and decision d36; all six s6 findings are resolved. SHELL-1: `run` → `Application::with_platform` → `ui_app_main`; `create` finishes launching; `quit` → `ui_app_exit`; `GPUI_PIPELINE_CACHE_DIR` is set before GPUI or wgpu threads exist; one window; menus, dialogs and cursors are no-ops; the clipboard is in-process; `tizen-deps --workspace` reports no desktop platform crates. SHELL-2: Wayland handles feed `WgpuRenderer::new`. Draws are posted, never inline: main-thread posts are Ecore jobs. Frames are paced by Ecore_Wl2 frame callbacks requested on the swap's commit, through the CORE-2 scheduler, which now also serves requests, forced retries, `needs_redraw`, back-off and pause epochs. Keys go through CORE-4, scale and bounds through CORE-5. Pause and resume follow d36, and the renderer is destroyed before the `wl_surface`. SHELL-3: the counter's 5 `view::tests` pass, and both release links export only `dxn_gpui_tizen_main`. Runtime behavior on a TV or emulator remains for the owner's device runs, in particular the frame-callback delivery of the commit order.",
+      "findingIds": [
+        "s6-ecore-post-sync",
+        "s6-frame-commit-order",
+        "s6-window-drop-order",
+        "s6-frame-retry",
+        "s6-d13-pause-mechanism",
+        "s6-env-safety-comment"
+      ],
+      "recordedAt": "2026-11-08T23:54:42Z",
+      "recordHashes": {
+        "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
     }
   },
   "checkpoints": {
@@ -2084,6 +2434,17 @@
       },
       "reviewHash": "7f128c00001b459090a33cfd0c221ba86abdedb165aaa943080b57e62be0870f",
       "recordedAt": "2026-11-08T23:26:07Z"
+    },
+    "s6-shell": {
+      "snapshotId": "923ff1d48ce613d89d7bdfb4899acfa3592e2a041c59d1f84c65eb4406d89ec0",
+      "commits": {
+        "gpuitizen": "ccdf0d1fe56014ecb88fde91ebb25e673fb66af4",
+        "gpui-fast": "8e882532758900c80f0958238c4a6e624dd1e262",
+        "wgpu": "b672a540043b7177cdd53858340d7aca7ff8eb68",
+        "nsh": "7be66038d6cef63581f6bf0180b2bc8087bbf224"
+      },
+      "reviewHash": "39fab2e26b6c4a076bd69bb9c4f8d765b006f44c12b3b833a36a793f517bb3e2",
+      "recordedAt": "2026-11-08T23:54:57Z"
     }
   },
   "findings": [
@@ -2672,6 +3033,154 @@
           "repositoryId": "gpuitizen",
           "path": "crates/dxn_gpui_tizen/src/display/tests.rs",
           "symbol": "idle_gaps_pauses_and_stale_timestamps_add_no_sample"
+        }
+      ]
+    },
+    {
+      "id": "s6-ecore-post-sync",
+      "boundaryId": "s6-shell",
+      "criterionIds": [
+        "SHELL-1",
+        "SHELL-2"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** `MainLoop::post` (dispatcher contract: \"Runs `task` on the main thread soon\") never runs the task before it returns, so dispatcher drains and the shell's posted frames (`Shared::request_frame`, `Shared::window_ready`: \"draw from the main loop, never re-entrantly\") run from Ecore's loop with GPUI's `App` not borrowed.\n\n**Observed.** `EcoreLoop::post` (`src/tizen/main_loop.rs`) always calls `ecore_main_loop_thread_safe_call_async`. Called on the main loop thread, EFL runs the callback synchronously (`if (eina_main_loop_is()) { callback(data); return; }`). The rootstrap's `libecore.so.1.25.1` (emulator64) confirms it: a predicate call, then a tail call `jmpq *%rax` to the callback, before the malloc/enqueue branch. Every post made on the main thread therefore runs inline:\n- `dispatcher::Inner::post_drain` (via `MainThread::dispatch`) runs `drain` inside whatever GPUI call spawned the task. Foreground runnables are then polled while `App` is mutably borrowed, and `AsyncApp::update` (`borrow_mut`) panics, which aborts under `panic = \"abort\"`. A concrete case on every quit: `on_terminate` → `Quit` → GPUI's on_quit → `App::shutdown` (App borrowed) → `windows.clear()` → `TizenWindow::drop` → GPUI's `on_close` closure → `cx.spawn` → dispatch → synchronous drain → `cx.update` → panic.\n- `schedule_frame` called from `App::flush_effects` and `window_ready` called from `open_window` both run `perform_frame` inline. GPUI's request-frame closure calls `AsyncWindowContext::update` → `try_borrow_mut` → Err → `log_err`, so the frame is silently lost. The scheduler has already consumed `requested`/`forced`, and `not_presented` only clears `callback_pending`, so no frame is retried. The first forced frame also runs before GPUI registered `on_request_frame` (it registers after `open_window` returns), so it is lost as well. Only Ecore-originated paths draw (frame callbacks, a resume after pause), and frame callbacks only follow a presented frame, so the app may never present at all.\n\n**Repair.** Make `EcoreLoop::post` asynchronous on the main thread. One option: when `eina_main_loop_is()` (or the dispatcher's `is_main_thread`) is true, use `ecore_job_add` (or `ecore_timer_add(0.0, ...)`), and keep `ecore_main_loop_thread_safe_call_async` for other threads. Another: route every post through one `Ecore_Pipe` (`ecore_pipe_add`/`ecore_pipe_write`, thread-safe and always deferred). Add the bindings and `symbols.allow` entries (EFL > Ecore). State the never-inline requirement in the `MainLoop::post` docs. Add a dispatcher test whose fake loop asserts `post` is never re-entered from inside a running drain or task, so the contract is pinned on the host.\n\n**Resolved (snapshot 92b2e57c).** `EcoreLoop` records the main thread at construction (`TizenPlatform::new`, on the thread that runs `ui_app_main`). `post` uses `ecore_job_add` on that thread (declared in `Ecore_Legacy.h`, bound and allowlisted) and `ecore_main_loop_thread_safe_call_async` only off it, so no post runs inline. `MainLoop::post` documents the never-inline rule. Every shell draw (`window_ready`, `schedule_frame`, retries) goes through `Shared::post_frame`. Contract test: `dispatcher::tests::dispatch_never_runs_work_before_it_returns` (rerun: pass).",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/main_loop.rs",
+          "symbol": "EcoreLoop::post"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/dispatcher/tests.rs",
+          "symbol": "dispatch_never_runs_work_before_it_returns"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/platform.rs",
+          "symbol": "Shared::post_frame"
+        }
+      ]
+    },
+    {
+      "id": "s6-frame-commit-order",
+      "boundaryId": "s6-shell",
+      "criterionIds": [
+        "SHELL-2"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** The Ecore_Wl2 frame callback that drives `FrameScheduler::frame_callback` is requested on the commit that carries the presented buffer. `Ecore_Wayland2.h` documents `ecore_wl2_window_commit(window, EINA_FALSE)` as setting up the commit and frame request, \"expected that some other call in the very near future (such as eglSwapBuffers) will cause an implicit flush\". The model, gpui_linux's Wayland window, also requests `surface.frame()` before `renderer.draw` (`update_ime_enabled`/`draw`, window.rs ~2060-2080).\n\n**Observed.** `TizenWindow::draw` presents first (`WgpuRenderer::draw` → `queue.present` → eglSwapBuffers, which commits the buffer; Tizen's TPL may commit from its own thread). It then calls `ecore_wl2_window_commit(ecore, EINA_TRUE)`, which requests the frame callback and sends a second `wl_surface.commit` with no buffer, or one that races TPL's commit. The callback that gates every following frame (`callback_pending`) rides on a buffer-less commit. Whether the TV compositor (E20) ever sends `done` for it is unproven. If it does not, the app stops after its first frame, because nothing clears `callback_pending` except `not_presented` and pause.\n\n**Repair.** In `draw`, call `ecore_wl2_window_commit(self.0.ecore, EINA_FALSE)` before `renderer.draw(scene)`, so the frame request goes out with the swap's commit. When `draw` returns false, let the shell report `not_presented` as now. Alternatively, for a failed present, commit with `EINA_TRUE` so the queued callback is still delivered, the way gpui_linux handles `PresentationFailed`. Record the chosen order in the module docs. Check it on the owner's first device or emulator run.\n\n**Resolved (snapshot 92b2e57c).** `TizenWindow::draw` calls `ecore_wl2_window_commit(ecore, EINA_FALSE)` before `renderer.draw`, so the frame request precedes the swap's commit on the same `wl_display` connection. The second, buffer-less commit is gone. Still to confirm on the owner's first device run.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/window.rs",
+          "symbol": "TizenWindow::draw"
+        }
+      ]
+    },
+    {
+      "id": "s6-window-drop-order",
+      "boundaryId": "s6-shell",
+      "criterionIds": [
+        "SHELL-2"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** The renderer's wgpu surface (its EGLSurface and `wl_egl_window` on the window's `wl_surface`) is released before the Ecore_Wl2 window and its `wl_surface` are freed. `WgpuRenderer::new`'s safety note says \"the surface is dropped before the window\", and gpui_linux's `Drop for WaylandWindow` takes the renderer first and destroys the `wl_surface` last. The frame-callback handle is removed before the window goes away.\n\n**Observed.** `Drop for TizenWindow` calls `ecore_wl2_window_free(self.0.ecore)` in its body. The `WgpuRenderer` lives in `WindowInner`, which is dropped only after the body (the `shared.window` clone was taken first), so the EGL surface is destroyed on an already-freed `wl_surface`. This runs on every quit, because `App::shutdown` → `windows.clear()` happens inside the `terminate` callback. The handle returned by `ecore_wl2_window_frame_callback_add` is discarded and never passed to `ecore_wl2_window_frame_callback_del`.\n\n**Repair.** In `Drop`, after taking the shared clone, call `self.0.renderer.borrow_mut().destroy()` (correct here because the window is going away), then delete the stored frame-callback handle, then call `ecore_wl2_window_free`. Keep the handle in `WindowInner`.\n\n**Resolved (snapshot 92b2e57c).** `Drop for TizenWindow` now runs the close callback (GPUI only spawns there), then `renderer.destroy()`, then `ecore_wl2_window_frame_callback_del` on the handle stored at `open`, then `ecore_wl2_window_free`. This matches d36's invariant.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/window.rs",
+          "symbol": "TizenWindow::drop"
+        }
+      ]
+    },
+    {
+      "id": "s6-frame-retry",
+      "boundaryId": "s6-shell",
+      "criterionIds": [
+        "SHELL-2"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** A frame that GPUI drew but the renderer did not present (`WgpuRenderer::draw` returned false: surface Lost/Outdated/Timeout/Validation, or a GPU error that sets `needs_redraw`) is retried. A request that arrives while that frame is in flight is not dropped. A `Draw` effect posted before a pause does not draw after it. These are decisions, so per d10 they belong to the `frame` module with tests.\n\n**Observed.** `Shared::perform_frame` calls `frames.not_presented()`, which only clears `callback_pending`. It does not re-evaluate a `requested` flag that GPUI's follow-up `schedule_frame` set during the frame (`request()` returned None because `callback_pending` was still true). Nothing posts again, so the window keeps stale content until the next invalidation. `WgpuRenderer::needs_redraw()` is never consulted (gpui_linux turns it into `redraw_requested`). The closures posted by `request_frame`/`window_ready` carry an effect computed earlier and do not check `frames.is_paused()` when they run.\n\n**Repair.** Have `FrameScheduler::not_presented` return `Option<FrameEffect>`, or add `retry()`, so a pending request or a forced retry is served at once. Have the shell post that effect, reading `renderer.needs_redraw()` after `draw` as a forced retry. Re-check pause in the scheduler when a posted draw runs (for example, a `begin_draw()` that returns None while paused). Add `frame::tests` cases for these three paths.\n\n**Re-review (snapshot 92b2e57c): partly repaired, retry ineffective.** These parts are fixed: the scheduler serves a request made during an unpresented frame (`not_presented`), the pause `epoch` drops draws posted before a pause (`posted`), and `FrameOutcome` separates Skipped from Failed. Tests: three new `frame::tests` cases (rerun: 10 pass).\n\nThe retry itself cannot re-present. `not_presented(true)` sets only `requested`, so the retry is `Draw { force_render: false }`, and `WindowInner::request_frame` passes `require_presentation: force_render` (false). GPUI's request-frame closure (gpui-fast 0.1.13 `window.rs` ~1953-2085) then has `should_draw = invalidator.is_dirty() || force_render` false: the failed frame already cleared dirty. It also has `needs_present` false: `Window::present` clears `needs_present` after calling `platform_window.draw` whether or not the renderer presented (`window.rs` ~3888). GPUI neither draws nor presents, the outcome is `Skipped`, and the failed frame stays lost, which is what the old code did. The test `a_failed_present_is_retried` asserts `NORMAL`, which pins the ineffective form.\n\n`needs_redraw` has the same problem. The renderer sets it on a frame whose `draw` returned false (the GPU-error branch clears the atlas and tile cache), but the shell reads it only on `Presented`, and turns it into a plain `request()`. A plain request makes GPUI replay cached views whose atlas tiles were cleared. GPUI's comment at the `force_render` branch and gpui_linux's `redraw_requested` → `force_render` both require a forced frame here.\n\n**Repair.**\n- Make a retry present: `not_presented(true)` sets `forced`, or `FrameEffect::Draw` gains a `require_presentation` flag that `request_frame` passes through.\n- In `WindowInner::request_frame`, read `renderer.needs_redraw()` on every outcome and map it to a forced frame. For example, a `FrameScheduler::force()` that sets `forced` and returns `next()`.\n- Update `a_failed_present_is_retried` to expect a draw that presents, and add a test that `needs_redraw` yields `force_render: true`.\n- Optional: bound repeated failures (retry on the next frame callback or a short timer) so a persistent failure does not spin the loop with Ecore jobs.\n\n**Resolved (snapshot 923ff1d4).** A failed present now sets `forced`, so the retry is `Draw { force_render: true }`. `request_frame` passes `require_presentation: force_render`, which makes GPUI refresh, draw and present again. `WindowInner::needs_redraw()` is read after every outcome, and when set, `FrameScheduler::force()` forces a frame: at once if no callback is pending, otherwise on the next callback. Consecutive failures back off: no delay for the first 3, then 100 ms through an Ecore timer on the main thread, still filtered by `posted` for pause. `presented()` resets the count. All of these decisions live in `frame` (d10). Tests: `a_failed_present_is_retried_as_a_forced_frame`, `needs_redraw_forces_a_frame`, `persistent_failures_back_off` (rerun: `frame::tests` 12 pass).",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/frame/mod.rs",
+          "symbol": "FrameScheduler::not_presented"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/frame/mod.rs",
+          "symbol": "FrameScheduler::force"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/frame/mod.rs",
+          "symbol": "FrameScheduler::retry_delay"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/frame/tests.rs",
+          "symbol": "a_failed_present_is_retried_as_a_forced_frame"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/frame/tests.rs",
+          "symbol": "needs_redraw_forces_a_frame"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/frame/tests.rs",
+          "symbol": "persistent_failures_back_off"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/platform.rs",
+          "symbol": "Shared::perform_frame"
+        }
+      ]
+    },
+    {
+      "id": "s6-d13-pause-mechanism",
+      "boundaryId": "s6-shell",
+      "criterionIds": [
+        "SHELL-2"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** The pause/resume mechanism matches the sealed design d13 and SHELL-2's text (pause: renderer `destroy` + atlas `clear`; resume: renderer rebuilt on the same handles), or a recorded decision supersedes them.\n\n**Observed.** `WindowInner::release_gpu` calls `unconfigure_surface()` + `sprite_atlas().clear()`, and `rebuild_gpu` calls `replace_surface(&raw, config, &instance)` on the same renderer. I checked the stated reasons and they hold:\n- GPUI caches the `PlatformAtlas` Arc at window creation (gpui-fast 0.1.13 `window.rs:1731`).\n- `WgpuRenderer::destroy` sets `RendererState::Released`, and `replace_surface` then bails (\"GPU resources have been released\", `wgpu_renderer.rs` ~2199).\n- A new renderer would bring a new `WgpuAtlas` that GPUI never sees.\n\nThe substitute also meets d13's intent. It drops the surface (and with it wgpu-hal's EGLSurface/`wl_egl_window`) and the path intermediate/MSAA textures, and `WgpuAtlas::clear` drops the atlas textures. Resume reconfigures on the same handles, and `force_render` makes GPUI `refresh()` past cached views, so the atlas is re-rasterized. What stays allocated, unlike `destroy`: the renderer core (pipelines, bind groups, the instance buffer) and gpui-fast's layer `TileCache` (up to 64 MiB; `TileCache::clear` is crate-private). The spec texts are now stale: SHELL-2 and d13 still name `destroy`/\"rebuilt\", and `lifecycle::Effect::ReleaseGpu`'s doc comment still says `WgpuRenderer::destroy`.\n\n**Repair.** Record a new epic design decision (for example `d13a-pause-unconfigure`) that supersedes d13's mechanism. It should name `unconfigure_surface` + `WgpuAtlas::clear` / `replace_surface`, give the atlas-identity reason, and list what stays resident, as input for DEV-3's memory numbers. Amend SHELL-2's wording to match and fix the `Effect::ReleaseGpu` doc comment. Promote the decision to `.agentx/memory/decisions/` when the epic completes.\n\n**Resolved (snapshot 92b2e57c).** New decision `d36-pause-unconfigure` builds on d13 and replaces its `destroy` mechanism, with the atlas-identity reason. It lists what stays resident (device/queue, pipelines, instance buffer, tile cache up to 64 MiB) for DEV-3, and states the renderer-before-`wl_surface` invariant. SHELL-2's wording now names unconfigure/clear and `replace_surface` with d36. The `Effect::ReleaseGpu` doc is fixed. The code (`release_gpu`/`rebuild_gpu`) matches d36. Promotion to memory is due at epic end.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/window.rs",
+          "symbol": "WindowInner::release_gpu"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/lifecycle/mod.rs",
+          "symbol": "Effect::ReleaseGpu"
+        }
+      ]
+    },
+    {
+      "id": "s6-env-safety-comment",
+      "boundaryId": "s6-shell",
+      "criterionIds": [
+        "SHELL-1"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** The `unsafe { std::env::set_var(\"GPUI_PIPELINE_CACHE_DIR\", ...) }` in `run` has a SAFETY argument that holds in the real process.\n\n**Observed.** The comment says \"single-threaded here (no GPUI thread exists yet), so no concurrent env access\". `run` is entered through the C# host's P/Invoke, though, and the .NET runtime already has threads (GC, finalizer, tiered JIT, diagnostics). The ordering requirement is met: the variable is set before GPUI's threads and any renderer exist. The claimed absence of concurrent environment readers is not established.\n\n**Repair.** Rewrite the SAFETY comment to state the actual argument: no GPUI or Rust thread exists yet, and the .NET runtime threads do not call `getenv`/`setenv` concurrently at this point (CoreCLR's PAL keeps its own environment copy). Or move the cache directory out of the process environment if gpui-fast's `fast/` reader allows another source without new public API.\n\n**Resolved (snapshot 92b2e57c).** The SAFETY comment now gives the actual argument: no GPUI or wgpu thread exists yet, the .NET host is blocked in the P/Invoke, and the runtime's threads do not read this variable.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/app.rs",
+          "symbol": "run"
         }
       ]
     }

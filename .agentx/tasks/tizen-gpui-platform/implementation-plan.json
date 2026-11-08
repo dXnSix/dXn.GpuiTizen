@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 13,
+  "revision": 14,
   "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
   "repositories": [
     {
@@ -3552,10 +3552,11 @@
             "SHELL-2"
           ],
           "designIds": [
+            "d10-logic-shell-split",
             "d11-renderer-wgpu-egl",
             "d13-lifecycle-gpu-release",
             "d14-keys",
-            "d10-logic-shell-split"
+            "d36-pause-unconfigure"
           ],
           "dependsOn": [
             "t6-platform"

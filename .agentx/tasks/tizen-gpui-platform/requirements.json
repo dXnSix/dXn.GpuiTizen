@@ -205,7 +205,7 @@
         },
         {
           "id": "SHELL-2",
-          "descriptionMarkdown": "The Tizen window implements `PlatformWindow` on one full-screen, opaque Ecore_Wl2 window: raw-window-handle Wayland\nhandles (the `wl_display` of Ecore_Wl2's display and the window's `wl_surface`) for `gpui_wgpu::WgpuRenderer::new`,\n`on_request_frame` driven by the frame scheduler of `CORE-2` from Ecore_Wl2 frame callbacks, key events through the\nmapping of `CORE-4` into `PlatformInput`, bounds and scale from `CORE-5`, and the lifecycle effects of `CORE-3`\n(pause: renderer `destroy` and atlas `clear`; resume: renderer rebuilt on the same handles and a full redraw). This\nwgpu-owned surface stays the fallback path once the platform-owned EGL path of `EGL-1` exists.",
+          "descriptionMarkdown": "The Tizen window implements `PlatformWindow` on one full-screen, opaque Ecore_Wl2 window: raw-window-handle Wayland\nhandles (the `wl_display` of Ecore_Wl2's display and the window's `wl_surface`) for `gpui_wgpu::WgpuRenderer::new`,\n`on_request_frame` driven by the frame scheduler of `CORE-2` from Ecore_Wl2 frame callbacks, key events through the\nmapping of `CORE-4` into `PlatformInput`, bounds and scale from `CORE-5`, and the lifecycle effects of `CORE-3`\n(pause: the renderer's surface unconfigured and its atlas cleared; resume: a new surface configured on the same\nhandles and a full redraw; design `d36-pause-unconfigure`). This\nwgpu-owned surface stays the fallback path once the platform-owned EGL path of `EGL-1` exists.",
           "verification": "automated"
         },
         {

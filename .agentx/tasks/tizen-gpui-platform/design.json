@@ -534,6 +534,22 @@
           "path": "xtask/src/release/mod.rs"
         }
       ]
+    },
+    {
+      "id": "d36-pause-unconfigure",
+      "requirementIds": [
+        "SHELL",
+        "CORE"
+      ],
+      "descriptionMarkdown": "Pause frees GPU memory with `WgpuRenderer::unconfigure_surface` (the wgpu surface and its EGL surface, and the\nintermediate textures) and `WgpuAtlas::clear` (atlas textures; GPUI re-rasterizes on next use); resume calls\n`WgpuRenderer::replace_surface` on the same Wayland handles and forces a full redraw. This builds on\n`d13-lifecycle-gpu-release` and replaces its `destroy` mechanism: GPUI caches the window's `sprite_atlas()` when the\nwindow is created, `destroy` leaves the renderer in a state `replace_surface` refuses, and a new renderer would bring\nan atlas GPUI never sees.",
+      "invariantsMarkdown": "- What stays resident while paused (unlike `destroy`): the device and queue, the pipelines, the instance buffer and\n  gpui-fast's tile cache (up to 64 MiB; its `clear` is crate-private). `DEV-3`'s memory numbers decide whether more\n  must go.\n- The window's renderer is destroyed before its `wl_surface` is freed.",
+      "rationaleMarkdown": "Found in the s6 review (2026-11-09).",
+      "sourceRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/window.rs"
+        }
+      ]
     }
   ]
 }
