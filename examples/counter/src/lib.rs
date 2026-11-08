@@ -1,7 +1,12 @@
-//! A GPUI counter that runs on Tizen TVs and on the desktop.
+//! A GPUI counter that runs on Tizen TVs and on the desktop: two focusable buttons and a count.
+//! Left and Right move the focus, Enter presses the focused button, Back quits (Escape on the
+//! desktop). The keys are the platform's names of design `d14-keys`.
 
-/// The TV entry the C# host calls. Until the Tizen platform exists (sprint s6), the example has no
-/// UI to run, so it reports failure and exits immediately.
+pub mod view;
+
+pub use view::{Counter, bindings, launch, quit_after_frames};
+
+/// The TV entry the C# host calls.
 ///
 /// # Safety
 ///
@@ -9,8 +14,9 @@
 #[cfg(target_vendor = "tizen")]
 #[unsafe(no_mangle)]
 pub unsafe extern "C" fn dxn_gpui_tizen_main(
-    _argc: core::ffi::c_int,
-    _argv: *mut *mut core::ffi::c_char,
+    argc: core::ffi::c_int,
+    argv: *mut *mut core::ffi::c_char,
 ) -> core::ffi::c_int {
-    1
+    // SAFETY: argv comes from the host as documented above.
+    unsafe { dxn_gpui_tizen::run(argc, argv, dxn_gpui_tizen::RunOptions::default(), launch) }
 }
