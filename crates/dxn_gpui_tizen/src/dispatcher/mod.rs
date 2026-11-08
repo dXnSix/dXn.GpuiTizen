@@ -18,7 +18,8 @@ use gpui::{PlatformDispatcher, Priority, RunnableVariant};
 
 /// The main loop a dispatcher posts to.
 pub trait MainLoop: Send + Sync + 'static {
-    /// Runs `task` on the main thread soon. Callable from any thread.
+    /// Runs `task` on the main thread soon, and never before `post` returns (not inline, even when
+    /// called on the main thread: callers may hold GPUI state). Callable from any thread.
     fn post(&self, task: Box<dyn FnOnce() + Send>);
     /// Runs `task` on the main thread once `delay` has passed. Called on the main thread only.
     fn add_timer(&self, delay: Duration, task: Box<dyn FnOnce() + Send>);

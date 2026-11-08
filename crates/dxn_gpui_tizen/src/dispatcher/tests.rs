@@ -359,3 +359,21 @@ fn the_platform_dispatcher_runs_gpui_runnables_on_the_right_threads() {
     main_loop.run_posts();
     assert!(ran.try_recv().is_err(), "nothing runs after shutdown");
 }
+
+#[test]
+fn dispatch_never_runs_work_before_it_returns() {
+    // `MainLoop::post` must not run its task inline (Ecore's thread-safe call does on the main
+    // thread, so the Tizen loop posts an Ecore job there); the dispatcher relies on it.
+    let main_loop = Arc::new(FakeLoop::default());
+    let main: MainThread<FakeLoop, Job> = MainThread::new(Arc::clone(&main_loop));
+    let (log, job) = recorder();
+    main.dispatch(job("work"), Priority::High);
+    main.dispatch_after(Duration::ZERO, job("timer"));
+    assert!(
+        log.lock().unwrap().is_empty(),
+        "nothing ran inside dispatch"
+    );
+    main_loop.run_posts();
+    main_loop.advance(Duration::ZERO);
+    assert_eq!(*log.lock().unwrap(), ["work", "timer"]);
+}

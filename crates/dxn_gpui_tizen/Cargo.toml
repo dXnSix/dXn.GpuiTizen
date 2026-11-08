@@ -13,9 +13,16 @@ publish.workspace = true
 # ever a dependency.
 gpui.workspace = true
 
-# Tizen-only: the renderer.
+# Tizen-only: the renderer and the shell's bindings.
 [target.'cfg(target_vendor = "tizen")'.dependencies]
+anyhow.workspace = true
+dxn_gpui_tizen_sys = { path = "../dxn_gpui_tizen_sys" }
+futures = "0.3"
+libc = "0.2"
 gpui_wgpu.workspace = true
+log = "0.4"
+raw-window-handle = "0.6"
+uuid = { version = "1", features = ["v5"] }
 
 [dev-dependencies]
 async-task = "4.7"

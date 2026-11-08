@@ -21,8 +21,8 @@ pub enum Effect {
     Start,
     /// Stop asking for frames.
     StopFrames,
-    /// Free the surface, surface-bound resources and atlas textures (`WgpuRenderer::destroy`,
-    /// `WgpuAtlas::clear`).
+    /// Free the surface, surface-bound resources and atlas textures (the shell unconfigures the
+    /// renderer's surface and clears its atlas; design `d36-pause-unconfigure`).
     ReleaseGpu,
     /// Rebuild the renderer on the same window handles.
     RebuildGpu,

@@ -11,7 +11,11 @@
 pub enum FrameEffect {
     /// Ask GPUI to draw now (`force_render` for a forced frame), present, then ask the
     /// compositor for a frame callback (`ecore_wl2_window_frame_callback_add`).
-    Draw { force_render: bool },
+    Draw {
+        force_render: bool,
+        /// The pause epoch the draw belongs to: a draw posted before a pause is dropped.
+        epoch: u32,
+    },
 }
 
 #[derive(Clone, Debug)]
@@ -21,6 +25,8 @@ pub struct FrameScheduler {
     callback_pending: bool,
     paused: bool,
     frames: u64,
+    epoch: u32,
+    failures: u32,
 }
 
 impl Default for FrameScheduler {
@@ -38,6 +44,8 @@ impl FrameScheduler {
             callback_pending: false,
             paused: false,
             frames: 0,
+            epoch: 0,
+            failures: 0,
         }
     }
 
@@ -72,10 +80,54 @@ impl FrameScheduler {
         self.next()
     }
 
+    /// The frame [`FrameEffect::Draw`] asked for was not presented, so no frame callback will
+    /// come for it. `retry` when GPUI drew but the renderer could not present: the frame is drawn
+    /// again, forced, because GPUI already cleared its dirty state. Otherwise GPUI found nothing to
+    /// draw. Returns the next frame: the retry, or a request GPUI made meanwhile.
+    pub fn not_presented(&mut self, retry: bool) -> Option<FrameEffect> {
+        self.callback_pending = false;
+        if retry {
+            self.forced = true;
+            self.failures = self.failures.saturating_add(1);
+        }
+        self.next()
+    }
+
+    /// A frame was presented: failures stop counting.
+    pub fn presented(&mut self) {
+        self.failures = 0;
+    }
+
+    /// The renderer needs the next frame rendered in full (it lost or cleared state): force one.
+    pub fn force(&mut self) -> Option<FrameEffect> {
+        self.forced = true;
+        self.next()
+    }
+
+    /// How long to wait before the next frame after consecutive failed presents: none for the
+    /// first few, then 100 ms, so a persistent failure does not spin the main loop.
+    pub fn retry_delay(&self) -> std::time::Duration {
+        if self.failures <= 3 {
+            std::time::Duration::ZERO
+        } else {
+            std::time::Duration::from_millis(100)
+        }
+    }
+
+    /// A draw that was posted to the main loop is about to run: it is kept unless the app paused
+    /// since it was decided.
+    pub fn posted(&mut self, effect: Option<FrameEffect>) -> Option<FrameEffect> {
+        match effect {
+            Some(FrameEffect::Draw { epoch, .. }) if epoch != self.epoch || self.paused => None,
+            other => other,
+        }
+    }
+
     /// The app was paused: no frames until resume. A pending callback may never come.
     pub fn pause(&mut self) {
         self.paused = true;
         self.callback_pending = false;
+        self.epoch = self.epoch.wrapping_add(1);
     }
 
     /// The app was resumed: the next frame is forced.
@@ -94,7 +146,10 @@ impl FrameScheduler {
         self.forced = false;
         self.callback_pending = true;
         self.frames += 1;
-        Some(FrameEffect::Draw { force_render })
+        Some(FrameEffect::Draw {
+            force_render,
+            epoch: self.epoch,
+        })
     }
 }
 

@@ -107,6 +107,16 @@ pub fn keystroke(event: &KeyEvent<'_>) -> Keystroke {
     }
 }
 
+/// The text a key inserts when GPUI's key bindings did not handle it: its `key_char`, unless a
+/// control, alt or platform modifier is held (those are shortcuts, not text).
+pub fn fallback_text(keystroke: &Keystroke) -> Option<&str> {
+    let m = &keystroke.modifiers;
+    if m.control || m.alt || m.platform {
+        return None;
+    }
+    keystroke.key_char.as_deref()
+}
+
 /// Which keys are down, to tell a repeat from a press.
 #[derive(Debug, Default)]
 pub struct HeldKeys {

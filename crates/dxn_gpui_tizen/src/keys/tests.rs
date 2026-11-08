@@ -149,3 +149,27 @@ fn a_repeat_is_held_until_released() {
     held.clear();
     assert!(!held.key_down(&down).1, "focus loss releases everything");
 }
+
+#[test]
+fn unhandled_printable_keys_insert_their_text() {
+    let a = keystroke(&KeyEvent {
+        keyname: "a",
+        string: Some("a"),
+        modifiers: 0,
+    });
+    assert_eq!(fallback_text(&a), Some("a"));
+    let shifted = keystroke(&KeyEvent {
+        keyname: "A",
+        string: Some("A"),
+        modifiers: MODIFIER_SHIFT,
+    });
+    assert_eq!(fallback_text(&shifted), Some("A"));
+    let ctrl = keystroke(&KeyEvent {
+        keyname: "a",
+        string: Some("a"),
+        modifiers: MODIFIER_CTRL,
+    });
+    assert_eq!(fallback_text(&ctrl), None, "a shortcut, not text");
+    assert_eq!(fallback_text(&key("Up")), None);
+    assert_eq!(fallback_text(&key("XF86Back")), None);
+}
