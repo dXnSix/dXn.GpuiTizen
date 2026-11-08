@@ -1,5 +1,7 @@
 //! `cargo xtask cross`: Cargo on the pinned nightly with `-Zbuild-std`, a Tizen target spec, clang
-//! for C dependencies and clang + lld for linking against the Tizen rootstrap.
+//! for C dependencies, and clang driving the Tizen SDK's GNU `ld.bfd` for linking against the
+//! Tizen rootstrap (see [`crate::gcc`]; lld only when no SDK toolchain is installed, for builds that
+//! never link).
 //!
 //! Everything here is a pure function of the parsed options and a [`Context`]; `main.rs` gathers
 //! the context (rootstrap, toolchain paths, `cargo metadata`) and runs the [`Invocation`].
@@ -324,7 +326,10 @@ pub fn plan(options: &Options, ctx: &Context, tv_libs: &[String]) -> Result<Invo
     match &ctx.gcc_toolchain {
         // Linking against the rootstrap: the SDK's GNU ld (see `gcc::linker` for why not lld).
         Some(gcc_toolchain) => link_args.extend(crate::gcc::link_args(target, gcc_toolchain)),
-        // Non-linking builds (rlibs, clippy) never reach the linker; keep the pinned toolchain's lld.
+        // Every build uses the SDK toolchain when it is installed, so gate, clippy and linking builds
+        // share the same rustflags (no rebuilds when switching). Without it only non-linking builds
+        // get here (a linking build failed above); they never reach the linker, and the pinned
+        // toolchain's lld stands in.
         None => {
             link_args.push("-fuse-ld=lld".to_owned());
             link_args.push(format!("-B{}", ctx.rustlib_bin.join("gcc-ld").display()));

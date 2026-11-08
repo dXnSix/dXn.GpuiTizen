@@ -143,3 +143,97 @@ fn missing_toolchain_fails_only_linking_builds() {
         .is_ok()
     );
 }
+
+/// Every target: the full link arguments, the environment variable, the SDK candidate and the
+/// missing-toolchain error.
+#[test]
+fn every_target_has_link_args_lookup_and_failure() {
+    let table = [
+        (
+            Target::Armv7,
+            "arm-linux-gnueabi-gcc-9.2",
+            "arm-tizen-linux-gnueabi",
+            "lib",
+            "TIZEN_GCC_TOOLCHAIN_ARMV7",
+        ),
+        (
+            Target::X86_64,
+            "x86_64-linux-gnu-gcc-9.2",
+            "x86_64-tizen-linux-gnu",
+            "lib64",
+            "TIZEN_GCC_TOOLCHAIN_X86_64",
+        ),
+        (
+            Target::Aarch64,
+            "aarch64-linux-gnu-gcc-9.2",
+            "aarch64-tizen-linux-gnu",
+            "lib64",
+            "TIZEN_GCC_TOOLCHAIN_AARCH64",
+        ),
+    ];
+    assert_eq!(table.len(), Target::ALL.len());
+    for (target, dir, triple, runtime, variable) in table {
+        assert_eq!(
+            link_args(target, Path::new("/t")),
+            [
+                format!("--ld-path=/t/{triple}/bin/ld.bfd"),
+                format!("-B/t/lib/gcc/{triple}/9.2.0"),
+                format!("-L/t/lib/gcc/{triple}/9.2.0"),
+                format!("-L/t/{triple}/{runtime}"),
+            ],
+            "{target:?}"
+        );
+        assert_eq!(env(target), variable);
+        assert_eq!(
+            candidates(target, None, Some("/sdk"), None),
+            [PathBuf::from(format!("/sdk/tools/{dir}"))]
+        );
+        let searched = candidates(target, None, None, Some(Path::new("/home/me")));
+        let err = missing(target, &searched);
+        for needle in [
+            dir,
+            variable,
+            "NativeToolchain-Gcc-9.2",
+            "/home/me/tizen-studio/tools",
+        ] {
+            assert!(
+                err.contains(needle),
+                "{target:?}: {needle} missing from {err}"
+            );
+        }
+    }
+}
+
+/// Without an SDK toolchain, a non-linking build keeps the pinned toolchain's lld.
+#[test]
+fn non_linking_builds_without_the_toolchain_use_lld() {
+    let inv = plan(
+        &options(&["--target", "armv7", "-p", "dxn_gpui_tizen"]),
+        &ctx(None, false),
+        &[],
+    )
+    .unwrap();
+    let flags = inv.env_value("CARGO_ENCODED_RUSTFLAGS").unwrap();
+    let flags: Vec<&str> = flags.split('\x1f').collect();
+    assert!(flags.contains(&"-Clink-arg=-fuse-ld=lld"), "{flags:?}");
+    assert!(flags.contains(&"-Clink-arg=-B/tc/bin/gcc-ld"), "{flags:?}");
+    assert!(!flags.iter().any(|f| f.contains("--ld-path")), "{flags:?}");
+
+    // With the toolchain installed, a non-linking build uses the same flags as a linking one.
+    let gate = plan(
+        &options(&["--target", "armv7", "-p", "dxn_gpui_tizen"]),
+        &ctx(Some("/gcc"), false),
+        &[],
+    )
+    .unwrap();
+    let link = plan(
+        &options(&["--target", "armv7", "-p", "dxn_gpui_tizen"]),
+        &ctx(Some("/gcc"), true),
+        &[],
+    )
+    .unwrap();
+    assert_eq!(
+        gate.env_value("CARGO_ENCODED_RUSTFLAGS"),
+        link.env_value("CARGO_ENCODED_RUSTFLAGS")
+    );
+}

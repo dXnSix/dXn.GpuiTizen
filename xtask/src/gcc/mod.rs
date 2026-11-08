@@ -1,7 +1,8 @@
 //! The Tizen SDK's GCC toolchain, which supplies what the Tizen 8.0 rootstraps leave out for
 //! linking a shared library: the C runtime start files (`crtbeginS.o`, `crtendS.o`) and `libgcc_s`.
-//! clang + lld find them through the `-B` / `-L` arguments built here; nothing else is used from
-//! the toolchain (C code is still compiled with clang).
+//! clang drives the toolchain's GNU `ld.bfd` (`--ld-path`) and finds them through the `-B` / `-L`
+//! arguments built here; nothing else is used from the toolchain (C code is still compiled with
+//! clang, never by the SDK's GCC).
 
 use std::path::{Path, PathBuf};
 
