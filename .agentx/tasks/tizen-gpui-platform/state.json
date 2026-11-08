@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 92,
+  "revision": 93,
   "planRevision": 13,
   "specHashes": {
     "requirements": "1e52bbf45b2317dc42e7e3bdc9f513240a41288c0d96b3211e25b9cc4223f22a",
@@ -1812,6 +1812,20 @@
       },
       "reviewHash": "e67fae97f9f76530d9012c299ce10fb780a15581431d0134e90a0ddaba448cde",
       "recordedAt": "2026-11-08T22:43:48Z"
+    },
+    "s4-gpui-fast": {
+      "snapshotId": "500749b43ee11588fc638f693601f5243e47463e172073381371c0a6690f13b7",
+      "commits": {
+        "gpuitizen": "4137020b0fb1bb356946728104794875fb2862db",
+        "gpui-fast": "3f90bce003689eae6ef65f5f8b6b4d5442b82dc2",
+        "wgpu": "b672a540043b7177cdd53858340d7aca7ff8eb68",
+        "nsh": "7be66038d6cef63581f6bf0180b2bc8087bbf224"
+      },
+      "reviewHash": "ab3c790a176733fa73b384869843cf33bc8ba18b6d977eb55c0aecfdde30b454",
+      "recordedAt": "2026-11-08T23:15:11Z",
+      "refs": {
+        "gpui-fast": "agentx/tizen-gpui-platform"
+      }
     }
   },
   "findings": [
