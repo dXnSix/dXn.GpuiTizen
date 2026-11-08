@@ -16,6 +16,8 @@ Commands:
   cross          cross-build for a Tizen target (see `cargo xtask cross --help`)
   check-symbols  check a built TV library's dynamic symbols: <lib.so> [--entry <symbol>]
   diag pull      fetch the diagnostic app's report through `sdb forward`: [--port <p>] [--no-forward]
+  gpui-fast-release  generate and check gpui-fast's release workspace from ../gpui-fast's `tizen`;
+                 commit it to `tizen-release`, or with --verify write the local patch config
   package        stage (and with --sign, sign) a TPK: --app <diag|counter|long_list>
                  --target <armv7|x86_64|aarch64> [--sign <profile>]
   tizen-deps     check the Tizen dependency graph: --target <armv7|x86_64|aarch64>
@@ -61,6 +63,7 @@ fn run(args: Vec<String>) -> Result<ExitCode> {
             })
         }
         "diag" => run_diag(rest),
+        "gpui-fast-release" => run_gpui_fast_release(rest),
         "package" => run_package(rest),
         "tizen-deps" => run_tizen_deps(rest),
         "policy" => {
@@ -116,6 +119,15 @@ fn cross_build(options: &Options) -> Result<Option<Vec<PathBuf>>> {
                 }
                 None => None,
             }
+        }
+        // A build with the gpui-fast patch resolves into a scratch lockfile seeded from
+        // `Cargo.lock`, so the committed lockfile never records the local path patch.
+        None if xtask::release::uses_patch_config(&options.cargo_args) => {
+            let scratch = root.join(xtask::release::SCRATCH_LOCK);
+            std::fs::create_dir_all(scratch.parent().unwrap_or(&root))?;
+            std::fs::copy(root.join("Cargo.lock"), &scratch)
+                .context("seeding the scratch lockfile")?;
+            Some(scratch)
         }
         None => None,
     };
@@ -182,6 +194,204 @@ fn cross_build(options: &Options) -> Result<Option<Vec<PathBuf>>> {
         }
     }
     Ok(Some(libraries))
+}
+
+fn git_in(dir: &Path, args: &[&str]) -> Result<String> {
+    let output = Command::new("git")
+        .current_dir(dir)
+        .args(args)
+        .output()
+        .context("running git")?;
+    if !output.status.success() {
+        bail!(
+            "git {} failed: {}",
+            args.join(" "),
+            String::from_utf8_lossy(&output.stderr)
+        );
+    }
+    Ok(String::from_utf8_lossy(&output.stdout).trim().to_owned())
+}
+
+fn run_gpui_fast_release(args: &[String]) -> Result<ExitCode> {
+    use xtask::release;
+    let verify = match args {
+        [] => false,
+        [flag] if flag == "--verify" => true,
+        _ => bail!("usage: cargo xtask gpui-fast-release [--verify]"),
+    };
+    let root = workspace_root();
+    let gpui_fast = std::env::var_os("GPUI_FAST_DIR")
+        .map(PathBuf::from)
+        .unwrap_or_else(|| root.join("../gpui-fast"));
+    let gpui_fast = std::fs::canonicalize(&gpui_fast).with_context(|| {
+        format!(
+            "the gpui-fast checkout {} (set GPUI_FAST_DIR)",
+            gpui_fast.display()
+        )
+    })?;
+    let branch = git_in(&gpui_fast, &["branch", "--show-current"])?;
+    if branch != release::SOURCE_BRANCH {
+        bail!(
+            "{} is on `{branch}`; check out `{}` first",
+            gpui_fast.display(),
+            release::SOURCE_BRANCH
+        );
+    }
+    if !git_in(&gpui_fast, &["status", "--porcelain"])?.is_empty() {
+        bail!(
+            "{} has uncommitted changes; the release is generated from a clean `tizen`",
+            gpui_fast.display()
+        );
+    }
+    let source_sha = git_in(&gpui_fast, &["rev-parse", "--short=12", "HEAD"])?;
+
+    let status = Command::new("bun")
+        .current_dir(&gpui_fast)
+        .args(["script/prepare-release.ts", "--tag", release::TAG])
+        .status()
+        .context("running bun (install it: `brew install oven-sh/bun/bun`)")?;
+    if !status.success() {
+        bail!("prepare-release.ts failed");
+    }
+    let workspace = gpui_fast.join(release::RELEASE_WORKSPACE);
+    let status = Command::new("cargo")
+        .current_dir(&gpui_fast)
+        .args(["check", "--manifest-path"])
+        .arg(workspace.join("Cargo.toml"))
+        .args(["--workspace", "--lib", "--all-features"])
+        .status()
+        .context("running cargo check on the release workspace")?;
+    if !status.success() {
+        bail!("the release workspace does not check");
+    }
+
+    if verify {
+        let config = root.join(release::PATCH_CONFIG);
+        std::fs::create_dir_all(config.parent().unwrap_or(&root))?;
+        std::fs::write(&config, release::patch_config(&workspace))?;
+        // The patched resolution goes to a scratch lockfile seeded from `Cargo.lock`, so the
+        // committed lockfile never changes.
+        let lock = root.join("Cargo.lock");
+        let lock_before = std::fs::read(&lock).context("reading Cargo.lock")?;
+        let scratch = root.join(release::SCRATCH_LOCK);
+        std::fs::create_dir_all(scratch.parent().unwrap_or(&root))?;
+        std::fs::write(&scratch, &lock_before)?;
+        let toolchain = pinned_toolchain(&root)?;
+        let output = Command::new("cargo")
+            .env("RUSTUP_TOOLCHAIN", &toolchain)
+            .current_dir(&root)
+            .arg("--config")
+            .arg(&config)
+            .args(cross::lockfile_config(&scratch))
+            .args(["tree", "-Zjson-target-spec", "--target"])
+            .arg(Target::Armv7.spec_path(&root))
+            .args(["-i", "gpui-fast", "-e", "normal"])
+            .output()
+            .context("running cargo tree")?;
+        if std::fs::read(&lock)? != lock_before {
+            std::fs::write(&lock, &lock_before)?;
+            bail!(
+                "the patched cargo tree changed Cargo.lock (restored); it must resolve into {}",
+                scratch.display()
+            );
+        }
+        if !output.status.success() {
+            bail!(
+                "cargo tree with the patch failed: {}",
+                String::from_utf8_lossy(&output.stderr)
+            );
+        }
+        let stdout = String::from_utf8_lossy(&output.stdout);
+        let checked = release::verify_tree(&stdout, &workspace).and_then(|()| {
+            release::verify_lock(&std::fs::read_to_string(&scratch).unwrap_or_default())
+        });
+        if let Err(problem) = checked {
+            bail!("{problem}");
+        }
+        println!(
+            "{} ({} at {source_sha}, {})",
+            release::OK_LINE,
+            release::SOURCE_BRANCH,
+            config.display()
+        );
+        return Ok(ExitCode::SUCCESS);
+    }
+
+    // Commit exactly the generated workspace to the orphan `tizen-release` branch.
+    let worktree = root.join("artifacts-temp/gpui-fast-release-worktree");
+    if worktree.exists() {
+        let _ = git_in(
+            &gpui_fast,
+            &[
+                "worktree",
+                "remove",
+                "--force",
+                &worktree.display().to_string(),
+            ],
+        );
+        let _ = std::fs::remove_dir_all(&worktree);
+    }
+    let exists = git_in(
+        &gpui_fast,
+        &["rev-parse", "--verify", "--quiet", release::RELEASE_BRANCH],
+    )
+    .is_ok();
+    let wt = worktree.display().to_string();
+    if exists {
+        git_in(
+            &gpui_fast,
+            &["worktree", "add", &wt, release::RELEASE_BRANCH],
+        )?;
+    } else {
+        git_in(&gpui_fast, &["worktree", "add", "--detach", &wt])?;
+        git_in(
+            &worktree,
+            &["checkout", "--orphan", release::RELEASE_BRANCH],
+        )?;
+    }
+    let _ = git_in(&worktree, &["rm", "-rfq", "--ignore-unmatch", "."]);
+    copy_tree(&workspace, &worktree)?;
+    git_in(&worktree, &["add", "-A"])?;
+    let changed = !git_in(&worktree, &["status", "--porcelain"])?.is_empty();
+    if changed {
+        git_in(
+            &worktree,
+            &["commit", "-q", "-m", &release::commit_message(&source_sha)],
+        )?;
+    }
+    let head = git_in(&worktree, &["rev-parse", "--short=12", "HEAD"])?;
+    git_in(&gpui_fast, &["worktree", "remove", "--force", &wt])?;
+    println!(
+        "{} {} at {head}{}",
+        release::RELEASE_BRANCH,
+        if changed { "committed" } else { "unchanged" },
+        if changed {
+            ""
+        } else {
+            " (the generated workspace is identical)"
+        }
+    );
+    Ok(ExitCode::SUCCESS)
+}
+
+/// Copies a directory's files (not `target/` or `.git`) into another.
+fn copy_tree(from: &Path, to: &Path) -> Result<()> {
+    for entry in std::fs::read_dir(from)? {
+        let entry = entry?;
+        let name = entry.file_name();
+        if xtask::release::NOT_RELEASED.iter().any(|n| name == *n) {
+            continue;
+        }
+        let (source, dest) = (entry.path(), to.join(&name));
+        if entry.file_type()?.is_dir() {
+            std::fs::create_dir_all(&dest)?;
+            copy_tree(&source, &dest)?;
+        } else {
+            std::fs::copy(&source, &dest)
+                .with_context(|| format!("copying {}", source.display()))?;
+        }
+    }
+    Ok(())
 }
 
 fn run_tizen_deps(args: &[String]) -> Result<ExitCode> {
