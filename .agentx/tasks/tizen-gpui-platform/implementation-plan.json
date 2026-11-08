@@ -1,0 +1,5260 @@
+{
+  "schemaVersion": 7,
+  "epicId": "tizen-gpui-platform",
+  "revision": 6,
+  "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
+  "repositories": [
+    {
+      "id": "gpuitizen",
+      "path": ".",
+      "role": "execution"
+    },
+    {
+      "id": "gpui-fast",
+      "path": "../gpui-fast",
+      "role": "execution"
+    },
+    {
+      "id": "wgpu",
+      "path": "../wgpu",
+      "role": "execution"
+    },
+    {
+      "id": "nsh",
+      "path": "../nsh/nsh-wt/tizen",
+      "role": "execution"
+    },
+    {
+      "id": "nsh-root",
+      "path": "../nsh/nsh-root",
+      "role": "execution"
+    }
+  ],
+  "boundaries": {
+    "repositoryIds": [
+      "gpuitizen",
+      "gpui-fast",
+      "wgpu",
+      "nsh",
+      "nsh-root"
+    ],
+    "forbiddenPaths": [
+      "gpuitizen:.agentx/memory/**",
+      "gpui-fast:.github/**",
+      "gpui-fast:UPSTREAM",
+      "gpui-fast:crates/gpui_platform/**",
+      "gpui-fast:crates/gpui_linux/**",
+      "wgpu:.github/**",
+      "nsh:.github/workflows/release.yml",
+      "nsh:.github/workflows/release-crate.yml",
+      "nsh:.github/workflows/fork-release.yml",
+      "nsh:rust-toolchain.toml"
+    ]
+  },
+  "validationMode": "sprint",
+  "recordPaths": [
+    "gpuitizen:docs/verification/**",
+    "gpuitizen:docs/upstream/**",
+    "nsh-root:upstream-pr/**"
+  ],
+  "checks": [
+    {
+      "id": "chk-xtask-policy",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "WS-1",
+        "TGT-4"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "xtask",
+        "--lib",
+        "policy::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "Cargo.toml",
+        "Cargo.lock",
+        "rust-toolchain.toml",
+        ".cargo/config.toml",
+        "xtask/**"
+      ]
+    },
+    {
+      "id": "chk-xtask-targets",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "TGT-1",
+        "ARM64-1"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "xtask",
+        "--lib",
+        "targets::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "targets/**",
+        "xtask/**"
+      ]
+    },
+    {
+      "id": "chk-xtask-cross",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "TGT-2"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "xtask",
+        "--lib",
+        "cross::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        ".cargo/config.toml",
+        "xtask/**"
+      ]
+    },
+    {
+      "id": "chk-gate-armv7",
+      "repositoryId": "gpuitizen",
+      "kind": "build",
+      "criterionIds": [
+        "TGT-3"
+      ],
+      "descriptionMarkdown": "The 32-bit ARM gate: code generation of gpui-fast, gpui-fast-wgpu and their dependencies for the armv7 Tizen target; no linking, no rootstrap.",
+      "argv": [
+        "cargo",
+        "xtask",
+        "cross",
+        "--target",
+        "armv7",
+        "-p",
+        "dxn_gpui_tizen"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "timeoutSeconds": 3600,
+      "inputs": [
+        "Cargo.toml",
+        "Cargo.lock",
+        "rust-toolchain.toml",
+        ".cargo/config.toml",
+        "targets/**",
+        "xtask/**",
+        "crates/dxn_gpui_tizen/**"
+      ]
+    },
+    {
+      "id": "chk-gate-x86_64",
+      "repositoryId": "gpuitizen",
+      "kind": "build",
+      "criterionIds": [
+        "TGT-3"
+      ],
+      "descriptionMarkdown": "The gate for the emulator's x86_64 Tizen target.",
+      "argv": [
+        "cargo",
+        "xtask",
+        "cross",
+        "--target",
+        "x86_64",
+        "-p",
+        "dxn_gpui_tizen"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "timeoutSeconds": 3600,
+      "inputs": [
+        "Cargo.toml",
+        "Cargo.lock",
+        "rust-toolchain.toml",
+        ".cargo/config.toml",
+        "targets/**",
+        "xtask/**",
+        "crates/dxn_gpui_tizen/**"
+      ]
+    },
+    {
+      "id": "chk-sys-symbols",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "SYS-1",
+        "SYS-2"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "dxn_gpui_tizen_sys",
+        "--lib",
+        "symbols::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/dxn_gpui_tizen_sys/**"
+      ]
+    },
+    {
+      "id": "chk-xtask-symcheck",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "SYS-3"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "xtask",
+        "--lib",
+        "symcheck::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "xtask/**",
+        "crates/dxn_gpui_tizen_sys/symbols.allow"
+      ]
+    },
+    {
+      "id": "chk-host-build",
+      "repositoryId": "gpuitizen",
+      "kind": "build",
+      "criterionIds": [
+        "HOST-1"
+      ],
+      "descriptionMarkdown": "Restores `Tizen.NET.Sdk` from NuGet and builds the host; `reuse: false` because it depends on the network and the installed .NET SDK.",
+      "argv": [
+        "dotnet",
+        "build",
+        "host/Dxn.GpuiTizen.Host.csproj",
+        "-c",
+        "Release"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "timeoutSeconds": 1200,
+      "reuse": false,
+      "inputs": [
+        "host/**"
+      ]
+    },
+    {
+      "id": "chk-xtask-package",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "HOST-2",
+        "ARM64-2"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "xtask",
+        "--lib",
+        "package::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "xtask/**",
+        "host/**"
+      ]
+    },
+    {
+      "id": "chk-diag-report",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "DIAG-1"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "dxn_gpui_tizen_diag",
+        "--lib",
+        "report::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/dxn_gpui_tizen_diag/**"
+      ]
+    },
+    {
+      "id": "chk-diag-probe",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "DIAG-2"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "dxn_gpui_tizen_diag",
+        "--lib",
+        "probe::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/dxn_gpui_tizen_diag/**"
+      ]
+    },
+    {
+      "id": "chk-diag-transport",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "DIAG-3"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "dxn_gpui_tizen_diag",
+        "--lib",
+        "transport::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/dxn_gpui_tizen_diag/**"
+      ]
+    },
+    {
+      "id": "chk-gf-gles-device",
+      "repositoryId": "gpui-fast",
+      "kind": "test",
+      "criterionIds": [
+        "GF-1"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "gpui_wgpu",
+        "--features",
+        "test-support",
+        "--lib",
+        "fast::gles::tests::device"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/gpui_wgpu/src/**",
+        "crates/gpui_wgpu/Cargo.toml"
+      ]
+    },
+    {
+      "id": "chk-gf-gles-backends",
+      "repositoryId": "gpui-fast",
+      "kind": "test",
+      "criterionIds": [
+        "GF-2"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "gpui_wgpu",
+        "--features",
+        "test-support",
+        "--lib",
+        "fast::gles::tests::backends"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/gpui_wgpu/src/**",
+        "crates/gpui_wgpu/Cargo.toml"
+      ]
+    },
+    {
+      "id": "chk-gf-pipeline-cache",
+      "repositoryId": "gpui-fast",
+      "kind": "test",
+      "criterionIds": [
+        "GF-3"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "gpui_wgpu",
+        "--features",
+        "test-support",
+        "--lib",
+        "fast::pipeline_cache::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/gpui_wgpu/src/**",
+        "crates/gpui_wgpu/Cargo.toml"
+      ]
+    },
+    {
+      "id": "chk-gf-check-upstream",
+      "repositoryId": "gpui-fast",
+      "kind": "static",
+      "criterionIds": [
+        "GF-4",
+        "DMG-4",
+        "VID-1"
+      ],
+      "descriptionMarkdown": "gpui-fast's own rule check (hooks only in upstream files) on the `tizen` branch.",
+      "argv": [
+        "script/check-upstream"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "inputs": [
+        "crates/**",
+        "script/**",
+        "UPSTREAM"
+      ]
+    },
+    {
+      "id": "chk-gf-clippy",
+      "repositoryId": "gpui-fast",
+      "kind": "static",
+      "criterionIds": [
+        "GF-4",
+        "DMG-4"
+      ],
+      "argv": [
+        "cargo",
+        "clippy",
+        "-p",
+        "gpui_wgpu",
+        "--all-targets",
+        "--features",
+        "test-support",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "timeoutSeconds": 2400,
+      "inputs": [
+        "crates/gpui_wgpu/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-xtask-release",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "GF-5",
+        "WGPU-4"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "xtask",
+        "--lib",
+        "release::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "xtask/**"
+      ]
+    },
+    {
+      "id": "chk-gf-release",
+      "repositoryId": "gpuitizen",
+      "kind": "build",
+      "criterionIds": [
+        "GF-5",
+        "WGPU-4",
+        "DMG-4",
+        "VID-1"
+      ],
+      "descriptionMarkdown": "Regenerates and checks gpui-fast's release workspace from `../gpui-fast` (`tizen` branch) with Bun, writes the local patch config and verifies Cargo resolves `gpui-fast` to it. `reuse: false`: Bun, crates.io and the sibling checkout are outside this repository's inputs.",
+      "argv": [
+        "cargo",
+        "xtask",
+        "gpui-fast-release",
+        "--verify"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "stdoutPattern": "gpui-fast patch ok"
+      },
+      "timeoutSeconds": 3600,
+      "reuse": false,
+      "inputs": [
+        "xtask/**",
+        "Cargo.toml",
+        "gpui-fast:crates/gpui_wgpu/**",
+        "gpui-fast:crates/gpui/**",
+        "wgpu:wgpu-hal/**"
+      ]
+    },
+    {
+      "id": "chk-core-dispatcher",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "CORE-1"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "dxn_gpui_tizen",
+        "--lib",
+        "dispatcher::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/dxn_gpui_tizen/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-core-frame",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "CORE-2"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "dxn_gpui_tizen",
+        "--lib",
+        "frame::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/dxn_gpui_tizen/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-core-lifecycle",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "CORE-3"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "dxn_gpui_tizen",
+        "--lib",
+        "lifecycle::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/dxn_gpui_tizen/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-core-keys",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "CORE-4"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "dxn_gpui_tizen",
+        "--lib",
+        "keys::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/dxn_gpui_tizen/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-core-display",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "CORE-5"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "dxn_gpui_tizen",
+        "--lib",
+        "display::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/dxn_gpui_tizen/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-ex-counter",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "SHELL-3"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "example_counter",
+        "--lib",
+        "view::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "examples/counter/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-ex-long-list",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "SHELL-6"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "example_long_list",
+        "--lib",
+        "view::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "examples/long_list/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-gles-smoke",
+      "repositoryId": "gpuitizen",
+      "kind": "runtime",
+      "criterionIds": [
+        "SHELL-4",
+        "WGPU-2",
+        "WGPU-4"
+      ],
+      "descriptionMarkdown": "Runs in the `gpuitizen` Lima VM (design `d19-lima-desktop-path`) against the local gpui-fast release workspace written by `chk-gf-release`. `reuse: false`: the VM, Mesa and the sibling release workspace are outside the repository.",
+      "argv": [
+        "scripts/lima-run.sh",
+        "cargo",
+        "test",
+        "-p",
+        "example_counter",
+        "-p",
+        "example_long_list",
+        "--test",
+        "gles_smoke"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 2
+      },
+      "timeoutSeconds": 5400,
+      "reuse": false,
+      "inputs": [
+        "examples/**",
+        "scripts/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-plat-ime",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "PLAT-1"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "dxn_gpui_tizen",
+        "--lib",
+        "ime::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/dxn_gpui_tizen/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-ex-long-list-filter",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "PLAT-1"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "example_long_list",
+        "--lib",
+        "filter::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "examples/long_list/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-plat-keygrab",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "PLAT-2"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "dxn_gpui_tizen",
+        "--lib",
+        "keygrab::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/dxn_gpui_tizen/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-plat-settings",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "PLAT-3"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "dxn_gpui_tizen",
+        "--lib",
+        "settings::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/dxn_gpui_tizen/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-plat-fonts",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "PLAT-4"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "dxn_gpui_tizen",
+        "--lib",
+        "fonts::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/dxn_gpui_tizen/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-plat-a11y",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "PLAT-5"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "dxn_gpui_tizen",
+        "--lib",
+        "a11y::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/dxn_gpui_tizen/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-plat-a11y-atspi",
+      "repositoryId": "gpuitizen",
+      "kind": "runtime",
+      "criterionIds": [
+        "PLAT-5"
+      ],
+      "descriptionMarkdown": "AT-SPI integration test in the `gpuitizen` Lima VM with a private session bus and `at-spi2-registryd`. `reuse: false`: the VM is outside the repository.",
+      "argv": [
+        "scripts/lima-run.sh",
+        "dbus-run-session",
+        "--",
+        "cargo",
+        "test",
+        "-p",
+        "dxn_gpui_tizen",
+        "--test",
+        "a11y_atspi"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "timeoutSeconds": 3600,
+      "reuse": false,
+      "inputs": [
+        "crates/dxn_gpui_tizen/**",
+        "scripts/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-ci-yaml",
+      "repositoryId": "gpuitizen",
+      "kind": "static",
+      "criterionIds": [
+        "CI-1",
+        "CI-2"
+      ],
+      "argv": [
+        "ruby",
+        "scripts/check_workflow_yaml.rb",
+        ".github/workflows/ci.yml",
+        ".github/workflows/tizen-emulator.yml",
+        ".github/actions/plan/action.yml"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "stdoutPattern": "workflow yaml ok"
+      },
+      "inputs": [
+        ".github/**",
+        "scripts/check_workflow_yaml.rb"
+      ]
+    },
+    {
+      "id": "chk-ci-plan",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "CI-1"
+      ],
+      "argv": [
+        "bash",
+        ".github/actions/plan/plan_test.sh"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 3,
+        "testCountPattern": "plan tests: (\\d+) passed"
+      },
+      "inputs": [
+        ".github/actions/plan/**"
+      ]
+    },
+    {
+      "id": "chk-link-armv7",
+      "repositoryId": "gpuitizen",
+      "kind": "build",
+      "criterionIds": [
+        "DIAG-4",
+        "SHELL-2",
+        "SHELL-3",
+        "SHELL-5",
+        "PLAT-6",
+        "EGL-6",
+        "VID-5"
+      ],
+      "descriptionMarkdown": "Builds every TV `cdylib` of the workspace as release with the Tizen rootstrap (environment prerequisite before `s3`) and runs the symbol check. `reuse: false`: the rootstrap lives outside the repository.",
+      "argv": [
+        "cargo",
+        "xtask",
+        "cross",
+        "--target",
+        "armv7",
+        "--release",
+        "--all-tv-libs",
+        "--check-symbols"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "timeoutSeconds": 5400,
+      "reuse": false,
+      "inputs": [
+        "Cargo.toml",
+        "Cargo.lock",
+        "rust-toolchain.toml",
+        ".cargo/config.toml",
+        "targets/**",
+        "xtask/**",
+        "crates/**",
+        "examples/**"
+      ]
+    },
+    {
+      "id": "chk-link-x86_64",
+      "repositoryId": "gpuitizen",
+      "kind": "build",
+      "criterionIds": [
+        "DIAG-4",
+        "SHELL-2",
+        "SHELL-3",
+        "SHELL-5",
+        "PLAT-6",
+        "EGL-6",
+        "VID-5"
+      ],
+      "descriptionMarkdown": "Builds every TV `cdylib` of the workspace as release with the Tizen rootstrap (environment prerequisite before `s3`) and runs the symbol check. `reuse: false`: the rootstrap lives outside the repository.",
+      "argv": [
+        "cargo",
+        "xtask",
+        "cross",
+        "--target",
+        "x86_64",
+        "--release",
+        "--all-tv-libs",
+        "--check-symbols"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "timeoutSeconds": 5400,
+      "reuse": false,
+      "inputs": [
+        "Cargo.toml",
+        "Cargo.lock",
+        "rust-toolchain.toml",
+        ".cargo/config.toml",
+        "targets/**",
+        "xtask/**",
+        "crates/**",
+        "examples/**"
+      ]
+    },
+    {
+      "id": "chk-link-aarch64",
+      "repositoryId": "gpuitizen",
+      "kind": "build",
+      "criterionIds": [
+        "ARM64-2"
+      ],
+      "descriptionMarkdown": "Builds every TV `cdylib` of the workspace as release with the Tizen rootstrap (environment prerequisite before `s3`) and runs the symbol check. `reuse: false`: the rootstrap lives outside the repository.",
+      "argv": [
+        "cargo",
+        "xtask",
+        "cross",
+        "--target",
+        "aarch64",
+        "--release",
+        "--all-tv-libs",
+        "--check-symbols"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "timeoutSeconds": 5400,
+      "reuse": false,
+      "inputs": [
+        "Cargo.toml",
+        "Cargo.lock",
+        "rust-toolchain.toml",
+        ".cargo/config.toml",
+        "targets/**",
+        "xtask/**",
+        "crates/**",
+        "examples/**"
+      ]
+    },
+    {
+      "id": "chk-tizen-deps-armv7",
+      "repositoryId": "gpuitizen",
+      "kind": "static",
+      "criterionIds": [
+        "DIAG-4",
+        "SHELL-1",
+        "PLAT-6"
+      ],
+      "argv": [
+        "cargo",
+        "xtask",
+        "tizen-deps",
+        "--target",
+        "armv7"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "stdoutPattern": "no desktop platform crates"
+      },
+      "timeoutSeconds": 900,
+      "inputs": [
+        "Cargo.toml",
+        "Cargo.lock",
+        "rust-toolchain.toml",
+        ".cargo/config.toml",
+        "targets/**",
+        "xtask/**",
+        "crates/**",
+        "examples/**"
+      ]
+    },
+    {
+      "id": "chk-tizen-deps-x86_64",
+      "repositoryId": "gpuitizen",
+      "kind": "static",
+      "criterionIds": [
+        "DIAG-4",
+        "SHELL-1",
+        "PLAT-6"
+      ],
+      "argv": [
+        "cargo",
+        "xtask",
+        "tizen-deps",
+        "--target",
+        "x86_64"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "stdoutPattern": "no desktop platform crates"
+      },
+      "timeoutSeconds": 900,
+      "inputs": [
+        "Cargo.toml",
+        "Cargo.lock",
+        "rust-toolchain.toml",
+        ".cargo/config.toml",
+        "targets/**",
+        "xtask/**",
+        "crates/**",
+        "examples/**"
+      ]
+    },
+    {
+      "id": "chk-gate-aarch64",
+      "repositoryId": "gpuitizen",
+      "kind": "build",
+      "criterionIds": [
+        "ARM64-1"
+      ],
+      "descriptionMarkdown": "The gate for the aarch64 Tizen target.",
+      "argv": [
+        "cargo",
+        "xtask",
+        "cross",
+        "--target",
+        "aarch64",
+        "-p",
+        "dxn_gpui_tizen"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "timeoutSeconds": 3600,
+      "inputs": [
+        "Cargo.toml",
+        "Cargo.lock",
+        "rust-toolchain.toml",
+        ".cargo/config.toml",
+        "targets/**",
+        "xtask/**",
+        "crates/dxn_gpui_tizen/**"
+      ]
+    },
+    {
+      "id": "chk-wgpu-egl-unit",
+      "repositoryId": "wgpu",
+      "kind": "test",
+      "criterionIds": [
+        "WGPU-1",
+        "WGPU-2"
+      ],
+      "descriptionMarkdown": "wgpu-hal's new EGL decision tests, run on Linux in the `gpuitizen` Lima VM. `reuse: false`: the VM is outside the repository.",
+      "argv": [
+        "../dXn.GpuiTizen/scripts/lima-run.sh",
+        "cargo",
+        "test",
+        "-p",
+        "wgpu-hal",
+        "--features",
+        "gles",
+        "--lib",
+        "gles::egl::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 3
+      },
+      "timeoutSeconds": 3600,
+      "reuse": false,
+      "inputs": [
+        "wgpu-hal/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-wgpu-program-binaries",
+      "repositoryId": "wgpu",
+      "kind": "runtime",
+      "criterionIds": [
+        "WGPU-3"
+      ],
+      "descriptionMarkdown": "wgpu GPU test on the GL backend (Mesa) in the Lima VM; resolve the exact test-harness selector from wgpu's `tests/` layout at sprint start (wgpu's GPU tests run per backend).",
+      "argv": [
+        "../dXn.GpuiTizen/scripts/lima-run.sh",
+        "cargo",
+        "test",
+        "-p",
+        "wgpu-test",
+        "--test",
+        "wgpu-gpu",
+        "--",
+        "pipeline_cache"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "timeoutSeconds": 5400,
+      "reuse": false,
+      "inputs": [
+        "wgpu-hal/**",
+        "tests/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-wgpu-clippy",
+      "repositoryId": "wgpu",
+      "kind": "static",
+      "criterionIds": [
+        "WGPU-1",
+        "WGPU-2",
+        "WGPU-3"
+      ],
+      "argv": [
+        "cargo",
+        "clippy",
+        "-p",
+        "wgpu-hal",
+        "--features",
+        "gles",
+        "--target",
+        "aarch64-unknown-linux-gnu",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "timeoutSeconds": 2400,
+      "inputs": [
+        "wgpu-hal/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-gf-damage",
+      "repositoryId": "gpui-fast",
+      "kind": "test",
+      "criterionIds": [
+        "DMG-1"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "gpui_wgpu",
+        "--features",
+        "test-support",
+        "--lib",
+        "fast::damage::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/gpui_wgpu/src/**",
+        "crates/gpui_wgpu/Cargo.toml"
+      ]
+    },
+    {
+      "id": "chk-gf-external-target",
+      "repositoryId": "gpui-fast",
+      "kind": "test",
+      "criterionIds": [
+        "DMG-2",
+        "DMG-3"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "gpui_wgpu",
+        "--features",
+        "test-support",
+        "--lib",
+        "fast::external_target::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/gpui_wgpu/src/**",
+        "crates/gpui_wgpu/Cargo.toml"
+      ]
+    },
+    {
+      "id": "chk-egl-blob-cache",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "EGL-2"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "dxn_gpui_tizen",
+        "--lib",
+        "blob_cache::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/dxn_gpui_tizen/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-egl-damage-history",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "EGL-3"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "dxn_gpui_tizen",
+        "--lib",
+        "damage_history::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/dxn_gpui_tizen/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-egl-renderer-select",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "EGL-4"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "dxn_gpui_tizen",
+        "--lib",
+        "renderer_select::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/dxn_gpui_tizen/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-egl-wayland",
+      "repositoryId": "gpuitizen",
+      "kind": "runtime",
+      "criterionIds": [
+        "EGL-1",
+        "EGL-2",
+        "EGL-3",
+        "EGL-5"
+      ],
+      "descriptionMarkdown": "The platform-owned EGL path under Weston's headless backend with Mesa's software EGL in the Lima VM (`scripts/lima-run.sh --weston`). `reuse: false`: the VM is outside the repository.",
+      "argv": [
+        "scripts/lima-run.sh",
+        "--weston",
+        "cargo",
+        "test",
+        "-p",
+        "dxn_gpui_tizen",
+        "--test",
+        "egl_wayland"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 3
+      },
+      "timeoutSeconds": 5400,
+      "reuse": false,
+      "inputs": [
+        "crates/dxn_gpui_tizen/**",
+        "scripts/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-gf-hole",
+      "repositoryId": "gpui-fast",
+      "kind": "test",
+      "criterionIds": [
+        "VID-1"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "gpui_wgpu",
+        "--features",
+        "test-support",
+        "--lib",
+        "fast::hole::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/gpui_wgpu/src/**",
+        "crates/gpui/src/**",
+        "crates/gpui_wgpu/Cargo.toml"
+      ]
+    },
+    {
+      "id": "chk-video",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "VID-2"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "dxn_gpui_tizen",
+        "--lib",
+        "video::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/dxn_gpui_tizen/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-video-frames",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "VID-3"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "dxn_gpui_tizen",
+        "--lib",
+        "video_frames::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/dxn_gpui_tizen/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-ex-video",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "VID-5"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "example_video",
+        "--lib",
+        "view::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "examples/video/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-xtask-store-check",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "STORE-1"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "xtask",
+        "--lib",
+        "store_check::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "xtask/**",
+        "store/**"
+      ]
+    },
+    {
+      "id": "chk-package-crates",
+      "repositoryId": "gpuitizen",
+      "kind": "build",
+      "criterionIds": [
+        "PUB-1"
+      ],
+      "argv": [
+        "cargo",
+        "package",
+        "-p",
+        "dxn_gpui_tizen_sys",
+        "-p",
+        "dxn_gpui_tizen",
+        "--no-verify",
+        "--allow-dirty"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "timeoutSeconds": 1200,
+      "inputs": [
+        "Cargo.toml",
+        "Cargo.lock",
+        "rust-toolchain.toml",
+        ".cargo/config.toml",
+        "crates/dxn_gpui_tizen_sys/**",
+        "crates/dxn_gpui_tizen/**",
+        "README.md",
+        "LICENSE-*"
+      ]
+    },
+    {
+      "id": "chk-release-yaml",
+      "repositoryId": "gpuitizen",
+      "kind": "static",
+      "criterionIds": [
+        "PUB-1"
+      ],
+      "argv": [
+        "ruby",
+        "scripts/check_workflow_yaml.rb",
+        ".github/workflows/release-plz.yml"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "stdoutPattern": "workflow yaml ok"
+      },
+      "inputs": [
+        ".github/workflows/release-plz.yml",
+        "release-plz.toml",
+        "scripts/check_workflow_yaml.rb"
+      ]
+    },
+    {
+      "id": "chk-nsh-gate-armv7",
+      "repositoryId": "gpuitizen",
+      "kind": "build",
+      "criterionIds": [
+        "NTZ-1"
+      ],
+      "descriptionMarkdown": "The NSH half of the G0 gate: `nsh-platform-gpui` without default features, code generation for armv7 Tizen; no linking.",
+      "argv": [
+        "cargo",
+        "xtask",
+        "cross",
+        "--target",
+        "armv7",
+        "--manifest-path",
+        "../nsh/nsh-wt/tizen/crates/gpui/Cargo.toml",
+        "-p",
+        "nsh-platform-gpui",
+        "--no-default-features"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "timeoutSeconds": 5400,
+      "inputs": [
+        "Cargo.toml",
+        "Cargo.lock",
+        "rust-toolchain.toml",
+        ".cargo/config.toml",
+        "targets/**",
+        "xtask/**",
+        "nsh:crates/gpui/**",
+        "nsh:crates/nsh-core/**",
+        "nsh:crates/nsh-engine/**"
+      ]
+    },
+    {
+      "id": "chk-nsh-focus-core",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "FOC-1"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-core",
+        "--lib",
+        "focus::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-nsh-focus-tui",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "FOC-2"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-platform-tui",
+        "--features",
+        "dev,run-app",
+        "--test",
+        "tui",
+        "--",
+        "focus_navigation::",
+        "modal_focus::",
+        "keyboard::",
+        "popup::",
+        "navigation::"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 10
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "crates/nsh-platform-tui/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "The TUI's existing focus tests are the proof of `FOC-2` (no behavior change), so this check selects exactly those modules."
+    },
+    {
+      "id": "chk-nsh-focus-gpui",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "FOC-3"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "crates/gpui/Cargo.toml",
+        "-p",
+        "nsh-platform-gpui",
+        "--lib",
+        "directional_focus"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "crates/gpui/**"
+      ],
+      "descriptionMarkdown": "Resolve the exact selector and test-count pattern from the NSH checkout at sprint start (`amend` the check if it differs).",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-focus-macos",
+      "repositoryId": "nsh",
+      "kind": "runtime",
+      "criterionIds": [
+        "FOC-4"
+      ],
+      "argv": [
+        "cargo",
+        "run",
+        "-p",
+        "nsh-cli",
+        "--",
+        "test",
+        "tests/apps/pressable-focus",
+        "--target",
+        "macos"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1,
+        "testCountPattern": "(\\d+) passed"
+      },
+      "inputs": [
+        "crates/**",
+        "tests/apps/pressable-focus/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "App spec on macOS for pressables as focus stops. Resolve the exact selector and test-count pattern from the NSH checkout at sprint start (`amend` the check if it differs).",
+      "reuse": false,
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-focus-linux",
+      "repositoryId": "nsh",
+      "kind": "runtime",
+      "criterionIds": [
+        "FOC-4"
+      ],
+      "argv": [
+        "../../dXn.GpuiTizen/scripts/lima-run.sh",
+        "cargo",
+        "run",
+        "-p",
+        "nsh-cli",
+        "--",
+        "test",
+        "tests/apps/pressable-focus",
+        "--target",
+        "linux"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1,
+        "testCountPattern": "(\\d+) passed"
+      },
+      "inputs": [
+        "crates/**",
+        "tests/apps/pressable-focus/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "The same spec on Linux in the `gpuitizen` Lima VM. Resolve the exact selector and test-count pattern from the NSH checkout at sprint start (`amend` the check if it differs).",
+      "reuse": false,
+      "timeoutSeconds": 5400
+    },
+    {
+      "id": "chk-nsh-focus-windows-clippy",
+      "repositoryId": "nsh",
+      "kind": "static",
+      "criterionIds": [
+        "FOC-4"
+      ],
+      "argv": [
+        "cargo",
+        "clippy",
+        "-p",
+        "nsh-platform-windows",
+        "--target",
+        "x86_64-pc-windows-msvc",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "crates/nsh-platform-windows/**",
+        "Cargo.lock"
+      ],
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-focus-tv-core",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "FOC-5"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-core",
+        "--lib",
+        "focus::tests::tv"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-nsh-focus-group",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "FOC-5"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-base",
+        "--test",
+        "base",
+        "focus_group::"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "crates/nsh-base/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-nsh-focus-web",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "FOC-6"
+      ],
+      "argv": [
+        "node",
+        "--expose-gc",
+        "--test",
+        "crates/nsh-platform-web/web/browser/focus.test.mjs"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1,
+        "testCountPattern": "# pass (\\d+)"
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "crates/nsh-platform-web/**"
+      ],
+      "descriptionMarkdown": "Needs the browser-test Wasm built first (`docs/dev/web.md`). Resolve the exact selector and test-count pattern from the NSH checkout at sprint start (`amend` the check if it differs).",
+      "environment": {
+        "NSH_BROWSER_WASM": "target/wasm32-unknown-unknown/web/nsh_platform_web.wasm"
+      }
+    },
+    {
+      "id": "chk-nsh-keymap-tv",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "TV-1"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-core",
+        "--lib",
+        "keymap::tests::tv"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-nsh-tv-env",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "TV-2",
+        "NTZ-2"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-js",
+        "--lib",
+        "env::tests::tv"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "crates/nsh-js/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-nsh-tv-props",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "TV-2"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-base",
+        "--test",
+        "base",
+        "tv_props::"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "crates/nsh-js/**",
+        "crates/nsh-base/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-nsh-tv-web",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "TV-2",
+        "TV-3"
+      ],
+      "argv": [
+        "node",
+        "--expose-gc",
+        "--test",
+        "crates/nsh-platform-web/web/browser/tv.test.mjs"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1,
+        "testCountPattern": "# pass (\\d+)"
+      },
+      "inputs": [
+        "crates/nsh-platform-web/**"
+      ],
+      "descriptionMarkdown": "Resolve the exact selector and test-count pattern from the NSH checkout at sprint start (`amend` the check if it differs).",
+      "environment": {
+        "NSH_BROWSER_WASM": "target/wasm32-unknown-unknown/web/nsh_platform_web.wasm"
+      }
+    },
+    {
+      "id": "chk-nsh-dev-idiom",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "TV-4"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-cli",
+        "--test",
+        "cli",
+        "dev_idiom::"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-cli/**",
+        "crates/nsh-dev/**",
+        "Cargo.lock"
+      ],
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-remote-keys",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "FOC-7"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-testing",
+        "--test",
+        "testing",
+        "remote_keys::"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-testing/**",
+        "crates/nsh-dev/**",
+        "crates/nsh-core/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-nsh-compat",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "TV-5"
+      ],
+      "argv": [
+        "cargo",
+        "xtask",
+        "compat"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/**",
+        "tests/compat/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "Clones nsh-compat into `target/nsh-compat/`, hence `reuse: false`. Select the touched domains with `NSH_COMPAT_APP` if the full compat run is too slow. Resolve the exact selector and test-count pattern from the NSH checkout at sprint start (`amend` the check if it differs).",
+      "reuse": false,
+      "timeoutSeconds": 5400
+    },
+    {
+      "id": "chk-nsh-shader-wgpu30",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "TV-6"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-engine",
+        "--features",
+        "shader",
+        "--test",
+        "engine",
+        "shader::"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-engine/**",
+        "Cargo.toml",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "Resolve the exact selector and test-count pattern from the NSH checkout at sprint start (`amend` the check if it differs).",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-one-wgpu",
+      "repositoryId": "gpuitizen",
+      "kind": "static",
+      "criterionIds": [
+        "TV-6"
+      ],
+      "argv": [
+        "cargo",
+        "xtask",
+        "tizen-deps",
+        "--manifest-path",
+        "../nsh/nsh-wt/tizen/crates/gpui/Cargo.toml",
+        "--single",
+        "wgpu"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "stdoutPattern": "one wgpu"
+      },
+      "timeoutSeconds": 600,
+      "inputs": [
+        "xtask/**",
+        "nsh:crates/gpui/Cargo.toml",
+        "nsh:crates/gpui/Cargo.lock",
+        "nsh:Cargo.toml"
+      ]
+    },
+    {
+      "id": "chk-nsh-os-tizen",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "NTZ-2"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-core",
+        "--lib",
+        "platform::tests::tizen"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-nsh-gpui-default",
+      "repositoryId": "nsh",
+      "kind": "build",
+      "criterionIds": [
+        "NTZ-3"
+      ],
+      "argv": [
+        "cargo",
+        "check",
+        "--manifest-path",
+        "crates/gpui/Cargo.toml",
+        "-p",
+        "nsh-platform-gpui"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "inputs": [
+        "crates/gpui/**",
+        "crates/nsh-core/**",
+        "crates/nsh-engine/**"
+      ],
+      "descriptionMarkdown": "Default builds are unchanged by making `gpui_platform` optional.",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-gpui-tizen-deps",
+      "repositoryId": "gpuitizen",
+      "kind": "static",
+      "criterionIds": [
+        "NTZ-3",
+        "NTZ-4"
+      ],
+      "argv": [
+        "cargo",
+        "xtask",
+        "tizen-deps",
+        "--target",
+        "armv7",
+        "--manifest-path",
+        "../nsh/nsh-wt/tizen/crates/gpui/Cargo.toml",
+        "-p",
+        "nsh-platform-gpui",
+        "--no-default-features",
+        "--features",
+        "js"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "stdoutPattern": "no desktop platform crates"
+      },
+      "timeoutSeconds": 900,
+      "inputs": [
+        "Cargo.toml",
+        "Cargo.lock",
+        "rust-toolchain.toml",
+        ".cargo/config.toml",
+        "targets/**",
+        "xtask/**",
+        "nsh:crates/gpui/**"
+      ]
+    },
+    {
+      "id": "chk-nsh-gpui-tizen-build",
+      "repositoryId": "gpuitizen",
+      "kind": "build",
+      "criterionIds": [
+        "NTZ-4"
+      ],
+      "argv": [
+        "cargo",
+        "xtask",
+        "cross",
+        "--target",
+        "armv7",
+        "--manifest-path",
+        "../nsh/nsh-wt/tizen/crates/gpui/Cargo.toml",
+        "-p",
+        "nsh-platform-gpui",
+        "--no-default-features",
+        "--features",
+        "js"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "timeoutSeconds": 5400,
+      "inputs": [
+        "Cargo.toml",
+        "Cargo.lock",
+        "rust-toolchain.toml",
+        ".cargo/config.toml",
+        "targets/**",
+        "xtask/**",
+        "nsh:crates/**"
+      ]
+    },
+    {
+      "id": "chk-nsh-platform-tizen",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "NTZ-5",
+        "NTZ-6",
+        "NTZ-8"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "crates/gpui/Cargo.toml",
+        "-p",
+        "nsh-platform-tizen",
+        "--lib"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 3
+      },
+      "inputs": [
+        "crates/gpui/nsh-platform-tizen/**",
+        "crates/gpui/Cargo.toml",
+        "crates/gpui/Cargo.lock"
+      ],
+      "descriptionMarkdown": "All of the new crate's unit groups (key mapping, settings, Back policy, dev connection, `nsh/tizen`); the crate is new, so this is not a regression suite.",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-video-tizen",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "NTZ-7"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "crates/gpui/Cargo.toml",
+        "-p",
+        "nsh-platform-gpui",
+        "--lib",
+        "native::video::tizen"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/gpui/nsh-platform-gpui/**",
+        "crates/gpui/Cargo.lock"
+      ],
+      "descriptionMarkdown": "Resolve the exact selector and test-count pattern from the NSH checkout at sprint start (`amend` the check if it differs).",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-tizen-link-armv7",
+      "repositoryId": "gpuitizen",
+      "kind": "build",
+      "criterionIds": [
+        "NTZ-9"
+      ],
+      "descriptionMarkdown": "Release and dev `nsh-platform-tizen` libraries with the symbol check (entry `nsh_tizen_main`). `reuse: false`: the rootstrap is outside the repository.",
+      "argv": [
+        "cargo",
+        "xtask",
+        "cross",
+        "--target",
+        "armv7",
+        "--release",
+        "--manifest-path",
+        "../nsh/nsh-wt/tizen/crates/gpui/Cargo.toml",
+        "-p",
+        "nsh-platform-tizen",
+        "--with-dev-variant",
+        "--check-symbols",
+        "--entry",
+        "nsh_tizen_main"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "timeoutSeconds": 5400,
+      "reuse": false,
+      "inputs": [
+        "Cargo.toml",
+        "Cargo.lock",
+        "rust-toolchain.toml",
+        ".cargo/config.toml",
+        "targets/**",
+        "xtask/**",
+        "nsh:crates/**"
+      ]
+    },
+    {
+      "id": "chk-nsh-tizen-link-x86_64",
+      "repositoryId": "gpuitizen",
+      "kind": "build",
+      "criterionIds": [
+        "NTZ-9"
+      ],
+      "descriptionMarkdown": "Release and dev `nsh-platform-tizen` libraries with the symbol check (entry `nsh_tizen_main`). `reuse: false`: the rootstrap is outside the repository.",
+      "argv": [
+        "cargo",
+        "xtask",
+        "cross",
+        "--target",
+        "x86_64",
+        "--release",
+        "--manifest-path",
+        "../nsh/nsh-wt/tizen/crates/gpui/Cargo.toml",
+        "-p",
+        "nsh-platform-tizen",
+        "--with-dev-variant",
+        "--check-symbols",
+        "--entry",
+        "nsh_tizen_main"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "timeoutSeconds": 5400,
+      "reuse": false,
+      "inputs": [
+        "Cargo.toml",
+        "Cargo.lock",
+        "rust-toolchain.toml",
+        ".cargo/config.toml",
+        "targets/**",
+        "xtask/**",
+        "nsh:crates/**"
+      ]
+    },
+    {
+      "id": "chk-nsh-tizen-link-aarch64",
+      "repositoryId": "gpuitizen",
+      "kind": "build",
+      "criterionIds": [
+        "NTZ-9"
+      ],
+      "descriptionMarkdown": "Release and dev `nsh-platform-tizen` libraries with the symbol check (entry `nsh_tizen_main`). `reuse: false`: the rootstrap is outside the repository.",
+      "argv": [
+        "cargo",
+        "xtask",
+        "cross",
+        "--target",
+        "aarch64",
+        "--release",
+        "--manifest-path",
+        "../nsh/nsh-wt/tizen/crates/gpui/Cargo.toml",
+        "-p",
+        "nsh-platform-tizen",
+        "--with-dev-variant",
+        "--check-symbols",
+        "--entry",
+        "nsh_tizen_main"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "timeoutSeconds": 5400,
+      "reuse": false,
+      "inputs": [
+        "Cargo.toml",
+        "Cargo.lock",
+        "rust-toolchain.toml",
+        ".cargo/config.toml",
+        "targets/**",
+        "xtask/**",
+        "nsh:crates/**"
+      ]
+    },
+    {
+      "id": "chk-nsh-cli-tizen",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "NCLI-1",
+        "NCLI-4",
+        "NCLI-5",
+        "NCLI-6",
+        "NCLI-7"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-cli",
+        "--test",
+        "cli",
+        "tizen::"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 5
+      },
+      "inputs": [
+        "crates/nsh-cli/**",
+        "Cargo.lock"
+      ],
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-cli-runtime",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "NCLI-2"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "xtask",
+        "--lib",
+        "tizen::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/xtask/**",
+        "crates/nsh-cli/src/component.rs",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "Resolve the exact selector and test-count pattern from the NSH checkout at sprint start (`amend` the check if it differs)."
+    },
+    {
+      "id": "chk-nsh-component",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "NCLI-2"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-cli",
+        "--lib",
+        "component::tests::tizen"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-cli/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-nsh-hostplatform",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "NCLI-3"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-dev",
+        "--lib",
+        "protocol::tests::tizen"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-dev/**",
+        "Cargo.lock"
+      ]
+    },
+    {
+      "id": "chk-nsh-cli-tizen-web",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "TWEB-1",
+        "TWEB-5",
+        "TWEB-7"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-cli",
+        "--test",
+        "cli",
+        "tizen_web::"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 3
+      },
+      "inputs": [
+        "crates/nsh-cli/**",
+        "crates/nsh-platform-web/web/**",
+        "Cargo.lock"
+      ],
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-tv-shim",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "TWEB-2",
+        "TWEB-4"
+      ],
+      "argv": [
+        "node",
+        "--test",
+        "crates/nsh-cli/src/tizen_web/shim.test.mjs"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 2,
+        "testCountPattern": "# pass (\\d+)"
+      },
+      "inputs": [
+        "crates/nsh-cli/src/tizen_web/**"
+      ]
+    },
+    {
+      "id": "chk-nsh-scrollend",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "TWEB-3"
+      ],
+      "argv": [
+        "node",
+        "--expose-gc",
+        "--test",
+        "crates/nsh-platform-web/web/browser/scrollend.test.mjs"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1,
+        "testCountPattern": "# pass (\\d+)"
+      },
+      "inputs": [
+        "crates/nsh-platform-web/**"
+      ],
+      "descriptionMarkdown": "Resolve the exact selector and test-count pattern from the NSH checkout at sprint start (`amend` the check if it differs).",
+      "environment": {
+        "NSH_BROWSER_WASM": "target/wasm32-unknown-unknown/web/nsh_platform_web.wasm"
+      }
+    },
+    {
+      "id": "chk-nsh-test-tizen-web",
+      "repositoryId": "nsh",
+      "kind": "runtime",
+      "criterionIds": [
+        "TWEB-6"
+      ],
+      "argv": [
+        "cargo",
+        "run",
+        "-p",
+        "nsh-cli",
+        "--",
+        "test",
+        "examples/counter",
+        "--target",
+        "tizen-web"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1,
+        "testCountPattern": "(\\d+) passed"
+      },
+      "inputs": [
+        "crates/**",
+        "examples/counter/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "Headless Chromium, as `--target web`. Resolve the exact selector and test-count pattern from the NSH checkout at sprint start (`amend` the check if it differs).",
+      "reuse": false,
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-ci-yaml",
+      "repositoryId": "nsh",
+      "kind": "static",
+      "criterionIds": [
+        "CI-4"
+      ],
+      "argv": [
+        "ruby",
+        "../../dXn.GpuiTizen/scripts/check_workflow_yaml.rb",
+        ".github/workflows/fork-tizen.yml"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "stdoutPattern": "workflow yaml ok"
+      },
+      "inputs": [
+        ".github/**"
+      ]
+    },
+    {
+      "id": "chk-nsh-ci-paths",
+      "repositoryId": "nsh",
+      "kind": "static",
+      "criterionIds": [
+        "CI-4"
+      ],
+      "argv": [
+        "python3",
+        ".github/ci/paths.py",
+        "--print"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "stdoutPattern": "nsh-platform-tizen"
+      },
+      "inputs": [
+        ".github/**"
+      ]
+    },
+    {
+      "id": "fin-fmt",
+      "repositoryId": "gpuitizen",
+      "kind": "static",
+      "criterionIds": [],
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--check"
+      ],
+      "expected": {
+        "exitCode": 0
+      }
+    },
+    {
+      "id": "fin-clippy-host",
+      "repositoryId": "gpuitizen",
+      "kind": "static",
+      "criterionIds": [],
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "fin-clippy-tizen",
+      "repositoryId": "gpuitizen",
+      "kind": "static",
+      "criterionIds": [],
+      "descriptionMarkdown": "Clippy over the Tizen-only shell code, which host clippy never sees.",
+      "argv": [
+        "cargo",
+        "xtask",
+        "cross",
+        "--target",
+        "armv7",
+        "--clippy",
+        "--all-tv-libs",
+        "-p",
+        "dxn_gpui_tizen_sys",
+        "-p",
+        "dxn_gpui_tizen"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "timeoutSeconds": 3600,
+      "reuse": false
+    },
+    {
+      "id": "fin-gf-fmt",
+      "repositoryId": "gpui-fast",
+      "kind": "static",
+      "criterionIds": [],
+      "argv": [
+        "cargo",
+        "fmt",
+        "--check",
+        "-p",
+        "gpui_wgpu",
+        "-p",
+        "gpui"
+      ],
+      "expected": {
+        "exitCode": 0
+      }
+    },
+    {
+      "id": "fin-wgpu-fmt",
+      "repositoryId": "wgpu",
+      "kind": "static",
+      "criterionIds": [],
+      "argv": [
+        "cargo",
+        "fmt",
+        "--check",
+        "-p",
+        "wgpu-hal"
+      ],
+      "expected": {
+        "exitCode": 0
+      }
+    },
+    {
+      "id": "fin-nsh-fmt",
+      "repositoryId": "nsh",
+      "kind": "static",
+      "criterionIds": [],
+      "argv": [
+        "cargo",
+        "+nightly",
+        "fmt",
+        "--all",
+        "--check"
+      ],
+      "expected": {
+        "exitCode": 0
+      }
+    },
+    {
+      "id": "fin-nsh-gpui-fmt",
+      "repositoryId": "nsh",
+      "kind": "static",
+      "criterionIds": [],
+      "cwd": "crates/gpui",
+      "argv": [
+        "cargo",
+        "+nightly",
+        "fmt",
+        "--all",
+        "--check"
+      ],
+      "expected": {
+        "exitCode": 0
+      }
+    },
+    {
+      "id": "fin-nsh-clippy",
+      "repositoryId": "nsh",
+      "kind": "static",
+      "criterionIds": [],
+      "descriptionMarkdown": "Clippy over the NSH packages this epic touches.",
+      "argv": [
+        "cargo",
+        "clippy",
+        "-p",
+        "nsh-core",
+        "-p",
+        "nsh-js",
+        "-p",
+        "nsh-base",
+        "-p",
+        "nsh-engine",
+        "-p",
+        "nsh-platform-tui",
+        "-p",
+        "nsh-testing",
+        "-p",
+        "nsh-dev",
+        "-p",
+        "nsh-cli",
+        "-p",
+        "xtask",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "timeoutSeconds": 5400
+    },
+    {
+      "id": "fin-nsh-clippy-gpui",
+      "repositoryId": "nsh",
+      "kind": "static",
+      "criterionIds": [],
+      "cwd": "crates/gpui",
+      "argv": [
+        "cargo",
+        "clippy",
+        "--all-targets",
+        "--features",
+        "nsh-platform-gpui/dev",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "timeoutSeconds": 5400
+    },
+    {
+      "id": "fin-nsh-clippy-web",
+      "repositoryId": "nsh",
+      "kind": "static",
+      "criterionIds": [],
+      "argv": [
+        "cargo",
+        "clippy",
+        "-p",
+        "nsh-platform-web",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--features",
+        "compiler",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "fin-nsh-clippy-tizen",
+      "repositoryId": "gpuitizen",
+      "kind": "static",
+      "criterionIds": [],
+      "descriptionMarkdown": "Clippy over NSH's Tizen-only code for the armv7 Tizen target.",
+      "argv": [
+        "cargo",
+        "xtask",
+        "cross",
+        "--target",
+        "armv7",
+        "--clippy",
+        "--manifest-path",
+        "../nsh/nsh-wt/tizen/crates/gpui/Cargo.toml",
+        "-p",
+        "nsh-platform-tizen",
+        "-p",
+        "nsh-platform-gpui",
+        "--no-default-features",
+        "--features",
+        "nsh-platform-gpui/js"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "timeoutSeconds": 5400,
+      "reuse": false
+    }
+  ],
+  "finalCheckIds": [
+    "fin-fmt",
+    "fin-clippy-host",
+    "fin-clippy-tizen",
+    "fin-gf-fmt",
+    "fin-wgpu-fmt",
+    "fin-nsh-fmt",
+    "fin-nsh-gpui-fmt",
+    "fin-nsh-clippy",
+    "fin-nsh-clippy-gpui",
+    "fin-nsh-clippy-web",
+    "fin-nsh-clippy-tizen"
+  ],
+  "sprints": [
+    {
+      "id": "s1-workspace-gate",
+      "title": "Workspace, licences, toolchain and the Tizen targets",
+      "dependsOn": [],
+      "checkIds": [
+        "chk-xtask-policy",
+        "chk-xtask-targets",
+        "chk-xtask-cross"
+      ],
+      "tasks": [
+        {
+          "id": "t1-workspace",
+          "title": "Bootstrap the workspace, licences, toolchain and AGENTS.md",
+          "descriptionMarkdown": "Create the workspace of design `d02-workspace-layout`: root `Cargo.toml` (members, `[workspace.package]`,\n`[workspace.dependencies]` with `gpui = { package = \"gpui-fast\", version = \"=0.1.13\", default-features = false }` and\n`gpui_wgpu = { package = \"gpui-fast-wgpu\", version = \"=0.1.13\" }`, `[workspace.lints]`, the release profile of\n`TGT-4`), `rust-toolchain.toml` (a dated nightly at least two weeks old that has `rustfmt`, `clippy`, `rust-src` and\n`llvm-tools`; check with `rustup`), `.cargo/config.toml` (`[alias] xtask = \"run --package xtask --\"`), `LICENSE-MIT`,\n`LICENSE-APACHE`, `README.md` (what the repository is, the four repositories, how to cross-build), and empty member\ncrates so the workspace resolves (`dxn_gpui_tizen_sys`, `dxn_gpui_tizen`, `dxn_gpui_tizen_diag`, `example_counter`,\n`example_long_list`, `xtask`). Rewrite `AGENTS.md`'s project section per `WS-2` (keep the AgentX block), extend\n`.gitignore` (local rootstraps, `target/tpk/`). Add the `policy::tests` group to `xtask`: parse the root manifest,\n`rust-toolchain.toml` and `.cargo/config.toml` (with `toml`) and assert the pins, lints, profile, alias and\ncomponents. Docs: `/Users/dinko/work-private/projects/dXn/nsh/nsh-root/_projects/tizen/getting-started.md`.",
+          "criterionIds": [
+            "WS-1",
+            "WS-2",
+            "TGT-4"
+          ],
+          "designIds": [
+            "d01-repositories",
+            "d02-workspace-layout",
+            "d05-gpui-fast-pin"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-xtask-policy"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "gpuitizen",
+              "path": "AGENTS.md"
+            },
+            {
+              "repositoryId": "gpuitizen",
+              "path": ".gitignore"
+            }
+          ]
+        },
+        {
+          "id": "t1-targets",
+          "title": "Tizen target specs and `cargo xtask cross`",
+          "descriptionMarkdown": "Write `targets/armv7-tizen-linux-gnueabi.json` from rustc's `armv7-linux-androideabi` / `armv7-unknown-linux-gnueabi`\nspecs (`rustc +<pinned nightly> -Z unstable-options --print target-spec-json --target ...`) with Android's armv7\nfeatures plus NEON, soft-float ABI with hardware floats, `os = linux`, `env = gnu`, `vendor = tizen`; and\n`targets/x86_64-tizen-linux-gnu.json` from `x86_64-unknown-linux-gnu` with `vendor = tizen`. Implement\n`cargo xtask cross` per `TGT-2` (modes: default debug, `--release`, `--clippy`; `--check-symbols` is accepted and\nwired to the checker in `t2-symcheck`): command construction as pure functions tested by `cross::tests`, the C\ntoolchain environment (`CC_<target>`, `CFLAGS_<target>`, `CARGO_TARGET_<T>_LINKER` / `RUSTFLAGS` with `-fuse-ld=lld`\nand the sysroot), rootstrap discovery and the early failure for linking builds. Add `targets::tests`. Docs:\n`/Users/dinko/work-private/projects/dXn/nsh/nsh-root/_projects/tizen/toolchain-and-build.md`, `/Users/dinko/work-private/projects/dXn/nsh/nsh-root/_projects/tizen/native-host-performance.md` (lever 1).",
+          "criterionIds": [
+            "TGT-1",
+            "TGT-2"
+          ],
+          "designIds": [
+            "d03-targets-build-std"
+          ],
+          "dependsOn": [
+            "t1-workspace"
+          ],
+          "checkIds": [
+            "chk-xtask-targets",
+            "chk-xtask-cross"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s1b-gates",
+      "title": "The 32-bit ARM gate, the aarch64 gate and the NSH half of the gate",
+      "dependsOn": [
+        "s1-workspace-gate"
+      ],
+      "checkIds": [
+        "chk-gate-armv7",
+        "chk-gate-x86_64",
+        "chk-xtask-targets",
+        "chk-gate-aarch64",
+        "chk-nsh-gate-armv7"
+      ],
+      "tasks": [
+        {
+          "id": "t1-gate",
+          "title": "Run the 32-bit ARM gate with the `dxn_gpui_tizen` skeleton",
+          "descriptionMarkdown": "Give `dxn_gpui_tizen` its Tizen-only dependencies (`[target.'cfg(target_vendor = \"tizen\")'.dependencies]` on the\nworkspace's `gpui` and `gpui_wgpu`) and a minimal `lib.rs` that names a type from each (so both are compiled), then run\n`cargo xtask cross --target armv7 -p dxn_gpui_tizen` and the x86_64 equivalent. Fix what is ours (target spec, flags,\nfeatures such as keeping gpui-fast's `font-kit` off). If a dependency fails on 32-bit ARM for a reason only a change\nin that dependency fixes, stop at the sprint boundary and report the failure with the error, the crate and what a\nfix would take (design `d04-gate`); do not continue to `s2`. Record compile times and anything notable for the\nowner in the task handoff.",
+          "criterionIds": [
+            "TGT-3"
+          ],
+          "designIds": [
+            "d04-gate",
+            "d03-targets-build-std",
+            "d05-gpui-fast-pin"
+          ],
+          "dependsOn": [
+            "t1-targets"
+          ],
+          "checkIds": [
+            "chk-gate-armv7",
+            "chk-gate-x86_64"
+          ]
+        },
+        {
+          "id": "t1-aarch64",
+          "title": "The aarch64 Tizen target and its gate",
+          "descriptionMarkdown": "Add `targets/aarch64-tizen-linux-gnu.json` (from `aarch64-unknown-linux-gnu`, `vendor = \"tizen\"`) to `targets::tests` and the cross driver (`TIZEN_ROOTSTRAP_AARCH64`), and run the gate for it (`ARM64-1`).",
+          "criterionIds": [
+            "ARM64-1"
+          ],
+          "designIds": [
+            "d26-aarch64",
+            "d03-targets-build-std"
+          ],
+          "dependsOn": [
+            "t1-gate"
+          ],
+          "checkIds": [
+            "chk-xtask-targets",
+            "chk-gate-aarch64"
+          ]
+        },
+        {
+          "id": "t1-nsh-gate",
+          "title": "The NSH half of the gate",
+          "descriptionMarkdown": "Extend `cargo xtask cross` with Cargo selection pass-through (`--manifest-path`, `--features`, `--no-default-features`) and run `NTZ-1` against `../nsh/nsh-wt/tizen/crates/gpui/Cargo.toml` (do not edit NSH here). If it fails for an NSH reason, record the error in the handoff for `s17-nsh-gpui-tizen`; if gpui-fast is the cause, apply `d04-gate`.",
+          "criterionIds": [
+            "NTZ-1"
+          ],
+          "designIds": [
+            "d04-gate",
+            "d03-targets-build-std",
+            "d28-nsh-branches"
+          ],
+          "dependsOn": [
+            "t1-gate"
+          ],
+          "checkIds": [
+            "chk-nsh-gate-armv7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2-bindings-host",
+      "title": "Tizen bindings, symbol policy, C# host and packaging",
+      "dependsOn": [
+        "s1b-gates"
+      ],
+      "checkIds": [
+        "chk-sys-symbols",
+        "chk-xtask-symcheck",
+        "chk-host-build",
+        "chk-xtask-package"
+      ],
+      "tasks": [
+        {
+          "id": "t2-sys",
+          "title": "Hand-written Tizen bindings with an allowlist",
+          "descriptionMarkdown": "Write `dxn_gpui_tizen_sys` per `SYS-1`: a `tizen_extern!` macro that emits the `extern \"C\"` block (with\n`#[cfg_attr(target_vendor = \"tizen\", link(name = ...))]` for `capi-appfw-application`, `capi-appfw-app-common`,\n`capi-appfw-app-control`, `ecore`, `ecore-wl2`, `ecore-imf`, `ecore-input`, `capi-system-system-settings`, `dlog`)\nand appends each name to `DECLARED_SYMBOLS`; the C types (`ui_app_lifecycle_callback_s`, `app_control_h`,\n`Ecore_Wl2_Display`, `Ecore_Wl2_Window`, `Ecore_Event_Key`, `Ecore_IMF_Context`, `system_settings_key_e`, ...) with\nlayouts taken from the Tizen 8.0 headers in the rootstrap or Tizen's published headers (record the header for each).\nWrite `symbols.allow` (symbol, API module) from the Tizen 8.0 common native API reference and `symbols::tests` per\n`SYS-2`. Declare only what the diagnostic app and the platform will call; add later symbols with their allowlist entry\nin the task that uses them. Docs: `/Users/dinko/work-private/projects/dXn/nsh/nsh-root/_projects/tizen/getting-started.md` (\"The crates\"), `/Users/dinko/work-private/projects/dXn/nsh/nsh-root/_projects/tizen/distribution.md` (\"Native\nsymbols\"), `/Users/dinko/work-private/projects/dXn/nsh/nsh-root/_projects/tizen/tizen-platform.md` (\"Lifecycle, main loop, windows\").",
+          "criterionIds": [
+            "SYS-1",
+            "SYS-2"
+          ],
+          "designIds": [
+            "d07-ffi-symbols",
+            "d03-targets-build-std"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-sys-symbols"
+          ]
+        },
+        {
+          "id": "t2-symcheck",
+          "title": "Symbol checker for built TV libraries",
+          "descriptionMarkdown": "Implement `cargo xtask check-symbols <lib.so>` per `SYS-3` with `llvm-nm -D --defined-only` / `--undefined-only` from\nthe pinned toolchain's `llvm-tools` (locate it through `rustc --print sysroot`), the glibc and loader allowlist as a\nconstant, and `symbols.allow` read from the sys crate; wire `--check-symbols` in `cargo xtask cross` to run it on\neach built `cdylib`. Add `symcheck::tests` with fixture `llvm-nm` outputs (clean, a second export, a weak export, an\nundocumented import such as `tdm_client_create`).",
+          "criterionIds": [
+            "SYS-3"
+          ],
+          "designIds": [
+            "d07-ffi-symbols"
+          ],
+          "dependsOn": [
+            "t2-sys"
+          ],
+          "checkIds": [
+            "chk-xtask-symcheck"
+          ]
+        },
+        {
+          "id": "t2-host",
+          "title": "The one-P/Invoke C# host",
+          "descriptionMarkdown": "Write `host/Program.cs`, `host/Dxn.GpuiTizen.Host.csproj` and `host/tizen-manifest.template.xml` (placeholders the\npackager fills) plus `host/shared/res/icon.png` per `HOST-1`. Use the `Main` of\n`/Users/dinko/work-private/projects/dXn/nsh/nsh-root/_projects/tizen/native-host-performance.md` section 2 with `libdxn_app.so` and `dxn_gpui_tizen_main`; pin the\n`Tizen.NET.Sdk` version in the csproj; Release without PDB. Verify with `dotnet build`. Do not add TizenFX\npackages.",
+          "criterionIds": [
+            "HOST-1"
+          ],
+          "designIds": [
+            "d08-host-package"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-host-build"
+          ]
+        },
+        {
+          "id": "t2-package",
+          "title": "`cargo xtask package`: TPK staging and signing driver",
+          "descriptionMarkdown": "Implement `cargo xtask package` per `HOST-2`: build the app's release library through the cross driver, build the host\n(`dotnet build`), stage `target/tpk/<app>-<target>/` with the renamed library and the rendered manifest, and run\n`tz pack -t tpk -s <profile>` only with `--sign`. App table: `diag` → `dxn_gpui_tizen_diag`, `DxnGpuiTzD`;\n`counter` → `example_counter`, `DxnGpuiTzC`; `long_list` → `example_long_list`, `DxnGpuiTzL`. Keep manifest rendering\nand layout computation pure and test them in `package::tests` with fixtures; the build and `tz` steps stay thin.\nLibrary paths in the TPK follow flutter-tizen's layout (`lib/` for the single-architecture package).",
+          "criterionIds": [
+            "HOST-2"
+          ],
+          "designIds": [
+            "d08-host-package"
+          ],
+          "dependsOn": [
+            "t2-host"
+          ],
+          "checkIds": [
+            "chk-xtask-package"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s3-diag",
+      "title": "The diagnostic app",
+      "dependsOn": [
+        "s2-bindings-host"
+      ],
+      "checkIds": [
+        "chk-diag-report",
+        "chk-diag-probe",
+        "chk-diag-transport",
+        "chk-link-armv7",
+        "chk-link-x86_64",
+        "chk-tizen-deps-armv7",
+        "chk-tizen-deps-x86_64"
+      ],
+      "tasks": [
+        {
+          "id": "t3-report",
+          "title": "Report model and collectors",
+          "descriptionMarkdown": "Implement the report of `DIAG-1` in `dxn_gpui_tizen_diag` (`report` module): serde types with a `version` field,\nparsers for `/proc/cpuinfo`, `/proc/self/smaps_rollup`, `/proc/meminfo` and space-separated extension strings, a\nmonotonic step timer anchored at process start, and the EGL / GL ES queries through run-time loading\n(`libloading` of `libEGL.so.1` and `libGLESv2.so.2`, or `khronos-egl` with its `dynamic` feature) under the Tizen cfg.\nTest parsers, timer and JSON round trip in `report::tests` with fixtures (include a 32-bit ARM cpuinfo). Docs:\n`/Users/dinko/work-private/projects/dXn/nsh/nsh-root/_projects/tizen/native-host-performance.md` sections 6 and 9, `/Users/dinko/work-private/projects/dXn/nsh/nsh-root/_projects/tizen/gpui-route.md` section 9.",
+          "criterionIds": [
+            "DIAG-1"
+          ],
+          "designIds": [
+            "d09-diag-independent"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-diag-report"
+          ]
+        },
+        {
+          "id": "t3-probe",
+          "title": "The wgpu surface probe on an Ecore_Wl2 window",
+          "descriptionMarkdown": "Implement `DIAG-2`: the Tizen entry `dxn_gpui_tizen_main` (calls `ui_app_main`; `create` opens one full-screen opaque\nEcore_Wl2 window, starts the probe on the main loop, then serves the report), and the probe as a sequence of stages\nover a small backend trait (instance, surface, adapter, device, configure, present N frames) with a real wgpu backend\n(GL only, Wayland raw handles, WebGL2 downlevel limits when vertex storage is absent) and a fake for `probe::tests`.\nNever panic on a failed stage. Depend on `wgpu` with the major version gpui-fast-wgpu 0.1.13 uses\n(`default-features = false`, GL and WGSL features). Docs: `/Users/dinko/work-private/projects/dXn/nsh/nsh-root/_projects/tizen/gpui-route.md` sections 2 and 9 (wgpu issue\n#10708).",
+          "criterionIds": [
+            "DIAG-2"
+          ],
+          "designIds": [
+            "d09-diag-independent",
+            "d11-renderer-wgpu-egl",
+            "d07-ffi-symbols"
+          ],
+          "dependsOn": [
+            "t3-report"
+          ],
+          "checkIds": [
+            "chk-diag-probe"
+          ]
+        },
+        {
+          "id": "t3-transport",
+          "title": "Report transport and `cargo xtask diag pull`",
+          "descriptionMarkdown": "Implement `DIAG-3`: a small TCP server in the app (a background thread, never the main loop; one client at a time;\nnewline-delimited JSON: the report, then log lines) and a client in the crate's library used by\n`cargo xtask diag pull`, which writes `artifacts-temp/diag/<utc>-<model>.json` and prints the summary. Port from the\n`app_control` extra `port`, default 47123. `transport::tests` over loopback.",
+          "criterionIds": [
+            "DIAG-3"
+          ],
+          "designIds": [
+            "d09-diag-independent"
+          ],
+          "dependsOn": [
+            "t3-report"
+          ],
+          "checkIds": [
+            "chk-diag-transport"
+          ]
+        },
+        {
+          "id": "t3-link",
+          "title": "Link the diagnostic library for both Tizen targets",
+          "descriptionMarkdown": "With the rootstrap installed (environment prerequisite; if it is missing, stop and ask the owner to install the Tizen\nSDK CLI and the Tizen 8.0 common rootstraps), add `--all-tv-libs` to the cross driver and `cargo xtask tizen-deps`\n(runs `cargo tree` for a Tizen target and fails on desktop platform crates; for the diag, also on any GPUI crate or a\nsecond wgpu), build the diagnostic `cdylib` for armv7 and x86_64 with `--check-symbols`, fix imports outside the\nallowlist, and stage the diag TPK with `cargo xtask package --app diag` for both targets (unsigned).",
+          "criterionIds": [
+            "DIAG-4"
+          ],
+          "designIds": [
+            "d07-ffi-symbols",
+            "d03-targets-build-std",
+            "d08-host-package"
+          ],
+          "dependsOn": [
+            "t3-probe",
+            "t3-transport"
+          ],
+          "checkIds": [
+            "chk-link-armv7",
+            "chk-link-x86_64",
+            "chk-tizen-deps-armv7",
+            "chk-tizen-deps-x86_64"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s4-gpui-fast",
+      "title": "gpui-fast renderer changes and the tizen-release workspace",
+      "dependsOn": [
+        "s1b-gates"
+      ],
+      "checkIds": [
+        "chk-gf-gles-device",
+        "chk-gf-gles-backends",
+        "chk-gf-pipeline-cache",
+        "chk-gf-check-upstream",
+        "chk-gf-clippy",
+        "chk-xtask-release",
+        "chk-gf-release"
+      ],
+      "tasks": [
+        {
+          "id": "t4-gles-device",
+          "title": "Change 1: GL ES 3.0 devices (`gles-instance-path`)",
+          "descriptionMarkdown": "In `../gpui-fast`: add the `upstream` remote (`https://github.com/longbridge/gpui-fast`) and fetch it with tags if not\nyet done (local git configuration only; no push). Cut `gles-instance-path` from `upstream/main` and implement\n`GF-1` exactly as `/Users/dinko/work-private/projects/dXn/nsh/nsh-root/_projects/tizen/gpui-fast-changes.md` section 2 describes: `crates/gpui_wgpu/src/fast/gles.rs` with the\nthree decisions, one-line hooks in `wgpu_context.rs` (`uses_webgl_instance_data`, `create_device` limits,\n`select_color_texture_format`), an info log of the chosen path, and `fast::gles::tests::device`. Read\n`../gpui-fast/AGENTS.md`, `CLAUDE.md` and `docs/upstream-sync.md` first. Run gpui-fast's local checks on the branch,\nthen cherry-pick it into `tizen` (created in `t4-integration`; create it now from the `v0.1.13` tag commit if it does\nnot exist).",
+          "criterionIds": [
+            "GF-1"
+          ],
+          "designIds": [
+            "d06-gpui-fast-changes",
+            "d05-gpui-fast-pin",
+            "d01-repositories"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-gf-gles-device"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "gpui-fast",
+              "path": "crates/gpui_wgpu/src/wgpu_context.rs"
+            },
+            {
+              "repositoryId": "gpui-fast",
+              "path": "crates/gpui_wgpu/src/fast/mod.rs"
+            }
+          ]
+        },
+        {
+          "id": "t4-backend-env",
+          "title": "Change 2: GL on request (`wgpu-backend-env`)",
+          "descriptionMarkdown": "Cut `wgpu-backend-env` from `upstream/main`; add `fast::gles::backends()` (a separate `fast/gles.rs` on this branch:\nthe branches are not stacked, so expect a trivial conflict when cherry-picking into `tizen` after change 1, resolved\nby keeping both items) and hook `WgpuContext::instance()`; `fast::gles::tests::backends` covers unset, `gl` and\n`vulkan` (serialize environment mutations in the tests). gpui-fast PR #120 (closed) is a reference for the variant\nnot taken. Cherry-pick into `tizen`.",
+          "criterionIds": [
+            "GF-2"
+          ],
+          "designIds": [
+            "d06-gpui-fast-changes"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-gf-gles-backends"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "gpui-fast",
+              "path": "crates/gpui_wgpu/src/wgpu_context.rs",
+              "symbol": "WgpuContext::instance"
+            }
+          ]
+        },
+        {
+          "id": "t4-pipeline-cache",
+          "title": "Change 3: a pipeline cache on disk (`pipeline-cache`)",
+          "descriptionMarkdown": "Cut `pipeline-cache` from `upstream/main`; implement `GF-3` in `crates/gpui_wgpu/src/fast/pipeline_cache.rs` with\nhooks in `create_device` (feature request) and the pipeline creation in `wgpu_renderer.rs` (`cache: None` becomes a\ncall into `fast`). Tests in `fast::pipeline_cache::tests` use a temporary directory and drive the load/store logic\nthrough a seam that does not need a GPU where the adapter lacks the feature. Cherry-pick into `tizen`.",
+          "criterionIds": [
+            "GF-3"
+          ],
+          "designIds": [
+            "d06-gpui-fast-changes"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-gf-pipeline-cache"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "gpui-fast",
+              "path": "crates/gpui_wgpu/src/wgpu_renderer.rs"
+            }
+          ]
+        },
+        {
+          "id": "t4-integration",
+          "title": "The `tizen` integration branch",
+          "descriptionMarkdown": "Make `tizen` exactly the `v0.1.13` tag commit plus the cherry-picked commits of the three change branches (design\n`d05-gpui-fast-pin`); if `v0.1.13` and `upstream/main` differ in files the changes touch, port the changes so each\nbranch stays based on `main` and `tizen` stays on the tag. Leave the checkout on `tizen`. Run `script/check-upstream`\nand the clippy of `GF-4` there, and on each change branch before cherry-picking. Commit nothing to `main`.",
+          "criterionIds": [
+            "GF-4"
+          ],
+          "designIds": [
+            "d05-gpui-fast-pin",
+            "d06-gpui-fast-changes",
+            "d01-repositories"
+          ],
+          "dependsOn": [
+            "t4-gles-device",
+            "t4-backend-env",
+            "t4-pipeline-cache"
+          ],
+          "checkIds": [
+            "chk-gf-check-upstream",
+            "chk-gf-clippy"
+          ]
+        },
+        {
+          "id": "t4-release",
+          "title": "`cargo xtask gpui-fast-release` and the local patch",
+          "descriptionMarkdown": "Implement `GF-5` in `xtask`: run Bun's `script/prepare-release.ts --tag v0.1.13` in `../gpui-fast` (on `tizen`, clean\ntree), `cargo check` the generated workspace, commit its exact contents to the local `tizen-release` branch through\n`git worktree` (an orphan branch whose tree is the generated workspace), and the `--verify` mode that commits nothing\nand writes `artifacts-temp/gpui-fast-patch.toml` with the nine `[patch.crates-io]` path entries before checking\n`cargo tree -i gpui-fast`. Keep the patch-entry generation and `cargo tree` parsing pure (`release::tests`). Bun is an\nenvironment prerequisite (`brew install oven-sh/bun/bun`). Docs: `/Users/dinko/work-private/projects/dXn/nsh/nsh-root/_projects/tizen/gpui-fast-changes.md` sections 3-4.",
+          "criterionIds": [
+            "GF-5"
+          ],
+          "designIds": [
+            "d05-gpui-fast-pin"
+          ],
+          "dependsOn": [
+            "t4-integration"
+          ],
+          "checkIds": [
+            "chk-xtask-release",
+            "chk-gf-release"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s5-core",
+      "title": "Platform logic tested on the Mac",
+      "dependsOn": [
+        "s1b-gates"
+      ],
+      "checkIds": [
+        "chk-core-dispatcher",
+        "chk-core-frame",
+        "chk-core-lifecycle",
+        "chk-core-keys",
+        "chk-core-display"
+      ],
+      "tasks": [
+        {
+          "id": "t5-dispatcher",
+          "title": "Dispatcher over a main-loop abstraction",
+          "descriptionMarkdown": "Implement `CORE-1` in `dxn_gpui_tizen::dispatcher`: a `MainLoop` trait (`post(Box<dyn FnOnce() + Send>)`,\n`add_timer(Duration, ...)`), the queue that `post` drains on the main thread, the `PlatformDispatcher` implementation\nusing it, and a background pool (follow `gpui_linux`'s dispatcher for the GPUI-facing parts, read in\n`~/.cargo/registry` or `../gpui-fast/crates/gpui_linux/src/linux/dispatcher.rs` at the 0.1.13 API). The Ecore-backed\n`MainLoop` lands with the shell in `s6`. `dispatcher::tests` with a fake loop. Docs: `/Users/dinko/work-private/projects/dXn/nsh/nsh-root/_projects/tizen/gpui-route.md`\nsection 3.",
+          "criterionIds": [
+            "CORE-1"
+          ],
+          "designIds": [
+            "d10-logic-shell-split",
+            "d12-threads-frames"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-core-dispatcher"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "gpui-fast",
+              "path": "crates/gpui/src/platform.rs",
+              "symbol": "PlatformDispatcher"
+            }
+          ]
+        },
+        {
+          "id": "t5-frame-lifecycle",
+          "title": "Frame scheduler and lifecycle state machine",
+          "descriptionMarkdown": "Implement `CORE-2` (`frame` module) and `CORE-3` (`lifecycle` module) as pure state machines returning effect values\n(draw now, request a frame callback, release GPU resources, rebuild and force redraw, run quit callbacks), with\n`frame::tests` and `lifecycle::tests`. The shell in `s6` performs the effects.",
+          "criterionIds": [
+            "CORE-2",
+            "CORE-3"
+          ],
+          "designIds": [
+            "d10-logic-shell-split",
+            "d12-threads-frames",
+            "d13-lifecycle-gpu-release"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-core-frame",
+            "chk-core-lifecycle"
+          ]
+        },
+        {
+          "id": "t5-keys-display",
+          "title": "Key mapping and display metrics",
+          "descriptionMarkdown": "Implement `CORE-4` (`keys` module: the table of design `d14-keys` producing GPUI `Keystroke`s and `Modifiers`, held\non repeat) and `CORE-5` (`display` module: `RunOptions::scale_factor`, `DXN_GPUI_TIZEN_SCALE` parsing with the 1.0-4.0\nrange, logical size, refresh from a measured interval). `keys::tests`, `display::tests`. Define `RunOptions` here\n(scale factor now; `grab_keys` and `font_families` are added in `s7`).",
+          "criterionIds": [
+            "CORE-4",
+            "CORE-5"
+          ],
+          "designIds": [
+            "d10-logic-shell-split",
+            "d14-keys",
+            "d15-display-scale"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-core-keys",
+            "chk-core-display"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s6-shell",
+      "title": "The Tizen platform shell and the counter example",
+      "dependsOn": [
+        "s2-bindings-host",
+        "s3-diag",
+        "s4-gpui-fast",
+        "s5-core"
+      ],
+      "checkIds": [
+        "chk-tizen-deps-armv7",
+        "chk-tizen-deps-x86_64",
+        "chk-ex-counter",
+        "chk-link-armv7",
+        "chk-link-x86_64"
+      ],
+      "tasks": [
+        {
+          "id": "t6-platform",
+          "title": "`TizenPlatform` and `run`",
+          "descriptionMarkdown": "Implement `SHELL-1` under `src/tizen/` (`app.rs`, `platform.rs`): `run`, the `Platform` trait on Tizen with the\nEcore-backed `MainLoop` for the dispatcher, `ui_app_main` lifecycle callbacks feeding the lifecycle machine,\n`quit` → `ui_app_exit`, `GPUI_PIPELINE_CACHE_DIR` set before threads start, the cosmic-text text system (system\nfonts for now; `s7` narrows them), one display, no-op menus and dialogs, an in-process clipboard. Extend `cargo xtask tizen-deps` (from `s3`) to the platform and example packages. Use gpui-fast's iOS platform as the scope model\n(`gpui_ios`: one full-screen window, no menus). Docs: `/Users/dinko/work-private/projects/dXn/nsh/nsh-root/_projects/tizen/gpui-route.md` sections 2-3.",
+          "criterionIds": [
+            "SHELL-1"
+          ],
+          "designIds": [
+            "d10-logic-shell-split",
+            "d12-threads-frames",
+            "d05-gpui-fast-pin",
+            "d03-targets-build-std"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-tizen-deps-armv7",
+            "chk-tizen-deps-x86_64"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "gpui-fast",
+              "path": "crates/gpui/src/platform.rs",
+              "symbol": "Platform"
+            },
+            {
+              "repositoryId": "gpui-fast",
+              "path": "crates/gpui_ios/src/ios.rs"
+            }
+          ]
+        },
+        {
+          "id": "t6-window",
+          "title": "The Ecore_Wl2 window and its renderer",
+          "descriptionMarkdown": "Implement `SHELL-2` (`src/tizen/window.rs`, `src/tizen/input.rs`): the window, its raw-window-handle\n`WaylandDisplayHandle` / `WaylandWindowHandle`, `WgpuRenderer::new` with a shared `GpuContext`, frame callbacks into\nthe frame scheduler, Ecore key events through `keys`, lifecycle effects (`destroy` + atlas `clear` on pause, rebuild on\nresume), `PlatformWindow` methods for a fixed full-screen window (bounds, scale, appearance dark, no resize, no title).\nKeep every decision in the logic modules.",
+          "criterionIds": [
+            "SHELL-2"
+          ],
+          "designIds": [
+            "d11-renderer-wgpu-egl",
+            "d13-lifecycle-gpu-release",
+            "d14-keys",
+            "d10-logic-shell-split"
+          ],
+          "dependsOn": [
+            "t6-platform"
+          ],
+          "checkIds": [
+            "chk-link-armv7",
+            "chk-link-x86_64"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "gpui-fast",
+              "path": "crates/gpui_wgpu/src/wgpu_renderer.rs",
+              "symbol": "WgpuRenderer"
+            }
+          ]
+        },
+        {
+          "id": "t6-examples",
+          "title": "The counter example",
+          "descriptionMarkdown": "Implement `SHELL-3`: `examples/counter` as a `cdylib` + `rlib` package with the view in the library, `dxn_gpui_tizen_main` under the Tizen cfg calling `dxn_gpui_tizen::run`, and `src/main.rs` running the same view through `gpui_platform::application()` on other targets (`gpui-fast-platform` as a `cfg(not(target_vendor = \"tizen\"))` dependency), with `--exit-after-frames <n>` and key actions bound to the keystroke names of `d14-keys`; `view::tests` with GPUI's test context; link it for both Tizen targets and stage its TPK.",
+          "criterionIds": [
+            "SHELL-3"
+          ],
+          "designIds": [
+            "d14-keys",
+            "d10-logic-shell-split",
+            "d08-host-package"
+          ],
+          "dependsOn": [
+            "t6-platform"
+          ],
+          "checkIds": [
+            "chk-ex-counter",
+            "chk-link-armv7",
+            "chk-link-x86_64"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s7-examples",
+      "title": "The long-list example, the GL ES 3.0 path in Lima, and linking",
+      "dependsOn": [
+        "s6-shell"
+      ],
+      "checkIds": [
+        "chk-ex-long-list",
+        "chk-gles-smoke",
+        "chk-gf-release",
+        "chk-link-armv7",
+        "chk-link-x86_64"
+      ],
+      "tasks": [
+        {
+          "id": "t6-long-list",
+          "title": "The long-list example",
+          "descriptionMarkdown": "Implement `SHELL-6`: `examples/long_list` like the counter (1,000 rows in a `uniform_list`, Up/Down move the selection and keep it visible, Back quits), with `view::tests`.",
+          "criterionIds": [
+            "SHELL-6"
+          ],
+          "designIds": [
+            "d14-keys",
+            "d10-logic-shell-split"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-ex-long-list"
+          ]
+        },
+        {
+          "id": "t6-gles-smoke",
+          "title": "The Lima VM and the GL ES 3.0 smoke tests",
+          "descriptionMarkdown": "Write `scripts/lima/gpuitizen.yaml` and `scripts/lima-run.sh` (design `d19-lima-desktop-path`; create the VM with\n`limactl create --name gpuitizen scripts/lima/gpuitizen.yaml` the first time) and each example's\n`tests/gles_smoke.rs` (`#![cfg(target_os = \"linux\")]`): spawn `env!(\"CARGO_BIN_EXE_<bin>\")` with\n`--exit-after-frames 60`, assert exit 0 and the change-1 log line on stderr/stdout. Run `cargo xtask gpui-fast-release\n--verify` first so the local patch config exists; if Mesa's override does not lower what wgpu sees (unverified in the\ndocs), record what wgpu reports and use the closest way to force the instance-texture path (for example a Mesa\ndriver build without SSBOs in vertex shaders), noting it in the handoff.",
+          "criterionIds": [
+            "SHELL-4"
+          ],
+          "designIds": [
+            "d19-lima-desktop-path",
+            "d06-gpui-fast-changes"
+          ],
+          "dependsOn": [
+            "t6-long-list"
+          ],
+          "checkIds": [
+            "chk-gles-smoke",
+            "chk-gf-release"
+          ]
+        },
+        {
+          "id": "t6-link",
+          "title": "Link every TV library for both Tizen targets",
+          "descriptionMarkdown": "Build every TV library as release `cdylib`s for armv7 and x86_64 with `--all-tv-libs --check-symbols` (`SHELL-5`), extend `symbols.allow` and the bindings for what the shell now calls, and stage the examples' TPKs unsigned with `cargo xtask package`.",
+          "criterionIds": [
+            "SHELL-5"
+          ],
+          "designIds": [
+            "d07-ffi-symbols",
+            "d08-host-package"
+          ],
+          "dependsOn": [
+            "t6-long-list"
+          ],
+          "checkIds": [
+            "chk-link-armv7",
+            "chk-link-x86_64"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s8-completion",
+      "title": "Platform completion: text input, key grabs, settings, fonts, accessibility",
+      "dependsOn": [
+        "s7-examples"
+      ],
+      "checkIds": [
+        "chk-plat-ime",
+        "chk-ex-long-list-filter",
+        "chk-plat-keygrab",
+        "chk-plat-settings",
+        "chk-plat-fonts",
+        "chk-plat-a11y",
+        "chk-plat-a11y-atspi",
+        "chk-link-armv7",
+        "chk-link-x86_64",
+        "chk-tizen-deps-armv7"
+      ],
+      "tasks": [
+        {
+          "id": "t7-ime",
+          "title": "Text input through Ecore_IMF, and the long list's filter field",
+          "descriptionMarkdown": "Implement `PLAT-1`: the `ime` module (events in, `PlatformInputHandler` calls out, tested with a fake handler in\n`ime::tests`) and `src/tizen/imf.rs` (context per window, input panel show/hide on editable focus, IME-first key\nfiltering). Add the filter field to `examples/long_list` as an `EntityInputHandler` modelled on GPUI's own text input\nexample, with `filter::tests`.",
+          "criterionIds": [
+            "PLAT-1"
+          ],
+          "designIds": [
+            "d16-ime",
+            "d10-logic-shell-split"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-plat-ime",
+            "chk-ex-long-list-filter"
+          ]
+        },
+        {
+          "id": "t7-keygrab",
+          "title": "TV key grabs",
+          "descriptionMarkdown": "Implement `PLAT-2`: the `keygrab` module (grab plan from `RunOptions::grab_keys`, refusal of `Return`, `XF86Exit`,\n`XF86Home`) with `keygrab::tests`, and the shell calls on show, hide and terminate.",
+          "criterionIds": [
+            "PLAT-2"
+          ],
+          "designIds": [
+            "d14-keys",
+            "d10-logic-shell-split"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-plat-keygrab"
+          ]
+        },
+        {
+          "id": "t7-settings",
+          "title": "System settings",
+          "descriptionMarkdown": "Implement `PLAT-3`: the `settings` module (types, parsing, font-scale mapping, coalescing, subscriptions delivered on\nthe main thread) with `settings::tests`, and `src/tizen/settings.rs` reading `system_settings` and registering change\ncallbacks (unsupported keys yield `None`).",
+          "criterionIds": [
+            "PLAT-3"
+          ],
+          "designIds": [
+            "d17-settings-fonts",
+            "d10-logic-shell-split"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-plat-settings"
+          ]
+        },
+        {
+          "id": "t7-fonts",
+          "title": "Fonts from fontconfig's directories",
+          "descriptionMarkdown": "Implement `PLAT-4`: the `fonts` module (fontconfig configuration parsing with includes and `conf.d`, family discovery\nfrom font file name tables with `ttf-parser`, the family allowlist from `RunOptions::font_families`) with\n`fonts::tests` over fixture trees, and the shell creating `CosmicTextSystem::new_without_system_fonts` plus\n`add_fonts` from memory-mapped files.",
+          "criterionIds": [
+            "PLAT-4"
+          ],
+          "designIds": [
+            "d17-settings-fonts",
+            "d10-logic-shell-split"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-plat-fonts"
+          ]
+        },
+        {
+          "id": "t7-a11y",
+          "title": "Accessibility through accesskit_unix",
+          "descriptionMarkdown": "Implement `PLAT-5`: the `a11y` module (the bridge from GPUI's `A11yCallbacks` to AccessKit's activation, action and\ndeactivation handlers, main-thread forwarding, bounds) compiled for every Linux and macOS for its unit tests, the\nwindow hooks on Tizen, and `crates/dxn_gpui_tizen/tests/a11y_atspi.rs` (Linux only) that starts the adapter on the\nsession bus, pushes a small tree, reads it back with the `atspi` crate (or `zbus` calls) and invokes `DoAction`. Use\nthe `accesskit_unix` version gpui-fast 0.1.13 uses. Follow `gpui_linux`'s use of the adapter.",
+          "criterionIds": [
+            "PLAT-5"
+          ],
+          "designIds": [
+            "d18-a11y",
+            "d10-logic-shell-split"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-plat-a11y",
+            "chk-plat-a11y-atspi"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "gpui-fast",
+              "path": "crates/gpui/src/platform.rs",
+              "symbol": "A11yCallbacks"
+            }
+          ]
+        },
+        {
+          "id": "t7-link",
+          "title": "Link and dependency check of the completed platform",
+          "descriptionMarkdown": "Extend bindings and `symbols.allow` for the new calls, then prove `PLAT-6`: both examples link for both Tizen targets\nwith `--check-symbols`, and `cargo xtask tizen-deps --target armv7` still reports no desktop platform crate\n(`accesskit_unix`'s `zbus` is allowed). Restage both examples' TPKs.",
+          "criterionIds": [
+            "PLAT-6"
+          ],
+          "designIds": [
+            "d07-ffi-symbols"
+          ],
+          "dependsOn": [
+            "t7-ime",
+            "t7-keygrab",
+            "t7-settings",
+            "t7-fonts",
+            "t7-a11y"
+          ],
+          "checkIds": [
+            "chk-link-armv7",
+            "chk-link-x86_64",
+            "chk-tizen-deps-armv7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s9-wgpu",
+      "title": "wgpu fork: EGL 1.4 drivers and GL program binaries",
+      "dependsOn": [
+        "s4-gpui-fast",
+        "s7-examples"
+      ],
+      "checkIds": [
+        "chk-wgpu-egl-unit",
+        "chk-wgpu-program-binaries",
+        "chk-wgpu-clippy",
+        "chk-gf-release",
+        "chk-gles-smoke"
+      ],
+      "tasks": [
+        {
+          "id": "t9-egl14",
+          "title": "EGL 1.4 displays, presentable tiers and the render-buffer fallback",
+          "descriptionMarkdown": "In `../wgpu`: add `upstream` (`https://github.com/gfx-rs/wgpu`), fetch `v30`, cut `v30-egl14` from `upstream/v30`.\nImplement `WGPU-1` and `WGPU-2` in `wgpu-hal/src/gles/egl.rs`: extract the display-path choice, the config tier\nranking and the render-buffer choice into pure functions with unit tests (`gles::egl::tests::{display_path,\nconfig_tiers,render_buffer}`), then use them. Read wgpu issue #10708 and its reporter's analysis first\n(`/Users/dinko/work-private/projects/dXn/nsh/nsh-root/_projects/tizen/gpui-route.md`, section 9). Keep wgpu's style and changelog conventions (add a `CHANGELOG.md` entry under\nthe unreleased section as wgpu PRs do).",
+          "criterionIds": [
+            "WGPU-1",
+            "WGPU-2"
+          ],
+          "designIds": [
+            "d22-wgpu-fork"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-wgpu-egl-unit",
+            "chk-wgpu-clippy"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "wgpu",
+              "path": "wgpu-hal/src/gles/egl.rs"
+            }
+          ]
+        },
+        {
+          "id": "t9-program-binaries",
+          "title": "Program binaries behind wgpu's GL pipeline cache",
+          "descriptionMarkdown": "Cut `v30-gles-program-binaries` from `upstream/v30`; implement `WGPU-3` in `wgpu-hal/src/gles/` (`device.rs`\npipeline-cache entry points, `adapter.rs` feature and key reporting, `mod.rs` cache type) and extend wgpu's\npipeline-cache GPU test to the GL backend. Use `glow`'s `get_program_binary` / `program_binary`; validate data with a\nheader (format, length, a hash of the sources and adapter strings) so stale or corrupt data falls back. Docs:\n`/Users/dinko/work-private/projects/dXn/nsh/nsh-root/_projects/tizen/gpui-route.md` section 6, `/Users/dinko/work-private/projects/dXn/nsh/nsh-root/_projects/tizen/native-host-performance.md` lever 5 (DALi caches program binaries the same\nway).",
+          "criterionIds": [
+            "WGPU-3"
+          ],
+          "designIds": [
+            "d22-wgpu-fork"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-wgpu-program-binaries",
+            "chk-wgpu-clippy"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "wgpu",
+              "path": "wgpu-hal/src/gles/device.rs",
+              "symbol": "create_pipeline_cache"
+            }
+          ]
+        },
+        {
+          "id": "t9-wgpu-integration",
+          "title": "`v30-tizen` and the wgpu-hal patch",
+          "descriptionMarkdown": "Merge both branches into `v30-tizen` (cut from `upstream/v30`) and leave the checkout on it. Extend\n`cargo xtask gpui-fast-release --verify` to add `wgpu-hal = { path = \"<abs>/wgpu/wgpu-hal\" }` to\n`artifacts-temp/gpui-fast-patch.toml` and check `cargo tree -i wgpu-hal` (`WGPU-4`), with `release::tests` covering\nthe new entry. Rerun the examples' GL ES smoke tests in Lima on the patched wgpu.",
+          "criterionIds": [
+            "WGPU-4"
+          ],
+          "designIds": [
+            "d22-wgpu-fork",
+            "d05-gpui-fast-pin"
+          ],
+          "dependsOn": [
+            "t9-egl14",
+            "t9-program-binaries"
+          ],
+          "checkIds": [
+            "chk-gf-release",
+            "chk-xtask-release",
+            "chk-gles-smoke"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s10-damage",
+      "title": "gpui-fast change 5: scene damage and drawing into a supplied target",
+      "dependsOn": [
+        "s4-gpui-fast"
+      ],
+      "checkIds": [
+        "chk-gf-damage",
+        "chk-gf-external-target",
+        "chk-gf-check-upstream",
+        "chk-gf-clippy",
+        "chk-gf-release"
+      ],
+      "tasks": [
+        {
+          "id": "t10-scene-damage",
+          "title": "Scene damage (`scene-damage`)",
+          "descriptionMarkdown": "Cut `scene-damage` from `upstream/main`; implement `DMG-1` in `crates/gpui_wgpu/src/fast/damage.rs` (per-window\nprevious-scene summary kept by the renderer through a `fast/` field hook; compare primitives by kind, bounds, content\nand clip; merge rectangles to a bounded count; full damage on resize, scale, atlas loss or `GPUI_PARTIAL_REDRAW=0`).\nLook at gpui-fast PR #45 (closed) for its exact-damage approach and at `fast/composition.rs` and `fast/layers` for what\nretained mode already tracks. Tests in `fast::damage::tests`. Cherry-pick into `tizen`.",
+          "criterionIds": [
+            "DMG-1"
+          ],
+          "designIds": [
+            "d23-damage-external-target",
+            "d06-gpui-fast-changes"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-gf-damage"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "gpui-fast",
+              "path": "crates/gpui_wgpu/src/fast/composition.rs"
+            },
+            {
+              "repositoryId": "gpui-fast",
+              "path": "crates/gpui_wgpu/src/fast/layers/mod.rs"
+            }
+          ]
+        },
+        {
+          "id": "t10-external-target",
+          "title": "Drawing into a supplied target with partial redraw (`external-target`)",
+          "descriptionMarkdown": "Cut `external-target` from `upstream/main` with `scene-damage` cherry-picked first (record that dependency in the\nbranch's description for upstream). Implement `DMG-2` and `DMG-3`: the constructor over an existing adapter and\ndevice, the draw call into a supplied view (Y-flip through the projection, `LoadOp::Load` plus scissor rectangles for\npartial frames, `LoadOp::Clear` for full ones), returning the damage. Keep logic in `fast/external_target.rs`; the\npublic items are the documented exception, listed in the fork's `docs/upstream-sync.md`. Pixel tests through\n`WgpuHeadlessRenderer`'s device. Cherry-pick into `tizen`.",
+          "criterionIds": [
+            "DMG-2",
+            "DMG-3"
+          ],
+          "designIds": [
+            "d23-damage-external-target"
+          ],
+          "dependsOn": [
+            "t10-scene-damage"
+          ],
+          "checkIds": [
+            "chk-gf-external-target"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "gpui-fast",
+              "path": "crates/gpui_wgpu/src/wgpu_renderer.rs",
+              "symbol": "WgpuHeadlessRenderer"
+            }
+          ]
+        },
+        {
+          "id": "t10-integration",
+          "title": "Rule checks and the release workspace with change 5",
+          "descriptionMarkdown": "Run `script/check-upstream` and the `gpui_wgpu` clippy on both branches and on `tizen`, then\n`cargo xtask gpui-fast-release --verify` (`DMG-4`). Leave the checkout on `tizen`.",
+          "criterionIds": [
+            "DMG-4"
+          ],
+          "designIds": [
+            "d23-damage-external-target",
+            "d05-gpui-fast-pin"
+          ],
+          "dependsOn": [
+            "t10-external-target"
+          ],
+          "checkIds": [
+            "chk-gf-check-upstream",
+            "chk-gf-clippy",
+            "chk-gf-release"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s11-platform-egl",
+      "title": "Platform-owned EGL, blob cache and partial presents",
+      "dependsOn": [
+        "s8-completion",
+        "s9-wgpu",
+        "s10-damage"
+      ],
+      "checkIds": [
+        "chk-egl-blob-cache",
+        "chk-egl-damage-history",
+        "chk-egl-renderer-select",
+        "chk-egl-wayland",
+        "chk-link-armv7",
+        "chk-link-x86_64"
+      ],
+      "tasks": [
+        {
+          "id": "t11-blob-cache",
+          "title": "The blob-cache store",
+          "descriptionMarkdown": "Implement `EGL-2`'s store in the `blob_cache` module (keys hashed to file names, size bound with LRU by access time, atomic writes, corrupt entries ignored, thread-safe because drivers may call from any thread), with `blob_cache::tests`. The EGL callback glue comes with `t11-egl`.",
+          "criterionIds": [
+            "EGL-2"
+          ],
+          "designIds": [
+            "d24-platform-egl"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-egl-blob-cache"
+          ]
+        },
+        {
+          "id": "t11-damage-history",
+          "title": "Damage history for buffer age",
+          "descriptionMarkdown": "Implement the `damage_history` module of `EGL-3` (three-frame history, union by age, conversion to GL's bottom-left origin, full frame on age 0 or beyond history) with `damage_history::tests`.",
+          "criterionIds": [
+            "EGL-3"
+          ],
+          "designIds": [
+            "d24-platform-egl",
+            "d23-damage-external-target"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-egl-damage-history"
+          ]
+        },
+        {
+          "id": "t11-egl",
+          "title": "The platform-owned EGL context",
+          "descriptionMarkdown": "Implement `EGL-1` in the Linux-generic `egl` module: run-time loading of EGL, GL ES and wayland-egl (`khronos-egl`\nwith `dynamic`, or `libloading`), display, opaque and alpha configs, GL ES 3 context, `wl_egl_window`, blob-cache\ncallback registration (with `t11-blob-cache`'s store), `EGL_BUFFER_AGE_EXT` queries, damage region and damaged swaps\n(with `t11-damage-history`), the wgpu adapter through `new_external` (the `wgpu-hal` `gles` feature, same version as\ngpui-fast-wgpu's) and the `DMG-2` renderer. Wire it into the Tizen window behind `renderer_select`. Docs:\n`/Users/dinko/work-private/projects/dXn/nsh/nsh-root/_projects/tizen/gpui-route.md` section 6, `/Users/dinko/work-private/projects/dXn/nsh/nsh-root/_projects/tizen/gpui-fast-changes.md` change 5.",
+          "criterionIds": [
+            "EGL-1"
+          ],
+          "designIds": [
+            "d24-platform-egl",
+            "d11-renderer-wgpu-egl",
+            "d13-lifecycle-gpu-release"
+          ],
+          "dependsOn": [
+            "t11-blob-cache",
+            "t11-damage-history"
+          ],
+          "checkIds": [
+            "chk-egl-wayland"
+          ]
+        },
+        {
+          "id": "t11-renderer-select",
+          "title": "Renderer selection and fallback",
+          "descriptionMarkdown": "Implement `EGL-4`: `RunOptions::renderer`, `DXN_GPUI_TIZEN_RENDERER`, the `renderer_select` decision module with `renderer_select::tests`, and the window's switch between the platform-owned EGL path and wgpu's surface, including pause/resume for both.",
+          "criterionIds": [
+            "EGL-4"
+          ],
+          "designIds": [
+            "d24-platform-egl"
+          ],
+          "dependsOn": [
+            "t11-egl"
+          ],
+          "checkIds": [
+            "chk-egl-renderer-select"
+          ]
+        },
+        {
+          "id": "t11-egl-wayland-test",
+          "title": "Weston-headless integration test",
+          "descriptionMarkdown": "Add Weston and Mesa's Wayland EGL packages to `scripts/lima/gpuitizen.yaml`, a `--weston` mode to\n`scripts/lima-run.sh` (starts `weston --backend=headless` with a private `XDG_RUNTIME_DIR`, sets `WAYLAND_DISPLAY`\nand `LIBGL_ALWAYS_SOFTWARE=1`, stops it afterwards), and `crates/dxn_gpui_tizen/tests/egl_wayland.rs` per `EGL-5`\n(three or more tests: context and blob cache, damaged swap, pixels).",
+          "criterionIds": [
+            "EGL-5"
+          ],
+          "designIds": [
+            "d24-platform-egl",
+            "d19-lima-desktop-path"
+          ],
+          "dependsOn": [
+            "t11-egl"
+          ],
+          "checkIds": [
+            "chk-egl-wayland"
+          ]
+        },
+        {
+          "id": "t11-link",
+          "title": "Link with the platform-owned EGL path",
+          "descriptionMarkdown": "Prove `EGL-6`: every TV library links for armv7 and x86_64 with `--check-symbols`; EGL, GL ES and wayland-egl appear nowhere in the imports.",
+          "criterionIds": [
+            "EGL-6"
+          ],
+          "designIds": [
+            "d07-ffi-symbols",
+            "d24-platform-egl"
+          ],
+          "dependsOn": [
+            "t11-renderer-select"
+          ],
+          "checkIds": [
+            "chk-link-armv7",
+            "chk-link-x86_64"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s12-video",
+      "title": "Video: holes, the Tizen player and the video example",
+      "dependsOn": [
+        "s11-platform-egl"
+      ],
+      "checkIds": [
+        "chk-gf-hole",
+        "chk-gf-check-upstream",
+        "chk-gf-release",
+        "chk-video",
+        "chk-video-frames",
+        "chk-ex-video",
+        "chk-link-armv7",
+        "chk-link-x86_64"
+      ],
+      "tasks": [
+        {
+          "id": "t12-hole",
+          "title": "Holes in gpui-fast (`video-hole`)",
+          "descriptionMarkdown": "Cut `video-hole` from `upstream/main`; implement `VID-1` (a replacing transparent rounded rectangle in the scene, drawn with blending off in a pass ordered by the scene's draw order; the scene reports holes) with `fast::hole::tests`; list the API exception in the fork's `docs/upstream-sync.md`; cherry-pick into `tizen` and regenerate the release workspace.",
+          "criterionIds": [
+            "VID-1"
+          ],
+          "designIds": [
+            "d25-video"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-gf-hole",
+            "chk-gf-check-upstream",
+            "chk-gf-release"
+          ]
+        },
+        {
+          "id": "t12-player",
+          "title": "The player wrapper",
+          "descriptionMarkdown": "Implement `VID-2`: bindings and allowlist entries for the `capi-media-player` functions used, the `video` module's state machine with `video::tests` (fake player backend), and main-thread delivery of callbacks through the dispatcher.",
+          "criterionIds": [
+            "VID-2"
+          ],
+          "designIds": [
+            "d25-video",
+            "d07-ffi-symbols"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-video"
+          ]
+        },
+        {
+          "id": "t12-outputs",
+          "title": "Overlay and texture outputs",
+          "descriptionMarkdown": "Implement `VID-3`: the overlay output (`player_set_display` with the overlay type on the app's window: check the\nTizen 8.0 `player.h` in the rootstrap for the display-handle form a native Ecore_Wl2 window can pass; record which in\nthe bindings), window alpha switching through the EGL path's alpha config (and `ecore_wl2_window_alpha_set`), the\nhole painted by the video element; the texture output with the `video_frames` module (NV12 and I420 to RGBA, one\npending frame) and `video_frames::tests`, uploading into a `gpui_wgpu` dynamic texture.",
+          "criterionIds": [
+            "VID-3"
+          ],
+          "designIds": [
+            "d25-video",
+            "d24-platform-egl"
+          ],
+          "dependsOn": [
+            "t12-hole",
+            "t12-player"
+          ],
+          "checkIds": [
+            "chk-video-frames"
+          ]
+        },
+        {
+          "id": "t12-example",
+          "title": "The video example",
+          "descriptionMarkdown": "Add `examples/video` (package `example_video`, `cdylib` + desktop binary like the other examples; on desktop it shows a placeholder where the video plays) with a clip under `res/`, a control row over the video, `view::tests`, and the package table entry (`video`, package id `DxnGpuiTzV`). Prove `VID-5`.",
+          "criterionIds": [
+            "VID-5"
+          ],
+          "designIds": [
+            "d25-video",
+            "d08-host-package"
+          ],
+          "dependsOn": [
+            "t12-outputs"
+          ],
+          "checkIds": [
+            "chk-ex-video",
+            "chk-link-armv7",
+            "chk-link-x86_64"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s13-release-readiness",
+      "title": "aarch64 packages, store check and crates.io packaging",
+      "dependsOn": [
+        "s3-diag",
+        "s12-video"
+      ],
+      "checkIds": [
+        "chk-link-aarch64",
+        "chk-xtask-package",
+        "chk-xtask-store-check",
+        "chk-package-crates",
+        "chk-release-yaml"
+      ],
+      "tasks": [
+        {
+          "id": "t13-aarch64-packages",
+          "title": "aarch64 libraries and multi-architecture packages",
+          "descriptionMarkdown": "Prove `ARM64-2`: every TV library links for aarch64 with `--check-symbols`; extend `cargo xtask package` with `--target aarch64` and `--target all` (per-architecture TPKs and the multi-architecture `.zip`), with `package::tests::multi_arch`.",
+          "criterionIds": [
+            "ARM64-2"
+          ],
+          "designIds": [
+            "d26-aarch64",
+            "d08-host-package"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-link-aarch64",
+            "chk-xtask-package"
+          ]
+        },
+        {
+          "id": "t13-store-check",
+          "title": "`cargo xtask store-check`",
+          "descriptionMarkdown": "Implement `STORE-1` with `store_check::tests`, and write `store/feature-description.<app>.md` templates for the examples and a guide in `README.md` for the NSH apps (`nsh package --target tizen` output). Docs: `/Users/dinko/work-private/projects/dXn/nsh/nsh-root/_projects/tizen/distribution.md`.",
+          "criterionIds": [
+            "STORE-1"
+          ],
+          "designIds": [
+            "d27-store-publication"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-xtask-store-check"
+          ]
+        },
+        {
+          "id": "t13-crates",
+          "title": "crates.io packaging and release automation",
+          "descriptionMarkdown": "Implement `PUB-1`: package metadata, `publish = false` where needed, `release-plz.toml` and `.github/workflows/release-plz.yml` modelled on `../dXn.Reactive` (Git tags and crates.io here, since publication is the goal), and the `cargo package` proof.",
+          "criterionIds": [
+            "PUB-1"
+          ],
+          "designIds": [
+            "d27-store-publication"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-package-crates",
+            "chk-release-yaml"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "gpuitizen",
+              "path": "Cargo.toml"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s14-nsh-focus-core",
+      "title": "NSH: directional focus in the core, the TUI first",
+      "dependsOn": [
+        "s1b-gates"
+      ],
+      "checkIds": [
+        "chk-nsh-focus-core",
+        "chk-nsh-focus-tui"
+      ],
+      "tasks": [
+        {
+          "id": "t14-focus-core",
+          "title": "`nsh_core::focus`",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/focus/01-core`.\n\nImplement `FOC-1`: extract the decisions of `crates/nsh-platform-tui/src/keyboard.rs` (`candidates_in`, the\nLeft/Right row rule, `vertical`, `covering_layer`, `navigation::focus_scope`, `reveal_frame`, `restoration`) into\n`nsh_core::focus` over frames in points, with `focus::tests`. Read `AGENTS.md` (test binaries, commit subjects, docs\nrule) before starting.",
+          "criterionIds": [
+            "FOC-1"
+          ],
+          "designIds": [
+            "d29-core-focus",
+            "d28-nsh-branches"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-nsh-focus-core"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "nsh",
+              "path": "crates/nsh-platform-tui/src/keyboard.rs"
+            },
+            {
+              "repositoryId": "nsh",
+              "path": "crates/nsh-core/src/input.rs"
+            }
+          ]
+        },
+        {
+          "id": "t14-focus-tui",
+          "title": "The TUI on the core's focus",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Same branch.\n\nImplement `FOC-2`: the TUI converts its mount to the core's candidates (cells to points through its cell metrics) and\napplies the core's moves; keep `Keyboard`'s public behavior byte for byte. Update `docs/dev/tui.md` where it describes\nfocus.",
+          "criterionIds": [
+            "FOC-2"
+          ],
+          "designIds": [
+            "d29-core-focus"
+          ],
+          "dependsOn": [
+            "t14-focus-core"
+          ],
+          "checkIds": [
+            "chk-nsh-focus-tui"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "nsh",
+              "path": "crates/nsh-platform-tui/src/keyboard.rs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s15-nsh-focus-backends",
+      "title": "NSH: focus on GPUI, the desktops, the web, and what a TV adds",
+      "dependsOn": [
+        "s14-nsh-focus-core"
+      ],
+      "checkIds": [
+        "chk-nsh-focus-gpui",
+        "chk-nsh-focus-macos",
+        "chk-nsh-focus-linux",
+        "chk-nsh-focus-windows-clippy",
+        "chk-nsh-focus-tv-core",
+        "chk-nsh-focus-group",
+        "chk-nsh-focus-web"
+      ],
+      "tasks": [
+        {
+          "id": "t15-focus-gpui",
+          "title": "D-pad focus in the GPUI backend",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/focus/02-gpui` (stacked on `pr/focus/01-core`).\n\nImplement `FOC-3` in `crates/gpui/nsh-platform-gpui/src/input.rs` (today `tab`, `tab_to_edge`, `focus_stop`) and its\nnavigation module, with a `directional_focus` test group using `TestAppContext`. Update `docs/dev/gpui.md`.",
+          "criterionIds": [
+            "FOC-3"
+          ],
+          "designIds": [
+            "d29-core-focus"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-nsh-focus-gpui"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "nsh",
+              "path": "crates/gpui/nsh-platform-gpui/src/input.rs"
+            }
+          ]
+        },
+        {
+          "id": "t15-focus-desktops",
+          "title": "Pressables as focus stops on the desktops",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/focus/03-desktop-stops` (stacked on `pr/focus/01-core`).\n\nImplement `FOC-4` on macOS, Windows, Linux and GPUI through `nsh_core::input::tab_stop`, with the app spec\n`tests/apps/pressable-focus` (choose the location the NSH repo uses for app specs) run on macOS and in the Lima VM on\nLinux. This changes what Tab does on the desktops: draft its issue text (a recorded-meaning question for the\nmaintainers) in the area's PR folder in `t22-nsh-prs`.",
+          "criterionIds": [
+            "FOC-4"
+          ],
+          "designIds": [
+            "d29-core-focus"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-nsh-focus-macos",
+            "chk-nsh-focus-linux",
+            "chk-nsh-focus-windows-clippy"
+          ]
+        },
+        {
+          "id": "t15-focus-tv",
+          "title": "Preferred focus, focus groups, overrides and lists by index",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/focus/04-tv` (stacked on `pr/focus/02-gpui`).\n\nImplement `FOC-5`: props through the host-prop macros and declarations, `FocusGroup` in `nsh-base`, the core rules\n(`focus::tests::tv`), and list focus through `Command::ScrollToIndex` / `PinTarget::Index`; add `tests/compat` cases\nfor the new props and update `docs/dev/` and `website/` (English and `zh-CN`).",
+          "criterionIds": [
+            "FOC-5"
+          ],
+          "designIds": [
+            "d29-core-focus"
+          ],
+          "dependsOn": [
+            "t15-focus-gpui"
+          ],
+          "checkIds": [
+            "chk-nsh-focus-tv-core",
+            "chk-nsh-focus-group"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "nsh",
+              "path": "crates/nsh-core/src/props.rs"
+            }
+          ]
+        },
+        {
+          "id": "t15-focus-web",
+          "title": "D-pad focus in the web runtime",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/focus/05-web` (stacked on `pr/focus/01-core`).\n\nImplement `FOC-6`: the browser runtime collects focus-stop rectangles from the DOM it renders, calls the core's\ndecisions in Wasm and applies focus and scroll; `crates/nsh-platform-web/web/browser/focus.test.mjs`. Update\n`docs/dev/web.md`.",
+          "criterionIds": [
+            "FOC-6"
+          ],
+          "designIds": [
+            "d29-core-focus"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-nsh-focus-web"
+          ]
+        },
+        {
+          "id": "t15-focus-docs",
+          "title": "Focus docs and compat",
+          "descriptionMarkdown": "Complete `FOC-8` across the focus branches: `docs/dev` pages, `website/` (English and `zh-CN`) and compat cases, each in the commit that changes the behavior.",
+          "criterionIds": [
+            "FOC-8"
+          ],
+          "designIds": [
+            "d28-nsh-branches"
+          ],
+          "dependsOn": [
+            "t15-focus-tv",
+            "t15-focus-web",
+            "t15-focus-desktops"
+          ],
+          "checkIds": []
+        }
+      ]
+    },
+    {
+      "id": "s16-nsh-tv",
+      "title": "NSH: TV keys, the TV category, remote keys in tests and one wgpu",
+      "dependsOn": [
+        "s14-nsh-focus-core"
+      ],
+      "checkIds": [
+        "chk-nsh-keymap-tv",
+        "chk-nsh-tv-env",
+        "chk-nsh-tv-props",
+        "chk-nsh-tv-web",
+        "chk-nsh-dev-idiom",
+        "chk-nsh-remote-keys",
+        "chk-nsh-compat",
+        "chk-nsh-shader-wgpu30",
+        "chk-nsh-one-wgpu"
+      ],
+      "tasks": [
+        {
+          "id": "t16-keys",
+          "title": "TV keys in `nsh/keymap`",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/tv/01-keys`.\n\nImplement `TV-1` in `crates/nsh-core/src/keymap.rs` (`Key`, `NAMED`, `from_virtual_key`, the HID table) and the backends that report these keys, plus the TypeScript declarations; `keymap::tests::tv`.",
+          "criterionIds": [
+            "TV-1"
+          ],
+          "designIds": [
+            "d30-tv-category"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-nsh-keymap-tv"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "nsh",
+              "path": "crates/nsh-core/src/keymap.rs"
+            }
+          ]
+        },
+        {
+          "id": "t16-category",
+          "title": "`platform.tv`, the `tv` prop group and the `tv` select key",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/tv/02-category`.\n\nImplement `TV-2` and `TV-3` (`crates/nsh-js/src/env.rs`, `dom.rs`, `web/browser/dom.js` and `environment.js`, host props, declarations, `ambient::is_tv`, `nsh_environment`), with the tests named in the criteria and the docs.",
+          "criterionIds": [
+            "TV-2",
+            "TV-3"
+          ],
+          "designIds": [
+            "d30-tv-category"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-nsh-tv-env",
+            "chk-nsh-tv-props",
+            "chk-nsh-tv-web"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "nsh",
+              "path": "crates/nsh-js/src/env.rs",
+              "symbol": "platform_select"
+            }
+          ]
+        },
+        {
+          "id": "t16-dev-idiom",
+          "title": "The TV idiom on the Mac",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/tv/03-dev-idiom` (stacked on `pr/tv/02-category`).\n\nImplement `TV-4` in the CLI and the desktop GPUI host and web dev page; `dev_idiom::` module in the `cli` test binary.",
+          "criterionIds": [
+            "TV-4"
+          ],
+          "designIds": [
+            "d30-tv-category"
+          ],
+          "dependsOn": [
+            "t16-category"
+          ],
+          "checkIds": [
+            "chk-nsh-dev-idiom"
+          ]
+        },
+        {
+          "id": "t16-remote-keys",
+          "title": "A remote-key step in `nsh/test`",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/tv/04-remote-keys` (stacked on `pr/tv/01-keys`).\n\nImplement `FOC-7` (`TestStep`, `Driver`, `agent::Native`, the keyboard of `nsh-testing/src/module.rs`, the agents) with the `remote_keys::` module.",
+          "criterionIds": [
+            "FOC-7"
+          ],
+          "designIds": [
+            "d30-tv-category",
+            "d29-core-focus"
+          ],
+          "dependsOn": [
+            "t16-keys"
+          ],
+          "checkIds": [
+            "chk-nsh-remote-keys"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "nsh",
+              "path": "crates/nsh-testing/src/module.rs"
+            }
+          ]
+        },
+        {
+          "id": "t16-compat",
+          "title": "Compat cases for the widened types",
+          "descriptionMarkdown": "Implement `TV-5` on the branches that add the API (cases under `tests/compat/cases/<domain>/`, registered in the domain's `App.tsx`, steps in `script.txt`), and prepare the nsh-compat runner change in a local clone of `longbridge/nsh-compat` if a `platform <os> tv` step is needed; point `cargo xtask compat` at it for the local run as `crates/xtask/src/compat.rs` allows.",
+          "criterionIds": [
+            "TV-5"
+          ],
+          "designIds": [
+            "d30-tv-category",
+            "d33-upstream"
+          ],
+          "dependsOn": [
+            "t16-category",
+            "t16-keys"
+          ],
+          "checkIds": [
+            "chk-nsh-compat"
+          ]
+        },
+        {
+          "id": "t16-wgpu30",
+          "title": "One wgpu: the engine's shaders on wgpu 30",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/engine/01-wgpu-30`.\n\nImplement `TV-6`: move the root `wgpu` pin to 30 and adapt `nsh-engine`'s shader renderer to wgpu 30's API, update both lock files, fix the stale comment in `crates/gpui/Cargo.toml`.",
+          "criterionIds": [
+            "TV-6"
+          ],
+          "designIds": [
+            "d31-nsh-platform-tizen"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-nsh-shader-wgpu30",
+            "chk-nsh-one-wgpu"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s17-nsh-gpui-tizen",
+      "title": "NSH: `Os::Tizen` and the GPUI backend for Tizen",
+      "dependsOn": [
+        "s8-completion",
+        "s16-nsh-tv"
+      ],
+      "checkIds": [
+        "chk-nsh-os-tizen",
+        "chk-nsh-tv-env",
+        "chk-nsh-gpui-default",
+        "chk-nsh-gpui-tizen-deps",
+        "chk-nsh-gpui-tizen-build"
+      ],
+      "tasks": [
+        {
+          "id": "t17-os",
+          "title": "`Os::Tizen`",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/tizen/01-os` (cut from `pr/tv/02-category`).\n\nImplement `NTZ-2` with its compat case.",
+          "criterionIds": [
+            "NTZ-2"
+          ],
+          "designIds": [
+            "d30-tv-category"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-nsh-os-tizen",
+            "chk-nsh-tv-env"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "nsh",
+              "path": "crates/nsh-core/src/platform.rs",
+              "symbol": "Os"
+            }
+          ]
+        },
+        {
+          "id": "t17-gpui-optional",
+          "title": "gpui-fast change 4: `gpui_platform` optional",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/tizen/02-gpui-platform-optional`.\n\nImplement `NTZ-3` (feature `platform` in `nsh-platform-gpui`'s defaults; `run_app`, `examples/embed.rs` and the headless text test behind it).",
+          "criterionIds": [
+            "NTZ-3"
+          ],
+          "designIds": [
+            "d31-nsh-platform-tizen"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-nsh-gpui-default",
+            "chk-nsh-gpui-tizen-deps"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "nsh",
+              "path": "crates/gpui/nsh-platform-gpui/src/app.rs",
+              "symbol": "run_app"
+            }
+          ]
+        },
+        {
+          "id": "t17-gpui-tizen-cfg",
+          "title": "A Tizen cfg in `nsh-platform-gpui`",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/tizen/03-gpui-tizen-cfg` (stacked on `02`).\n\nImplement `NTZ-4` (`system.rs`'s Linux `mod os`, `text.rs`'s family lists, `synth.rs`'s capture, `native/web.rs`, `native/video.rs` gated; Tizen-only dependencies under `cfg(target_vendor = \"tizen\")`).",
+          "criterionIds": [
+            "NTZ-4"
+          ],
+          "designIds": [
+            "d31-nsh-platform-tizen",
+            "d03-targets-build-std"
+          ],
+          "dependsOn": [
+            "t17-gpui-optional"
+          ],
+          "checkIds": [
+            "chk-nsh-gpui-tizen-deps",
+            "chk-nsh-gpui-tizen-build"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "nsh",
+              "path": "crates/gpui/nsh-platform-gpui/src/system.rs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s18-nsh-platform-tizen",
+      "title": "NSH: `nsh-platform-tizen`, its dev variant, video and `nsh/tizen`",
+      "dependsOn": [
+        "s12-video",
+        "s17-nsh-gpui-tizen"
+      ],
+      "checkIds": [
+        "chk-nsh-platform-tizen",
+        "chk-nsh-video-tizen",
+        "chk-nsh-tizen-link-armv7",
+        "chk-nsh-tizen-link-x86_64",
+        "chk-nsh-tizen-link-aarch64"
+      ],
+      "tasks": [
+        {
+          "id": "t18-platform",
+          "title": "The `nsh-platform-tizen` crate and its host",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/tizen/04-platform` (stacked on `03`).\n\nImplement `NTZ-5`: the crate in `crates/gpui/` (add it to `crates/gpui/Cargo.toml` members, to `.github/ci/paths.py`\nand the GPUI workflows' `paths` lists), the git dependency on `dXn.GpuiTizen` by `rev` with an uncommitted local\npath patch, the nine gpui-fast and the wgpu-hal `[patch.crates-io]` lines, the C# host in `host/`, and unit test\ngroups for key mapping, settings and the Back policy.",
+          "criterionIds": [
+            "NTZ-5"
+          ],
+          "designIds": [
+            "d31-nsh-platform-tizen",
+            "d14-keys",
+            "d05-gpui-fast-pin"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-nsh-platform-tizen"
+          ]
+        },
+        {
+          "id": "t18-dev",
+          "title": "The dev variant",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Same branch.\n\nImplement `NTZ-6` on `nsh-platform-gpui`'s dev client (`src/dev.rs`), with its unit group.",
+          "criterionIds": [
+            "NTZ-6"
+          ],
+          "designIds": [
+            "d31-nsh-platform-tizen"
+          ],
+          "dependsOn": [
+            "t18-platform"
+          ],
+          "checkIds": [
+            "chk-nsh-platform-tizen"
+          ]
+        },
+        {
+          "id": "t18-video",
+          "title": "Video through the Tizen player",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/tizen/05-video` (stacked on `04`).\n\nImplement `NTZ-7` in `native/video.rs` with a `tizen` test group.",
+          "criterionIds": [
+            "NTZ-7"
+          ],
+          "designIds": [
+            "d25-video",
+            "d31-nsh-platform-tizen"
+          ],
+          "dependsOn": [
+            "t18-platform"
+          ],
+          "checkIds": [
+            "chk-nsh-video-tizen"
+          ]
+        },
+        {
+          "id": "t18-module",
+          "title": "`nsh/tizen` (native)",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/tizen/06-module` (stacked on `04`).\n\nImplement `NTZ-8` (module registration as `nsh/*` modules are, `docs/dev/js-modules.md`, declarations), with its unit group.",
+          "criterionIds": [
+            "NTZ-8"
+          ],
+          "designIds": [
+            "d30-tv-category",
+            "d31-nsh-platform-tizen"
+          ],
+          "dependsOn": [
+            "t18-platform"
+          ],
+          "checkIds": [
+            "chk-nsh-platform-tizen"
+          ]
+        },
+        {
+          "id": "t18-link",
+          "title": "Link `nsh-platform-tizen` for every Tizen target",
+          "descriptionMarkdown": "Prove `NTZ-9` (extend `cargo xtask cross` with `--manifest-path`, `--with-dev-variant` and `--entry` if not done yet).",
+          "criterionIds": [
+            "NTZ-9"
+          ],
+          "designIds": [
+            "d07-ffi-symbols",
+            "d26-aarch64"
+          ],
+          "dependsOn": [
+            "t18-platform",
+            "t18-dev",
+            "t18-video",
+            "t18-module"
+          ],
+          "checkIds": [
+            "chk-nsh-tizen-link-armv7",
+            "chk-nsh-tizen-link-x86_64",
+            "chk-nsh-tizen-link-aarch64"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s19-nsh-cli",
+      "title": "NSH: the `tizen` CLI target",
+      "dependsOn": [
+        "s18-nsh-platform-tizen"
+      ],
+      "checkIds": [
+        "chk-nsh-cli-tizen",
+        "chk-nsh-cli-runtime",
+        "chk-nsh-component",
+        "chk-nsh-hostplatform"
+      ],
+      "tasks": [
+        {
+          "id": "t19-config-targets",
+          "title": "`--target tizen` and the `nsh.json` section",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/tizen/07-cli` (stacked on `06`).\n\nImplement `NCLI-1` (`run::Target`, `package::PackageTarget`, `AppConfig` with a `TizenConfig`), with the `tizen::` module of the `cli` test binary.",
+          "criterionIds": [
+            "NCLI-1"
+          ],
+          "designIds": [
+            "d31-nsh-platform-tizen"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-nsh-cli-tizen"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "nsh",
+              "path": "crates/nsh-cli/src/package.rs"
+            }
+          ]
+        },
+        {
+          "id": "t19-runtime",
+          "title": "Runtime files, the `tizen` component and `HostPlatform::Tizen`",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Same branch.\n\nImplement `NCLI-2` (NSH's `xtask` modelled on `android.rs` and `dist.rs`, the `COMPONENTS` entry) and `NCLI-3` (`crates/nsh-dev/src/protocol.rs`, `nsh-cli/src/dev.rs`).",
+          "criterionIds": [
+            "NCLI-2",
+            "NCLI-3"
+          ],
+          "designIds": [
+            "d31-nsh-platform-tizen"
+          ],
+          "dependsOn": [
+            "t19-config-targets"
+          ],
+          "checkIds": [
+            "chk-nsh-cli-runtime",
+            "chk-nsh-component",
+            "chk-nsh-hostplatform"
+          ]
+        },
+        {
+          "id": "t19-package-run",
+          "title": "`nsh package` and `nsh run` for `tizen`",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Same branch.\n\nImplement `NCLI-4` and `NCLI-5` (TPK staging and manifest as pure functions; `tz` and `sdb` invocations at the edge), with tests in the `tizen::` module.",
+          "criterionIds": [
+            "NCLI-4",
+            "NCLI-5"
+          ],
+          "designIds": [
+            "d31-nsh-platform-tizen",
+            "d08-host-package"
+          ],
+          "dependsOn": [
+            "t19-runtime"
+          ],
+          "checkIds": [
+            "chk-nsh-cli-tizen"
+          ]
+        },
+        {
+          "id": "t19-rust-apps-test",
+          "title": "Generated `.nsh/rust/tizen` and `nsh test --target tizen`",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Same branch.\n\nImplement `NCLI-6` (`rust_app.rs`, beside `gpui_workspace`) and `NCLI-7` (`test_host.rs`), with tests in the `tizen::` module.",
+          "criterionIds": [
+            "NCLI-6",
+            "NCLI-7"
+          ],
+          "designIds": [
+            "d31-nsh-platform-tizen"
+          ],
+          "dependsOn": [
+            "t19-package-run"
+          ],
+          "checkIds": [
+            "chk-nsh-cli-tizen"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "nsh",
+              "path": "crates/nsh-cli/src/rust_app.rs",
+              "symbol": "gpui_workspace"
+            }
+          ]
+        },
+        {
+          "id": "t19-docs",
+          "title": "Tizen docs",
+          "descriptionMarkdown": "Write `NCLI-8`: `docs/dev/tizen.md`, the `nsh.json` table, the `website/` pages (English and `zh-CN`), in the commits that add the behavior.",
+          "criterionIds": [
+            "NCLI-8"
+          ],
+          "designIds": [
+            "d28-nsh-branches"
+          ],
+          "dependsOn": [
+            "t19-rust-apps-test"
+          ],
+          "checkIds": []
+        }
+      ]
+    },
+    {
+      "id": "s20-nsh-tizen-web",
+      "title": "NSH: the `tizen-web` target and the web runtime for TV",
+      "dependsOn": [
+        "s15-nsh-focus-backends",
+        "s16-nsh-tv"
+      ],
+      "checkIds": [
+        "chk-nsh-cli-tizen-web",
+        "chk-nsh-tv-shim",
+        "chk-nsh-scrollend",
+        "chk-nsh-test-tizen-web"
+      ],
+      "tasks": [
+        {
+          "id": "t20-package",
+          "title": "`nsh package --target tizen-web` and the loader probe",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/tizen-web/01-package`.\n\nImplement `TWEB-1` and `TWEB-7` on `nsh-cli/src/web.rs::package`, with the `tizen_web::` module of the `cli` test binary.",
+          "criterionIds": [
+            "TWEB-1",
+            "TWEB-7"
+          ],
+          "designIds": [
+            "d32-tizen-web"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-nsh-cli-tizen-web"
+          ],
+          "sourceRefs": [
+            {
+              "repositoryId": "nsh",
+              "path": "crates/nsh-cli/src/web.rs",
+              "symbol": "package"
+            }
+          ]
+        },
+        {
+          "id": "t20-shim",
+          "title": "The TV shim and `nsh/tizen` on the web",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Same branch.\n\nImplement `TWEB-2` and `TWEB-4` in `crates/nsh-cli/src/tizen_web/` (the shim and its `shim.test.mjs`).",
+          "criterionIds": [
+            "TWEB-2",
+            "TWEB-4"
+          ],
+          "designIds": [
+            "d32-tizen-web",
+            "d30-tv-category"
+          ],
+          "dependsOn": [
+            "t20-package"
+          ],
+          "checkIds": [
+            "chk-nsh-tv-shim"
+          ]
+        },
+        {
+          "id": "t20-scrollend",
+          "title": "`scrollend` fallback",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/tizen-web/02-scrollend`.\n\nImplement `TWEB-3` in `nsh.js` around its `scrollend` listener, with `browser/scrollend.test.mjs`.",
+          "criterionIds": [
+            "TWEB-3"
+          ],
+          "designIds": [
+            "d32-tizen-web"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-nsh-scrollend"
+          ]
+        },
+        {
+          "id": "t20-run-test",
+          "title": "`nsh run` and `nsh test` for `tizen-web`",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/tizen-web/01-package`.\n\nImplement `TWEB-5` and `TWEB-6`.",
+          "criterionIds": [
+            "TWEB-5",
+            "TWEB-6"
+          ],
+          "designIds": [
+            "d32-tizen-web"
+          ],
+          "dependsOn": [
+            "t20-shim"
+          ],
+          "checkIds": [
+            "chk-nsh-cli-tizen-web",
+            "chk-nsh-test-tizen-web"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s21-ci",
+      "title": "Continuous integration: dXn.GpuiTizen and the NSH fork",
+      "dependsOn": [
+        "s13-release-readiness",
+        "s19-nsh-cli",
+        "s20-nsh-tizen-web"
+      ],
+      "checkIds": [
+        "chk-ci-yaml",
+        "chk-ci-plan",
+        "chk-nsh-ci-yaml",
+        "chk-nsh-ci-paths"
+      ],
+      "tasks": [
+        {
+          "id": "t8-ci",
+          "title": "Selectable `ci.yml`",
+          "descriptionMarkdown": "Copy AgentX's plan action (`~/.claude/skills/agentx/assets/ci/actions/plan/`) to `.github/actions/plan/`, adapt\n`ALL_JOBS` (`check test host cross gles egl`), platforms (`ubuntu`, `macos`) and the docs-only pattern, and add\n`plan_test.sh` that runs `plan.sh` for manual, pull-request and schedule events and prints `plan tests: <n> passed`.\nWrite `ci.yml` per `CI-1` (rootstrap installed with the Tizen SDK's package manager inside the job, cached; Mesa,\nXvfb and the X11 packages for `gles`; the `gles` job checks out `dXnSix/gpui-fast` `tizen-release` only once the git\npatch is committed, until then it is skipped with a clear message). Copy AgentX's `check_workflow_yaml.rb` to\n`scripts/`. Document CI in `README.md`.",
+          "criterionIds": [
+            "CI-1"
+          ],
+          "designIds": [
+            "d20-ci",
+            "d19-lima-desktop-path"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-ci-yaml",
+            "chk-ci-plan"
+          ]
+        },
+        {
+          "id": "t8-emulator",
+          "title": "The emulator workflow",
+          "descriptionMarkdown": "Write `.github/workflows/tizen-emulator.yml` per `CI-2` (ubuntu-24.04 with `/dev/kvm` permissions set up, Tizen SDK\nCLI and TV emulator image installed and cached, headless boot with a timeout, signing profile from secrets, package\nand install the x86_64 diag TPK, launch, `sdb forward` and `cargo xtask diag pull`, upload artifacts, always upload the\nemulator log). List the secrets it needs in `README.md`.",
+          "criterionIds": [
+            "CI-2"
+          ],
+          "designIds": [
+            "d20-ci",
+            "d09-diag-independent"
+          ],
+          "dependsOn": [
+            "t8-ci"
+          ],
+          "checkIds": [
+            "chk-ci-yaml"
+          ]
+        },
+        {
+          "id": "t21-nsh-ci",
+          "title": "NSH fork-only Tizen CI",
+          "descriptionMarkdown": "On branch `fork/tizen-ci` (cut from the fork's `origin/main`, adding only its own files) write `.github/workflows/fork-tizen.yml` per `CI-4`, using `dXnSix/dXn.GpuiTizen` for the cross driver and target specs, and merge it into `feat/tizen`. The `.github/ci/paths.py` entry comes with `pr/tizen/04-platform` (`t18-platform`).",
+          "criterionIds": [
+            "CI-4"
+          ],
+          "designIds": [
+            "d20-ci",
+            "d28-nsh-branches"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-nsh-ci-yaml",
+            "chk-nsh-ci-paths"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s22-upstream-prep",
+      "title": "Upstream issues and pull requests, prepared",
+      "dependsOn": [
+        "s21-ci"
+      ],
+      "checkIds": [],
+      "tasks": [
+        {
+          "id": "t22-nsh-prs",
+          "title": "NSH PR folders and issue drafts",
+          "descriptionMarkdown": "Write `UP-1` in `../nsh/nsh-root/upstream-pr/pr/<area>/<topic>/` for every NSH branch of this epic (areas `focus`, `tv`, `engine`, `tizen`, `tizen-web`), following `upstream-pr/README.md` and existing folders (for example `pr/windows/`); area READMEs with the order; issue drafts for focus navigation, TV keys and category, the desktop Tab change of `FOC-4`, and `Os::Tizen` with the targets. Run each branch's listed checks. Add the rows to the workspace's upstream list as its README says. Commit in `nsh-root`.",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "designIds": [
+            "d33-upstream",
+            "d28-nsh-branches"
+          ],
+          "dependsOn": [],
+          "checkIds": [],
+          "sourceRefs": [
+            {
+              "repositoryId": "nsh-root",
+              "path": "upstream-pr/README.md"
+            }
+          ]
+        },
+        {
+          "id": "t22-gpui-fast-texts",
+          "title": "gpui-fast issue and PR texts",
+          "descriptionMarkdown": "Write `UP-2` in `docs/upstream/gpui-fast/` (issue, one PR text per branch: `gles-instance-path`, `wgpu-backend-env`, `pipeline-cache`, `scene-damage`, `external-target`, `video-hole`); leave the `DEV-3` numbers as marked placeholders for the owner sprint.",
+          "criterionIds": [
+            "UP-2"
+          ],
+          "designIds": [
+            "d33-upstream",
+            "d23-damage-external-target"
+          ],
+          "dependsOn": [],
+          "checkIds": []
+        },
+        {
+          "id": "t22-wgpu-trunk",
+          "title": "wgpu PR branches on `trunk`",
+          "descriptionMarkdown": "Implement `UP-3`: in `../wgpu`, cut `egl14-wayland` and `gles-program-binaries` from `upstream/trunk`, port the `v30` changes and tests, run the unit tests there through the Lima VM, record command and result in `docs/upstream/wgpu/*.md`, and switch the checkout back to `v30-tizen`.",
+          "criterionIds": [
+            "UP-3"
+          ],
+          "designIds": [
+            "d33-upstream",
+            "d22-wgpu-fork"
+          ],
+          "dependsOn": [],
+          "checkIds": []
+        }
+      ]
+    },
+    {
+      "id": "s23-owner-devices",
+      "title": "Owner-run: publication, CI on GitHub, and dXn.GpuiTizen on the emulator and TVs",
+      "dependsOn": [
+        "s22-upstream-prep"
+      ],
+      "checkIds": [],
+      "tasks": [
+        {
+          "id": "t9-publish",
+          "title": "Publish the gpui-fast branches and switch to the git patch (owner)",
+          "descriptionMarkdown": "Owner: confirm Actions are off on `dXnSix/gpui-fast` and `dXnSix/wgpu`, push their branches (`DEV-1`). Agent, on the\nowner's go: commit the git `[patch.crates-io]` lines in `dXn.GpuiTizen` and NSH's `crates/gpui`, confirm `cargo tree`.\nOwner: push `dXn.GpuiTizen` and the NSH branches, open the fork PRs, add the signing secrets, watch the CI runs of\n`CI-3`. Record results in `docs/verification/tizen-devices.md`.",
+          "criterionIds": [
+            "DEV-1",
+            "CI-3"
+          ],
+          "designIds": [
+            "d05-gpui-fast-pin",
+            "d20-ci",
+            "d21-owner-acceptance"
+          ],
+          "dependsOn": [],
+          "checkIds": []
+        },
+        {
+          "id": "t9-install",
+          "title": "Sign, install and launch on the emulator and a TV (owner)",
+          "descriptionMarkdown": "Owner: create the Samsung author and distributor certificates (distributor listing the TV's DUID), put the TV in\ndeveloper mode, `sdb connect`. Then `cargo xtask package --app <diag|counter|long_list> --target <armv7|x86_64>\n--sign <profile>`, `sdb install`, launch. Record device, Tizen version, `sdb capability` CPU architecture and results\n(`HOST-3`).",
+          "criterionIds": [
+            "HOST-3"
+          ],
+          "designIds": [
+            "d08-host-package",
+            "d21-owner-acceptance"
+          ],
+          "dependsOn": [],
+          "checkIds": []
+        },
+        {
+          "id": "t9-diag",
+          "title": "Diagnostic reports from the emulator and a TV (owner)",
+          "descriptionMarkdown": "Run the diagnostic app on the emulator and a TV, `sdb forward tcp:47123 tcp:47123`, `cargo xtask diag pull`; record\nthe answers of `DIAG-5`. If wgpu's EGL surface fails, add a corrective task (wgpu `v30` branch fix carried through\n`[patch.crates-io]`) by `amend --specification`.",
+          "criterionIds": [
+            "DIAG-5"
+          ],
+          "designIds": [
+            "d09-diag-independent",
+            "d21-owner-acceptance"
+          ],
+          "dependsOn": [
+            "t9-install"
+          ],
+          "checkIds": []
+        },
+        {
+          "id": "t9-examples",
+          "title": "The examples by remote, and Voice Guide (owner)",
+          "descriptionMarkdown": "On the emulator and the TV: everything in `DEV-2`, then Voice Guide on (`PLAT-7`). Record results; turn failures into\ncorrective tasks or, when the owner decides so, dispositions.",
+          "criterionIds": [
+            "DEV-2",
+            "PLAT-7"
+          ],
+          "designIds": [
+            "d21-owner-acceptance",
+            "d18-a11y",
+            "d14-keys",
+            "d13-lifecycle-gpu-release"
+          ],
+          "dependsOn": [
+            "t9-install"
+          ],
+          "checkIds": []
+        },
+        {
+          "id": "t23-video",
+          "title": "Video on the emulator and a TV (owner)",
+          "descriptionMarkdown": "Run `examples/video` with both outputs on the emulator and a TV and record `VID-4`.",
+          "criterionIds": [
+            "VID-4"
+          ],
+          "designIds": [
+            "d25-video",
+            "d21-owner-acceptance"
+          ],
+          "dependsOn": [
+            "t9-install"
+          ],
+          "checkIds": []
+        },
+        {
+          "id": "t9-measure",
+          "title": "Size, launch, memory and frame-time measurements (owner)",
+          "descriptionMarkdown": "Per device, measure and record `DEV-3`: stripped library size, launch to first frame (from the diag timings and an\nexample), PSS after start and after scrolling the long list, frame times under key repeat. These numbers decide the\nG4 work (blob cache, partial redraws, change 5). Fill the numbers into `docs/upstream/gpui-fast/` (`UP-2`).",
+          "criterionIds": [
+            "DEV-3"
+          ],
+          "designIds": [
+            "d21-owner-acceptance",
+            "d13-lifecycle-gpu-release"
+          ],
+          "dependsOn": [
+            "t9-examples"
+          ],
+          "checkIds": []
+        }
+      ]
+    },
+    {
+      "id": "s24-owner-nsh",
+      "title": "Owner-run: NSH apps on the emulator and TVs, both targets",
+      "dependsOn": [
+        "s23-owner-devices"
+      ],
+      "checkIds": [],
+      "tasks": [
+        {
+          "id": "t24-nsh-native",
+          "title": "NSH counter with hot reload, and the gallery by remote (owner)",
+          "descriptionMarkdown": "With `nsh component add tizen` and a connected TV and emulator: `DEV-4`, then `DEV-5`. Record results; failures become corrective tasks.",
+          "criterionIds": [
+            "DEV-4",
+            "DEV-5"
+          ],
+          "designIds": [
+            "d21-owner-acceptance",
+            "d31-nsh-platform-tizen"
+          ],
+          "dependsOn": [],
+          "checkIds": []
+        },
+        {
+          "id": "t24-nsh-web",
+          "title": "The loader probe, then the gallery as a `.wgt` (owner)",
+          "descriptionMarkdown": "`DEV-6`, probe first. If the probe fails, stop and decide with the agent which way out to add (hosted web app or classic-script build).",
+          "criterionIds": [
+            "DEV-6"
+          ],
+          "designIds": [
+            "d21-owner-acceptance",
+            "d32-tizen-web"
+          ],
+          "dependsOn": [],
+          "checkIds": []
+        }
+      ]
+    },
+    {
+      "id": "s25-owner-store-upstream",
+      "title": "Owner-run: store submission, crates.io and upstream",
+      "dependsOn": [
+        "s24-owner-nsh"
+      ],
+      "checkIds": [],
+      "tasks": [
+        {
+          "id": "t25-store",
+          "title": "Seller Office and submission (owner)",
+          "descriptionMarkdown": "Run `cargo xtask store-check` on the package chosen for submission, then `STORE-2`.",
+          "criterionIds": [
+            "STORE-2"
+          ],
+          "designIds": [
+            "d27-store-publication",
+            "d21-owner-acceptance"
+          ],
+          "dependsOn": [],
+          "checkIds": []
+        },
+        {
+          "id": "t25-upstream",
+          "title": "Open the upstream issues and PRs, in order (owner)",
+          "descriptionMarkdown": "`UP-4`, each on the owner's explicit go, updating the PR folders and `docs/upstream/` with links and states.",
+          "criterionIds": [
+            "UP-4"
+          ],
+          "designIds": [
+            "d33-upstream",
+            "d21-owner-acceptance"
+          ],
+          "dependsOn": [],
+          "checkIds": []
+        },
+        {
+          "id": "t25-crates",
+          "title": "Publish dXn.GpuiTizen to crates.io (owner)",
+          "descriptionMarkdown": "After gpui-fast releases the changes: `PUB-2` (move to the released version, drop unneeded patches, `cargo package`, publish on the owner's go).",
+          "criterionIds": [
+            "PUB-2"
+          ],
+          "designIds": [
+            "d27-store-publication",
+            "d33-upstream"
+          ],
+          "dependsOn": [
+            "t25-upstream"
+          ],
+          "checkIds": []
+        }
+      ]
+    }
+  ]
+}

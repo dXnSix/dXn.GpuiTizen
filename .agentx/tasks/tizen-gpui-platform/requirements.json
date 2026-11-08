@@ -1,0 +1,761 @@
+{
+  "schemaVersion": 7,
+  "epicId": "tizen-gpui-platform",
+  "scopeMarkdown": "Everything the Tizen research (`/Users/dinko/work-private/projects/dXn/nsh/nsh-root/_projects/tizen`, 2026-10-26 to\n2026-11-08) gives for implementation on route A (`tizen-web`) and route B on GPUI (`tizen`): G0-G4, A1-A2 and the\nupstream step U, across five repositories. Nothing in the research has been run on a TV yet.\n\n**Repositories.** `dXn.GpuiTizen` (this one: workspace, Tizen targets incl. aarch64, `xtask`, the gate, bindings,\ndiag app, the platform with platform-owned EGL, blob cache, partial presents and video, examples, host and packaging,\nLima VM, CI, store check, crates.io packaging, gpui-fast/wgpu upstream texts); `../gpui-fast` (changes 1-3, change 5\nand partial redraws, video holes; `tizen` and `tizen-release`); `../wgpu` (EGL 1.4 fixes for issue #10708, GL program\nbinaries; `v30-tizen`); `../nsh/nsh-wt/tizen` (the NSH fork's worktree on `feat/tizen`, created at planning from\n`origin/main`: core focus, TV keys and category, one wgpu, `Os::Tizen`, change 4, `nsh-platform-tizen`, video,\n`nsh/tizen`, the `tizen` and `tizen-web` targets, fork CI); `../nsh/nsh-root` (upstream PR folders).\n\n**Owner-run sprints** (`s23`-`s25`, signed up for by the owner on 2026-11-08): SDK licence, certificates, pushes and\nfork PRs, the emulator on KVM runners, TVs or Remote Test Lab, Seller Office submission, crates.io publication, and\nopening upstream issues and PRs. Upstream merges and gpui-fast's release are the maintainers'; what they block gets the\nowner's disposition.\n\n**Not built, because the research does not give them for implementation:** route C (NUI views, the alternative to\nB), the custom GLES renderer (the fallback if the gate fails, `d04-gate`), and the optional test setups (Raspberry Pi\n4, the Windows emulator machine).\n\n**Defaults the owner may change.** Scale 2.0. One host for this repository's apps (`lib/libdxn_app.so`,\n`dxn_gpui_tizen_main`); NSH's is `libnsh.so` / `nsh_tizen_main`. Package ids `DxnGpuiTzD/C/L/V`. Key names of\n`d14-keys`. Diag port 47123 over `sdb forward`. `tizen` built on the `v0.1.13` tag (`d05-gpui-fast-pin`). Voice Guide\nassumed to follow AT-SPI focus. Renderer `Auto` (platform EGL, wgpu surface fallback). Video overlay by default.\n\n**Gate.** If `s1` cannot build gpui-fast for 32-bit ARM for a reason no target or flag change fixes, work stops for\nthe owner's decision (`d04-gate`).\n\n**Environment prerequisites.** `s1`: the pinned nightly. `s2`: NuGet for `Tizen.NET.Sdk`. `s3` (first link): the owner\ninstalls the Tizen SDK CLI with the Tizen 8.0 common rootstraps (armv7, x86_64, aarch64) and accepts its licence.\n`s4`: Bun, `upstream` in `../gpui-fast`. `s7`: Lima creates the `gpuitizen` VM. `s9`: `upstream` (gfx-rs) in\n`../wgpu` with `v30`. NSH sprints: `upstream` fetched in the NSH fork (done at planning).\n",
+  "constraintsMarkdown": "- **No NSH in `dXn.GpuiTizen`.** No dependency on any `nsh-*` crate; NSH consumes it, not the reverse.\n- **One gpui-fast for every crate.** `gpui-fast` and `gpui-fast-wgpu` are pinned exactly (`=0.1.13`, the version\n  `nsh-platform-gpui` 0.4.0 asks for) and move only together with NSH's pin. gpui-fast changes reach builds only\n  through `[patch.crates-io]` over all nine `gpui-fast-*` crates.\n- **No desktop platform crates in a Tizen build**: neither `gpui-fast-platform` nor `gpui-fast-linux` (nor X11,\n  xkbcommon or portal crates) in the dependency graph of any `target_vendor = \"tizen\"` build.\n- **No C++** in any TV library. C code only through Tizen's public C APIs and the C dependencies of pure-Rust crates;\n  the renderer and text stack stay pure Rust (wgpu, naga, cosmic-text); gpui-fast's `font-kit` feature stays off.\n- **Documented native symbols only**: functions from the Tizen 8.0 common native API reference (Ecore, Ecore_Wl2 and\n  Ecore_IMF under \"EFL (Deprecated)\" are allowed); never `tdm_client_*`, `tbm_*`, DALi C++, `dali-csharp-binder`\n  (`CSharp_Dali_*`) or TizenFX's native libraries. EGL and GL ES are loaded at run time by wgpu (dlopen).\n- **One export per TV library**: `dxn_gpui_tizen_main`, no exported weak symbols, `panic = \"abort\"`.\n- **.NET stays out of the way**: one blittable P/Invoke in `Main`; no TizenFX or NUI; nothing per frame or per event\n  crosses into C#; no callbacks from native threads into managed code; .NET 6 compatible (`DllImport`, not\n  `LibraryImport`).\n- **One full-screen, opaque window at the UI plane's size** (1920x1080 on every TV); no menus, dialogs, cursors or\n  second windows.\n- **The main thread stays responsive** (the TV's watchdog kills apps whose loop stops answering): no blocking work in\n  lifecycle or Ecore callbacks.\n- **gpui-fast's own rules** (with the documented API exceptions of change 5 and the video hole) (`../gpui-fast/AGENTS.md`, `docs/upstream-sync.md`): logic in `crates/<crate>/src/fast/`,\n  upstream files only get one-line hooks, no new public API, controls are environment variables read in `fast/`,\n  `script/check-upstream` passes; one branch per change, cut from upstream `main`, never stacked; never commit to\n  the fork's `main`.\n- **Owner authority**: the agent never pushes, opens pull requests, changes GitHub settings (Actions on the forks,\n  secrets), creates certificates or accepts licences; those are the owner's steps in the owner-run sprints (`s23`-`s25`) or\n  explicit go-aheads. Samsung certificates, `profiles.xml`, `.p12` files and Tizen rootstraps are never committed or\n  redistributed.\n- **Testing** follows `AGENTS.md`: each task adds its own selectable test group; sprint checks select only those\n  groups; desktop-Linux runtime checks run in the `gpuitizen` Lima VM; raw logs and diagnostic reports go under the\n  ignored `artifacts-temp/` (`artifacts-temp/agentx/tizen-gpui-platform/` for epic diagnostics).\n- **Per-repository conventions.** `dXn.GpuiTizen`: MIT OR Apache-2.0, edition 2024, Conventional Commits. gpui-fast\n  and wgpu: their own conventions (wgpu's `CHANGELOG.md` entries). NSH: `<area>: <What the change does>` subjects, never\n  Conventional Commits prefixes, docs and `website/` (English and `zh-CN`) in the same commit, one test binary per\n  crate (`tests/<name>/main.rs` with a module per area), no AgentX files in its branches, branches never rebased.\n  No AI attribution anywhere.\n- **NSH upstream rules** (`nsh-root/AGENTS.md`): one thing per PR, cut from upstream `main`; compat cases for new API;\n  an issue before anything that changes a recorded meaning; nothing pushed upstream and no PR opened without the\n  owner's go.\n",
+  "requirements": [
+    {
+      "id": "WS",
+      "title": "Workspace and repository rules",
+      "descriptionMarkdown": "The repository becomes a Rust workspace with the layout of `getting-started.md`, licensed and documented like the other dXn repositories.",
+      "criteria": [
+        {
+          "id": "WS-1",
+          "descriptionMarkdown": "The root `Cargo.toml` is a workspace (resolver 2, edition 2024, `license = \"MIT OR Apache-2.0\"`, repository\n`https://github.com/dXnSix/dXn.GpuiTizen`) whose members are `crates/dxn_gpui_tizen_sys`, `crates/dxn_gpui_tizen`,\n`crates/dxn_gpui_tizen_diag`, `examples/counter` (package `example_counter`), `examples/long_list` (package\n`example_long_list`), `examples/video` (package `example_video`, added with video) and `xtask`. `LICENSE-MIT`, `LICENSE-APACHE` and a `README.md` exist. `rust-toolchain.toml` pins\na dated nightly with `rust-src`, `rustfmt`, `clippy` and `llvm-tools`. `[workspace.dependencies]` pins `gpui-fast` and\n`gpui-fast-wgpu` exactly (`=0.1.13`); the committed manifest has no `[patch]` entry pointing at a local path.\n`[workspace.lints]` declares `unexpected_cfgs` with `check-cfg = ['cfg(target_vendor, values(\"tizen\"))']`, denies\n`unsafe_op_in_unsafe_fn`, and denies clippy's `undocumented_unsafe_blocks`, `dbg_macro` and `todo`.\n`.cargo/config.toml` defines the `xtask` alias. Verified by the `policy::tests` group of `xtask`, which reads the\nmanifests and fails when a pin, a lint, the alias or the toolchain components drift.",
+          "verification": "automated"
+        },
+        {
+          "id": "WS-2",
+          "descriptionMarkdown": "`AGENTS.md` replaces its \"no source yet\" text with this repository's rules: what lives here and what does not (no NSH),\nthe validation commands, and the feature-oriented test layout: a feature's unit test group lives in\n`crates/<crate>/src/<feature>/tests.rs` (module `<feature>::tests`) and is selected with\n`cargo test -p <package> --lib <feature>::tests`; Linux-only integration tests live in `<package>/tests/<feature>.rs`\nand run in the Lima VM through `scripts/lima-run.sh`; cross builds go through `cargo xtask cross`. `.gitignore` also\nignores the local rootstrap directory and generated TPK staging trees. A reviewer confirms the text matches the\nworkspace.",
+          "verification": "manual"
+        }
+      ]
+    },
+    {
+      "id": "TGT",
+      "title": "Tizen targets and the cross-build driver",
+      "descriptionMarkdown": "Rust's stock `armv7-unknown-linux-gnueabi` uses software floating point; Tizen's `armv7l` is the soft-float ABI with VFP/NEON hardware (`toolchain-and-build.md`). Custom target specs with `vendor = \"tizen\"` give hardware floats and a cfg that tells Tizen from desktop Linux.",
+      "criteria": [
+        {
+          "id": "TGT-1",
+          "descriptionMarkdown": "`targets/armv7-tizen-linux-gnueabi.json` (arch `arm`, `llvm-target` `armv7-unknown-linux-gnueabi`, soft-float ABI\nwith hardware VFPv3 and NEON: features include `+v7`, `+thumb2`, `+vfp3` and `+neon` and exclude `+soft-float`;\n`os = \"linux\"`, `env = \"gnu\"`, `vendor = \"tizen\"`, 32-bit pointers) and `targets/x86_64-tizen-linux-gnu.json` (the\nemulator: x86_64, `os = \"linux\"`, `env = \"gnu\"`, `vendor = \"tizen\"`) exist and are accepted by the pinned nightly.\nThe `targets::tests` group of `xtask` parses both files and checks these fields, so a spec regenerated from rustc's\nbuilt-in targets cannot silently drop NEON or the vendor.",
+          "verification": "automated"
+        },
+        {
+          "id": "TGT-2",
+          "descriptionMarkdown": "`cargo xtask cross --target <armv7|x86_64> [--release] [--clippy] [--check-symbols] -p <package>...` runs Cargo on\nthe pinned nightly with `-Zbuild-std=std,panic_abort` and `--target targets/<spec>.json`, sets the C compiler for\n`cc`-built dependencies to clang with `--target=<triple>` and `--sysroot=<rootstrap>` (plus\n`-march=armv7-a -mfloat-abi=softfp -mfpu=neon` on armv7), and links with clang and `lld` against the same sysroot.\nThe rootstrap path comes from `TIZEN_ROOTSTRAP_ARMV7` / `TIZEN_ROOTSTRAP_X86_64`, else from the Tizen SDK's default\nlocation. A build whose packages need linking (a `cdylib`) fails before invoking Cargo with a message naming the\nmissing rootstrap and how to install it; an rlib-only build does not need one. `--clippy` runs `cargo clippy` with the\nsame settings and `-D warnings`. The `cross::tests` group checks the constructed command lines and environment for\nboth targets, including the missing-rootstrap failure.\n\nCargo selection flags pass through (`-p`, `--manifest-path` for another workspace such as NSH's `crates/gpui`,\n`--features`, `--no-default-features`), `--all-tv-libs` selects every `cdylib` package of this workspace, and the\ntoolchain is always this repository's pinned nightly, whatever workspace is built.",
+          "verification": "automated"
+        },
+        {
+          "id": "TGT-3",
+          "descriptionMarkdown": "**The 32-bit ARM gate.** `cargo xtask cross --target armv7 -p dxn_gpui_tizen` builds `dxn_gpui_tizen` (at this point\na skeleton whose Tizen-only dependencies are `gpui-fast =0.1.13` and `gpui-fast-wgpu =0.1.13`) with full code\ngeneration for the armv7 Tizen target and exits 0; the same holds for `--target x86_64`. A failure caused by\ngpui-fast, wgpu, naga, cosmic-text or another dependency on 32-bit ARM that no target or flag change fixes stops the\nepic for the owner's decision (design `d04-gate`) instead of being worked around.",
+          "verification": "automated"
+        },
+        {
+          "id": "TGT-4",
+          "descriptionMarkdown": "The workspace's release profile builds TV libraries with `panic = \"abort\"`, `opt-level = 3`, `lto = \"fat\"`,\n`codegen-units = 1` and stripped symbols; the `policy::tests` group of `xtask` fails when any of these change.",
+          "verification": "automated"
+        }
+      ]
+    },
+    {
+      "id": "SYS",
+      "title": "Tizen C bindings and the native-symbol policy",
+      "descriptionMarkdown": "Samsung's watch store rejected flutter-tizen's library for undocumented imports and exported weak symbols; whether the TV store checks the same is unknown, so plan as if it does (`distribution.md`, \"Native symbols\").",
+      "criteria": [
+        {
+          "id": "SYS-1",
+          "descriptionMarkdown": "`dxn_gpui_tizen_sys` holds hand-written `extern \"C\"` declarations (types, callbacks and constants included) for the\nTizen functions the platform and the diagnostic app use, and nothing else: the app framework (`ui_app_main` with\n`ui_app_lifecycle_callback_s`, `ui_app_exit`, `app_control_get_extra_data`, `app_get_cache_path`,\n`app_get_resource_path`, `app_get_data_path`), Ecore's main loop (`ecore_main_loop_thread_safe_call_async`, timers,\nevent handlers), Ecore_Wl2 (display, window creation, geometry, alpha, show/hide, `wl_surface` and `wl_display`\naccess, frame callbacks, key grabs), Ecore_IMF (context, focus, input panel, preedit, commit and delete-surrounding\ncallbacks), `system_settings` (get and change callbacks) and `dlog_print`. Declarations go through one macro that also\nrecords each symbol in a `DECLARED_SYMBOLS` list. Link directives (`#[link(name = ...)]`) apply only when\n`target_vendor = \"tizen\"`, so the crate builds and its tests run on macOS.",
+          "verification": "automated"
+        },
+        {
+          "id": "SYS-2",
+          "descriptionMarkdown": "`crates/dxn_gpui_tizen_sys/symbols.allow` lists every allowed Tizen symbol with the public API module it is documented\nin. The `symbols::tests` group fails when a declared symbol is missing from the allowlist, when an allowlist entry is\nno longer declared, or when any declared or allowed symbol starts with a forbidden prefix (`tdm_`, `tbm_`, `dali_`,\n`CSharp_`, `elm_`).",
+          "verification": "automated"
+        },
+        {
+          "id": "SYS-3",
+          "descriptionMarkdown": "`cargo xtask check-symbols <library.so>` (and the `--check-symbols` flag of `cargo xtask cross`) reads the library's\ndynamic symbol table with `llvm-nm` from the toolchain's `llvm-tools` and fails unless it exports exactly one global\nsymbol (`dxn_gpui_tizen_main`, or the one named by `--entry`, such as NSH's `nsh_tizen_main`), has no weak exported symbols, and imports only symbols from `symbols.allow` plus glibc\n(`libc`, `libm`, `libdl`, `libpthread`, `librt`, `ld-linux`), `libgcc_s` and the run-time loader. Each violation is\nreported by name. The `symcheck::tests` group drives the checker with fixture `llvm-nm` outputs covering a clean\nlibrary, a second export, a weak export and an undocumented import.",
+          "verification": "automated"
+        }
+      ]
+    },
+    {
+      "id": "HOST",
+      "title": "C# host and TPK packaging",
+      "descriptionMarkdown": "Third parties ship .NET apps (`.tpk`) or web apps on Samsung TVs; native code arrives as a library loaded by a small C# app, as Flutter's does (`native-host-performance.md`, sections 1-2).",
+      "criteria": [
+        {
+          "id": "HOST-1",
+          "descriptionMarkdown": "`host/` holds `Program.cs`, whose `Main` marshals `args` to UTF-8 `argv` (with an empty `argv[0]`) and makes one\n`DllImport(\"libdxn_app.so\", ExactSpelling = true)` call to `int dxn_gpui_tizen_main(int argc, IntPtr* argv)`,\nreturning its result; no TizenFX, no other P/Invoke and no managed callbacks. `Dxn.GpuiTizen.Host.csproj` uses\n`Tizen.NET.Sdk`, targets `tizen80` (.NET 6, which also runs on the .NET 8 of 2026 TVs), sets `AllowUnsafeBlocks`,\nbuilds Release without PDB and includes the staged library through `TizenTpkUserIncludeFiles`.\n`dotnet build host/Dxn.GpuiTizen.Host.csproj -c Release` succeeds on the Mac.",
+          "verification": "automated"
+        },
+        {
+          "id": "HOST-2",
+          "descriptionMarkdown": "`cargo xtask package --app <diag|counter|long_list> --target <armv7|x86_64> [--sign <profile>]` builds the app's\nrelease `cdylib` through `cargo xtask cross`, then stages a TPK tree under `target/tpk/<app>-<target>/`:\n`bin/` (the host DLL), `lib/libdxn_app.so` (the library, renamed), `res/`, `shared/res/icon.png`, and a generated\n`tizen-manifest.xml` with `<ui-application type=\"dotnet\">`, the app's 10-character package id and app id, API version\n8.0, profile `tv-samsung`, metadata `http://tizen.org/metadata/prefer_dotnet_aot` = `true`, `multiple=\"false\"` and the\n`http://tizen.org/privilege/internet` privilege. Only with `--sign` does it run `tz pack -t tpk -s <profile>`;\nwithout it, it stops after staging and says signing needs the owner's certificate profile. The `package::tests` group\nchecks the staged layout and the rendered manifest from fixtures, and rejects package ids that are not exactly 10\nalphanumeric characters.",
+          "verification": "automated"
+        },
+        {
+          "id": "HOST-3",
+          "descriptionMarkdown": "**Owner-run.** For the diagnostic app and both examples, a TPK signed with the owner's Samsung certificate profile\n(distributor certificate listing the test TVs' DUIDs) installs with `sdb install` and launches into\n`dxn_gpui_tizen_main` on the TV emulator and on a 2024-or-later Samsung TV or a Remote Test Lab TV. The verification\nlog records the device, Tizen version, CPU architecture (`sdb capability`) and the result.",
+          "verification": "manual"
+        }
+      ]
+    },
+    {
+      "id": "DIAG",
+      "title": "Diagnostic app",
+      "descriptionMarkdown": "Built first, to answer the unknowns of `gpui-route.md` section 9 and `native-host-performance.md` sections 6 and 9 on each TV model, with its results sent over the network because retail TVs have no shell and no `dlog`.",
+      "criteria": [
+        {
+          "id": "DIAG-1",
+          "descriptionMarkdown": "`dxn_gpui_tizen_diag` collects a versioned JSON report: EGL (vendor, version, client and display extensions, with\n`EGL_ANDROID_blob_cache`, `EGL_KHR_partial_update`, `EGL_EXT_buffer_age` and `EGL_KHR_swap_buffers_with_damage`\nflagged), GL ES (version, renderer, vendor, extensions, `GL_MAX_VERTEX_SHADER_STORAGE_BLOCKS`, `GL_MAX_TEXTURE_SIZE`),\nthe CPU (`/proc/cpuinfo`, pointer width), memory (`/proc/self/smaps_rollup`, `/proc/meminfo`), the measured frame\ninterval, what `setpriority` and `sched_setattr` return, and launch-step timings from process start (entry,\n`create` callback, window, EGL, wgpu adapter, device and surface, first present). EGL and GL ES are loaded at run\ntime, never linked. The `report::tests` group covers the parsers (cpuinfo, smaps_rollup, meminfo, extension lists)\nwith fixtures, the step timer, and the JSON round trip.",
+          "verification": "automated"
+        },
+        {
+          "id": "DIAG-2",
+          "descriptionMarkdown": "The diagnostic app's wgpu probe opens one full-screen Ecore_Wl2 window, creates a wgpu instance with only the GL\nbackend, a surface from the window's Wayland handles, an adapter and a device (WebGL2 downlevel limits when the\nadapter lacks vertex storage buffers), configures a Fifo surface and presents a fixed number of frames. Each stage's\nduration, or its failure with the stage name and error text, goes into the report; a failure never stops the report\nfrom being served. The `probe::tests` group drives the stage sequence with a fake backend: success, a failure at each\nstage, and the report contents in both cases.",
+          "verification": "automated"
+        },
+        {
+          "id": "DIAG-3",
+          "descriptionMarkdown": "The diagnostic app listens on TCP port 47123 (overridable through an `app_control` extra) and serves the latest\nreport and its log lines to a client; `cargo xtask diag pull [--port <p>]` connects (through\n`sdb forward tcp:<p> tcp:<p>`), saves the report to `artifacts-temp/diag/<utc-timestamp>-<model>.json` and prints a\none-screen summary (GL version, vertex storage blocks, the flagged EGL extensions, probe result, launch timings). The\n`transport::tests` group runs server and client over loopback, including a client connecting before the report is\nready and a dropped connection.",
+          "verification": "automated"
+        },
+        {
+          "id": "DIAG-4",
+          "descriptionMarkdown": "The diagnostic `cdylib` links for both Tizen targets (`cargo xtask cross --target <armv7|x86_64> --release\n--all-tv-libs --check-symbols`) and passes the symbol check of `SYS-3`; `cargo xtask tizen-deps --target <t>` (added\nhere) shows its graph holds one wgpu (the version gpui-fast-wgpu uses) and no GPUI crate.",
+          "verification": "automated"
+        },
+        {
+          "id": "DIAG-5",
+          "descriptionMarkdown": "**Owner-run.** Diagnostic reports are pulled from the TV emulator and from at least one 2024-or-later Samsung TV or\nRemote Test Lab TV, saved under `artifacts-temp/diag/`, and their answers recorded in the verification log: 32- or\n64-bit userspace, GL ES version, `GL_MAX_VERTEX_SHADER_STORAGE_BLOCKS`, the flagged EGL extensions, whether wgpu's\nown EGL surface worked (and if not, which wgpu issue #10708 pattern), launch-step timings and memory.",
+          "verification": "manual"
+        }
+      ]
+    },
+    {
+      "id": "GF",
+      "title": "gpui-fast renderer changes on the fork",
+      "descriptionMarkdown": "Changes 1-3 of `gpui-fast-changes.md`, each under gpui-fast's own rules so it could be offered upstream unchanged later, and the release workspace through which the TV build uses them.",
+      "criteria": [
+        {
+          "id": "GF-1",
+          "descriptionMarkdown": "**Change 1, GL ES 3.0 devices** (branch `gles-instance-path`). `crates/gpui_wgpu/src/fast/gles.rs` decides, from the\nadapter: `uses_instance_textures` (true for a GL adapter without `DownlevelFlags::VERTEX_STORAGE` or with\n`max_storage_buffers_per_shader_stage == 0`, and on wasm as before), `required_limits` (the WebGL2 downlevel limits,\nwithin the adapter's, whenever instance textures are used) and `atlas_format` (`Rgba8Unorm` for every GL adapter).\nThe three places in `wgpu_context.rs` that tested `cfg(target_family = \"wasm\")` become one-line hooks into it, and the\nchosen path is logged once at info level. The `fast::gles::tests::device` group checks the decisions over adapter\nflags and limits (GL ES 3.0-like, GL ES 3.1 without vertex storage, Vulkan, wasm GL); the existing `webgl_*` tests stay\nunchanged and passing.",
+          "verification": "automated"
+        },
+        {
+          "id": "GF-2",
+          "descriptionMarkdown": "**Change 2, GL on request** (branch `wgpu-backend-env`). `fast::gles::backends()` returns\n`wgpu::Backends::from_env()` when `WGPU_BACKEND` is set and today's default (`VULKAN | GL`) otherwise;\n`WgpuContext::instance()` calls it through a one-line hook. The `fast::gles::tests::backends` group checks the unset,\n`gl` and `vulkan` cases.",
+          "verification": "automated"
+        },
+        {
+          "id": "GF-3",
+          "descriptionMarkdown": "**Change 3, a pipeline cache on disk** (branch `pipeline-cache`). `crates/gpui_wgpu/src/fast/pipeline_cache.rs`\nrequests `wgpu::Features::PIPELINE_CACHE` only when the adapter offers it, loads data from\n`<dir>/<wgpu::util::pipeline_cache_key(adapter_info)>` where `<dir>` is `GPUI_PIPELINE_CACHE_DIR` or the platform's\ncache directory, creates the cache with `fallback: true`, passes it to every pipeline the renderer creates, and writes\n`get_data()` back once the pipelines exist through a temporary file renamed into place. Nothing is read or written\nwhen the feature or the key is missing. The `fast::pipeline_cache::tests` group covers: a second start finds and uses\nthe file, corrupt data falls back without error, nothing is written without the feature, and the write is atomic.",
+          "verification": "automated"
+        },
+        {
+          "id": "GF-4",
+          "descriptionMarkdown": "Each change sits on its own branch cut from upstream `main` (`gles-instance-path`, `wgpu-backend-env`,\n`pipeline-cache`), never stacked, with no new public API, logic only under `src/fast/` and one-line hooks in upstream\nfiles. The integration branch `tizen` starts at the commit of gpui-fast's `v0.1.13` tag and cherry-picks the three\nbranches' commits; on it, `script/check-upstream` reports no violations and\n`cargo clippy -p gpui_wgpu --all-targets --features test-support -- -D warnings` passes.",
+          "verification": "automated"
+        },
+        {
+          "id": "GF-5",
+          "descriptionMarkdown": "`cargo xtask gpui-fast-release` (in this repository) generates gpui-fast's release workspace from `../gpui-fast`'s\n`tizen` branch with `bun script/prepare-release.ts --tag v0.1.13`, checks it with\n`cargo check --manifest-path target/release-workspace/Cargo.toml --workspace --lib --all-features`, and commits\nexactly that output (never edited by hand) to the fork's local `tizen-release` branch through a git worktree. With\n`--verify` it commits nothing; it regenerates and checks the workspace, writes\n`artifacts-temp/gpui-fast-patch.toml` (a Cargo config patching all nine `gpui-fast-*` crates with `path` entries into\nthe release workspace), runs `cargo tree -i gpui-fast` with that config, fails on any \"patch was not used\" warning or\nwhen the tree does not resolve `gpui-fast` to the release workspace, and prints `gpui-fast patch ok`. The\n`release::tests` group checks the nine generated patch entries and the parsing of `cargo tree` output.",
+          "verification": "automated"
+        }
+      ]
+    },
+    {
+      "id": "CORE",
+      "title": "Platform logic, testable on the Mac",
+      "descriptionMarkdown": "The decisions of the Tizen platform for GPUI that do not need Tizen to run, kept apart from the Tizen shell so they are proven by host tests (design `d10-logic-shell-split`).",
+      "criteria": [
+        {
+          "id": "CORE-1",
+          "descriptionMarkdown": "**Dispatcher.** `dxn_gpui_tizen`'s dispatcher implements GPUI's `PlatformDispatcher` over a `MainLoop` abstraction\n(on Tizen, `ecore_main_loop_thread_safe_call_async` and Ecore timers): runnables dispatched to the main thread from\nany thread run on the main thread in FIFO order within each priority, high before low; `dispatch_after` fires no\nearlier than its delay; background runnables run on a worker pool; `is_main_thread` is true only on the thread that\ncreated the dispatcher (the one that runs `ui_app_main`). The `dispatcher::tests` group proves this with a fake main\nloop: cross-thread posting, ordering, delays, and that nothing runs after shutdown.",
+          "verification": "automated"
+        },
+        {
+          "id": "CORE-2",
+          "descriptionMarkdown": "**Frames.** A frame scheduler draws only when GPUI asked for a frame and the compositor's frame callback for the\nprevious frame has arrived (or none is pending), forces the first frame after window creation and after resume,\ncoalesces repeated requests into one frame, and never draws while paused. The `frame::tests` group covers each\ncase.",
+          "verification": "automated"
+        },
+        {
+          "id": "CORE-3",
+          "descriptionMarkdown": "**Lifecycle.** A lifecycle state machine (created, resumed, paused, terminated) turns `ui_app_main`'s callbacks into\neffects: pause stops frames and releases GPU resources, resume rebuilds them and forces a full redraw, terminate runs\nGPUI's quit callbacks once; repeated or out-of-order callbacks (resume before the first pause, a second terminate)\nproduce no effects. `app_control` extras are exposed as a string map to the app. The `lifecycle::tests` group covers\nthe transitions, the ignored cases and the extras.",
+          "verification": "automated"
+        },
+        {
+          "id": "CORE-4",
+          "descriptionMarkdown": "**Keys.** Ecore key events (key name, string, modifiers, repeat) map to GPUI keystrokes by the table of design\n`d14-keys`: arrows, `Return`/`KP_Enter` to `enter`, `XF86Back` to `back`, `XF86Exit` to `exit`, the color keys,\nmedia keys and channel keys to their documented names, digits and printable characters with `key_char`, repeats as\nheld keys; unknown key names pass through lowercased. The `keys::tests` group checks the whole table, modifiers and\nrepeat.",
+          "verification": "automated"
+        },
+        {
+          "id": "CORE-5",
+          "descriptionMarkdown": "**Display and scale.** One display whose bounds are the UI plane's size reported by the window (1920x1080 by default);\nthe scale factor defaults to 2.0 and is overridden by `RunOptions::scale_factor`, then by the\n`DXN_GPUI_TIZEN_SCALE` environment variable, accepting only values from 1.0 to 4.0; the refresh rate comes from the\nmeasured frame-callback interval, 60 Hz until measured. The `display::tests` group covers the defaults, both\noverrides, rejected values and logical sizes.",
+          "verification": "automated"
+        }
+      ]
+    },
+    {
+      "id": "SHELL",
+      "title": "The Tizen platform spike and the examples",
+      "descriptionMarkdown": "GPUI on an Ecore_Wl2 window, with wgpu drawing through its own EGL surface (`gpui-route.md`, sections 2-3), and plain GPUI apps that prove it before NSH comes into it.",
+      "criteria": [
+        {
+          "id": "SHELL-1",
+          "descriptionMarkdown": "`dxn_gpui_tizen::run(argc, argv, RunOptions, on_launch)` starts GPUI with `Application::with_platform` on a\n`TizenPlatform` whose `Platform::run` enters `ui_app_main` and calls GPUI's finish-launching callback from the\n`create` callback; `quit` calls `ui_app_exit`; before any renderer exists it sets `GPUI_PIPELINE_CACHE_DIR` to\n`app_get_cache_path()`; menus, dialogs, cursors, screen capture and a second window are no-ops or errors; the\nclipboard is in-process. For both Tizen targets, `cargo xtask tizen-deps --target <t>` finds no\n`gpui-fast-platform`, `gpui-fast-linux`, `x11rb`, `xkbcommon` or portal crate in the graph of the platform, the\ndiagnostic app and the examples, and prints `no desktop platform crates`.",
+          "verification": "automated"
+        },
+        {
+          "id": "SHELL-2",
+          "descriptionMarkdown": "The Tizen window implements `PlatformWindow` on one full-screen, opaque Ecore_Wl2 window: raw-window-handle Wayland\nhandles (the `wl_display` of Ecore_Wl2's display and the window's `wl_surface`) for `gpui_wgpu::WgpuRenderer::new`,\n`on_request_frame` driven by the frame scheduler of `CORE-2` from Ecore_Wl2 frame callbacks, key events through the\nmapping of `CORE-4` into `PlatformInput`, bounds and scale from `CORE-5`, and the lifecycle effects of `CORE-3`\n(pause: renderer `destroy` and atlas `clear`; resume: renderer rebuilt on the same handles and a full redraw). This\nwgpu-owned surface stays the fallback path once the platform-owned EGL path of `EGL-1` exists.",
+          "verification": "automated"
+        },
+        {
+          "id": "SHELL-3",
+          "descriptionMarkdown": "`examples/counter` (two focusable buttons and a count; Left/Right move focus, Enter presses, Back quits) builds as a\n`cdylib` exporting `dxn_gpui_tizen_main` on Tizen targets (calling `dxn_gpui_tizen::run`) and as a desktop binary on\nother targets (through `gpui-fast-platform`, which is a dependency only for non-Tizen targets). The binary accepts\n`--exit-after-frames <n>`. Its view logic is tested by its `view::tests` group with GPUI's test context, and its\nlibrary links for armv7 and x86_64 with `--check-symbols`, which also proves the shell of `SHELL-1` and `SHELL-2`\ncompiles and links.",
+          "verification": "automated"
+        },
+        {
+          "id": "SHELL-6",
+          "descriptionMarkdown": "`examples/long_list` (1,000 rows in a `uniform_list`; Up/Down move the selection and keep it visible, Back quits) has\nthe same two builds and `--exit-after-frames`, and its view logic is tested by its own `view::tests` group.",
+          "verification": "automated"
+        },
+        {
+          "id": "SHELL-4",
+          "descriptionMarkdown": "**GL ES 3.0 path on desktop Linux.** In the `gpuitizen` Lima VM (`scripts/lima/gpuitizen.yaml`, Ubuntu with Mesa,\nXvfb and the build dependencies), `scripts/lima-run.sh` runs each example's `gles_smoke` integration test, which starts\nthe desktop binary under Xvfb with `WGPU_BACKEND=gl`, `MESA_GLES_VERSION_OVERRIDE=3.0`, the local gpui-fast patch of\n`GF-5` and `--exit-after-frames 60`, and asserts exit 0 and the change-1 log line that instance data goes through\ntextures.",
+          "verification": "automated"
+        },
+        {
+          "id": "SHELL-5",
+          "descriptionMarkdown": "Every TV library of the workspace (the diagnostic app and the examples) links for armv7 and x86_64 with\n`--all-tv-libs --check-symbols` and passes the symbol check of `SYS-3`; staged TPKs exist for each example.",
+          "verification": "automated"
+        }
+      ]
+    },
+    {
+      "id": "PLAT",
+      "title": "The platform completed: text input, keys, settings, fonts, accessibility",
+      "descriptionMarkdown": "Step G3 of `gpui-route.md` for this repository, accessibility included at the owner's request (2026-11-08).",
+      "criteria": [
+        {
+          "id": "PLAT-1",
+          "descriptionMarkdown": "**Text input.** Each window owns an Ecore_IMF context. When GPUI's input handler reports an editable focus the\nplatform focuses the context and shows the on-screen keyboard, hides it on blur; preedit strings become marked text\nwith their cursor, commits replace the marked text (or insert at the selection), delete-surrounding deletes around the\ncursor, and key events the IME consumes never reach the key mapping. The translation from IME events to\n`PlatformInputHandler` calls is tested by the `ime::tests` group with a fake handler. `examples/long_list` gains a\nfilter text field above the list (an `EntityInputHandler`) that narrows the rows, tested by its `filter::tests`\ngroup.",
+          "verification": "automated"
+        },
+        {
+          "id": "PLAT-2",
+          "descriptionMarkdown": "**Key grabs.** When the window is shown, the color keys, media keys and channel keys are grabbed with\n`ecore_wl2_window_keygrab_set` (topmost) and released on hide and terminate; `RunOptions::grab_keys` can narrow the set;\n`Return`, `XF86Exit` and `XF86Home` are never grabbed (Return's long press is Exit and force-terminates the app). The\n`keygrab::tests` group checks the grab plan from options and the refusal of the forbidden keys.",
+          "verification": "automated"
+        },
+        {
+          "id": "PLAT-3",
+          "descriptionMarkdown": "**System settings.** `dxn_gpui_tizen::settings` exposes `SystemSettings` (BCP 47 locale such as `ko-KR` from\n`ko_KR.UTF-8`, time zone, a font scale mapped monotonically from `system_settings`' font size with normal = 1.0,\nscreen reader on or off, and high contrast and reduce motion when the TV reports them, else `None`), read at start and\nupdated from `system_settings` change callbacks, delivered to subscribers on the main thread with bursts coalesced;\nunsupported keys yield `None`, never an error. The `settings::tests` group covers parsing, the font-scale mapping,\nunsupported keys and coalescing.",
+          "verification": "automated"
+        },
+        {
+          "id": "PLAT-4",
+          "descriptionMarkdown": "**Fonts.** The platform's text system is gpui_wgpu's cosmic-text system created without system fonts; it receives\nonly the families in `RunOptions::font_families` (default: the TV's UI family and its fallbacks) found in the font\ndirectories of the fontconfig configuration (`/etc/fonts/fonts.conf`, its `<dir>` and `<include>` entries, `conf.d`),\nfalling back to `/usr/share/fonts`, read in Rust without linking fontconfig. The `fonts::tests` group resolves\ndirectories and families from fixture configuration trees, including missing includes and absent families.",
+          "verification": "automated"
+        },
+        {
+          "id": "PLAT-5",
+          "descriptionMarkdown": "**Accessibility.** The window implements GPUI's `a11y_init`, `a11y_tree_update` and `a11y_update_window_bounds`\nwith an `accesskit_unix` adapter whose activation, action and deactivation handlers forward to GPUI's\n`A11yCallbacks` on the main thread, and whose window bounds are the full-screen window at the origin in physical\npixels. The `a11y::tests` group covers the forwarding and the bounds; a Linux integration test, run in the Lima VM\nunder `dbus-run-session` with `at-spi2-core`, pushes a tree and reads node names and roles back over AT-SPI, and an\nAT-SPI `DoAction` reaches GPUI's action callback.",
+          "verification": "automated"
+        },
+        {
+          "id": "PLAT-6",
+          "descriptionMarkdown": "The completed platform (text input, key grabs, settings, fonts and accessibility in the Tizen shell) still links into\nevery TV library for both Tizen targets with exactly one export, and `cargo xtask tizen-deps` still finds no desktop\nplatform crate.",
+          "verification": "automated"
+        },
+        {
+          "id": "PLAT-7",
+          "descriptionMarkdown": "**Owner-run.** On a TV, with Voice Guide on, focusing the examples' buttons and rows is read aloud. If it is not, the\nverification log records what Voice Guide asked for over AT-SPI (for example Tizen's `GetNeighbor` or highlight\nmethods), and the missing Tizen extensions become a corrective task under finding-driven scope expansion.",
+          "verification": "manual"
+        }
+      ]
+    },
+    {
+      "id": "CI",
+      "title": "Continuous integration",
+      "descriptionMarkdown": "Development on the Mac, CI on Linux: host tests, cross builds, the GL ES 3.0 path on Mesa, and the TV emulator on a runner with KVM (`gpui-route.md`, section 7).",
+      "criteria": [
+        {
+          "id": "CI-1",
+          "descriptionMarkdown": "`.github/workflows/ci.yml` starts with a `plan` job built from AgentX's selectable-CI template\n(`.github/actions/plan/`: `workflow_dispatch` inputs `jobs`, `platforms` and `grep`; `ci:<job>`, `ci:all` and\n`ci-os:<platform>` pull-request labels; documentation-only changes run only `check`), then gates these jobs on it:\n`check` (fmt, clippy on Linux and macOS), `test` (the host test groups), `host` (`dotnet build` of the host), `cross`\n(armv7 and x86_64 builds with the rootstrap installed through the Tizen SDK's package manager in the job, then the\nsymbol check) and `gles` (both examples' `gles_smoke` tests under Xvfb with Mesa's llvmpipe against the\n`tizen-release` branch). `scripts/check_workflow_yaml.rb` reports `workflow yaml ok` for every workflow and the plan\naction, and `.github/actions/plan/plan_test.sh` passes for manual, pull-request and schedule events.",
+          "verification": "automated"
+        },
+        {
+          "id": "CI-2",
+          "descriptionMarkdown": "`.github/workflows/tizen-emulator.yml` (manual dispatch and weekly schedule) runs on an Ubuntu runner with KVM: it\ninstalls the Tizen SDK and the TV emulator image, boots the emulator headless, imports the signing profile from\nrepository secrets (`TIZEN_AUTHOR_P12`, `TIZEN_DISTRIBUTOR_P12`, their passwords and `TIZEN_PROFILES_XML`) only in\nthis job, packages and installs the x86_64 diagnostic TPK, launches it, pulls its report through `sdb forward` and\nuploads the report and the emulator log as artifacts. The workflow passes `scripts/check_workflow_yaml.rb`.",
+          "verification": "automated"
+        },
+        {
+          "id": "CI-4",
+          "descriptionMarkdown": "**NSH fork CI.** On the `fork/tizen-ci` branch of the NSH fork, `.github/workflows/fork-tizen.yml` (fork-only, its own\nfile) cross-builds `nsh-platform-tizen` for armv7, x86_64 and aarch64 with the rootstrap installed in the job and runs\nthe symbol check, runs the TV-idiom specs under `nsh test --target gpui` and `nsh test --target tizen-web`, and has a\nmanual emulator job running `nsh test --target tizen` on a KVM runner; `.github/ci/paths.py --print` lists the new\ncrate. The workflow passes `check_workflow_yaml.rb`.",
+          "verification": "automated"
+        },
+        {
+          "id": "CI-3",
+          "descriptionMarkdown": "**Owner-run.** After the owner pushes, `dXn.GpuiTizen`'s `ci.yml` is green on GitHub for `main` (the `gles` job\nincluded), the NSH fork's `fork-tizen.yml` is green on its fork PR, and one run each of `tizen-emulator.yml` and the\nNSH emulator job either passes (a diagnostic report uploaded, `nsh test --target tizen` passing) or its failure (for\nexample the emulator not booting on the runner) is recorded in the verification log.",
+          "verification": "manual"
+        }
+      ]
+    },
+    {
+      "id": "DEV",
+      "title": "Owner-run publication and device acceptance",
+      "descriptionMarkdown": "What only the owner's accounts and hardware can prove, in the final sprint the owner signed up for.",
+      "criteria": [
+        {
+          "id": "DEV-1",
+          "descriptionMarkdown": "**Owner-run.** The owner confirms GitHub Actions are off on `dXnSix/gpui-fast` and `dXnSix/wgpu`, then pushes the\ngpui-fast branches (`gles-instance-path`, `wgpu-backend-env`, `pipeline-cache`, `scene-damage`, `external-target`,\n`video-hole`, `tizen`, `tizen-release`) and the wgpu branches (`v30-egl14`, `v30-gles-program-binaries`,\n`v30-tizen`); `dXn.GpuiTizen`'s root `Cargo.toml` and NSH's `crates/gpui/Cargo.toml` then get the git\n`[patch.crates-io]` lines (nine gpui-fast crates on `tizen-release`, `wgpu-hal` on `v30-tizen`), `cargo tree` shows the\ngit sources, and the owner pushes `dXn.GpuiTizen` and the NSH `pr/*`, `feat/tizen` and `fork/tizen-ci` branches and\nopens the fork PRs into the fork's `main` (merged with merge commits).",
+          "verification": "manual"
+        },
+        {
+          "id": "DEV-2",
+          "descriptionMarkdown": "**Owner-run.** On the emulator and on a 2024-or-later TV (or Remote Test Lab), both examples render full screen at\n1920x1080; arrows, Enter and Back work; the color and media keys arrive while grabbed; the long list scrolls by remote\nand its filter field opens the on-screen keyboard and filters; leaving with Home and returning redraws correctly; a\nchanged system font size or language reaches `SystemSettings`. Results go in the verification log.",
+          "verification": "manual"
+        },
+        {
+          "id": "DEV-3",
+          "descriptionMarkdown": "**Owner-run.** The verification log records, per device: the stripped library size, launch-to-first-frame time,\nmemory (PSS) after start and after scrolling the long list against the 300 / 380 MB budget, and frame times while\nscrolling with key repeat, for both renderer paths (platform-owned EGL with partial presents, and wgpu's surface),\nwith the blob cache cold and warm.",
+          "verification": "manual"
+        },
+        {
+          "id": "DEV-4",
+          "descriptionMarkdown": "**Owner-run.** The NSH counter runs with `nsh run --target tizen` on the emulator and on a TV with hot reload (an edit\non the Mac shows on the TV), and `nsh package --target tizen` makes a TPK that installs and starts.",
+          "verification": "manual"
+        },
+        {
+          "id": "DEV-5",
+          "descriptionMarkdown": "**Owner-run.** The NSH gallery (`nsh package --target tizen`) on a TV is navigable by remote: D-pad focus through\nevery screen, Enter, Back with the exit confirmation on the first screen, color and media keys reaching the app, the\non-screen keyboard in its fields, and system settings (language, font size) applied.",
+          "verification": "manual"
+        },
+        {
+          "id": "DEV-6",
+          "descriptionMarkdown": "**Owner-run.** First the loader probe `.wgt` (`TWEB-7`) on a TV, recording which of module scripts, import map,\niframe realm, CORS bootstrap and Wasm fetch work; then the gallery as a `tizen-web` `.wgt` runs on a TV, navigable by\nremote, with start-up time and frame times recorded. If the probe fails, the documents' ways out (a hosted web app,\nor a classic-script build of the app) become corrective tasks.",
+          "verification": "manual"
+        }
+      ]
+    },
+    {
+      "id": "WGPU",
+      "title": "wgpu fork: EGL 1.4 drivers and GL program binaries",
+      "descriptionMarkdown": "The fixes for wgpu issue #10708 (a Mali GPU with EGL 1.4 on Wayland where wgpu's own surfaces fail three ways) and program binaries behind wgpu's GL pipeline cache (`gpui-route.md`, sections 4, 6 and 9), on `v30` branches of `dXnSix/wgpu` because gpui-fast 0.1.13 uses wgpu 30.0.1.",
+      "criteria": [
+        {
+          "id": "WGPU-1",
+          "descriptionMarkdown": "**EGL 1.4 displays** (branch `v30-egl14`, cut from upstream `v30`). On a Wayland window, when the EGL client version is\nbelow 1.5, `wgpu-hal`'s GLES backend gets the display with `eglGetPlatformDisplayEXT(EGL_PLATFORM_WAYLAND_EXT, ...)`\nwhen `EGL_EXT_platform_wayland` is offered, else with `eglGetDisplay` on the `wl_display` (as flutter-tizen and DALi\ncall it), instead of failing for want of `eglGetPlatformDisplay`. The choice is a pure function of the EGL version and\nclient extensions, covered by new unit tests in `wgpu-hal` (`gles::egl::tests::display_path`).",
+          "verification": "automated"
+        },
+        {
+          "id": "WGPU-2",
+          "descriptionMarkdown": "**Presentable configs and buffering** (same branch). Config selection on Linux Wayland accepts the presentable tier\nthat Android and OHOS already get, so a config without `EGL_NATIVE_RENDERABLE` can still present; window surfaces are\ncreated with `EGL_BACK_BUFFER` where `EGL_SINGLE_BUFFER` is refused (the driver of issue #10708), retrying once with\n`EGL_BACK_BUFFER` after a `BAD_ATTRIBUTE`/`BAD_MATCH` failure. Unit tests (`gles::egl::tests::config_tiers`,\n`gles::egl::tests::render_buffer`) cover the tier ranking and the fallback with fake config attributes; on Mesa in the\n`gpuitizen` Lima VM the existing GLES surface path still presents (one wgpu GPU test selected on the GL backend).",
+          "verification": "automated"
+        },
+        {
+          "id": "WGPU-3",
+          "descriptionMarkdown": "**Program binaries** (branch `v30-gles-program-binaries`, cut from `v30`). The GLES backend implements\n`create_pipeline_cache` / `pipeline_cache_get_data`: when `GL_NUM_PROGRAM_BINARY_FORMATS > 0` (core in GL ES 3.0) it\nkeys each linked program by its shader sources and the adapter (`GL_RENDERER`, `GL_VERSION`), stores\n`glGetProgramBinary` output, and on a later run loads it with `glProgramBinary`, falling back to compiling when the\ndriver rejects it; `Features::PIPELINE_CACHE` is reported for such adapters and `pipeline_cache_key` returns a key for\nGL. A wgpu GPU test run on the GL backend in the Lima VM (Mesa supports program binaries) proves a second pipeline\ncreated from the cache data skips compilation and draws the same pixels, and that corrupt data falls back.",
+          "verification": "automated"
+        },
+        {
+          "id": "WGPU-4",
+          "descriptionMarkdown": "The integration branch `v30-tizen` is upstream `v30` plus both branches merged; the version stays `30.0.x` so\n`wgpu-core 30` accepts it. `cargo xtask gpui-fast-release --verify` also writes the `wgpu-hal` path patch into\n`artifacts-temp/gpui-fast-patch.toml` (pointing at `../wgpu/wgpu-hal` on `v30-tizen`), and\n`cargo tree -i wgpu-hal` for `dxn_gpui_tizen` on a Tizen target resolves to it with no unused-patch warning.",
+          "verification": "automated"
+        }
+      ]
+    },
+    {
+      "id": "DMG",
+      "title": "gpui-fast change 5 and partial redraws",
+      "descriptionMarkdown": "Drawing into a target the platform supplies, scene damage, and redrawing only what changed (`gpui-fast-changes.md`, change 5; `gpui-route.md`, section 6; gpui-fast PR #45, closed, had exact scene damage for macOS and Windows). Change 5 needs new public API in `gpui_wgpu`; in the fork it is a documented exception to gpui-fast's no-new-API rule, offered upstream with measurements.",
+      "criteria": [
+        {
+          "id": "DMG-1",
+          "descriptionMarkdown": "**Scene damage** (branch `scene-damage`, cut from upstream `main`). `crates/gpui_wgpu/src/fast/damage.rs` computes,\nfor consecutive scenes of a window, the device-pixel rectangles whose output can differ (primitives added, removed,\nmoved or changed, including layer and clip changes), merged into a bounded list, with a full-window result on resize,\nscale or atlas loss; `GPUI_PARTIAL_REDRAW=0` forces full damage. The `fast::damage::tests` group covers unchanged\nscenes (no damage), a changed quad, a moved sprite, a clip change, many small changes merged, and the forced full\ncase.",
+          "verification": "automated"
+        },
+        {
+          "id": "DMG-2",
+          "descriptionMarkdown": "**Drawing into a supplied target** (branch `external-target`, cut from upstream `main`). `gpui_wgpu` gains, as the\nfork's documented API exception, a way to build a renderer on a wgpu device and adapter the caller created (including\none from `wgpu_hal::gles::Adapter::new_external`) and to draw a frame into a texture view the caller supplies for that\nframe, with an option to flip Y for a GL default framebuffer, without creating or presenting a `wgpu::Surface`.\n`fast::external_target::tests` render a scene through `WgpuHeadlessRenderer`'s device into a caller-made texture and\ncompare pixels with the surface path, flipped and unflipped.",
+          "verification": "automated"
+        },
+        {
+          "id": "DMG-3",
+          "descriptionMarkdown": "**Partial redraw into a preserved target** (on `external-target`, using `scene-damage`). Given the damage of `DMG-1`\nand the target's age (how many frames ago its contents were drawn, 0 when unknown), the renderer loads the existing\ncontents and draws only inside the union of the damage of the last `age` frames, scissored; age 0 or more than the\nkept history draws the whole frame. `fast::external_target::tests::partial` proves with pixel read-back that pixels\noutside the damage keep the previous frame and pixels inside match a full redraw.",
+          "verification": "automated"
+        },
+        {
+          "id": "DMG-4",
+          "descriptionMarkdown": "`scene-damage` and `external-target` pass gpui-fast's local checks on their own (`script/check-upstream` with the API\nexception recorded in the fork's `docs/upstream-sync.md` exception list), are cherry-picked into `tizen` after\nchanges 1-3, and the release workspace regenerated by `cargo xtask gpui-fast-release --verify` still checks.",
+          "verification": "automated"
+        }
+      ]
+    },
+    {
+      "id": "EGL",
+      "title": "Platform-owned EGL, the driver's shader cache and partial presents",
+      "descriptionMarkdown": "With a platform-owned EGL context the Tizen platform avoids wgpu's per-frame full-window copy, presents only damaged rectangles (as DALi does with `EGL_EXT_buffer_age`, `eglSetDamageRegionKHR` and `eglSwapBuffersWithDamageKHR`) and registers the driver's shader cache (`EGL_ANDROID_blob_cache`) before any program is compiled (`gpui-route.md`, section 6; `native-host-performance.md`, levers 4 and 5).",
+      "criteria": [
+        {
+          "id": "EGL-1",
+          "descriptionMarkdown": "`dxn_gpui_tizen`'s `egl` module (compiled for every Linux so the Lima VM can test it) takes raw `wl_display` and\n`wl_surface` pointers, loads `libEGL.so.1`, `libGLESv2.so.2` and `libwayland-egl.so.1` at run time, gets the display\nwith `eglGetDisplay` (or the platform variant the EGL version allows), chooses an opaque RGBA8888 window config (alpha\nonly while a video hole is active, `VID-3`), creates a GL ES 3 context and a `wl_egl_window` at the window's size,\nhands the context to wgpu through `wgpu_hal::gles::Adapter::new_external` and `create_adapter_from_hal`, and builds\nthe renderer of `DMG-2` on it, drawing into the default framebuffer (`Texture::default_framebuffer`, Y flipped).",
+          "verification": "automated"
+        },
+        {
+          "id": "EGL-2",
+          "descriptionMarkdown": "**The driver's shader cache.** When the display offers `EGL_ANDROID_blob_cache`, the `egl` module registers its\nset/get callbacks before creating the context, backed by a `blob_cache` store: one file per key under\n`<app cache dir>/egl-blob-cache/`, bounded total size with least-recently-used eviction, atomic writes, corrupt or\ntruncated entries ignored. The `blob_cache::tests` group covers store, load, eviction, corruption and concurrent\ncallers; the Lima integration test (`EGL-5`) shows Mesa calling `set` on the first run and `get` hits on a second\ncontext.",
+          "verification": "automated"
+        },
+        {
+          "id": "EGL-3",
+          "descriptionMarkdown": "**Partial presents.** Each frame the `egl` module queries `EGL_BUFFER_AGE_EXT`, asks the renderer for the frame's\ndamage (`DMG-1`), keeps a damage history of the last three frames in `damage_history` (pure, host-tested by\n`damage_history::tests`: age 0 and ages beyond the history mean full frame, rectangle unions in GL's bottom-left\ncoordinates), calls `eglSetDamageRegionKHR` before drawing and `eglSwapBuffersWithDamageKHR` after, and draws nothing\nwhen GPUI did not ask for a frame. Without the extensions it draws and swaps the full frame.",
+          "verification": "automated"
+        },
+        {
+          "id": "EGL-4",
+          "descriptionMarkdown": "**Renderer selection.** `RunOptions::renderer` (`Auto`, `PlatformEgl`, `WgpuSurface`), overridden by\n`DXN_GPUI_TIZEN_RENDERER`, picks the path; `Auto` uses the platform-owned EGL path when context creation and\n`new_external` succeed and falls back to wgpu's own surface (`SHELL-2`) otherwise, logging the reason once. Pause and\nresume release and rebuild the active path's resources (`CORE-3`). The `renderer_select::tests` group covers the\nchoice, the override and the fallback reasons.",
+          "verification": "automated"
+        },
+        {
+          "id": "EGL-5",
+          "descriptionMarkdown": "**Desktop proof.** In the Lima VM, under `weston --backend=headless` with Mesa's software EGL on Wayland, the\n`egl_wayland` integration test of `dxn_gpui_tizen` creates a `wl_surface` with `wayland-client`, runs the `egl`\nmodule with a small GPUI-free scene through the `DMG-2` renderer, and asserts: the context is GL ES 3.x, blob-cache\ncallbacks fire, a second frame with a small change swaps with damage (when Mesa reports buffer age), and read-back\npixels match the expected frame.",
+          "verification": "automated"
+        },
+        {
+          "id": "EGL-6",
+          "descriptionMarkdown": "Both examples, built with the platform-owned EGL path, still link for every Tizen target with exactly one export, and\nthe symbol allowlist still holds (EGL, GL ES and wayland-egl stay run-time loaded).",
+          "verification": "automated"
+        }
+      ]
+    },
+    {
+      "id": "VID",
+      "title": "Video",
+      "descriptionMarkdown": "Video through Tizen's player: on the TV's video plane under a transparent hole, and as textures GPUI composites (`native-backend-design.md`, \"Video\"; `gpui-route.md`, section 5). DRM and some advanced players need partner privileges; this epic uses only the public `capi-media-player` API.",
+      "criteria": [
+        {
+          "id": "VID-1",
+          "descriptionMarkdown": "**Holes** (gpui-fast branch `video-hole`, cut from upstream `main`, a second documented API exception). GPUI can paint\na rounded rectangle that replaces the target's pixels with transparent black instead of blending, and the scene\nreports whether the frame contains a hole. `fast::hole::tests` read back pixels through the headless renderer:\ntransparent inside the hole (corner radii respected), untouched outside, and later quads drawn above the hole blend\nover it. Cherry-picked into `tizen`; the release workspace regenerated.",
+          "verification": "automated"
+        },
+        {
+          "id": "VID-2",
+          "descriptionMarkdown": "`dxn_gpui_tizen::video` wraps the public `capi-media-player` API: create, set URI, prepare asynchronously, play,\npause, stop, seek, volume, mute, looping, position, duration, completion, error and buffering callbacks (delivered on\nthe main thread), destroy. Its state machine (`video::tests`) rejects calls invalid in the player's state, serializes\nasynchronous prepare and seek, and maps player errors to typed errors. Bindings and allowlist entries are added for\nevery player function used.",
+          "verification": "automated"
+        },
+        {
+          "id": "VID-3",
+          "descriptionMarkdown": "**Two outputs.** *Overlay*: the player renders to the TV's video plane through `player_set_display` with the overlay\ntype and the app's window (the display handle form the Tizen 8.0 public API accepts for a native window), positioned\nat the video view's rectangle; while any overlay video is active the window switches to an alpha config and GPUI paints\na hole (`VID-1`) there, and switches back to opaque when the last one stops. *Texture*: decoded frames from\n`player_set_media_packet_video_frame_decoded_cb` are converted (NV12 or I420 to RGBA) and uploaded to a `gpui_wgpu`\ndynamic texture on the main thread, dropping frames when one is still pending. The conversion and the pending-frame\npolicy are host-tested (`video_frames::tests`); the output is chosen per player by the caller, overlay by default\nwhere available.",
+          "verification": "automated"
+        },
+        {
+          "id": "VID-4",
+          "descriptionMarkdown": "**Owner-run.** On a TV and on the emulator, an example with a video view (`examples/video`: one clip, play/pause on\nEnter, a focusable control row drawn over the video) plays an MP4 in both outputs; with the overlay, UI drawn over the\nhole stays visible, and leaving the app pauses and releases the player. Results go in the verification log.",
+          "verification": "manual"
+        },
+        {
+          "id": "VID-5",
+          "descriptionMarkdown": "`examples/video` (package `example_video`) builds like the other examples (Tizen `cdylib` and desktop binary, with a\nplaceholder on desktop), plays its bundled clip on Tizen through `dxn_gpui_tizen::video` with a focusable control row\nover it, has a `view::tests` group, and links for every Tizen target with one export.",
+          "verification": "automated"
+        }
+      ]
+    },
+    {
+      "id": "ARM64",
+      "title": "aarch64 builds",
+      "descriptionMarkdown": "64-bit userspace on a retail TV is unconfirmed, but Seller Office takes multi-architecture packages and Tizen supports `aarch64` devices (`toolchain-and-build.md`, `distribution.md`).",
+      "criteria": [
+        {
+          "id": "ARM64-1",
+          "descriptionMarkdown": "`targets/aarch64-tizen-linux-gnu.json` (from `aarch64-unknown-linux-gnu` with `vendor = \"tizen\"`) is accepted by the\npinned nightly and checked by `targets::tests`; `cargo xtask cross --target aarch64` works with\n`TIZEN_ROOTSTRAP_AARCH64`; the gate builds `dxn_gpui_tizen` for it.",
+          "verification": "automated"
+        },
+        {
+          "id": "ARM64-2",
+          "descriptionMarkdown": "The diagnostic app and every example link for `aarch64` with `--check-symbols`; `cargo xtask package --target aarch64`\nstages an aarch64 TPK, and `cargo xtask package --app <app> --target all` stages one TPK per architecture plus the\nmulti-architecture `.zip` Seller Office accepts (layout per Samsung's multi-architecture packaging rules, checked by\n`package::tests::multi_arch`).",
+          "verification": "automated"
+        }
+      ]
+    },
+    {
+      "id": "STORE",
+      "title": "Store readiness and submission",
+      "descriptionMarkdown": "A store-submittable app is step G4's exit criterion (`plan-and-risks.md`); Samsung's rules are in `distribution.md`.",
+      "criteria": [
+        {
+          "id": "STORE-1",
+          "descriptionMarkdown": "`cargo xtask store-check <tpk or staged dir>` checks what can be checked before submission and prints a report:\nmanifest fields (package id, version, API version, `tv-samsung` profile, icon present and of the required size,\nprivileges limited to the declared list), exactly one export in the native library and only allowlisted imports\n(`SYS-3`), library and package sizes, and the presence of the feature description file the submission needs\n(`store/feature-description.<app>.md`, written for the app being submitted). `store_check::tests` cover a passing\npackage and each failure.",
+          "verification": "automated"
+        },
+        {
+          "id": "STORE-2",
+          "descriptionMarkdown": "**Owner-run.** The owner registers in Seller Office, raises the native `.so` question with Samsung (`distribution.md`),\nsubmits one app built by this epic (the NSH gallery as a `tizen` TPK, or the owner's choice) with its feature\ndescription, and records the review outcome or its status in the verification log.",
+          "verification": "manual"
+        }
+      ]
+    },
+    {
+      "id": "PUB",
+      "title": "crates.io publication of dXn.GpuiTizen",
+      "descriptionMarkdown": "NSH's published crates cannot depend on git, so the Tizen targets go upstream only once the platform is on crates.io and gpui-fast has released the renderer changes (`nsh-integration.md`, section 8).",
+      "criteria": [
+        {
+          "id": "PUB-1",
+          "descriptionMarkdown": "`dxn_gpui_tizen_sys` and `dxn_gpui_tizen` carry complete package metadata (description, licence, repository,\nreadme, keywords, categories, `rust-version`, `include` lists), the diagnostic app, examples and `xtask` are\n`publish = false`, and `cargo package -p dxn_gpui_tizen_sys -p dxn_gpui_tizen --no-verify --allow-dirty` succeeds\nagainst crates.io dependencies only. Release automation follows dXn.Reactive's (`release-plz.toml`,\n`.github/workflows/release-plz.yml`, Conventional Commits driving versions, `CHANGELOG.md` generated).",
+          "verification": "automated"
+        },
+        {
+          "id": "PUB-2",
+          "descriptionMarkdown": "**Owner-run, after gpui-fast releases changes 1-3 and 5.** The workspace moves to the released gpui-fast version,\ndrops the `[patch]` lines it no longer needs, and the owner publishes `dxn_gpui_tizen_sys` and `dxn_gpui_tizen` to\ncrates.io; the versions are recorded in the verification log. If the release has not happened when the rest of the\nepic is done, the owner decides its disposition.",
+          "verification": "manual"
+        }
+      ]
+    },
+    {
+      "id": "FOC",
+      "title": "NSH: directional focus navigation in the core",
+      "descriptionMarkdown": "Every TV route needs D-pad focus; the TUI already has it in `crates/nsh-platform-tui/src/keyboard.rs`. Moved into `nsh-core`, it serves every backend (`nsh-integration.md`, section 7; `nsh-changes.md`, focus design notes). First upstream candidate.",
+      "criteria": [
+        {
+          "id": "FOC-1",
+          "descriptionMarkdown": "`nsh_core::focus` (new module in `crates/nsh-core/src/focus.rs` or `focus/`) decides directional moves over plain data\nevery backend has: node id, frame in points, focus stop (`ViewProps::focus_stop`), input scope, covering layer or\nmodal, scroll ancestor and tree order. It reproduces the TUI's rules: Left/Right go to the nearest candidate in an\noverlapping row, Up/Down to the nearest below/above with the overlapping column first, candidates are limited to the\nnewest visible modal and to layers not under a backdrop, a target outside its scroll ancestor yields a reveal delta\n(`nsh_core::scroll::reveal_delta`), and focus returns to the recorded view when a layer closes. Its\n`focus::tests` group covers each rule on frames in points.",
+          "verification": "automated"
+        },
+        {
+          "id": "FOC-2",
+          "descriptionMarkdown": "The TUI is the first user: `keyboard.rs` builds the core's candidates from its mount (cells converted to points) and\ntakes moves, scopes, reveal and restore from `nsh_core::focus`, with no change in behavior: the TUI's existing\n`focus_navigation`, `modal_focus`, `keyboard`, `popup` and `navigation` test modules pass unchanged.",
+          "verification": "automated"
+        },
+        {
+          "id": "FOC-3",
+          "descriptionMarkdown": "**GPUI backend.** In `nsh-platform-gpui`, arrow keys (and the TV's arrows from the Tizen platform) move focus between\nfocus stops through `nsh_core::focus` over the backend's frames, Enter presses the focused pressable, the focused\nview is revealed in its scroll views, `focus:` classes and `onFocus`/`onBlur` follow, and modals and popups scope\nfocus. A new test group in `nsh-platform-gpui` drives these with GPUI's test context.",
+          "verification": "automated"
+        },
+        {
+          "id": "FOC-4",
+          "descriptionMarkdown": "**Pressables as focus stops on the desktops.** On macOS, Windows, Linux and GPUI, Tab and Shift+Tab also stop on\npressables (today only fields and native components), in tree order through `nsh_core::input::tab_stop`; arrows move\ndirectionally as on GPUI. Proved by an app spec (`nsh test --target macos`, and `--target linux` in the Lima VM) and,\nfor Windows, by clippy for `x86_64-pc-windows-msvc` here and the fork's Windows CI in the owner sprint.",
+          "verification": "automated"
+        },
+        {
+          "id": "FOC-5",
+          "descriptionMarkdown": "**What a TV adds.** Preferred and initial focus (`preferredFocus` / `autoFocus` props), focus groups (a `FocusGroup`\nin `nsh/base` with `destinations` and `trap`), explicit `nextFocusUp/Down/Left/Right` overrides, and lists scrolled by\nindex when the next row is not mounted (the list scrolls with `scroll_to_index`, then focus lands on the row). The\nexisting focus API (`focus:` classes, `onFocus`/`onBlur`, `focusable`) keeps its meaning. Tested by new\n`focus::tests::tv` cases in the core and a new `focus_group` module in `nsh-base`'s `base` test binary.",
+          "verification": "automated"
+        },
+        {
+          "id": "FOC-6",
+          "descriptionMarkdown": "**Web runtime.** The browser runtime moves focus with the arrows over the frames it knows (DOM rectangles fed to the\ncore's decisions in Wasm), with the same scopes and reveal; a new browser test file covers it under `node --test`.",
+          "verification": "automated"
+        },
+        {
+          "id": "FOC-7",
+          "descriptionMarkdown": "**Remote keys in tests.** `nsh/test` gains a remote-key step (`TestStep::PressRemoteKey`, `Driver::press_remote_key`,\na default in `agent::Native`, and a `remote(...)` method on the test module's keyboard) accepting the TV key names of\n`TV-1`, implemented by the headless driver, the TUI, GPUI and web agents. A new `remote_keys` module in\n`nsh-testing`'s test binary covers it.",
+          "verification": "automated"
+        },
+        {
+          "id": "FOC-8",
+          "descriptionMarkdown": "Docs change with the code: `docs/dev/` pages for focus, the backends touched and testing, and the user-facing\n`website/` pages in English and `zh-CN`; new props come with `tests/compat` cases. A reviewer confirms it.",
+          "verification": "manual"
+        }
+      ]
+    },
+    {
+      "id": "TV",
+      "title": "NSH: TV keys, the TV category and one wgpu",
+      "descriptionMarkdown": "What apps branch on is the TV, not Tizen: the same on Tizen native, Tizen web and Android TV (`nsh-integration.md`, section 6; `nsh-changes.md`).",
+      "criteria": [
+        {
+          "id": "TV-1",
+          "descriptionMarkdown": "`nsh_core::keymap::Key` gains `MediaPlayPause`, `MediaPlay`, `MediaPause`, `MediaStop`, `MediaRewind`,\n`MediaFastForward`, `MediaNext`, `MediaPrevious`, `ColorRed`, `ColorGreen`, `ColorYellow`, `ColorBlue`, `ChannelUp`,\n`ChannelDown` and `Info`, named in the `NAMED` table and mapped from the platforms that report them (Windows virtual\nkeys, Android key codes, the web's `KeyboardEvent.key` values and Tizen's web key codes, and the Tizen platform's key\nnames of design `d14-keys`); the TypeScript declarations list them. A new `keymap::tests::tv` group covers names and\nmappings.",
+          "verification": "automated"
+        },
+        {
+          "id": "TV-2",
+          "descriptionMarkdown": "**The TV category.** `platform.tv` (true whenever the idiom is `Tv`, on any OS), a `tv={{...}}` prop group (QuickJS\nrenderer `dom.rs`, browser `dom.js`, host props, `TvProps` declarations) and a `tv` key in `platform.select`, looked\nup after the OS's own key and before `desktop` / `mobile`; Rust gets `is_tv()` in `ambient`. Tests: new `tv` cases in\n`nsh-js`'s environment tests, a `tv_props` module in `nsh-base`'s `base` binary, and a browser test file.",
+          "verification": "automated"
+        },
+        {
+          "id": "TV-3",
+          "descriptionMarkdown": "**The page sets the idiom.** The web player accepts `idiom: \"tv\"` (`nsh_environment` in `nsh-platform-web` maps it to\n`Idiom::Tv`), so a `.wgt` page can tell the player it is on a TV instead of the pointer heuristic deciding. Covered by\na browser test.",
+          "verification": "automated"
+        },
+        {
+          "id": "TV-4",
+          "descriptionMarkdown": "**TV layouts on the Mac.** `nsh run` / `nsh dev` accept `--idiom tv` and `nsh.json` accepts a development setting for\nit, for the desktop GPUI host and the web dev page, so 10-foot layouts and focus can be built on the Mac. A new\n`dev_idiom` module in `nsh-cli`'s `cli` test binary covers parsing and what the hosts receive.",
+          "verification": "automated"
+        },
+        {
+          "id": "TV-5",
+          "descriptionMarkdown": "`Os::Tizen`, `platform.tv`, the `tv` prop group, the `tv` select key and the new keys widen types: each has a\n`tests/compat` case passing the v0.2.0 record with `cargo xtask compat`; if nsh-compat must learn to print them, the\nnsh-compat change is prepared beside them (applied for the local compat run, sent upstream in the upstream sprint).",
+          "verification": "automated"
+        },
+        {
+          "id": "TV-6",
+          "descriptionMarkdown": "**One wgpu.** `nsh-engine`'s `shader` feature moves to wgpu 30, the version gpui-fast 0.1.13 uses, so\n`crates/gpui`'s lock holds one wgpu and shader views use the same GL device as GPUI on the TV; the engine's shader\ntests pass and `cargo xtask tizen-deps --manifest-path <nsh>/crates/gpui/Cargo.toml --single wgpu` (from this\nrepository) finds one wgpu version.",
+          "verification": "automated"
+        }
+      ]
+    },
+    {
+      "id": "NTZ",
+      "title": "NSH: the native Tizen backend",
+      "descriptionMarkdown": "NSH's GPUI backend on `dxn_gpui_tizen`, built like the TUI and packaged like Android (`nsh-integration.md`, sections 3-4; `gpui-route.md`, section 5).",
+      "criteria": [
+        {
+          "id": "NTZ-1",
+          "descriptionMarkdown": "**The NSH half of the gate.** `nsh-platform-gpui` without default features builds for the armv7 Tizen target\n(`cargo xtask cross --target armv7 --manifest-path <nsh>/crates/gpui/Cargo.toml -p nsh-platform-gpui\n--no-default-features`, from this repository). A failure that is NSH's (not gpui-fast's) becomes the first task of\n`s17-nsh-gpui-tizen`.",
+          "verification": "automated"
+        },
+        {
+          "id": "NTZ-2",
+          "descriptionMarkdown": "`Os::Tizen` (`name()` = `\"tizen\"`, `is_desktop()` false, `Idiom::desktop_on` false for it) in `nsh-core`, `\"tizen\"`\nin the JS `OS` type, `platform.select({ tizen })` through the OS key; `tizen-web` keeps `Os::Web`. New `tizen` cases\nin `platform::tests` and the JS environment tests.",
+          "verification": "automated"
+        },
+        {
+          "id": "NTZ-3",
+          "descriptionMarkdown": "**gpui-fast change 4.** `gpui_platform` is an optional dependency of `nsh-platform-gpui` behind a default feature\n(used only by `run_app`, the embed example and the headless text test, all gated), so the TV build has no\n`gpui-fast-platform` or `gpui-fast-linux`; default builds are unchanged.",
+          "verification": "automated"
+        },
+        {
+          "id": "NTZ-4",
+          "descriptionMarkdown": "**A Tizen cfg in `nsh-platform-gpui`.** Under `target_vendor = \"tizen\"`, portal settings over D-Bus are replaced by\nvalues set through `AppView`'s setters, the Linux UI and fallback font families by the TV's families, the X11\nscreenshot capture and the GTK web view are left out (web views report unsupported), and GStreamer video by the Tizen\nvideo backend of `NTZ-7`. `cargo xtask tizen-deps` for the Tizen targets finds no `gtk`, `webkit2gtk`, `wry`,\n`gstreamer`, `x11rb`, `gpui-fast-platform` or `gpui-fast-linux` in `nsh-platform-gpui`'s graph.",
+          "verification": "automated"
+        },
+        {
+          "id": "NTZ-5",
+          "descriptionMarkdown": "`crates/gpui/nsh-platform-tizen` (`cdylib` + `rlib`, library name `nsh`) exports one symbol, `nsh_tizen_main(argc,\nargv)`, which runs `dxn_gpui_tizen::run` (as a git dependency pinned by `rev`, patched to `../../dXn.GpuiTizen` by an\nuncommitted local Cargo config while both change), opens the full-screen window with `AppView`, loads the bundle from\nthe package's `res/`, feeds `dxn_gpui_tizen::settings` (locale, time zone, font scale, appearance, reduce motion) into\n`AppView`'s setters as they change, maps the platform's key names to NSH keys (`TV-1`), makes Back NSH's back\nnavigation and, when nothing handles Back on the first screen, asks before exiting (Samsung's rule), and maps pause to\n`Lifecycle::Background` and resume to `Active`. Its C# host (`host/`) is the same one-P/Invoke program, calling\n`libnsh.so`'s `nsh_tizen_main`. Unit test groups in the crate cover key mapping, settings mapping and the Back policy.\nThe workspace's `[patch.crates-io]` carries the same nine gpui-fast lines (and `wgpu-hal`) as `dXn.GpuiTizen`.",
+          "verification": "automated"
+        },
+        {
+          "id": "NTZ-6",
+          "descriptionMarkdown": "**The `dev` variant.** With `--features dev`, the library connects the dev client to the dev server at a fixed local\nport (mapped to the Mac by `sdb reverse`), falls back to listening for `sdb forward`, forwards logs and hot-reloads as\non Android. A unit test group covers the connection policy and the fallback.",
+          "verification": "automated"
+        },
+        {
+          "id": "NTZ-7",
+          "descriptionMarkdown": "**Video on Tizen.** `nsh-platform-gpui`'s video backend uses `dxn_gpui_tizen::video` on Tizen (overlay with a hole\nfor a video view without transforms or clipping, texture output otherwise), keeping NSH's own video controls; a unit\ntest group covers the output choice and the mapping of NSH's video commands and events.",
+          "verification": "automated"
+        },
+        {
+          "id": "NTZ-8",
+          "descriptionMarkdown": "**`nsh/tizen` (native half).** A `nsh/tizen` module with `isAvailable()`, product info (`system_info`), remote key\nregistration (through `dxn_gpui_tizen`'s key grabs), app exit, and Smart Hub preview where a public native API exists\n(otherwise it reports unsupported natively and works on the web, `TWEB-4`), with TypeScript declarations; outside\nTizen `isAvailable()` is false and the calls reject. A unit test group covers availability and argument checks.",
+          "verification": "automated"
+        },
+        {
+          "id": "NTZ-9",
+          "descriptionMarkdown": "`nsh-platform-tizen` links as release and dev `cdylib`s for armv7, x86_64 and aarch64 with exactly one export,\n`nsh_tizen_main` (`cargo xtask cross ... --check-symbols --entry nsh_tizen_main` from this repository), and the\nsymbol allowlist holds.",
+          "verification": "automated"
+        }
+      ]
+    },
+    {
+      "id": "NCLI",
+      "title": "NSH: the `tizen` CLI target",
+      "descriptionMarkdown": "The normal workflow, as for the TUI (`nsh-integration.md`, sections 3 and 5).",
+      "criteria": [
+        {
+          "id": "NCLI-1",
+          "descriptionMarkdown": "`--target tizen` exists for `nsh run`, `nsh package` and `nsh test` (`run::Target`, `package::PackageTarget`), and\n`nsh.json` accepts a `tizen` section (`package`: exactly 10 alphanumeric characters, `apiVersion`, `privileges`,\n`signing`), shared with `tizen-web`, with errors for invalid values. A new `tizen` module in `nsh-cli`'s `cli` test\nbinary covers parsing and validation.",
+          "verification": "automated"
+        },
+        {
+          "id": "NCLI-2",
+          "descriptionMarkdown": "**Runtime and component.** NSH's `xtask` builds `runtime/tizen/release/` and `runtime/tizen/dev/`, each with the C#\nhost's `.dll` and `<arch>/libnsh.so` for `armv7l`, `aarch64` and `x86_64` (through this repository's cross driver),\nand `dist` packs them; `nsh component add tizen` installs them (`COMPONENTS` entry, `runtime/tizen`), and the CLI adds\nthe component the first time a command needs it. Unit tests cover the layout and the component entry.",
+          "verification": "automated"
+        },
+        {
+          "id": "NCLI-3",
+          "descriptionMarkdown": "`HostPlatform::Tizen` in the dev protocol (older servers still read it as `Other`), with the CLI's install hint. A\nprotocol unit test covers both directions.",
+          "verification": "automated"
+        },
+        {
+          "id": "NCLI-4",
+          "descriptionMarkdown": "`nsh package --target tizen` writes a TPK from the release runtime: the host `.dll` in `bin/`, `lib/libnsh.so` for\nthe requested architecture (or one per architecture plus the multi-architecture `.zip`), the app's bundle and assets in\n`res/`, the icon, and a `tizen-manifest.xml` generated from `nsh.json`, then signs it by running `tz pack -t tpk -s\n<signing>` (or `tizen package`); without a profile it refuses with how to make one. Tests in the `tizen` CLI module\ncheck the staged layout and the manifest.",
+          "verification": "automated"
+        },
+        {
+          "id": "NCLI-5",
+          "descriptionMarkdown": "`nsh run --target tizen` installs the dev TPK from `runtime/tizen/dev/` with `sdb install` once per device (and again\nwhen the runtime changes), maps the dev port with `sdb reverse` (falling back to `sdb forward`), launches the app and\nhot-reloads as on Android. The `sdb` command sequence is built by pure functions tested in the `tizen` CLI module.",
+          "verification": "automated"
+        },
+        {
+          "id": "NCLI-6",
+          "descriptionMarkdown": "**Apps with Rust crates.** The CLI generates `.nsh/rust/tizen`, a workspace of its own (as `.nsh/rust/gpui`): a\n`cdylib` of `nsh-platform-tizen` and the app's crate exporting its UI sets as Android's `ui_sets!` does, with the\ngpui-fast and wgpu-hal `[patch.crates-io]` lines in its root manifest, built for the requested architectures with the\nTizen target specs shipped in the `tizen` component. Tests compare the generated files with expected ones.",
+          "verification": "automated"
+        },
+        {
+          "id": "NCLI-7",
+          "descriptionMarkdown": "`nsh test --target tizen` runs specs against an app on a device or the emulator over the dev protocol (installed and\nlaunched as `nsh run` does). Its driver setup is unit-tested; the run on the emulator is in the owner sprint\n(`CI-3`).",
+          "verification": "automated"
+        },
+        {
+          "id": "NCLI-8",
+          "descriptionMarkdown": "Docs: a new `docs/dev/tizen.md` (both targets, what apps see, the CLI, testing, limits), the `nsh.json` table, and the\n`website/` pages in English and `zh-CN`. A reviewer confirms it.",
+          "verification": "manual"
+        }
+      ]
+    },
+    {
+      "id": "TWEB",
+      "title": "NSH: the `tizen-web` target",
+      "descriptionMarkdown": "Route A: NSH's web package as a Tizen web app (`web-app-route.md`).",
+      "criteria": [
+        {
+          "id": "TWEB-1",
+          "descriptionMarkdown": "`nsh package --target tizen-web` writes what `nsh package --target web` writes plus `config.xml` (application id and\npackage from `nsh.json`, `required_version`, the internet privilege, landscape, icon) and the TV shim loaded before\n`nsh.js`, then signs with `tz pack -t wgt -s <signing>`. A new `tizen_web` module in the `cli` test binary checks the\npackage.",
+          "verification": "automated"
+        },
+        {
+          "id": "TWEB-2",
+          "descriptionMarkdown": "**The TV shim.** Back (key code 10009) reaches NSH's back navigation (the `BrowserBack` path); when nothing handles it\non the home screen the app shows its exit confirmation and calls\n`tizen.application.getCurrentApplication().exit()`; color, media and channel keys are registered with\n`tizen.tvinputdevice.registerKey` and delivered as the keys of `TV-1`; the player is created with `idiom: \"tv\"`. A\n`node --test` file drives the shim with fake `tizen` globals.",
+          "verification": "automated"
+        },
+        {
+          "id": "TWEB-3",
+          "descriptionMarkdown": "**`scrollend` fallback.** On engines without `scrollend` (Chromium < 114, 2024 TVs), `nsh.js` ends browser-driven\nscrolls after a quiet interval, so `onScrollEnd` and `onMomentumEnd` still fire; a browser test with `scrollend`\nremoved covers it.",
+          "verification": "automated"
+        },
+        {
+          "id": "TWEB-4",
+          "descriptionMarkdown": "**`nsh/tizen` (web half).** In a `.wgt`, `isAvailable()` is true and the module uses `tizen.*` and `webapis.*`\n(product info, key registration, exit, `webapis.preview.setPreviewData` for Smart Hub preview); a `node --test` file\ncovers it with fakes.",
+          "verification": "automated"
+        },
+        {
+          "id": "TWEB-5",
+          "descriptionMarkdown": "`nsh run --target tizen-web` installs a dev `.wgt` whose page opens the dev server's page (internet privilege,\n`<access>` to the Mac) and launches it; most development stays in Chrome on the Mac in the TV idiom (`TV-4`). Tests in\nthe `tizen_web` CLI module check the dev package.",
+          "verification": "automated"
+        },
+        {
+          "id": "TWEB-6",
+          "descriptionMarkdown": "`nsh test --target tizen-web` runs specs in headless Chromium with the TV shim and the TV idiom, as\n`nsh test --target web` runs; the counter's spec passes that way.",
+          "verification": "automated"
+        },
+        {
+          "id": "TWEB-7",
+          "descriptionMarkdown": "**The loader probe.** `nsh package --target tizen-web --probe` writes a minimal signed-ready `.wgt` that tries, from\npackage files, a module script, an import map, a same-origin iframe realm, a classic bootstrap fetched with CORS, and\na Wasm `fetch`, and shows each result on screen. Its contents are checked by the `tizen_web` CLI tests; running it on\na TV is the first device check of `tizen-web` (`DEV-6`).",
+          "verification": "automated"
+        }
+      ]
+    },
+    {
+      "id": "UP",
+      "title": "Upstream issues and pull requests",
+      "descriptionMarkdown": "Upstream, in the documents' order: NSH focus first, then TV keys and the TV category; the renderer changes to gpui-fast; the wgpu PRs; `dXn.GpuiTizen` on crates.io; then `Os::Tizen` and the Tizen targets in NSH; `tizen-web` packaging after the TV loader check (`nsh-integration.md`, section 8; `gpui-fast-changes.md`, section 3).",
+      "criteria": [
+        {
+          "id": "UP-1",
+          "descriptionMarkdown": "For every NSH branch of this epic, `nsh-root/upstream-pr/pr/<area>/<topic>/` holds `README.md` (status, base,\ncommits, checks, how to update and open it) and `PR.md` (title and body), each area has its `README.md` with the\norder, and the issues that must come first (focus navigation; TV keys and the TV category; `Os::Tizen` and the Tizen\ntargets, raising that GPUI would be the native backend of packaged apps) are drafted there. Each branch is cut from a\nfresh `upstream/main` (or the previous branch of its area's stack), holds only its topic's commits, and passes the\nchecks its README lists. A reviewer confirms it.",
+          "verification": "manual"
+        },
+        {
+          "id": "UP-2",
+          "descriptionMarkdown": "`docs/upstream/gpui-fast/` in this repository holds the issue for `longbridge/gpui-fast` (the TV use, changes 1-3,\nchange 5 and the hole, what each touches, which add API and why, with the TV numbers of `DEV-3`, and whether they\nprefer it in gpui-fast or Zed's GPUI) and one PR text per change branch; the branches stay cut from upstream `main`.\nA reviewer confirms it.",
+          "verification": "manual"
+        },
+        {
+          "id": "UP-3",
+          "descriptionMarkdown": "`docs/upstream/wgpu/` holds the PR texts for wgpu (the EGL 1.4 fixes on issue #10708, program binaries behind the GL\npipeline cache), and `../wgpu` has `egl14-wayland` and `gles-program-binaries` branches cut from upstream `trunk` with\nthe ported changes, their unit tests passing there (the command and result recorded in the PR text). A reviewer\nconfirms it.",
+          "verification": "manual"
+        },
+        {
+          "id": "UP-4",
+          "descriptionMarkdown": "**Owner-run.** In order and on the owner's go for each: the NSH focus issue and PR(s); the TV keys and TV category\nissue and PR(s), with nsh-compat PRs where needed; the one-wgpu PR; the gpui-fast issue and PRs; the wgpu PRs; and,\nonce gpui-fast has released the changes and `dXn.GpuiTizen` is on crates.io, the NSH `Os::Tizen` and Tizen targets\nissue and PRs, and the `tizen-web` PR after the TV loader check. Each link and state goes into its PR folder or the\nverification log; items blocked on maintainers get the owner's disposition.",
+          "verification": "manual"
+        }
+      ]
+    }
+  ]
+}
