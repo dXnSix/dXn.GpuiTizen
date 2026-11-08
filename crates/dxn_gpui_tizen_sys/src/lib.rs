@@ -337,6 +337,10 @@ tizen_extern! {
             callback: system_settings_changed_cb
         ) -> c_int;
     }
+    // system/system_info.h (System > System Information)
+    "capi-system-info" {
+        fn system_info_get_platform_string(key: *const c_char, value: *mut *mut c_char) -> c_int;
+    }
     // dlog/dlog.h (System > dlog)
     "dlog" {
         fn dlog_print(prio: log_priority, tag: *const c_char, fmt: *const c_char; ...) -> c_int;

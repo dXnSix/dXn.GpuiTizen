@@ -71,5 +71,8 @@ system_settings_get_value_string System > System Settings (system/system_setting
 system_settings_add_changed_cb System > System Settings (system/system_settings.h)
 system_settings_remove_changed_cb System > System Settings (system/system_settings.h)
 
+# libcapi-system-info.so
+system_info_get_platform_string System > System Information (system/system_info.h)
+
 # libdlog.so
 dlog_print System > dlog (dlog/dlog.h)
