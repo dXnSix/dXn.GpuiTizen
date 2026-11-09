@@ -156,11 +156,13 @@ unsafe extern "C" fn on_resume(_data: *mut c_void) {
     if let Some(shared) = shared() {
         let effects = shared.lifecycle.borrow_mut().resume();
         perform(&shared, effects);
+        shared.keys_shown();
     }
 }
 
 unsafe extern "C" fn on_pause(_data: *mut c_void) {
     if let Some(shared) = shared() {
+        shared.keys_hidden();
         let effects = shared.lifecycle.borrow_mut().pause();
         perform(&shared, effects);
     }
@@ -168,6 +170,8 @@ unsafe extern "C" fn on_pause(_data: *mut c_void) {
 
 unsafe extern "C" fn on_terminate(_data: *mut c_void) {
     if let Some(shared) = shared() {
+        shared.keys_terminated();
+        super::settings::stop();
         let effects = shared.lifecycle.borrow_mut().terminate();
         perform(&shared, effects);
         shared.dispatcher.shut_down();

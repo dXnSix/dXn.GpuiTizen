@@ -21,6 +21,7 @@ fn defaults() {
 fn run_options_then_the_environment_override() {
     let options = RunOptions {
         scale_factor: Some(1.5),
+        ..RunOptions::default()
     };
     assert_eq!(scale(&options, None).factor, 1.5);
     assert_eq!(
@@ -37,6 +38,7 @@ fn run_options_then_the_environment_override() {
 fn values_outside_the_range_are_rejected() {
     let options = RunOptions {
         scale_factor: Some(0.5),
+        ..RunOptions::default()
     };
     let scale = scale(&options, None);
     assert_eq!(scale.factor, 2.0);
@@ -45,6 +47,7 @@ fn values_outside_the_range_are_rejected() {
         let s = super::scale(
             &RunOptions {
                 scale_factor: Some(1.25),
+                ..RunOptions::default()
             },
             Some(bad),
         );
@@ -54,7 +57,8 @@ fn values_outside_the_range_are_rejected() {
     assert_eq!(
         super::scale(
             &RunOptions {
-                scale_factor: Some(f32::NAN)
+                scale_factor: Some(f32::NAN),
+                ..RunOptions::default()
             },
             None
         )

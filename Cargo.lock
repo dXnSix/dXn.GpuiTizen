@@ -1403,6 +1403,7 @@ dependencies = [
 name = "dxn_gpui_tizen"
 version = "0.1.0"
 dependencies = [
+ "accesskit_unix",
  "anyhow",
  "async-task",
  "dxn_gpui_tizen_sys",
@@ -1412,7 +1413,10 @@ dependencies = [
  "libc",
  "log",
  "raw-window-handle",
+ "serde",
+ "ttf-parser",
  "uuid",
+ "zbus 5.19.0",
 ]
 
 [[package]]
@@ -1604,6 +1608,7 @@ dependencies = [
  "gpui-fast",
  "gpui-fast-platform",
  "log",
+ "unicode-segmentation",
 ]
 
 [[package]]

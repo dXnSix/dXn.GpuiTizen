@@ -4,8 +4,11 @@
 
 mod app;
 mod display;
+mod fonts;
+mod imf;
 mod main_loop;
 mod platform;
+mod settings;
 mod window;
 
 pub use app::{launch_extras, run};

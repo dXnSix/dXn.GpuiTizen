@@ -21,8 +21,13 @@ use gpui_wgpu::{WgpuRenderer, WgpuSurfaceConfig};
 use raw_window_handle as rwh;
 
 use super::display::TizenDisplay;
+use super::imf::Imf;
 use super::platform::Shared;
+use crate::a11y::{MainThreadEvent, OnMainThread, Post, UnixAdapter};
+use crate::dispatcher::MainLoop;
 use crate::display;
+use crate::ime::{self, ImfCall};
+use crate::keygrab::GrabCall;
 
 /// The window's Wayland handles, for wgpu.
 #[derive(Debug, Clone, Copy)]
@@ -79,6 +84,10 @@ pub(crate) struct WindowInner {
     renderer: RefCell<WgpuRenderer>,
     callbacks: RefCell<Callbacks>,
     input_handler: RefCell<Option<PlatformInputHandler>>,
+    /// The window's input method context; dropped before the window is freed.
+    imf: RefCell<Option<Imf>>,
+    /// The AT-SPI adapter, once GPUI initialized accessibility.
+    a11y: RefCell<Option<UnixAdapter>>,
     /// Set by `draw`: whether GPUI drew this frame, and whether it was presented.
     drawn: Cell<bool>,
     presented: Cell<bool>,
@@ -142,14 +151,127 @@ impl WindowInner {
     }
 
     pub(crate) fn insert_text(&self, text: &str) {
-        let handler = self.input_handler.borrow_mut().take();
-        if let Some(mut handler) = handler {
-            handler.replace_text_in_range(None, text);
-            let mut slot = self.input_handler.borrow_mut();
-            if slot.is_none() {
-                *slot = Some(handler);
+        self.with_input_handler(|handler| handler.replace_text_in_range(None, text));
+    }
+
+    /// Runs `f` on GPUI's input handler, taken out of its slot so GPUI may re-enter the window.
+    pub(crate) fn with_input_handler<R>(
+        &self,
+        f: impl FnOnce(&mut PlatformInputHandler) -> R,
+    ) -> Option<R> {
+        let mut handler = self.input_handler.borrow_mut().take()?;
+        let result = f(&mut handler);
+        let mut slot = self.input_handler.borrow_mut();
+        if slot.is_none() {
+            *slot = Some(handler);
+        }
+        Some(result)
+    }
+
+    /// Offers a key to the IME first; `true` when it consumed the key.
+    pub(crate) fn filter_key(&self, event: &sys::Ecore_Event_Key, down: bool) -> bool {
+        self.imf
+            .borrow()
+            .as_ref()
+            .is_some_and(|imf| imf.filter_key(event, down))
+    }
+
+    /// Grabs or releases the TV keys (topmost: third-party apps may use no other mode).
+    pub(crate) fn keygrab(&self, call: GrabCall, keys: &[&str]) {
+        for key in keys {
+            let Ok(name) = std::ffi::CString::new(*key) else {
+                continue;
+            };
+            // SAFETY: the window is alive and the key name NUL-terminated for the call.
+            let done = unsafe {
+                match call {
+                    GrabCall::Grab => sys::ecore_wl2_window_keygrab_set(
+                        self.ecore,
+                        name.as_ptr(),
+                        0,
+                        0,
+                        0,
+                        sys::ECORE_WL2_WINDOW_KEYGRAB_TOPMOST,
+                    ),
+                    GrabCall::Release => {
+                        sys::ecore_wl2_window_keygrab_unset(self.ecore, name.as_ptr(), 0, 0)
+                    }
+                }
+            };
+            if done == sys::EINA_FALSE {
+                log::warn!("{call:?} of {key} failed");
             }
         }
+    }
+
+    /// An event from the accessibility bridge, on the main thread.
+    pub(crate) fn a11y_event(&self, event: MainThreadEvent) {
+        if let Some(adapter) = self.a11y.borrow_mut().as_mut() {
+            adapter.event(event);
+        }
+    }
+
+    /// The app was paused or resumed: the IMF context and the AT-SPI window focus follow.
+    pub(crate) fn window_focus(&self, active: bool) {
+        if let Some(adapter) = self.a11y.borrow_mut().as_mut() {
+            adapter.set_focused(active);
+        }
+        let calls = self
+            .imf
+            .borrow()
+            .as_ref()
+            .map(|imf| imf.window_focus(active))
+            .unwrap_or_default();
+        self.perform_imf(&calls);
+    }
+
+    /// Performs IMF calls now (outside GPUI's frame).
+    fn perform_imf(&self, calls: &[ImfCall]) {
+        if calls.is_empty() {
+            return;
+        }
+        if let Some(imf) = self.imf.borrow().as_ref() {
+            imf.perform(calls, || {
+                self.with_input_handler(ime::cursor_chars).flatten()
+            });
+        }
+    }
+
+    /// Performs IMF calls from the main loop: GPUI reports text-input changes while it draws.
+    fn perform_imf_later(&self, calls: Vec<ImfCall>) {
+        if calls.is_empty() {
+            return;
+        }
+        if let Some(shared) = self.shared.upgrade() {
+            shared.main_loop.post(Box::new(move || {
+                let window = super::app::shared().and_then(|s| s.window.borrow().clone());
+                if let Some(window) = window {
+                    window.perform_imf(&calls);
+                }
+            }));
+        }
+    }
+
+    /// Moves the IMF context to a newly focused field once GPUI's frame is done (`Imf::settle`).
+    fn settle_imf_later(&self) {
+        if let Some(shared) = self.shared.upgrade() {
+            shared.main_loop.post(Box::new(|| {
+                let window = super::app::shared().and_then(|s| s.window.borrow().clone());
+                if let Some(window) = window {
+                    let calls = window.imf_calls(Imf::settle);
+                    window.perform_imf(&calls);
+                }
+            }));
+        }
+    }
+
+    /// Whether IME events reach the input handler now.
+    pub(crate) fn imf_accepts_events(&self) -> bool {
+        self.imf.borrow().as_ref().is_none_or(Imf::accepts_events)
+    }
+
+    fn imf_calls(&self, calls: impl FnOnce(&Imf) -> Vec<ImfCall>) -> Vec<ImfCall> {
+        self.imf.borrow().as_ref().map(calls).unwrap_or_default()
     }
 
     pub(crate) fn release_gpu(&self) {
@@ -245,6 +367,8 @@ impl TizenWindow {
             renderer: RefCell::new(renderer),
             callbacks: RefCell::new(Callbacks::default()),
             input_handler: RefCell::new(None),
+            imf: RefCell::new(Imf::new(ecore)),
+            a11y: RefCell::new(None),
             drawn: Cell::new(false),
             presented: Cell::new(false),
             frame_handle: Cell::new(ptr::null_mut()),
@@ -282,7 +406,10 @@ impl Drop for TizenWindow {
         if let Some(close) = self.0.callbacks.borrow_mut().close.take() {
             close();
         }
-        // The renderer's EGL surface goes before the wl_surface it was made on.
+        // The input method context, the AT-SPI adapter and the renderer's EGL surface go before
+        // the window.
+        self.0.imf.borrow_mut().take();
+        self.0.a11y.borrow_mut().take();
         self.0.renderer.borrow_mut().destroy();
         let handle = self.0.frame_handle.replace(ptr::null_mut());
         // SAFETY: the handle (if any) and the window come from `open`; nothing draws any more.
@@ -347,7 +474,17 @@ impl PlatformWindow for TizenWindow {
     }
 
     fn set_input_handler(&mut self, input_handler: PlatformInputHandler) {
+        let field = input_handler.focus_id();
         *self.0.input_handler.borrow_mut() = Some(input_handler);
+        let switched = self
+            .0
+            .imf
+            .borrow()
+            .as_ref()
+            .is_some_and(|imf| imf.input_handler(field));
+        if switched {
+            self.0.settle_imf_later();
+        }
     }
 
     fn take_input_handler(&mut self) -> Option<PlatformInputHandler> {
@@ -449,7 +586,11 @@ impl PlatformWindow for TizenWindow {
         self.0.renderer.borrow().gpu_specs()
     }
 
-    fn update_ime_position(&self, _bounds: Bounds<Pixels>) {}
+    fn update_ime_position(&self, bounds: Bounds<Pixels>) {
+        if let Some(imf) = self.0.imf.borrow().as_ref() {
+            imf.cursor_location(bounds, self.0.scale);
+        }
+    }
 
     fn insets(&self) -> WindowInsets {
         WindowInsets::default()
@@ -457,13 +598,50 @@ impl PlatformWindow for TizenWindow {
 
     fn on_insets_changed(&self, _callback: Box<dyn FnMut(WindowInsets)>) {}
 
-    fn show_soft_keyboard(&self) {}
+    fn show_soft_keyboard(&self) {
+        let calls = self.0.imf_calls(Imf::show_keyboard);
+        self.0.perform_imf_later(calls);
+    }
 
-    fn hide_soft_keyboard(&self) {}
+    fn hide_soft_keyboard(&self) {
+        let calls = self.0.imf_calls(Imf::hide_keyboard);
+        self.0.perform_imf_later(calls);
+    }
 
-    fn text_input_state_changed(&self, _change: TextInputStateChange) {}
+    fn text_input_state_changed(&self, change: TextInputStateChange) {
+        let calls = self.0.imf_calls(|imf| imf.state_changed(change));
+        self.0.perform_imf_later(calls);
+    }
 
     fn set_text_input_configuration(&mut self, _configuration: TextInputConfiguration) {}
+
+    fn a11y_init(&self, callbacks: gpui::A11yCallbacks) {
+        let Some(shared) = self.0.shared.upgrade() else {
+            return;
+        };
+        let main_loop = Arc::clone(&shared.main_loop);
+        let post: Post = Arc::new(move |task| main_loop.post(task));
+        let on_main_thread: OnMainThread = Arc::new(|event| {
+            let window = super::app::shared().and_then(|s| s.window.borrow().clone());
+            if let Some(window) = window {
+                window.a11y_event(event);
+            }
+        });
+        let adapter = UnixAdapter::new(callbacks, post, on_main_thread, self.0.pixels);
+        *self.0.a11y.borrow_mut() = Some(adapter);
+    }
+
+    fn a11y_tree_update(&self, tree_update: gpui::accesskit::TreeUpdate) {
+        if let Some(adapter) = self.0.a11y.borrow_mut().as_mut() {
+            adapter.tree_update(tree_update);
+        }
+    }
+
+    fn a11y_update_window_bounds(&self) {
+        if let Some(adapter) = self.0.a11y.borrow_mut().as_mut() {
+            adapter.set_bounds(self.0.pixels);
+        }
+    }
 
     fn schedule_frame(&self) {
         if let Some(shared) = self.0.shared.upgrade() {

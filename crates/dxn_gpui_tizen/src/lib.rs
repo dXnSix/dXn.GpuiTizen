@@ -4,11 +4,17 @@
 //! The feature modules hold every decision and are tested on the host with fakes; the Tizen shell
 //! under `src/tizen/` (`cfg(target_vendor = "tizen")`) only calls the Tizen C APIs and GPUI.
 
+#[cfg(any(target_os = "linux", target_os = "macos"))]
+pub mod a11y;
 pub mod dispatcher;
 pub mod display;
+pub mod fonts;
 pub mod frame;
+pub mod ime;
+pub mod keygrab;
 pub mod keys;
 pub mod lifecycle;
+pub mod settings;
 
 pub use display::RunOptions;
 

@@ -12,6 +12,13 @@ publish.workspace = true
 # are tested on the host. No desktop platform crate (`gpui-fast-platform`, `gpui-fast-linux`) is
 # ever a dependency.
 gpui.workspace = true
+# Font family names from fontconfig's font files (the `fonts` module); fontdb already uses it.
+ttf-parser = "0.25"
+
+# AccessKit's AT-SPI adapter (the `a11y` module), on every Linux so the Lima VM can test it over
+# D-Bus; the version gpui-fast 0.1.13's Linux platform uses. Its `zbus` is no desktop platform.
+[target.'cfg(target_os = "linux")'.dependencies]
+accesskit_unix = "0.22"
 
 # Tizen-only: the renderer and the shell's bindings.
 [target.'cfg(target_vendor = "tizen")'.dependencies]
@@ -26,6 +33,11 @@ uuid = { version = "1", features = ["v5"] }
 
 [dev-dependencies]
 async-task = "4.7"
+
+# The AT-SPI integration test (`tests/a11y_atspi.rs`) talks D-Bus itself.
+[target.'cfg(target_os = "linux")'.dev-dependencies]
+serde = "1"
+zbus = { version = "5.5", default-features = false, features = ["async-io", "blocking-api"] }
 
 [lints]
 workspace = true

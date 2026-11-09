@@ -25,6 +25,7 @@ use super::window::{FrameOutcome, TizenWindow, WindowInner};
 use crate::dispatcher::{MainLoop, TizenDispatcher};
 use crate::display::{self, RefreshMeter, RunOptions};
 use crate::frame::{FrameEffect, FrameScheduler};
+use crate::keygrab::{self, GrabCall, KeyGrabs};
 use crate::keys::{self, HeldKeys, KeyEvent};
 use crate::lifecycle::Lifecycle;
 
@@ -44,6 +45,9 @@ pub(crate) struct Shared {
     /// Whether the last frame was drawn straight from a frame callback (for the refresh meter).
     pub(crate) chained: Cell<bool>,
     pub(crate) held: RefCell<HeldKeys>,
+    /// The TV keys grabbed while the window is shown, and whether they are grabbed now.
+    grab_keys: Vec<&'static str>,
+    grabs: RefCell<KeyGrabs>,
     pub(crate) gpu: gpui_wgpu::GpuContext,
     pub(crate) display: Cell<*mut sys::Ecore_Wl2_Display>,
     pub(crate) display_size: Cell<(u32, u32)>,
@@ -106,15 +110,47 @@ impl Shared {
                 self.key_handlers.borrow_mut().push(handler);
             }
         }
+        super::settings::start(&self.main_loop);
         if let Some(launch) = self.on_finish_launching.borrow_mut().take() {
             launch();
         }
     }
 
     pub(crate) fn stop_frames(&self) {
+        if let Some(window) = self.window.borrow().clone() {
+            window.window_focus(false);
+        }
         self.frames.borrow_mut().pause();
         self.refresh.borrow_mut().pause();
         self.held.borrow_mut().clear();
+    }
+
+    /// The window is shown (opened or resumed): grab the TV keys.
+    pub(crate) fn keys_shown(&self) {
+        // Without a window nothing can be grabbed: wait for the window to open.
+        if self.window.borrow().is_none() {
+            return;
+        }
+        let call = self.grabs.borrow_mut().shown();
+        self.perform_grab(call);
+    }
+
+    /// The window is hidden (paused): release them.
+    pub(crate) fn keys_hidden(&self) {
+        let call = self.grabs.borrow_mut().hidden();
+        self.perform_grab(call);
+    }
+
+    /// The app terminates: release them for good.
+    pub(crate) fn keys_terminated(&self) {
+        let call = self.grabs.borrow_mut().terminated();
+        self.perform_grab(call);
+    }
+
+    fn perform_grab(&self, call: Option<GrabCall>) {
+        if let (Some(call), Some(window)) = (call, self.window.borrow().clone()) {
+            window.keygrab(call, &self.grab_keys);
+        }
     }
 
     pub(crate) fn release_gpu(&self) {
@@ -130,6 +166,9 @@ impl Shared {
     }
 
     pub(crate) fn force_redraw(self: &Rc<Self>) {
+        if let Some(window) = self.window.borrow().clone() {
+            window.window_focus(true);
+        }
         let effect = self.frames.borrow_mut().resume();
         self.perform_frame(effect, false);
     }
@@ -246,6 +285,10 @@ impl Shared {
         let Some(window) = self.window.borrow().clone() else {
             return;
         };
+        // IME first: a key the input method consumes never reaches the key mapping.
+        if window.filter_key(event, down) {
+            return;
+        }
         if down {
             let (keystroke, is_held) = self.held.borrow_mut().key_down(&key_event);
             let fallback = keys::fallback_text(&keystroke).map(str::to_owned);
@@ -314,6 +357,11 @@ impl TizenPlatform {
         for rejected in &scale.rejected {
             log::warn!("{rejected}");
         }
+        let text_system = super::fonts::text_system(options.font_families.as_deref());
+        let grab_plan = keygrab::plan(options.grab_keys.as_deref());
+        for (key, refusal) in &grab_plan.refused {
+            log::warn!("not grabbing {key:?}: {refusal:?}");
+        }
         let main_loop = Arc::new(EcoreLoop::new());
         let dispatcher = Arc::new(TizenDispatcher::new(Arc::clone(&main_loop)));
         let shared = Rc::new(Shared {
@@ -328,6 +376,8 @@ impl TizenPlatform {
             refresh: RefCell::new(RefreshMeter::default()),
             chained: Cell::new(false),
             held: RefCell::new(HeldKeys::default()),
+            grab_keys: grab_plan.keys,
+            grabs: RefCell::new(KeyGrabs::default()),
             gpu: gpui_wgpu::GpuContext::default(),
             display: Cell::new(ptr::null_mut()),
             display_size: Cell::new(display::DEFAULT_SIZE),
@@ -342,7 +392,7 @@ impl TizenPlatform {
             shared,
             background_executor: BackgroundExecutor::new(dispatcher.clone()),
             foreground_executor: ForegroundExecutor::new(dispatcher),
-            text_system: Arc::new(gpui_wgpu::CosmicTextSystem::new("TizenSans")),
+            text_system,
         }
     }
 
@@ -420,6 +470,7 @@ impl Platform for TizenPlatform {
             anyhow::bail!("a Tizen app has one window");
         }
         let window = TizenWindow::open(&self.shared, handle, options)?;
+        self.shared.keys_shown();
         self.shared.window_ready();
         Ok(Box::new(window))
     }
