@@ -112,6 +112,40 @@ impl Backend {
         }
     }
 
+    /// Whether the window can turn translucent for holes (the EGL path with a switchable
+    /// config); wgpu's own surface keeps the alpha mode it was made with.
+    pub(crate) fn translucency_available(&self) -> bool {
+        match self {
+            Self::Surface(_) => false,
+            Self::Egl(window) => window.translucency_available(),
+        }
+    }
+
+    /// Gives the window's surface an alpha channel or takes it away; whether it now has `alpha`.
+    pub(crate) fn set_translucent(&mut self, alpha: bool) -> bool {
+        match self {
+            Self::Surface(_) => !alpha,
+            Self::Egl(window) => match window.set_alpha(alpha) {
+                Ok(()) => true,
+                Err(err) => {
+                    log::warn!("the window cannot turn translucent: {err:#}");
+                    window.alpha() == alpha
+                }
+            },
+        }
+    }
+
+    /// The wgpu context the window draws with (dynamic textures are made from it).
+    pub(crate) fn wgpu_context(
+        &self,
+        gpu: &gpui_wgpu::GpuContext,
+    ) -> Option<gpui_wgpu::WgpuContext> {
+        match self {
+            Self::Surface(_) => gpu.borrow().clone(),
+            Self::Egl(window) => window.wgpu_context(),
+        }
+    }
+
     pub(crate) fn gpu_specs(&self) -> Option<GpuSpecs> {
         match self {
             Self::Surface(renderer) => renderer.gpu_specs(),

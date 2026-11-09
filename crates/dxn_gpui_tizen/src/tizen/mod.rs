@@ -10,6 +10,7 @@ mod main_loop;
 mod platform;
 mod renderer;
 mod settings;
+pub(crate) mod video;
 mod window;
 
-pub use app::{launch_extras, run};
+pub use app::{launch_extras, resource_path, run};

@@ -115,6 +115,7 @@ impl Shared {
             }
         }
         super::settings::start(&self.main_loop);
+        super::video::start(&self.main_loop);
         if let Some(launch) = self.on_finish_launching.borrow_mut().take() {
             launch();
         }

@@ -20,13 +20,15 @@ pub mod keys;
 pub mod lifecycle;
 pub mod renderer_select;
 pub mod settings;
+pub mod video;
+pub mod video_frames;
 
 pub use display::RunOptions;
 
 #[cfg(target_vendor = "tizen")]
 mod tizen;
 #[cfg(target_vendor = "tizen")]
-pub use tizen::{launch_extras, run};
+pub use tizen::{launch_extras, resource_path, run};
 
 /// The renderer and application types the Tizen shell builds on. Naming them here keeps gpui-fast
 /// and gpui-fast-wgpu fully compiled for every Tizen target (the 32-bit ARM gate).

@@ -202,7 +202,7 @@ impl Setup<'_> {
         let (Some(context), Some(surface)) = (self.context.take(), self.surface.take()) else {
             bail!("the EGL setup is incomplete");
         };
-        let window = std::mem::replace(&mut self.wl_egl_window, std::ptr::null_mut());
+        let window = std::mem::take(&mut self.wl_egl_window);
         Ok((context, surface, window))
     }
 }
@@ -306,6 +306,10 @@ pub struct EglWindow {
     /// The 1×1 pbuffer the context is current on while there is no window surface, without
     /// surfaceless contexts.
     parked: Option<egl::Surface>,
+    /// Whether the window surface has an alpha channel.
+    alpha: bool,
+    /// `EGL_KHR_no_config_context`: the surface's config can change ([`EglWindow::set_alpha`]).
+    switchable: bool,
     /// Shut down: nothing is left to draw with.
     closed: bool,
     wl_surface: *mut c_void,
@@ -420,11 +424,20 @@ impl EglWindow {
         }
 
         let surfaceless = has_extension(&extensions, "EGL_KHR_surfaceless_context");
+        // A context without a config takes surfaces of any config: the window surface can switch
+        // between opaque and alpha while the context, wgpu and the renderer stay.
+        let switchable = has_extension(&extensions, "EGL_KHR_no_config_context");
         let (config, pbuffer_config) = choose_config(&egl, display, options.alpha, !surfaceless)?;
+        let context_config = if switchable {
+            // SAFETY: EGL_NO_CONFIG_KHR, a null config, which the extension accepts.
+            unsafe { egl::Config::from_ptr(std::ptr::null_mut()) }
+        } else {
+            config
+        };
         let context = egl
             .create_context(
                 display,
-                config,
+                context_config,
                 None,
                 &[EGL_CONTEXT_MAJOR_VERSION, 3, egl::NONE],
             )
@@ -546,6 +559,8 @@ impl EglWindow {
             surfaceless,
             pbuffer_config,
             parked: None,
+            alpha: options.alpha,
+            switchable,
             closed: false,
             wl_surface,
             wl_egl_window,
@@ -565,6 +580,57 @@ impl EglWindow {
     /// What the display offers for partial presents.
     pub fn damage_support(&self) -> DamageSupport {
         self.support
+    }
+
+    /// The wgpu context the renderer draws with (dynamic textures are made from it).
+    pub fn wgpu_context(&self) -> Option<gpui_wgpu::WgpuContext> {
+        self.gpu.as_ref().map(|gpu| gpu.renderer.context().clone())
+    }
+
+    /// Whether the window can be made translucent ([`set_alpha`](Self::set_alpha)).
+    pub fn translucency_available(&self) -> bool {
+        self.switchable || self.alpha
+    }
+
+    /// Whether the window surface has an alpha channel.
+    pub fn alpha(&self) -> bool {
+        self.alpha
+    }
+
+    /// Gives the window surface an alpha channel (while a video plane shows through holes) or
+    /// takes it away. The surface is made again with the other config; the context, wgpu and the
+    /// renderer stay, and the next frame is drawn whole. Needs `EGL_KHR_no_config_context`.
+    pub fn set_alpha(&mut self, alpha: bool) -> Result<()> {
+        anyhow::ensure!(!self.closed, "the window is shut down");
+        if alpha == self.alpha {
+            return Ok(());
+        }
+        anyhow::ensure!(
+            self.switchable,
+            "switching the window's alpha needs EGL_KHR_no_config_context"
+        );
+        let (config, pbuffer_config) =
+            choose_config(&self.egl, self.display, alpha, !self.surfaceless)?;
+        let released = self.surface.is_none();
+        let previous = (self.config, self.pbuffer_config, self.alpha);
+        self.drop_window_surface();
+        self.config = config;
+        self.pbuffer_config = pbuffer_config;
+        self.alpha = alpha;
+        if released {
+            // Paused: resume makes the surface with the new config.
+            return Ok(());
+        }
+        if let Err(err) = self.rebuild_surface() {
+            // Back to the surface the window had, so frames go on.
+            self.drop_window_surface();
+            (self.config, self.pbuffer_config, self.alpha) = previous;
+            if let Err(again) = self.rebuild_surface() {
+                log::error!("restoring the window surface failed: {again:#}");
+            }
+            return Err(err);
+        }
+        Ok(())
     }
 
     /// The renderer's sprite atlas (GPUI's `PlatformWindow::sprite_atlas`).

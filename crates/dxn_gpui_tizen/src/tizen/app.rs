@@ -33,6 +33,13 @@ pub fn launch_extras() -> BTreeMap<String, String> {
         .unwrap_or_default()
 }
 
+/// The path of `name` in the app's read-only resources (the TPK's `res/`).
+pub fn resource_path(name: &str) -> Option<std::path::PathBuf> {
+    // SAFETY: the returned string is malloc'd and freed by `malloced_string`.
+    malloced_string(unsafe { sys::app_get_resource_path() })
+        .map(|dir| std::path::PathBuf::from(dir).join(name))
+}
+
 /// Logs to dlog (`DXN_GPUI_TIZEN`): retail TVs have no shell, but development TVs and the
 /// emulator show it.
 struct DlogLogger;

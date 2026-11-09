@@ -102,6 +102,10 @@ pub(crate) struct WindowInner {
     /// Set by `draw`: whether GPUI drew this frame, and whether it was presented.
     drawn: Cell<bool>,
     presented: Cell<bool>,
+    /// The window is translucent: the frame paints holes onto a video plane.
+    translucent: Cell<bool>,
+    /// Turning translucent failed; not tried again for this window.
+    translucency_failed: Cell<bool>,
     frame_handle: Cell<*mut sys::Ecore_Wl2_Frame_Cb_Handle>,
     shared: std::rc::Weak<Shared>,
 }
@@ -285,6 +289,52 @@ impl WindowInner {
         self.imf.borrow().as_ref().map(calls).unwrap_or_default()
     }
 
+    /// The Ecore window, for subsurfaces under it.
+    pub(crate) fn ecore(&self) -> *mut sys::Ecore_Wl2_Window {
+        self.ecore
+    }
+
+    /// Whether the window can turn translucent for holes.
+    pub(crate) fn translucency_available(&self) -> bool {
+        self.renderer.borrow().translucency_available()
+    }
+
+    /// The wgpu context the window draws with.
+    pub(crate) fn wgpu_context(&self) -> Option<gpui_wgpu::WgpuContext> {
+        let shared = self.shared.upgrade()?;
+        self.renderer.borrow().wgpu_context(&shared.gpu)
+    }
+
+    /// Commits the window now, outside a frame (a video surface under it changed).
+    pub(crate) fn commit(&self) {
+        // SAFETY: the window is alive.
+        unsafe { sys::ecore_wl2_window_commit(self.ecore, sys::EINA_TRUE) };
+    }
+
+    /// Makes the window translucent while `holes` (a video plane shows through them), opaque
+    /// otherwise: the surface's alpha config and the compositor's opaque region.
+    fn follow_holes(&self, holes: bool) {
+        if holes == self.translucent.get() || (holes && self.translucency_failed.get()) {
+            return;
+        }
+        if self.renderer.borrow_mut().set_translucent(holes) {
+            // SAFETY: the window is alive.
+            unsafe {
+                sys::ecore_wl2_window_alpha_set(
+                    self.ecore,
+                    if holes {
+                        sys::EINA_TRUE
+                    } else {
+                        sys::EINA_FALSE
+                    },
+                )
+            };
+            self.translucent.set(holes);
+        } else if holes {
+            self.translucency_failed.set(true);
+        }
+    }
+
     pub(crate) fn release_gpu(&self) {
         self.renderer.borrow_mut().release();
     }
@@ -368,6 +418,8 @@ impl TizenWindow {
             a11y: RefCell::new(None),
             drawn: Cell::new(false),
             presented: Cell::new(false),
+            translucent: Cell::new(false),
+            translucency_failed: Cell::new(false),
             frame_handle: Cell::new(ptr::null_mut()),
             shared: Rc::downgrade(shared),
         });
@@ -403,8 +455,9 @@ impl Drop for TizenWindow {
         if let Some(close) = self.0.callbacks.borrow_mut().close.take() {
             close();
         }
-        // The input method context, the AT-SPI adapter and the renderer's EGL surface go before
-        // the window.
+        // Video players stop and their subsurfaces go first; then the input method context, the
+        // AT-SPI adapter and the renderer's EGL surface, all before the window.
+        super::video::close_all();
         self.0.imf.borrow_mut().take();
         self.0.a11y.borrow_mut().take();
         self.0.renderer.borrow_mut().destroy();
@@ -565,6 +618,9 @@ impl PlatformWindow for TizenWindow {
         // The frame callback is requested on the commit that carries this frame's buffer: commit
         // without flushing, then the swap flushes it (`Ecore_Wayland2.h`). A frame that is not
         // swapped commits nothing.
+        let holes = scene.has_holes();
+        self.0.follow_holes(holes);
+        super::video::end_frame(holes);
         let ecore = self.0.ecore;
         let commit = || {
             // SAFETY: the window is alive.

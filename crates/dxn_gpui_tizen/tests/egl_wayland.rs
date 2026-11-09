@@ -12,8 +12,8 @@ use dxn_gpui_tizen::egl::{
     no_current_context,
 };
 use gpui::{
-    BorderStyle, Bounds, ContentMask, Corners, DevicePixels, Edges, Hsla, Quad, ScaledPixels,
-    Scene, Size, point, size,
+    AtlasTextureId, AtlasTile, BorderStyle, Bounds, ContentMask, Corners, DevicePixels, Edges,
+    Hsla, PolychromeSprite, Quad, ScaledPixels, Scene, Size, TileId, point, size,
 };
 use wayland_client::protocol::{wl_compositor, wl_registry, wl_surface};
 use wayland_client::{Connection, Dispatch, EventQueue, Proxy, QueueHandle, delegate_noop};
@@ -394,4 +394,77 @@ fn pause_and_resume_draw_the_frame_whole() {
     // Partial frames work again after resume.
     let next = window.draw(&scene(gpui::blue())).unwrap();
     assert!(next.presented && next.damage.len() == 1, "{next:?}");
+}
+
+/// The black window with a red block and, when `hole`, a hole at (40, 8) 32×24 drawn after them.
+fn scene_with_hole(hole: bool) -> Scene {
+    let mut scene = Scene::default();
+    scene.insert_primitive(quad(0., 0., WIDTH as f32, HEIGHT as f32, gpui::black()));
+    scene.insert_primitive(quad(8., 4., 24., 16., gpui::red()));
+    if hole {
+        let bounds = Bounds {
+            origin: point(ScaledPixels(40.), ScaledPixels(8.)),
+            size: size(ScaledPixels(32.), ScaledPixels(24.)),
+        };
+        scene.insert_primitive(PolychromeSprite {
+            order: 0,
+            pad: 0,
+            tile: AtlasTile {
+                texture_id: AtlasTextureId::hole(),
+                tile_id: TileId(0),
+                padding: 0,
+                bounds: Bounds::default(),
+            },
+            grayscale: false.into(),
+            opacity: 1.0,
+            bounds,
+            content_mask: ContentMask { bounds },
+            corner_radii: Corners::default(),
+        });
+    }
+    scene.finish();
+    scene
+}
+
+#[test]
+fn the_window_turns_translucent_for_holes_and_back() {
+    let mut surface = Surface::new();
+    let mut window = window(&surface);
+    assert!(
+        window.translucency_available(),
+        "Mesa offers EGL_KHR_no_config_context"
+    );
+    assert!(!window.alpha(), "opaque by default");
+    window.draw(&scene_with_hole(false)).unwrap();
+    surface.dispatch();
+
+    window.set_alpha(true).unwrap();
+    assert!(window.alpha());
+    let scene = scene_with_hole(true);
+    assert!(scene.has_holes());
+    let (report, pixels) = window.draw_and_read(&scene).unwrap();
+    surface.dispatch();
+    assert!(report.presented);
+    assert_eq!(report.age, 0, "a new surface: drawn whole");
+    assert_eq!(
+        pixel(&pixels, 56, 20),
+        [0, 0, 0, 0],
+        "the hole is transparent"
+    );
+    assert_eq!(pixel(&pixels, 16, 10), [255, 0, 0, 255], "the block stays");
+    assert_eq!(
+        pixel(&pixels, 20, 50),
+        [0, 0, 0, 255],
+        "the background stays opaque"
+    );
+
+    window.set_alpha(false).unwrap();
+    let (_, pixels) = window.draw_and_read(&scene_with_hole(false)).unwrap();
+    surface.dispatch();
+    assert_eq!(
+        pixel(&pixels, 56, 20),
+        [0, 0, 0, 255],
+        "opaque again without the hole"
+    );
+    assert_eq!(pixel(&pixels, 16, 10), [255, 0, 0, 255]);
 }
