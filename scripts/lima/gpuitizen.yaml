@@ -33,7 +33,7 @@ provision:
       apt-get install -y --no-install-recommends \
         build-essential clang lld pkg-config curl ca-certificates git \
         mesa-utils libgl1-mesa-dri libegl1 libegl-mesa0 libgles2 libgbm1 mesa-vulkan-drivers \
-        xvfb xauth dbus-x11 at-spi2-core libatspi2.0-dev \
+        xvfb xauth dbus-x11 at-spi2-core libatspi2.0-dev weston libwayland-egl1 \
         libwayland-dev libxkbcommon-dev libxkbcommon-x11-dev libx11-dev libx11-xcb-dev \
         libxcb1-dev libxcb-xkb-dev libxcursor-dev libxrandr-dev libxi-dev \
         libfontconfig1-dev libfreetype-dev libssl-dev libzstd-dev

@@ -8,6 +8,8 @@
 #
 # Usage: scripts/lima-run.sh cargo test -p example_counter --test gles_smoke
 #        LIMA_RUN_TIMEOUT=600 scripts/lima-run.sh ...   (the VM-side time limit, default 5400 s)
+#        scripts/lima-run.sh --weston cargo test -p dxn_gpui_tizen --test egl_wayland
+#          (under `weston --backend=headless` instead of Xvfb, WAYLAND_DISPLAY set)
 #        (cd ../wgpu && ../dXn.GpuiTizen/scripts/lima-run.sh cargo test -p wgpu-hal --features gles --lib)
 #        scripts/lima-run.sh dbus-run-session -- cargo test -p dxn_gpui_tizen --test a11y_atspi
 set -euo pipefail
@@ -15,8 +17,13 @@ set -euo pipefail
 VM=gpuitizen
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
+weston=0
+if [ "${1:-}" = "--weston" ]; then
+  weston=1
+  shift
+fi
 if [ "$#" -eq 0 ]; then
-  echo "usage: scripts/lima-run.sh <command...>" >&2
+  echo "usage: scripts/lima-run.sh [--weston] <command...>" >&2
   exit 2
 fi
 
@@ -57,8 +64,11 @@ if [ "$in_repo" = 1 ] && [ "$cargo_at" -ge 0 ] \
   lock="$REPO/artifacts-temp/locks/lima/Cargo.lock"
   mkdir -p "$(dirname "$lock")"
   cp "$REPO/Cargo.lock" "$lock"
-  args=("${args[@]:0:$cargo_at}" cargo --config "$REPO/artifacts-temp/gpui-fast-patch.toml" \
-    --config "resolver.lockfile-path='$lock'" "${args[@]:$((cargo_at + 1))}")
+  # After the subcommand: an external one (`clippy`) runs `cargo check` again and would not see
+  # options given before it.
+  sub=$((cargo_at + 1))
+  args=("${args[@]:0:$sub}" "${args[$sub]}" --config "$REPO/artifacts-temp/gpui-fast-patch.toml" \
+    --config "resolver.lockfile-path='$lock'" "${args[@]:$((sub + 1))}")
 fi
 
 quoted="$(printf '%q ' "${args[@]}")"
@@ -77,5 +87,19 @@ exec limactl shell --workdir "$WORKDIR" "$VM" -- bash -lc "
   # 8 GiB is not enough for GNU ld on GPUI's debug binaries: link with lld, with line tables only.
   export RUSTFLAGS=\"\${RUSTFLAGS:-} -C link-arg=-fuse-ld=lld\" CARGO_PROFILE_DEV_DEBUG=line-tables-only
   # A hard limit, so a stalled app or test never keeps spinning in the VM after the host gave up.
-  timeout --kill-after=30 $limit xvfb-run -a -s '-screen 0 1920x1080x24' $quoted
+  if [ $weston = 1 ]; then
+    # Weston's headless backend on a private runtime directory, for Wayland EGL clients.
+    export XDG_RUNTIME_DIR=\"\$(mktemp -d)\"
+    chmod 700 \"\$XDG_RUNTIME_DIR\"
+    weston --backend=headless --socket=wayland-dxn --idle-time=0 >\"\$XDG_RUNTIME_DIR/weston.log\" 2>&1 &
+    weston_pid=\$!
+    trap 'kill \$weston_pid 2>/dev/null; wait \$weston_pid 2>/dev/null; rm -rf \"\$XDG_RUNTIME_DIR\"' EXIT
+    for _ in \$(seq 50); do [ -S \"\$XDG_RUNTIME_DIR/wayland-dxn\" ] && break; sleep 0.1; done
+    [ -S \"\$XDG_RUNTIME_DIR/wayland-dxn\" ] || { cat \"\$XDG_RUNTIME_DIR/weston.log\" >&2; exit 1; }
+    export WAYLAND_DISPLAY=wayland-dxn
+    unset DISPLAY
+    timeout --kill-after=30 $limit $quoted
+  else
+    timeout --kill-after=30 $limit xvfb-run -a -s '-screen 0 1920x1080x24' $quoted
+  fi
 "
