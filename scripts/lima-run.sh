@@ -7,6 +7,7 @@
 # its own lockfile, so the repository's Cargo.lock never records the path patch.
 #
 # Usage: scripts/lima-run.sh cargo test -p example_counter --test gles_smoke
+#        scripts/lima-run.sh dbus-run-session -- cargo test -p dxn_gpui_tizen --test a11y_atspi
 set -euo pipefail
 
 VM=gpuitizen
@@ -27,12 +28,17 @@ if [ "$status" != "Running" ]; then
 fi
 
 args=("$@")
-if [ "${args[0]}" = "cargo" ] && [ -f "$REPO/artifacts-temp/gpui-fast-patch.toml" ]; then
+# The first `cargo` argument, also behind a wrapper such as `dbus-run-session --`.
+cargo_at=-1
+for i in "${!args[@]}"; do
+  if [ "${args[$i]}" = "cargo" ]; then cargo_at=$i; break; fi
+done
+if [ "$cargo_at" -ge 0 ] && [ -f "$REPO/artifacts-temp/gpui-fast-patch.toml" ]; then
   lock="$REPO/artifacts-temp/locks/lima/Cargo.lock"
   mkdir -p "$(dirname "$lock")"
   cp "$REPO/Cargo.lock" "$lock"
-  args=(cargo --config "$REPO/artifacts-temp/gpui-fast-patch.toml" \
-    --config "resolver.lockfile-path='$lock'" "${args[@]:1}")
+  args=("${args[@]:0:$cargo_at}" cargo --config "$REPO/artifacts-temp/gpui-fast-patch.toml" \
+    --config "resolver.lockfile-path='$lock'" "${args[@]:$((cargo_at + 1))}")
 fi
 
 quoted="$(printf '%q ' "${args[@]}")"
