@@ -16,6 +16,7 @@ path = "src/main.rs"
 
 [dependencies]
 gpui.workspace = true
+unicode-segmentation = "1.10"
 
 [target.'cfg(target_vendor = "tizen")'.dependencies]
 dxn_gpui_tizen = { path = "../../crates/dxn_gpui_tizen" }

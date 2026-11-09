@@ -1,6 +1,9 @@
-//! A long GPUI list for Tizen TVs and the desktop: 1,000 rows in a `uniform_list`. Up and Down
-//! move the selection and keep it visible, Back quits (Escape on the desktop).
+//! A long GPUI list for Tizen TVs and the desktop: 1,000 rows in a `uniform_list` under a filter
+//! field. Up and Down move the selection and keep it visible, Up from the first row enters the
+//! filter field (text input through the TV's on-screen keyboard), Back quits (Escape on the
+//! desktop).
 
+pub mod filter;
 pub mod view;
 
 pub use view::{LongList, bindings, launch, quit_after_frames};
