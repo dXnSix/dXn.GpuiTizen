@@ -6,6 +6,7 @@ members = [
     "crates/dxn_gpui_tizen_diag",
     "examples/counter",
     "examples/long_list",
+    "examples/video",
     "xtask",
 ]
 default-members = [
@@ -14,6 +15,7 @@ default-members = [
     "crates/dxn_gpui_tizen_diag",
     "examples/counter",
     "examples/long_list",
+    "examples/video",
 ]
 
 [workspace.package]

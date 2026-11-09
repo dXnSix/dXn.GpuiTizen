@@ -1617,6 +1617,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "example_video"
+version = "0.1.0"
+dependencies = [
+ "dxn_gpui_tizen",
+ "gpui-fast",
+ "gpui-fast-platform",
+ "log",
+]
+
+[[package]]
 name = "exr"
 version = "1.74.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
