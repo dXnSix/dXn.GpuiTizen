@@ -1,7 +1,11 @@
-//! A long GPUI list navigated with the D-pad, for Tizen TVs and the desktop.
+//! A long GPUI list for Tizen TVs and the desktop: 1,000 rows in a `uniform_list`. Up and Down
+//! move the selection and keep it visible, Back quits (Escape on the desktop).
 
-/// The TV entry the C# host calls. Until the Tizen platform exists (sprint s6), the example has no
-/// UI to run, so it reports failure and exits immediately.
+pub mod view;
+
+pub use view::{LongList, bindings, launch, quit_after_frames};
+
+/// The TV entry the C# host calls.
 ///
 /// # Safety
 ///
@@ -9,8 +13,9 @@
 #[cfg(target_vendor = "tizen")]
 #[unsafe(no_mangle)]
 pub unsafe extern "C" fn dxn_gpui_tizen_main(
-    _argc: core::ffi::c_int,
-    _argv: *mut *mut core::ffi::c_char,
+    argc: core::ffi::c_int,
+    argv: *mut *mut core::ffi::c_char,
 ) -> core::ffi::c_int {
-    1
+    // SAFETY: argv comes from the host as documented above.
+    unsafe { dxn_gpui_tizen::run(argc, argv, dxn_gpui_tizen::RunOptions::default(), launch) }
 }

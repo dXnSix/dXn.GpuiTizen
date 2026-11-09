@@ -1,8 +1,28 @@
 //! The counter on the desktop (through `gpui-fast-platform`). On Tizen the library is the app
-//! and this binary does nothing. `--exit-after-frames <n>` quits after n frames.
+//! and this binary does nothing. `--exit-after-frames <n>` quits after n frames; `RUST_LOG`
+//! (`info` by default in the Lima runs) sends GPUI's log to stderr.
 
 #[cfg(not(target_vendor = "tizen"))]
 fn main() {
+    struct Stderr;
+    impl log::Log for Stderr {
+        fn enabled(&self, m: &log::Metadata<'_>) -> bool {
+            m.level() <= log::max_level()
+        }
+        fn log(&self, r: &log::Record<'_>) {
+            if self.enabled(r.metadata()) {
+                eprintln!("{} {}: {}", r.level(), r.target(), r.args());
+            }
+        }
+        fn flush(&self) {}
+    }
+    static LOGGER: Stderr = Stderr;
+    if let Ok(level) = std::env::var("RUST_LOG")
+        .unwrap_or_default()
+        .parse::<log::LevelFilter>()
+    {
+        let _ = log::set_logger(&LOGGER).map(|()| log::set_max_level(level));
+    }
     let mut args = std::env::args().skip(1);
     let mut exit_after = None;
     while let Some(arg) = args.next() {

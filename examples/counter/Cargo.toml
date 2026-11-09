@@ -22,7 +22,8 @@ dxn_gpui_tizen = { path = "../../crates/dxn_gpui_tizen" }
 
 # The desktop binary only: never part of a Tizen build.
 [target.'cfg(not(target_vendor = "tizen"))'.dependencies]
-gpui_platform = { package = "gpui-fast-platform", version = "=0.1.13" }
+gpui_platform = { package = "gpui-fast-platform", version = "=0.1.13", features = ["wayland", "x11"] }
+log = "0.4"
 
 [dev-dependencies]
 gpui = { workspace = true, features = ["test-support"] }
