@@ -41,6 +41,18 @@ start files and `libgcc_s` the rootstrap leaves out, and its GNU `ld`, since lld
 [docs/setup.md](docs/setup.md) installs all of it on a clean macOS or Linux machine. Rootstraps and Samsung
 certificates are never committed.
 
+TV builds take gpui-fast and wgpu from the forks (`../gpui-fast` on `tizen`, `../wgpu` on `v30-tizen`): run
+`cargo xtask gpui-fast-release --verify` once, which writes `artifacts-temp/gpui-fast-patch.toml`; `cargo xtask cross`
+then applies it to every build of this workspace.
+
+## Rendering
+
+By default the platform owns EGL (`RunOptions::renderer = Renderer::Auto`): it creates the GL ES 3 context on the
+window's Wayland surface, registers the driver's shader cache (`EGL_ANDROID_blob_cache`, under the app's cache
+directory) and presents partial frames with buffer age and damage, drawing through gpui_wgpu's external-target
+renderer. When that context does not come up it falls back to wgpu's own surface and logs why once.
+`DXN_GPUI_TIZEN_RENDERER=egl|wgpu|auto` overrides the choice.
+
 ## Licence
 
 Licensed under either of [Apache License, Version 2.0](LICENSE-APACHE) or [MIT license](LICENSE-MIT) at your option.
