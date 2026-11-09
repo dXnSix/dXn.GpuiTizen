@@ -1,12 +1,12 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 149,
-  "planRevision": 15,
+  "revision": 165,
+  "planRevision": 17,
   "specHashes": {
     "requirements": "4dbaca28ac846a064bc1cd1d6006c1250a9388f43f49a9fca8da78f8471d3fcb",
     "design": "7112697615efa4bc441d3a50b5079109960d08a3da1ca79dc70d74f6d98cedfd",
-    "plan": "b2a2fb596e2fac8dffc6451dbf7b5dcf1f47b5d9e920f40df9756769a7a43747"
+    "plan": "a39b726073e0f592a1fdafce821fe5ba891b9555d4b44bccbcaae5a4fafe434d"
   },
   "tasks": {
     "t1-workspace": {
@@ -154,22 +154,40 @@
       ]
     },
     "t7-ime": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t7-keygrab": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t7-settings": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t7-fonts": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t7-a11y": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t7-link": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t8-ci": {
       "status": "pending"
@@ -539,6 +557,30 @@
         }
       },
       "recordedAt": "2026-11-09T00:39:00Z"
+    },
+    "2a56d6912014da3b1bf3ae2037b9cc8cb550b2b78dac4f7bf749885e95655229": {
+      "snapshot": {
+        "specHash": "351fd2cb5e317706e6bf59947f017c3f2e12f7e664548ec6cc97fdd8daa1199a",
+        "repositories": {
+          "gpuitizen": "df96da161708b08ab960f6bc92f2c03007dd883a2a27efce4038080f1ef591f5",
+          "gpui-fast": "fe7eaaaf49262a9f593267dd395a5abd837f1bb2ec8c0acc93921b1caf5974d1",
+          "wgpu": "593a0f2f051a329f2703d9ead1daf9f7906493105f4fba31d3fd91867a528ec2",
+          "nsh": "44cd091043852019714da3ec9eda618bc3e237317015dcf281d4f1afb8693e3f"
+        }
+      },
+      "recordedAt": "2026-11-09T01:11:00Z"
+    },
+    "ba571cee7907e17142fd22801ec12de84b83db888af4ec94027efd98b94bdd14": {
+      "snapshot": {
+        "specHash": "351fd2cb5e317706e6bf59947f017c3f2e12f7e664548ec6cc97fdd8daa1199a",
+        "repositories": {
+          "gpuitizen": "ba0d44de2b28f7526dc6bfa290c3083f62358cc105e8815b1ad8ed69417a6f15",
+          "gpui-fast": "fe7eaaaf49262a9f593267dd395a5abd837f1bb2ec8c0acc93921b1caf5974d1",
+          "wgpu": "593a0f2f051a329f2703d9ead1daf9f7906493105f4fba31d3fd91867a528ec2",
+          "nsh": "44cd091043852019714da3ec9eda618bc3e237317015dcf281d4f1afb8693e3f"
+        }
+      },
+      "recordedAt": "2026-11-09T01:30:12Z"
     }
   },
   "checkResults": {
@@ -1255,6 +1297,210 @@
       "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s7-examples-final-68ac0967a3c4.log",
       "logSha256": "459c7b0017b30ae8f542725c116217e1632b3adee321ecec3aad76fada1ad8ea",
       "inputsHash": "717995df7c34ac02f009401188e78a7bc5eb73d82c1b82a00331da180e1ef4f9"
+    },
+    "s8-completion/chk-xtask-symcheck/final": {
+      "checkId": "chk-xtask-symcheck",
+      "boundaryId": "s8-completion",
+      "phase": "final",
+      "batchId": "2a56d6912014da3b1bf3ae2037b9cc8cb550b2b78dac4f7bf749885e95655229",
+      "definitionHash": "f46d6e79f04bf3ae0ed8fd46b5d2a7ecfdfcabe58bca377b94e92aa3b1f8bcb1",
+      "basisHash": "74f5561bdcdd1a315e7878837d254cb4ebd744e812c6317a951e9b1deccdfddd",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 9,
+      "durationSeconds": 0.2153,
+      "recordedAt": "2026-11-09T01:10:53Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s8-completion-final-b5d7a312dd5c.log",
+      "logSha256": "715e55d919a893388e7be83dbe512c174eea97e9e1cb19d85f5b268c97d56e28",
+      "inputsHash": "a1c73d6de2f51a94b1ae0affbcb5e6b507fb3314e60d89b630f566f32231ebf3"
+    },
+    "s8-completion/chk-plat-ime/final": {
+      "checkId": "chk-plat-ime",
+      "boundaryId": "s8-completion",
+      "phase": "final",
+      "batchId": "ba571cee7907e17142fd22801ec12de84b83db888af4ec94027efd98b94bdd14",
+      "definitionHash": "0453abac5ea93ce37b533b02866e23f2bb4b216894a3279a43a0ec9fa9d4e148",
+      "basisHash": "04aa2a0e6367f168ab2c4bfa4de6502bcd9ba7b910afe6143b28d37aa23b7183",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 18,
+      "durationSeconds": 1.7437,
+      "recordedAt": "2026-11-09T01:29:48Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s8-completion-final-3862d8761922.log",
+      "logSha256": "630ad5875dcb3a41ffcda539674a190f48f2c2849b3bf6562f4b05a01af0a942",
+      "inputsHash": "dd71e8c59917098ecb36a180cf7efbc9b31c31b4253d3c9dd4dc2d21d1bc3e85"
+    },
+    "s8-completion/chk-ex-long-list-filter/final": {
+      "checkId": "chk-ex-long-list-filter",
+      "boundaryId": "s8-completion",
+      "phase": "final",
+      "batchId": "2a56d6912014da3b1bf3ae2037b9cc8cb550b2b78dac4f7bf749885e95655229",
+      "definitionHash": "2514855eb6846f5bcc4d92707540a542d6217442a9a327fc0561e54263ee9049",
+      "basisHash": "88b18547f431a7c9f9838527412ccf5de942e748d3ab01637b21843339fc5513",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 5,
+      "durationSeconds": 2.3258,
+      "recordedAt": "2026-11-09T01:10:55Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s8-completion-final-69fe1306c716.log",
+      "logSha256": "f3cb93f9d325e80867e73bdb5df0191c2135c237187fd86442289dbd5b35cf23",
+      "inputsHash": "45f1dd2b5b557ee307ad7edd01cae4b182a36162c2c4c55eb1a5e7c442c67d37"
+    },
+    "s8-completion/chk-plat-keygrab/final": {
+      "checkId": "chk-plat-keygrab",
+      "boundaryId": "s8-completion",
+      "phase": "final",
+      "batchId": "ba571cee7907e17142fd22801ec12de84b83db888af4ec94027efd98b94bdd14",
+      "definitionHash": "194e903eef57957af6f6e937347c5bbb52ded82e7593c2facc1d440082413c27",
+      "basisHash": "cff52dc90e94acb8dd80c66ff5a637bce4245a244c7886642af25012f3f8f0d8",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 6,
+      "durationSeconds": 0.1732,
+      "recordedAt": "2026-11-09T01:29:48Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s8-completion-final-6231398278e6.log",
+      "logSha256": "8109117a47397650e0f2764fd1ca84e53fb0aa8f51b9f865226c950d83543c92",
+      "inputsHash": "dd71e8c59917098ecb36a180cf7efbc9b31c31b4253d3c9dd4dc2d21d1bc3e85"
+    },
+    "s8-completion/chk-plat-settings/final": {
+      "checkId": "chk-plat-settings",
+      "boundaryId": "s8-completion",
+      "phase": "final",
+      "batchId": "ba571cee7907e17142fd22801ec12de84b83db888af4ec94027efd98b94bdd14",
+      "definitionHash": "2026272e2cb42120f05c8d3a6d1f47a3ca058da05a09c3c2b11ea82cb82c2f65",
+      "basisHash": "307a86fa21857e14e2b9178476723c8e87e9ba098b00a2b2514cd71740de2ea0",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 8,
+      "durationSeconds": 0.1677,
+      "recordedAt": "2026-11-09T01:29:48Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s8-completion-final-131d1b61521c.log",
+      "logSha256": "3eaa0720d5eeadac97b1c34353cf21dc40ce0430dddccaec3283228f4216e5e9",
+      "inputsHash": "dd71e8c59917098ecb36a180cf7efbc9b31c31b4253d3c9dd4dc2d21d1bc3e85"
+    },
+    "s8-completion/chk-plat-fonts/final": {
+      "checkId": "chk-plat-fonts",
+      "boundaryId": "s8-completion",
+      "phase": "final",
+      "batchId": "ba571cee7907e17142fd22801ec12de84b83db888af4ec94027efd98b94bdd14",
+      "definitionHash": "dc1b3d378b184ff357bb4e3f64f86419b19c191d5bd2a705826e64aa84599f35",
+      "basisHash": "a740124036adc349f64f608739d0df3de9ac7663f2f3dd10ebca829fa377fe51",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 8,
+      "durationSeconds": 0.1694,
+      "recordedAt": "2026-11-09T01:29:48Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s8-completion-final-d97e48d1440d.log",
+      "logSha256": "fcf8c022fa6a1e75bfd9a4df1eafb4bc7e3dc792b945ce5d55ab88cf43d3dc6d",
+      "inputsHash": "dd71e8c59917098ecb36a180cf7efbc9b31c31b4253d3c9dd4dc2d21d1bc3e85"
+    },
+    "s8-completion/chk-plat-a11y/final": {
+      "checkId": "chk-plat-a11y",
+      "boundaryId": "s8-completion",
+      "phase": "final",
+      "batchId": "ba571cee7907e17142fd22801ec12de84b83db888af4ec94027efd98b94bdd14",
+      "definitionHash": "4c37dd6e7521cf23e4062c722c0576c22d1599f1084113f8120ff0e74f5ebaea",
+      "basisHash": "0c048e661e1626c3fd580252b23773bf3b45b995cbf6b9b528b8584bc9b671cc",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 6,
+      "durationSeconds": 0.1653,
+      "recordedAt": "2026-11-09T01:29:49Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s8-completion-final-42189c85b940.log",
+      "logSha256": "fbbaaa3dbb48cbd7b1b6885b0765e1ced581a002d12f19b2abf7798e7932c4a4",
+      "inputsHash": "dd71e8c59917098ecb36a180cf7efbc9b31c31b4253d3c9dd4dc2d21d1bc3e85"
+    },
+    "s8-completion/chk-plat-a11y-atspi/final": {
+      "checkId": "chk-plat-a11y-atspi",
+      "boundaryId": "s8-completion",
+      "phase": "final",
+      "batchId": "ba571cee7907e17142fd22801ec12de84b83db888af4ec94027efd98b94bdd14",
+      "definitionHash": "cafb1be5fb876b32a84d32f9090dd3b01341ac44bd9c658c255a531ddaf201d6",
+      "basisHash": "32d10ae4f4ac376320610dee4516b9edde4536c6c607495e91fa0c60237d9f8c",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 1,
+      "durationSeconds": 2.3747,
+      "recordedAt": "2026-11-09T01:29:51Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s8-completion-final-caa569113e08.log",
+      "logSha256": "e6859c99f3624b13f633355947c7ce0a61d348381c49547be1b5957201fc6e7d",
+      "inputsHash": "8598f9e03d9b73ffa26c111a31da31f5060382cbbcfe146223ecac69362d29cc"
+    },
+    "s8-completion/chk-xtask-artifacts/final": {
+      "checkId": "chk-xtask-artifacts",
+      "boundaryId": "s8-completion",
+      "phase": "final",
+      "batchId": "2a56d6912014da3b1bf3ae2037b9cc8cb550b2b78dac4f7bf749885e95655229",
+      "definitionHash": "cd0ef1676be50742d56352d4701cefeadea676aa190f7841a824ad12436789b7",
+      "basisHash": "3c745542282e6e5b8c7e9d001e6180e7581a39d16bd2bd0403112cdce13f08fc",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 4,
+      "durationSeconds": 0.1119,
+      "recordedAt": "2026-11-09T01:10:57Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s8-completion-final-6ac1cd32e9b9.log",
+      "logSha256": "ac48fa434553444fc3874d24b457623f124414565f65efb01eef06c2c76ad5b2",
+      "inputsHash": "a6847b32bb9deadee8f1ec614bbfdeb114f9d0c4707d5751b3a951a33213d9f7"
+    },
+    "s8-completion/chk-link-armv7/final": {
+      "checkId": "chk-link-armv7",
+      "boundaryId": "s8-completion",
+      "phase": "final",
+      "batchId": "ba571cee7907e17142fd22801ec12de84b83db888af4ec94027efd98b94bdd14",
+      "definitionHash": "cad541758880eab21ab50bda063b3323648dc8d136b6e30ba8b9aebb1f79be87",
+      "basisHash": "207abda8c26fcbf9dd50fa2050318beee3d33dcd4f8adb7c0f562f3502f23eaa",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 10.4032,
+      "recordedAt": "2026-11-09T01:30:01Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s8-completion-final-d147f522b167.log",
+      "logSha256": "292189f4b86c0f4bc97af05460959b4a9c3702c6ed30a9248a98d7ffab3e9443",
+      "inputsHash": "97d95f7e018a5e15eeaff9d2289eb955a44b2b9a68861ed46a8238eeb5823278"
+    },
+    "s8-completion/chk-link-x86_64/final": {
+      "checkId": "chk-link-x86_64",
+      "boundaryId": "s8-completion",
+      "phase": "final",
+      "batchId": "ba571cee7907e17142fd22801ec12de84b83db888af4ec94027efd98b94bdd14",
+      "definitionHash": "fdd7f2a500315251c3c2ad62f51069ce873d44715a4af8873ea7dcf514f7ee7c",
+      "basisHash": "6ab225d857cae50e9d556094a55803a545948ee60f62b80d6051ea2a0038bd14",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 9.0836,
+      "recordedAt": "2026-11-09T01:30:10Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s8-completion-final-fc652b1ae42b.log",
+      "logSha256": "ee37870a866f67b4beda46d6f10a1c714b9aa6fd8028e3577ff6c6ec3e9aaf96",
+      "inputsHash": "97d95f7e018a5e15eeaff9d2289eb955a44b2b9a68861ed46a8238eeb5823278"
+    },
+    "s8-completion/chk-tizen-deps-armv7/final": {
+      "checkId": "chk-tizen-deps-armv7",
+      "boundaryId": "s8-completion",
+      "phase": "final",
+      "batchId": "ba571cee7907e17142fd22801ec12de84b83db888af4ec94027efd98b94bdd14",
+      "definitionHash": "69a815083fb3ae9bbf2a937a2bfa4c83f602ccf3827c881168ef18d0f22677be",
+      "basisHash": "fc818da7e07d0ffed8877a617fcbd44e020664634e7a768c496ed3a5935c21ba",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 0.6414,
+      "recordedAt": "2026-11-09T01:30:11Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s8-completion-final-876f1f326a7d.log",
+      "logSha256": "4e9cbccf1a420d05fba1b29b54d175c0ab28c6c8775571e60dbececa4431a07c",
+      "inputsHash": "97d95f7e018a5e15eeaff9d2289eb955a44b2b9a68861ed46a8238eeb5823278"
     }
   },
   "reviews": {
@@ -2701,6 +2947,380 @@
         "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
       }
+    },
+    "s8-completion": {
+      "reviewerId": "reviewer-s8-independent",
+      "snapshotId": "ba571cee7907e17142fd22801ec12de84b83db888af4ec94027efd98b94bdd14",
+      "criterionIds": [
+        "PLAT-1",
+        "PLAT-2",
+        "PLAT-3",
+        "PLAT-4",
+        "PLAT-5",
+        "PLAT-6"
+      ],
+      "verdict": "passed",
+      "anchors": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/ime/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "PLAT-1"
+          ],
+          "sha256": "eaa1ea6f5f365028984ded41a380dd4cc25c62ca1d77d46362b3b42249b3d9de"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/imf.rs",
+          "kind": "source",
+          "criterionIds": [
+            "PLAT-1"
+          ],
+          "sha256": "9cbdda8a7b5db4fe4a06cfc07466478d762f6cc8b294e5b5c3757a939f4c6db8"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/window.rs",
+          "kind": "source",
+          "criterionIds": [
+            "PLAT-1",
+            "PLAT-2",
+            "PLAT-5"
+          ],
+          "sha256": "b55efa126065277357a2d8158304d46a7e2afe93905c0eb8980246f3e8eaee3f"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/platform.rs",
+          "kind": "source",
+          "criterionIds": [
+            "PLAT-1",
+            "PLAT-2",
+            "PLAT-3",
+            "PLAT-4"
+          ],
+          "sha256": "6f7860c44086a638e101080404a0c67689a16f7b763b9a665dc105f5ce4558f1"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_sys/src/lib.rs",
+          "kind": "source",
+          "criterionIds": [
+            "PLAT-1",
+            "PLAT-6"
+          ],
+          "sha256": "0255a6bda40426c397ff105c846c5802a96a553df4390681142e2f2a9bbe571f"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "examples/long_list/src/filter/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "PLAT-1"
+          ],
+          "sha256": "c086c2c65d63dadcf91bd5c718960965b48736b3f614773b4f31bc9d00fd489b"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "examples/long_list/src/view/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "PLAT-1"
+          ],
+          "sha256": "e723833e9d1ba89fc889cae6827c246aeeda063efdda25c351492c15036fdc43"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/ime/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "PLAT-1"
+          ],
+          "sha256": "072394b3a30f9483bc321d93492a593bd3498e0370a812c1683cb4d013d698db"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "examples/long_list/src/filter/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "PLAT-1"
+          ],
+          "sha256": "e80f2b3edea069f82efa64a49d99f7e11651b1dbefa1de26bd5a0b69b5e3059a"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/keygrab/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "PLAT-2"
+          ],
+          "sha256": "a5f5289cbd32964c8549cb1e9876cb8b93d108577b34a7bd81cda0900d2f4d7a"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/app.rs",
+          "kind": "source",
+          "criterionIds": [
+            "PLAT-2",
+            "PLAT-3"
+          ],
+          "sha256": "ac1cf3e424f7bb59daaaa309bc022ebb8872a00d47d62dbad146e6580c3f6094"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/keygrab/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "PLAT-2"
+          ],
+          "sha256": "aa3ac3924ca59ee9b6aecfd330f6c50ae6088ac1add7f386702c1cfd9aa2f109"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/settings/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "PLAT-3"
+          ],
+          "sha256": "44fd36c454a9ac4feb31367ca824e489d26b2c881787bbe50109dc9118a077e1"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/settings.rs",
+          "kind": "source",
+          "criterionIds": [
+            "PLAT-3"
+          ],
+          "sha256": "b138401eede0c4d7c8f107f63ae07fdeba1e5b39a42058b5c12575a56144fa57"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/settings/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "PLAT-3"
+          ],
+          "sha256": "51f8ecc29d85e8d613ee72e8914fee29ff54312948a98c3d53ea9e239a89ca76"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/fonts/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "PLAT-4"
+          ],
+          "sha256": "b4de22c894b641ea7a837dfb8516de2ee69e662dc201c3c34626038869510fe8"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/fonts.rs",
+          "kind": "source",
+          "criterionIds": [
+            "PLAT-4"
+          ],
+          "sha256": "8d76a330e2be1c703388b731ebca292bfb9fb5df2b78f178ceaa31216bbd5a23"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/fonts/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "PLAT-4"
+          ],
+          "sha256": "1d16a3d033600bd41c17b45cd13a89527ca9d70d9be557364d11ce3b76cea407"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/a11y/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "PLAT-5"
+          ],
+          "sha256": "327647e3be2b1dd40f9217259d819215a4e26079564b14965766be50e88332fe"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/a11y/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "PLAT-5"
+          ],
+          "sha256": "cace38a292084decc8900bf0735af2636442e6638daece434347c9240f198d7c"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/tests/a11y_atspi.rs",
+          "kind": "test",
+          "criterionIds": [
+            "PLAT-5"
+          ],
+          "sha256": "f1926135c97eef38340ca2b96171b1b7f5a186514f26cb5ac2ef25788201db32"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s8-completion-final-caa569113e08.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "PLAT-5"
+          ],
+          "sha256": "e6859c99f3624b13f633355947c7ce0a61d348381c49547be1b5957201fc6e7d"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/Cargo.toml",
+          "kind": "source",
+          "criterionIds": [
+            "PLAT-5",
+            "PLAT-6"
+          ],
+          "sha256": "33099f4b89666d7a52324d84659770e018aac07f69fbfbc1f49337b0235900d0"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_sys/symbols.allow",
+          "kind": "source",
+          "criterionIds": [
+            "PLAT-6"
+          ],
+          "sha256": "38390093825328ac49ce46c06dd3adeaca611aadc867a0b11e8fb0834a550e4c"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/artifacts/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "PLAT-6"
+          ],
+          "sha256": "7baff6ab76bf34f9224b13aea740c9beff83d1a526ba207a9e90301fffecea1b"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/main.rs",
+          "kind": "source",
+          "criterionIds": [
+            "PLAT-6"
+          ],
+          "sha256": "a99c12573897e337ea1b591eac1329b41dcfd5ae0c965c4f04c40c2b463ce561"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/symcheck/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "PLAT-6"
+          ],
+          "sha256": "909a1edda0c2b9d7ec456935a58af47f4de1d205d4c3674d53b52ad283bef71b"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/artifacts/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "PLAT-6"
+          ],
+          "sha256": "b0c12846e880e125ec03f040c29c9fb122ea0e2f9af7b23df6cb121761a8cabc"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/symcheck/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "PLAT-6"
+          ],
+          "sha256": "0de1ff13b18c7d8284fabddcd3e264a63f4db8d97c0a83c28a732158815cd73a"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s8-completion-final-d147f522b167.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "PLAT-6"
+          ],
+          "sha256": "292189f4b86c0f4bc97af05460959b4a9c3702c6ed30a9248a98d7ffab3e9443"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s8-completion-final-fc652b1ae42b.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "PLAT-6"
+          ],
+          "sha256": "ee37870a866f67b4beda46d6f10a1c714b9aa6fd8028e3577ff6c6ec3e9aaf96"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s8-completion-final-876f1f326a7d.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "PLAT-6"
+          ],
+          "sha256": "4e9cbccf1a420d05fba1b29b54d175c0ab28c6c8775571e60dbececa4431a07c"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/package-long_list-armv7.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "PLAT-6"
+          ],
+          "sha256": "c9f3b8d06557eeb6621720976dcc334176bb80cbb23762f2e7698551efac76d1"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/package-long_list-x86_64.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "PLAT-6"
+          ],
+          "sha256": "70e66fdfee2436ca075fe95b3cef9d284d945fe89bbad7e9eba11a8dbc7b9510"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/package-counter-armv7.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "PLAT-6"
+          ],
+          "sha256": "15a421d516cc03fedc4f0508287ed117008ed4e8da82d36a27026eb7468ee1f0"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/package-counter-x86_64.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "PLAT-6"
+          ],
+          "sha256": "7d39821624a2f2a03477f7eff1e10daea0d13e932a2b2f358346ead7c2c24ffa"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/package-diag-armv7.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "PLAT-6"
+          ],
+          "sha256": "a29f8a9302cfed2f2f8a69a2122c50dd19780396cbd55da4b7e4907cf63584a4"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/package-diag-x86_64.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "PLAT-6"
+          ],
+          "sha256": "ddb58c15e510fedacad60545c236078ffb04a3508ff5b2fe2d5ac21fcddc0067"
+        }
+      ],
+      "summaryMarkdown": "**Verdict: passed.** PLAT-1 to PLAT-6 are met at ba571cee, and `f-s8-ime-field-switch` is resolved.\n\n**PLAT-1.** The IMF struct layouts and constants match the rootstrap's `Ecore_IMF.h` and `Ecore_Input.h`. Preedit becomes marked text with the cursor converted from characters to UTF-16, commit replaces the marked text or selection, and delete-surrounding counts characters. The IME sees keys before the key mapping. IMF calls that follow GPUI changes are posted to the main loop, and GPUI's `update_ime_position` runs with the handler taken, so nothing re-enters `App`. Focus changes work on `FocusGained`/`FocusLost` and on a move straight to another field. The reset is bracketed by discard markers, so a composition never moves into another field, and a pause commits into the field itself. The long list's filter field (`EntityInputHandler`) and its tests cover filtering, grapheme moves, entering and leaving, and IME marking and commit.\n\n**PLAT-2.** The grab plan narrows by Tizen or GPUI name and refuses Return, Exit and Home, with `TOPMOST` mode. Keys are grabbed once the window exists (open, resume), released on pause, and released for good on terminate. `keys_shown` without a window now leaves the state unchanged.\n\n**PLAT-3.** The `system_settings` key values match the header. BCP 47 conversion, the monotonic font scale with normal = 1.0, `None` for unsupported keys, coalescing, main-thread publishing and subscriber re-entrancy all hold.\n\n**PLAT-4.** The text system is cosmic-text without system fonts, given only the allowed families through zero-copy `mmap`s that live for the process. The fontconfig parser follows dirs, includes and `conf.d`, skips missing includes and falls back to `/usr/share/fonts`, with fixtures for each.\n\n**PLAT-5.** The AccessKit handlers are forwarded to the main thread. Activation returns `None`, which leaves accesskit_unix in `Pending` until GPUI's full tree arrives. Updates are dropped before the initial tree and after deactivation. The bounds are the full-screen window at the origin. The Lima AT-SPI test reads names and roles back over D-Bus and runs `DoAction` through to the callback (`caa569113e08`).\n\n**PLAT-6.** Both targets link all three TV libraries with one export, and `tizen-deps` is clean (logs `d147f522b167`, `fc652b1ae42b`, `876f1f326a7d`). All six staged `libdxn_app.so` match their checked libraries by `cmp`. Counter and long_list were restaged at 02:30. Diag is unchanged, which is correct because it does not depend on `dxn_gpui_tizen`. `llvm-nm -D` shows only `dxn_gpui_tizen_main` exported.\n\n**Risks for the owner's TV run (PLAT-7):**\n- Only the commit a reset emits synchronously is discarded. A commit the IME process sends later, after `EndDiscard`, would still reach the new field.\n- The IME key events pass a null `dev_name` and class 0.\n- `retrieve_surrounding` includes the uncommitted preedit.",
+      "findingIds": [
+        "f-s8-ime-field-switch"
+      ],
+      "recordedAt": "2026-11-09T01:31:33Z",
+      "recordHashes": {
+        "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
     }
   },
   "checkpoints": {
@@ -2794,6 +3414,17 @@
       },
       "reviewHash": "9d6fb3b5f2e6c87c980b0528795d38b9b06978acc498e8324d20806aab152133",
       "recordedAt": "2026-11-09T00:41:20Z"
+    },
+    "s8-completion": {
+      "snapshotId": "ba571cee7907e17142fd22801ec12de84b83db888af4ec94027efd98b94bdd14",
+      "commits": {
+        "gpuitizen": "4fda74bc0104bfa3c7a87ed94afb6ec8038a195e",
+        "gpui-fast": "3b6ea11663f8a0ff8639f886ac28a6b7dcccdf8a",
+        "wgpu": "b672a540043b7177cdd53858340d7aca7ff8eb68",
+        "nsh": "7be66038d6cef63581f6bf0180b2bc8087bbf224"
+      },
+      "reviewHash": "d41c93515fc255a5e3196a133b447d604a2e4b4afc02a8e08492aeb04f1738f0",
+      "recordedAt": "2026-11-09T01:32:01Z"
     }
   },
   "findings": [
@@ -3558,6 +4189,26 @@
         {
           "repositoryId": "gpuitizen",
           "path": "artifacts-temp/package-diag-x86_64.log"
+        }
+      ]
+    },
+    {
+      "id": "f-s8-ime-field-switch",
+      "boundaryId": "s8-completion",
+      "criterionIds": [
+        "PLAT-1"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Resolved at ba571cee.** Moving straight from one text field to another is detected from `PlatformInputHandler::focus_id()` (`ImeFocus::input_handler`/`settle`, `crates/dxn_gpui_tizen/src/ime/mod.rs`; `TizenWindow::set_input_handler`, `crates/dxn_gpui_tizen/src/tizen/window.rs`). After GPUI's frame, the context restarts on the new field: `[BeginDiscard, Reset, FocusOut, EndDiscard, FocusIn, CursorPosition, ShowPanel]`. A switch followed by `FocusLost` in the same frame posts nothing.\n\nLeaving a field brackets the reset with `BeginDiscard`/`EndDiscard` (`FocusLost` gives `[BeginDiscard, Reset, FocusOut, EndDiscard, HidePanel]`). While discarding, `deliver` and `on_retrieve_surrounding` (`crates/dxn_gpui_tizen/src/tizen/imf.rs`) check `WindowInner::imf_accepts_events()`. So the commit that `Ecore_IMF.h` documents for a Korean reset no longer reaches the new field, and the IME gets no surrounding text from it during the reset. A pause (`window_focus(false)`) keeps `[Reset, FocusOut]` undiscarded. At that point the field's handler sits in the slot between frames, so the composition is committed into its own field.\n\nThe `RefCell` use is sound: `marker`'s `borrow_mut` of the focus state ends before each context call, and during the reset `deliver` takes only shared borrows. The limitation is documented in the module docs: GPUI no longer offers the left field's handler, so that field keeps its marked text.\n\nThe `ime::tests` cases use a scripted engine that commits its preedit on reset: `a_switch_drops_the_old_field_s_composition_instead_of_committing_it_into_the_new_one`, `focus_loss_drops_the_composition_and_pause_keeps_it`, `moving_straight_to_another_field_restarts_the_context_after_the_frame` and `a_switch_that_ends_without_a_field_settles_to_nothing`. The group passes 18/18 on rerun.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/ime/tests.rs"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s8-completion-final-3862d8761922.log"
         }
       ]
     }

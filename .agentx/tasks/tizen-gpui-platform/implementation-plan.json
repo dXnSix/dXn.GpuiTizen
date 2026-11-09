@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 15,
+  "revision": 17,
   "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
   "repositories": [
     {
@@ -963,6 +963,33 @@
       },
       "inputs": [
         ".github/actions/plan/**"
+      ]
+    },
+    {
+      "id": "chk-xtask-artifacts",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "PLAT-6"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "xtask",
+        "--lib",
+        "artifacts::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "Cargo.toml",
+        "Cargo.lock",
+        "rust-toolchain.toml",
+        ".cargo/config.toml",
+        "xtask/**"
       ]
     },
     {
@@ -3792,6 +3819,8 @@
             "t7-a11y"
           ],
           "checkIds": [
+            "chk-xtask-artifacts",
+            "chk-xtask-symcheck",
             "chk-link-armv7",
             "chk-link-x86_64",
             "chk-tizen-deps-armv7"
