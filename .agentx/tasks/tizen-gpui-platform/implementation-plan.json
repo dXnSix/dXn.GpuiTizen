@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 26,
+  "revision": 28,
   "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
   "repositories": [
     {
@@ -39,15 +39,15 @@
     ],
     "forbiddenPaths": [
       "gpuitizen:.agentx/memory/**",
-      "nsh:.github/workflows/release.yml",
       "nsh:.github/workflows/release-crate.yml",
-      "nsh:.github/workflows/fork-release.yml",
       "nsh:rust-toolchain.toml",
       "gpui-fast:.github/**",
       "gpui-fast:UPSTREAM",
       "gpui-fast:crates/gpui_platform/**",
       "gpui-fast:crates/gpui_linux/**",
-      "wgpu:.github/**"
+      "wgpu:.github/**",
+      "nsh:.github/workflows/release.yml",
+      "nsh:.github/workflows/fork-release.yml"
     ]
   },
   "validationMode": "sprint",
@@ -1707,7 +1707,8 @@
         "modal_focus::",
         "keyboard::",
         "popup::",
-        "navigation::"
+        "navigation::",
+        "focus_cell_size::"
       ],
       "expected": {
         "exitCode": 0,
@@ -1718,7 +1719,7 @@
         "crates/nsh-platform-tui/**",
         "Cargo.lock"
       ],
-      "descriptionMarkdown": "The TUI's existing focus tests are the proof of `FOC-2` (no behavior change), so this check selects exactly those modules."
+      "descriptionMarkdown": "The TUI's existing focus tests are the proof of `FOC-2` (no behavior change), so this check selects exactly those modules. `focus_cell_size` (added by the s14 review) runs the same moves on fractional Cell sizes and rows above the surface."
     },
     {
       "id": "chk-nsh-focus-gpui",

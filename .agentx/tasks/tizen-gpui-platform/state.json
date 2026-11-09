@@ -1,12 +1,12 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 226,
-  "planRevision": 26,
+  "revision": 238,
+  "planRevision": 28,
   "specHashes": {
     "requirements": "75ca9179f88ef16908038516d574dbd0eedc9caddae5cc048c250aa046c42104",
     "design": "a3e9ab1641d598bff3fdd015bd4af4393cd6025f28b84ab7dab193dcb9794dcc",
-    "plan": "ebe8f5f19234cf991bd8c0b14528efa9e4c3b36bb2753cacf4e5a94084756cb2"
+    "plan": "07cb99c4b07b57164c24bd1e48b4a4a2a76bac052a8fca78528486de549cec3c"
   },
   "tasks": {
     "t1-workspace": {
@@ -343,10 +343,16 @@
       ]
     },
     "t14-focus-core": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t14-focus-tui": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t15-focus-gpui": {
       "status": "pending"
@@ -746,6 +752,18 @@
         }
       },
       "recordedAt": "2026-11-09T12:22:03Z"
+    },
+    "f5f0e5706086d3a6d2058a15952acb8af93c3480ec0fb2b69a8564d0c1e9664b": {
+      "snapshot": {
+        "specHash": "85486a9c6424856b2d0acc79803aee238cf45a60570f52e60d413e98d3572508",
+        "repositories": {
+          "gpuitizen": "be1eca3e8e50a58c04c35847a8a8ef650c27f66f25e1c15a566f8a09ba29c4f9",
+          "gpui-fast": "c318780179e3efe79b3549e66b723ee445ed7dd36b3d54e1db560726aee9a019",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "48037f2ccc249a6aa3be327fb11a6c3c39b51a1a3acc079832e601a00a65a67a"
+        }
+      },
+      "recordedAt": "2026-11-09T13:15:25Z"
     }
   },
   "checkResults": {
@@ -2210,6 +2228,40 @@
       "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s13-release-readiness-final-8cee28c17f1b.log",
       "logSha256": "b5ef34948d119b8c9a2a83ea3fa7be28686336c326ed4fa8cbd531bc51a84a27",
       "inputsHash": "95fa0ce12e4f78ccbf31b8db025cf95ff8c087d413817bc5eebe4632d31b353c"
+    },
+    "s14-nsh-focus-core/chk-nsh-focus-core/final": {
+      "checkId": "chk-nsh-focus-core",
+      "boundaryId": "s14-nsh-focus-core",
+      "phase": "final",
+      "batchId": "f5f0e5706086d3a6d2058a15952acb8af93c3480ec0fb2b69a8564d0c1e9664b",
+      "definitionHash": "dda5a1b2915af5d2243c9a024e1c6537c86a2ea49e049c4208cb8369910de30c",
+      "basisHash": "4b19a65aca4f99d6cf7c746e97ef43a96d5ed36eed67e7857327394344377817",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 13,
+      "durationSeconds": 0.2599,
+      "recordedAt": "2026-11-09T13:15:24Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s14-nsh-focus-core-final-8739124cf014.log",
+      "logSha256": "a1cbcc8836d00f5f2ad25c7bffd875f863ee2f04f6277f38a6269ba9dbe85011",
+      "inputsHash": "3c9506f3bbb5bd00edb43ce4a449267ca57e1ebcb68ffb40c465dbe000dd0ba0"
+    },
+    "s14-nsh-focus-core/chk-nsh-focus-tui/final": {
+      "checkId": "chk-nsh-focus-tui",
+      "boundaryId": "s14-nsh-focus-core",
+      "phase": "final",
+      "batchId": "f5f0e5706086d3a6d2058a15952acb8af93c3480ec0fb2b69a8564d0c1e9664b",
+      "definitionHash": "4e5f11d25d8fdb9b0ea55442bc68101a5a6c824b8a28390f0e16f74171b5dda0",
+      "basisHash": "6cba8029924fd4b786f3cdb8b1c60859ed70b7fd477b60d50f7d4b8b4f00ab58",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 89,
+      "durationSeconds": 0.9077,
+      "recordedAt": "2026-11-09T13:15:25Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s14-nsh-focus-core-final-0732e3152bdf.log",
+      "logSha256": "4d38d38f72bd6ae08101d0535b7d266cd25589246df9e7befbb961381cc4cbb9",
+      "inputsHash": "9b1e389320780e655ffed2ef846c4e7b560c96aa9b5d1c1fb3005e1d5a62aa52"
     }
   },
   "reviews": {
@@ -5269,6 +5321,172 @@
         "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
       }
+    },
+    "s14-nsh-focus-core": {
+      "reviewerId": "reviewer-s14-independent",
+      "snapshotId": "f5f0e5706086d3a6d2058a15952acb8af93c3480ec0fb2b69a8564d0c1e9664b",
+      "criterionIds": [
+        "FOC-1",
+        "FOC-2"
+      ],
+      "verdict": "passed",
+      "anchors": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/focus.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-1",
+            "FOC-2"
+          ],
+          "sha256": "c77f4d680b6006563ce15b3cca359273822ce0735491fcd7759ccdd521ddfb42"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/lib.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-1"
+          ],
+          "sha256": "9d736343f22c7bef7b03c539d70f405aec3212ef14fef4767123712c2b31d0e4"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/focus/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "FOC-1"
+          ],
+          "sha256": "846abb9143b687652c5ba35f87e0f5679c0207a154b719fa1b7788285efdb223"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-tui/src/keyboard.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-2"
+          ],
+          "sha256": "d1a2be359234d63ff07b756f7060a04825e78c22d596b1aef3a4f8bbf0a846ee"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-tui/src/navigation.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-2"
+          ],
+          "sha256": "45137ed49b0ed1f546b2a001af29db59c1a208222e330870d78e3e7021c4d259"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-tui/src/app.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-2"
+          ],
+          "sha256": "f97ccd5fcb8fbb24643910a40589f3a5504f5b2ceb04987f76e220587c62903c"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "docs/dev/tui.md",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-2"
+          ],
+          "sha256": "0623d59d2094073dce276e39a42314b2169a579a96d89e9c764d9cbbb439fcb4"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-tui/tests/tui/focus_navigation.rs",
+          "kind": "test",
+          "criterionIds": [
+            "FOC-2"
+          ],
+          "sha256": "15849aacf4429a8234f6a61f6ba116eb17d4b72c047ed651c8d2204458e9fd68"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-tui/tests/tui/modal_focus.rs",
+          "kind": "test",
+          "criterionIds": [
+            "FOC-2"
+          ],
+          "sha256": "02c6f7ac4123274663d9bffabd16f35ea079a5fc73028919bc78527886706c10"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-tui/tests/tui/keyboard.rs",
+          "kind": "test",
+          "criterionIds": [
+            "FOC-2"
+          ],
+          "sha256": "57c7a3f29e76780e0fa5ddd2a13b1aede648260911acd366ce98a486e574d903"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-tui/tests/tui/popup.rs",
+          "kind": "test",
+          "criterionIds": [
+            "FOC-2"
+          ],
+          "sha256": "0748d68e8c7210e9b910ff5acbe53b71907dc9b07aee615c370672345a0d4ad2"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-tui/tests/tui/navigation.rs",
+          "kind": "test",
+          "criterionIds": [
+            "FOC-2"
+          ],
+          "sha256": "7ed02642339d1234c494311052164962f9c6c6a6a695110112630359d3b9a163"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-tui/tests/tui/focus_cell_size.rs",
+          "kind": "test",
+          "criterionIds": [
+            "FOC-2"
+          ],
+          "sha256": "09cb8ce2fa36fa52d7176c63497ad6743dc6b55bdc6df7304676c51f830d3bab"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s14-cell-size-before-fix.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "FOC-2"
+          ],
+          "sha256": "fa471e14daa07f8abd3a3e983c937eef8c24285187081b81c1ac2705aec838d2"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s14-nsh-focus-core-final-0732e3152bdf.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "FOC-2"
+          ],
+          "sha256": "4d38d38f72bd6ae08101d0535b7d266cd25589246df9e7befbb961381cc4cbb9"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s14-nsh-focus-core-final-8739124cf014.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "FOC-1"
+          ],
+          "sha256": "a1cbcc8836d00f5f2ad25c7bffd875f863ee2f04f6277f38a6269ba9dbe85011"
+        }
+      ],
+      "summaryMarkdown": "**Verdict: passed.** Both findings are resolved.\n\n- **`f-s14-cell-points-inexact`:** resolved in ad514bb85. The TUI gives the core whole Cells, one point each, which is exact. `focus_cell_size` guards it.\n- **`f-s14-frame-unit-contract`:** resolved in ce993fd21. The core documents that frames may be in any unit scaled per axis, and that `reveal` stays in layout points. A new `focus::tests` case checks that `candidates`, `tab`, `horizontal` and `vertical` are unchanged under three different per-axis scales.\n- **Process:** the commits are new (no rebase), with `core:`/`tui:` subjects and no attribution. Merges 536323f0a and 173386011 add exactly their commits.\n- **Checks:** `s14-check-3.json` passed at this snapshot. I reran both groups: core 13 pass, TUI 89 pass.\n\nThe rest of the first review stands:\n- FOC-1's rules are equivalent to the old `keyboard.rs`, rule by rule.\n- The API is usable by GPUI, the desktops and the web; each backend still walks its scroll ancestors for reveal itself.\n- The d29 invariant holds: focus classes, Focus/Blur and `focusable` are unchanged.\n- `docs/dev/tui.md` is updated, and `website/` is correctly untouched.\n- PR.md is deferred to s22.",
+      "findingIds": [
+        "f-s14-cell-points-inexact",
+        "f-s14-frame-unit-contract"
+      ],
+      "recordedAt": "2026-11-09T13:16:02Z",
+      "recordHashes": {
+        "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
     }
   },
   "checkpoints": {
@@ -5431,6 +5649,17 @@
       },
       "reviewHash": "b7ba304cd6825d331403ea700a9afa0ceb6b945bbe02e06f68d156756ad4665f",
       "recordedAt": "2026-11-09T12:24:08Z"
+    },
+    "s14-nsh-focus-core": {
+      "snapshotId": "f5f0e5706086d3a6d2058a15952acb8af93c3480ec0fb2b69a8564d0c1e9664b",
+      "commits": {
+        "gpuitizen": "d1e2eb3d5013eef95c18dd6b9da6c26a7ab625ef",
+        "gpui-fast": "e6ae34b9484cb050831aa9ab974fdd685e8800e3",
+        "wgpu": "4e3d80d5de97d1e66860f0f74fca92d50be70d4a",
+        "nsh": "173386011dce2d6ad2312a655c32086d51c584dc"
+      },
+      "reviewHash": "22278cc7308829e2ea955614228ba193cbeff8c469cd60737bc649c361b6d27d",
+      "recordedAt": "2026-11-09T13:16:14Z"
     }
   },
   "findings": [
@@ -7000,9 +7229,52 @@
           "path": ".agentx/tasks/tizen-gpui-platform/implementation-plan.json"
         }
       ]
+    },
+    {
+      "id": "f-s14-cell-points-inexact",
+      "boundaryId": "s14-nsh-focus-core",
+      "criterionIds": [
+        "FOC-2"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** FOC-2: the TUI behaves exactly as before for every Cell size it accepts. `CellSize::new` and `--points-per-cell` / nsh.json `tui.pointsPerCell` accept any finite, positive size (`docs/dev/tui.md` \"Points per Cell\"). The commit message and `keyboard.rs:80-84` say each converted edge *is* its Cell's, so frames touch and overlap as their Cells do.\n\n**Observed.**\n- `span` (`crates/nsh-platform-tui/src/keyboard.rs:93-109`) computes `start = cell*s`, `len = cell*e - start`, then nudges `len` up to 4 ulps so that `start + len == cell*e`. When the Cell size is not a dyadic rational (anything other than integers, halves, quarters…), that sum often cannot be reached in 4 ulps, or at all: when `len` is larger in magnitude than the end, one ulp of `len` moves the sum by more than one ulp of the end, and the loop oscillates.\n- I replicated `span` exactly (same f32 operations) and checked it by brute force. Results:\n  - 8x16, 9, 17, 7.5 and 8.5: exact everywhere.\n  - 7.3, 9.6, 10.2, 15.3, 16.8 and 18.4: 2-3% of on-screen spans (rows 0..300, up to 300 long) end off the next Cell's start. About 70% of spans that start above the viewport (negative rows) do.\n  - In many of these, the right/bottom edge lands *past* the next Cell's left/top. With 16.8, rows 1..6 give bottom 100.8 against the next row's top 100.799995. With 10.2, rows 3..16 give 163.20001 against 163.2.\n- `focus::vertical` (`crates/nsh-core/src/focus.rs:286`/`288`) admits only `to.top() >= at.bottom()`. `focus::horizontal` (`focus.rs:225-226`) treats `to.top() < from.bottom()` as the same row. The column test (`focus.rs:280`) uses `at.right()` the same way. So each such 1-ulp overshoot flips a decision that was exact on integer Cells.\n- Every existing test runs on 8x16 or 8x24, so none of the 86 TUI tests or the 12 core tests can see it.\n\n**Failure scenario.** `nsh run --target tui --points-per-cell 8.4x16.8`: a header on row 0, a 5-row pressable card on rows 1-5, and a button on row 6 under the card, starting at column 4. Before this change, Down on the card went to the button, and Right did nothing (end of the row). Now the card's bottom is 100.8 > 100.799995 = the button's top:\n- Down skips the button and goes to the next stop below it, or starts the wheel-step approach.\n- Right jumps down to the button, as if it were on the card's row.\n\nThe same happens on the horizontal axis with a fractional Cell width. There, touching columns count as overlapping in Up/Down's column-first rule.\n\n**Repair.**\n- Make the conversion exact by construction rather than by nudging. For example, convert with the Cell size rounded to a dyadic step (`(cell * 64.0).round().max(1.0) / 64.0`). The products and sums of the TUI's Cell coordinates are then exact in f32, so every edge equals the next Cell's.\n- Or prove another construction exact and assert it.\n- Keep the docs/commit claim only once it holds.\n- Add tests:\n  - a `keyboard`/`focus_navigation` case on a non-dyadic `points_per_cell` (for example `8.4x16.8` with the card/button layout above: Down reaches the button, Right does nothing);\n  - a unit check that converted edges match the next Cell's for several fractional sizes and for negative (scrolled-off) rows.\n\n**Resolved (ad514bb85, merged as 536323f0a).**\n- `points()` (`keyboard.rs:79-91`) now gives the core each Cell as one point: `left`, `top`, `right - left`, `bottom - top` cast to f32. These are integers, exact below 2^24, so every edge, sum and difference equals the old i32 arithmetic.\n- `span`, `Keyboard.cells` and `Keyboard::new` are gone, and `app.rs` matches upstream again.\n- `focus_cell_size` (3 tests) runs the card/button scenario at 8x16, 8.4x16.8 and 7.3x15.3, including the card from row -3.\n- `s14-cell-size-before-fix.log` shows the two fractional tests failing on the nudging code, at the Right assertion. I reran the TUI group: 89 pass.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-tui/tests/tui/focus_cell_size.rs"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-tui/src/keyboard.rs",
+          "symbol": "points"
+        }
+      ]
+    },
+    {
+      "id": "f-s14-frame-unit-contract",
+      "boundaryId": "s14-nsh-focus-core",
+      "criterionIds": [
+        "FOC-1",
+        "FOC-2"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** What the TUI hands the core matches the core's documented contract. FOC-1, FOC-2 and d29 say frames are in points (\"cells converted to points\"). If one Cell per point is the intended input, the core says so and guards it.\n\n**Observed.**\n- `Candidate::frame` and `Layer::frame` say \"in the surface's points\" (`crates/nsh-core/src/focus.rs:55`, `:103`; module doc `:11`). The module doc still says \"The terminal backend uses it, its Cells converted to points\" (`:13-14`).\n- Since ad514bb85, the TUI passes Cell coordinates, one point each, on non-square Cells (8x16 by default). That is faithful today only because of an invariant that no core comment or test states. Every rule compares along one axis at a time:\n  - edges against edges;\n  - `horizontal`: the x distance alone;\n  - `vertical`: the key `(!overlaps, gap in y, |dx|)`, lexicographic;\n  - with nothing focused: top, then left.\n\n  So the rules are invariant under any positive per-axis scale. I checked this, and it answers the coordinator's question: one point per Cell gives exactly the pre-refactor Cell decisions, and no current rule mixes the axes or uses an absolute length.\n- The invariant lives only in `keyboard.rs:79-83`.\n\n**Failure scenario.** s15 (`FOC-5`, `focus::tests::tv`) or a later change adds a rule that weighs both axes, as TV spatial navigation often does (a weighted or Euclidean distance), or adds a threshold in points. On 8x16 Cells the TUI then weighs a vertical step half as much as the GPUI and web backends do for the same layout, and ranks candidates differently. Every core and TUI test still passes, because they all use one scale.\n\n**Repair.** Do one of these:\n- **Make the invariant a contract.**\n  - Document on `Candidate::frame`, `Layer::frame` and the module doc that frames may be in any unit, scaled per axis by a positive factor: the decisions compare along one axis at a time and take no absolute lengths. Fix the stale \"Cells converted to points\" line.\n  - Add a `focus::tests` case asserting that `candidates`, `covering_layer`, `horizontal` and `vertical` give the same results when x and y are scaled by different positive factors. A future cross-axis rule then fails that test on purpose.\n- **Or give the core real points exactly.** For example, Cells times the Cell size rounded to a dyadic step. Keep `focus_cell_size` either way.\n\n**Resolved (ce993fd21, merged as 173386011).**\n- The contract is now in the core. The module doc, `Candidate::frame` and `Layer::frame` say:\n  - frames are in any unit scaled per axis (points, or a terminal's Cells one point each);\n  - every rule compares one axis at a time and takes no length of its own;\n  - edges that meet must meet exactly;\n  - a new rule keeps this, or the terminal converts its Cells.\n- The stale \"converted\" line is fixed. `reveal` is documented as taking one-axis lengths in layout points, which is right: the `reveal_delta` margin is absolute, and the TUI calls it only with layout frames.\n- `focus::tests::frames_scaled_along_each_axis_on_its_own_move_the_focus_as_they_did` compares, at 8x16, 7.3x15.3 and 15.3x7.3 against 1x1:\n  - `candidates`;\n  - `tab` (from focus, from the stop left, from a resume point, both ways);\n  - `horizontal` and `vertical`, from every stop and from nothing focused, with and without a popup and under a covering layer.\n\n  A future rule that mixes the axes would very likely change one of these decisions and fail the test. That is a likely guard, not a proof.\n- I reran the tests: core 13 pass, TUI 89 pass.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/focus/tests.rs"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/focus.rs",
+          "symbol": "Candidate"
+        }
+      ]
     }
   ],
-  "handoffMarkdown": "metadata (rust-version, homepage, readme, keywords, categories, include) on sys and dxn_gpui_tizen (publish default), workspace publish=false for the rest; sys path dep versioned; crate READMEs and CHANGELOGs; release-plz.toml (crates.io, per-crate tags), .github/workflows/release-plz.yml gated by vars.PUBLISH_CRATES; scripts/check_workflow_yaml.rb; docs/releasing.md.",
+  "handoffMarkdown": "pr/focus/01-core b34fd610e (tui: Take focus moves from nsh_core::focus); keyboard.rs/navigation.rs/app.rs on the core, cells->points exact; docs/dev/tui.md; TUI focus modules 86 tests unchanged.",
   "protectedPaths": {
     "gpuitizen": {
       "gpuitizen:.agentx/memory/**": "94784ab15131a5a4ff6827a67fa677677a923e04a068e1e4335659b7b6e5c11e"
@@ -7017,10 +7289,10 @@
       "wgpu:.github/**": "d979309f23d7c4df2f9622d02113c369890d00036e3ad2ff7531368c846b9275"
     },
     "nsh": {
-      "nsh:.github/workflows/release.yml": "250c684e5e6ed108288ff684d2216c78df359b82ecdfc08c865fb6ee0d876931",
       "nsh:.github/workflows/release-crate.yml": "646a8c5b00adc51452dd892c0021377f9b772aad20e0f968bd9dfc5de8605b48",
-      "nsh:.github/workflows/fork-release.yml": "a292d9d79c6db4ed1bed47ab4a866326e9a6c71e47b76ff2a5aaef570db57217",
-      "nsh:rust-toolchain.toml": "cd6dd07de5dbdf30603671584a278f9f9828c72d2b5866b09375ed14fae67267"
+      "nsh:rust-toolchain.toml": "cd6dd07de5dbdf30603671584a278f9f9828c72d2b5866b09375ed14fae67267",
+      "nsh:.github/workflows/release.yml": "5df9f6c3a707b907ca0272657a390b0e5eefd503b5d8347548260c1c185728c4",
+      "nsh:.github/workflows/fork-release.yml": "46b66152e373d2d116e6487488c816e897ebdefa52a53692a4953f026d985c79"
     }
   }
 }
