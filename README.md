@@ -12,6 +12,7 @@ diagnostic app, examples, and the small C# host that Tizen's app model requires.
 | `dxn_gpui_tizen` | the Tizen platform for GPUI and its `run` entry point |
 | `dxn_gpui_tizen_diag` | the diagnostic app: EGL / GL ES details, CPU, display, launch timings |
 | `example_counter`, `example_long_list` | plain GPUI apps for the TV and the desktop |
+| `example_video` | a video player for the TV (a placeholder on the desktop) |
 
 ## The repositories
 
@@ -52,6 +53,15 @@ window's Wayland surface, registers the driver's shader cache (`EGL_ANDROID_blob
 directory) and presents partial frames with buffer age and damage, drawing through gpui_wgpu's external-target
 renderer. When that context does not come up it falls back to wgpu's own surface and logs why once.
 `DXN_GPUI_TIZEN_RENDERER=egl|wgpu|auto` overrides the choice.
+
+## Video
+
+`dxn_gpui_tizen::video::VideoPlayer` plays media with Tizen's public `capi-media-player` and paints it with
+`VideoPlayer::element`. By default the video plays on the TV's video plane under the window: the element paints a hole
+(gpui-fast's `Window::paint_hole`) and moves the player's exported surface there, and the window turns translucent
+while its frame has holes (on the EGL path with `EGL_KHR_no_config_context`). Where the window cannot turn
+translucent, or when asked (`Output::Texture`), decoded frames are converted to RGBA and drawn as a dynamic texture,
+which also works inside transformed or clipped UI. `examples/video` plays a bundled clip with a control row over it.
 
 ## Licence
 

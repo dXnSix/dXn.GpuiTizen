@@ -159,7 +159,7 @@ Then, from this repository:
 cargo xtask cross --target armv7 --all-tv-libs
 ```
 
-which must finish and produce `target/armv7-tizen-linux-gnueabi/debug/lib{dxn_gpui_tizen_diag,example_counter,example_long_list}.so`
+which must finish and produce `target/armv7-tizen-linux-gnueabi/debug/lib{dxn_gpui_tizen_diag,example_counter,example_long_list,example_video}.so`
 (`file` reports `ELF 32-bit LSB shared object, ARM, EABI5`). Repeat with `--target aarch64` and `--target x86_64`.
 
 Disk use after setup: about 3.5 GB in `~/tizen-studio` and 0.3 GB in `~/.package-manager`.
