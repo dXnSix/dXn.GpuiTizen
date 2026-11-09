@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 203,
+  "revision": 216,
   "planRevision": 25,
   "specHashes": {
     "requirements": "6c57b5c275e88b3ce5b4383559edd81181395a7e588ebc5ecfe013b460570c62",
@@ -301,16 +301,28 @@
       ]
     },
     "t12-hole": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t12-player": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t12-outputs": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t12-example": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t13-aarch64-packages": {
       "status": "pending"
@@ -677,6 +689,42 @@
         }
       },
       "recordedAt": "2026-11-09T10:45:42Z"
+    },
+    "419e6919b5d35bef438fc70561bdd679de38964ea50ecc5474ae72b0295cecd0": {
+      "snapshot": {
+        "specHash": "2ff60aef7f47b7af9f94e95276074049c56f7348c5cf9a4dbd6ad7cb6aedf6fb",
+        "repositories": {
+          "gpuitizen": "dd219d0f7c07f6860a5989b4625b054c599f2caca730357aa30a636ae114b363",
+          "gpui-fast": "c318780179e3efe79b3549e66b723ee445ed7dd36b3d54e1db560726aee9a019",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "44cd091043852019714da3ec9eda618bc3e237317015dcf281d4f1afb8693e3f"
+        }
+      },
+      "recordedAt": "2026-11-09T11:22:10Z"
+    },
+    "5e41700c7cd722b315fb9789910b816bdd30a0a4828ca0359604d1417ae476e5": {
+      "snapshot": {
+        "specHash": "2ff60aef7f47b7af9f94e95276074049c56f7348c5cf9a4dbd6ad7cb6aedf6fb",
+        "repositories": {
+          "gpuitizen": "324d1d676431779bf331b09343ad1ca623f0593383f8b6bfa5f1d9d53a166252",
+          "gpui-fast": "c318780179e3efe79b3549e66b723ee445ed7dd36b3d54e1db560726aee9a019",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "44cd091043852019714da3ec9eda618bc3e237317015dcf281d4f1afb8693e3f"
+        }
+      },
+      "recordedAt": "2026-11-09T11:54:45Z"
+    },
+    "ca8aac707392b2a767b19ce5b367947b4ecad980257deba4a9ef9b2c2f23d357": {
+      "snapshot": {
+        "specHash": "2ff60aef7f47b7af9f94e95276074049c56f7348c5cf9a4dbd6ad7cb6aedf6fb",
+        "repositories": {
+          "gpuitizen": "9f858e9c7f45cc367793da37a91010522065942813669d54138c1db2e3d9bb50",
+          "gpui-fast": "c318780179e3efe79b3549e66b723ee445ed7dd36b3d54e1db560726aee9a019",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "44cd091043852019714da3ec9eda618bc3e237317015dcf281d4f1afb8693e3f"
+        }
+      },
+      "recordedAt": "2026-11-09T12:00:25Z"
     }
   },
   "checkResults": {
@@ -1920,6 +1968,142 @@
       "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s11-platform-egl-final-2bb1874fc90f.log",
       "logSha256": "549955f31c9c7230839ef580ae4e70dcb665b2aa16fe8f254148fb40733cd258",
       "inputsHash": "ada0d515302e2e34a2a177962bd7f132ac8ea28bd5267fdc04346cfc27cc6427"
+    },
+    "s12-video/chk-gf-check-upstream/final": {
+      "checkId": "chk-gf-check-upstream",
+      "boundaryId": "s12-video",
+      "phase": "final",
+      "batchId": "419e6919b5d35bef438fc70561bdd679de38964ea50ecc5474ae72b0295cecd0",
+      "definitionHash": "325cf7713b8a7381b79561f8b5fb535cadb56abe2963189d0accfc2fe32d530a",
+      "basisHash": "20075d83f7a5231c6e3d2a1fc73a8cddc18a398b994fecf1ebcadb755b0a71d9",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 2.6093,
+      "recordedAt": "2026-11-09T11:19:47Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s12-video-final-135b3e3ad58e.log",
+      "logSha256": "bdcc6e5878cfb1974a8ed10acaee082c3616fa0bd76268b33fbe9a8df69f08b3",
+      "inputsHash": "34e2e9fc8bc0ae790e86d5b02f0445d7a63c0259cddb74beac74996f8e74e488"
+    },
+    "s12-video/chk-gf-release/final": {
+      "checkId": "chk-gf-release",
+      "boundaryId": "s12-video",
+      "phase": "final",
+      "batchId": "ca8aac707392b2a767b19ce5b367947b4ecad980257deba4a9ef9b2c2f23d357",
+      "definitionHash": "44bc68fe0dafd089441686890151bbd098d3682c60b008da53c97c0f59875c4f",
+      "basisHash": "189178b79b22477a12c1ba6e9c721a5701db32b8c9ffb5e315ccf0f41af07dcf",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 36.8818,
+      "recordedAt": "2026-11-09T11:58:14Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s12-video-final-972b1df833e6.log",
+      "logSha256": "245dc77a64334396f9604e58c7c47f8fbbc1e4d534088b26dda94c60f0fafec3",
+      "inputsHash": "79d306b464c879a26b0f098ba30a7dcfaaa83afe346ea0340beebfb02498b90b"
+    },
+    "s12-video/chk-link-armv7/final": {
+      "checkId": "chk-link-armv7",
+      "boundaryId": "s12-video",
+      "phase": "final",
+      "batchId": "ca8aac707392b2a767b19ce5b367947b4ecad980257deba4a9ef9b2c2f23d357",
+      "definitionHash": "cad541758880eab21ab50bda063b3323648dc8d136b6e30ba8b9aebb1f79be87",
+      "basisHash": "1a4f7669d6675cf3c014f4891857e69bee2381e86c3da00570ee749831311b63",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 85.2151,
+      "recordedAt": "2026-11-09T11:59:39Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s12-video-final-e88c4554a0fe.log",
+      "logSha256": "8639169246f92c52ad7c64d8d098dcd5882190f9ae1f570c006a08e20d679a7a",
+      "inputsHash": "bb0d38a0d479f8b7524172a21ed08383857352e331424041ad4944d5da1473c8"
+    },
+    "s12-video/chk-link-x86_64/final": {
+      "checkId": "chk-link-x86_64",
+      "boundaryId": "s12-video",
+      "phase": "final",
+      "batchId": "ca8aac707392b2a767b19ce5b367947b4ecad980257deba4a9ef9b2c2f23d357",
+      "definitionHash": "fdd7f2a500315251c3c2ad62f51069ce873d44715a4af8873ea7dcf514f7ee7c",
+      "basisHash": "6424e435ac1e2f79e14f5bde20d6117428c46841c1437b501266b25ec0f6fb0e",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 44.2723,
+      "recordedAt": "2026-11-09T12:00:24Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s12-video-final-43ea143f6b85.log",
+      "logSha256": "ae3a4c8f58c161e149d04de5583a02e9cfe353de679e3a1f1faece064f7a22d1",
+      "inputsHash": "bb0d38a0d479f8b7524172a21ed08383857352e331424041ad4944d5da1473c8"
+    },
+    "s12-video/chk-gf-hole/final": {
+      "checkId": "chk-gf-hole",
+      "boundaryId": "s12-video",
+      "phase": "final",
+      "batchId": "419e6919b5d35bef438fc70561bdd679de38964ea50ecc5474ae72b0295cecd0",
+      "definitionHash": "90c3559c2255c65edf20cccc7ffc9919f08f5a820e1e8597415224cd63e9431b",
+      "basisHash": "9abd4dee94010d90212434f53f230c53c4c508a524fa98a6205d1a2d216b751e",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 3,
+      "durationSeconds": 8.1027,
+      "recordedAt": "2026-11-09T11:22:05Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s12-video-final-c9d13946a4c4.log",
+      "logSha256": "f6f85f4a6cfb68fc78a0a29ff8be6514f5b99cd3f130db9c5e8dffc1481c78ca",
+      "inputsHash": "f29426640b24dee8531ccbef8249962131bfc16a4f9e2ff9fb92c9b88e4d7c8b"
+    },
+    "s12-video/chk-video/final": {
+      "checkId": "chk-video",
+      "boundaryId": "s12-video",
+      "phase": "final",
+      "batchId": "5e41700c7cd722b315fb9789910b816bdd30a0a4828ca0359604d1417ae476e5",
+      "definitionHash": "d27cb4273d74fd5e992dc3226dfa5ef2d00da08e6631839631c94f8026d1292a",
+      "basisHash": "0f23b9cd604340b03cbaa954ef3347f9c5a26fd63f9d345995f9f64a38a38fdb",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 14,
+      "durationSeconds": 0.3525,
+      "recordedAt": "2026-11-09T11:54:43Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s12-video-final-7319ee2fc686.log",
+      "logSha256": "5b663ae94a6809674fa6f870e89a643695e5bc83a2a3af9e26c3730ce8af9f14",
+      "inputsHash": "73b455e0506f1220d6704011215e32d0fa8913fa8ca94faee4de0eddc7d9dfcd"
+    },
+    "s12-video/chk-video-frames/final": {
+      "checkId": "chk-video-frames",
+      "boundaryId": "s12-video",
+      "phase": "final",
+      "batchId": "5e41700c7cd722b315fb9789910b816bdd30a0a4828ca0359604d1417ae476e5",
+      "definitionHash": "4407d9addb2b7189a92852db9bfa10d6b229484cf3cda0d4babdfb8dbcb8f1bd",
+      "basisHash": "fb7a71db8bb1dd57b6478dbe60e6f40f2d4412cc6d7ca9f558871847d726e0e8",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 7,
+      "durationSeconds": 0.131,
+      "recordedAt": "2026-11-09T11:54:43Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s12-video-final-114f42471f05.log",
+      "logSha256": "5448cd7f6d1ea6653ae5c58a470d5ca4a284e24068648a9ffb43886c75eb0116",
+      "inputsHash": "73b455e0506f1220d6704011215e32d0fa8913fa8ca94faee4de0eddc7d9dfcd"
+    },
+    "s12-video/chk-ex-video/final": {
+      "checkId": "chk-ex-video",
+      "boundaryId": "s12-video",
+      "phase": "final",
+      "batchId": "ca8aac707392b2a767b19ce5b367947b4ecad980257deba4a9ef9b2c2f23d357",
+      "definitionHash": "9dbe746bf11a232fa42016dc5b040fd5137f315ef54d9bd92acc9c03d1f5c0cd",
+      "basisHash": "debae28ad1f6e7e99bb8551de54b1db95e64461a82e37c79c9435ef7a42a1869",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 5,
+      "durationSeconds": 0.436,
+      "recordedAt": "2026-11-09T12:00:24Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s12-video-final-a3ac923f4751.log",
+      "logSha256": "1dc1c836271e00bd20482e3257940be9894d063c35df5a524062edcbbc50c298",
+      "inputsHash": "cce0e8b7d86cf37269dc03b219d9ce5eddb746c9c8ba4992bbf3e1beebe7d277"
     }
   },
   "reviews": {
@@ -4471,6 +4655,295 @@
         "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
       }
+    },
+    "s12-video": {
+      "reviewerId": "reviewer-s12-independent",
+      "snapshotId": "ca8aac707392b2a767b19ce5b367947b4ecad980257deba4a9ef9b2c2f23d357",
+      "criterionIds": [
+        "VID-1",
+        "VID-2",
+        "VID-3",
+        "VID-5"
+      ],
+      "verdict": "passed",
+      "anchors": [
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui/src/fast/hole.rs",
+          "kind": "source",
+          "criterionIds": [
+            "VID-1"
+          ],
+          "sha256": "ab14a194986544efcf16abc00ea5b10d47682ff20c057ec4478b01143a09620a"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/hole.rs",
+          "kind": "source",
+          "criterionIds": [
+            "VID-1"
+          ],
+          "sha256": "5c64adb7938304d3c077233ca4094515900fb347a02a25a735263f4d095da0d0"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/frame.rs",
+          "kind": "source",
+          "criterionIds": [
+            "VID-1"
+          ],
+          "sha256": "528df742c1602e94917a19436971b121f3bc6903cd4716c14e6e70034e3e9e79"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "docs/upstream-sync.md",
+          "kind": "source",
+          "criterionIds": [
+            "VID-1"
+          ],
+          "sha256": "27444de27f70a6023204ab09b581bb3fb07f1cee1493a410130989895c239fc1"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/hole/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "VID-1"
+          ],
+          "sha256": "9cb97d62a0a141b8c0a004148fc217eef0bebc4d30a0fab9e574ec675d23d42e"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui/src/fast/tests/hole.rs",
+          "kind": "test",
+          "criterionIds": [
+            "VID-1"
+          ],
+          "sha256": "f5945451b5d8de26f26db54d6c4ecda004f1f88dd3d862e4249bad81a44ec1af"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/external_target.rs",
+          "kind": "source",
+          "criterionIds": [
+            "VID-3"
+          ],
+          "sha256": "a450ddd4f4d0387ebdd7e84f7f00c98532bce8cb9b0f5591ea10696235e77cc3"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/dynamic_textures.rs",
+          "kind": "source",
+          "criterionIds": [
+            "VID-3"
+          ],
+          "sha256": "9a163ce46aa34bccab303ca69d039f235f68d80099bd3e9d712974822cc73d22"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/video/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "VID-2",
+            "VID-3"
+          ],
+          "sha256": "f2cc311af6503db617e32ebfad57feb6a0aa58cb2170ea86a90f78742d8e8127"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/video/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "VID-2",
+            "VID-3"
+          ],
+          "sha256": "2d9cc63f2ce4ba039c8f6479df1fee8779feffd1c035bd9c30d8587d1565a037"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/video.rs",
+          "kind": "source",
+          "criterionIds": [
+            "VID-2",
+            "VID-3",
+            "VID-5"
+          ],
+          "sha256": "b841bcf48f4f8ec0942b63773382fe2f54a082366f70d42553aa30b211f7b9ee"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_sys/src/lib.rs",
+          "kind": "source",
+          "criterionIds": [
+            "VID-2",
+            "VID-3"
+          ],
+          "sha256": "bc9dccd37c98f29e39e7e607f5512282ae2d8e4944d7bbf03f3960c73bca4e1c"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_sys/symbols.allow",
+          "kind": "source",
+          "criterionIds": [
+            "VID-2",
+            "VID-3"
+          ],
+          "sha256": "3084305ef3df0f0f8fc731733e3885f5c6224d29d2a6149584795042d3bb2b08"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/video_frames/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "VID-3"
+          ],
+          "sha256": "1ea279eb1668a8ab4079a99a6521c66baf7d5019402a85ba78a21d1f4954dfbd"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/video_frames/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "VID-3"
+          ],
+          "sha256": "dfcb3177124e8997e80807f45f02483006cdc9d46f7e78fc776179bbf9405508"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/window.rs",
+          "kind": "source",
+          "criterionIds": [
+            "VID-3"
+          ],
+          "sha256": "a235e27f940736e8f5ba2db2aedd6164f4c232a816c07fc54c414d33695c2cce"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/renderer.rs",
+          "kind": "source",
+          "criterionIds": [
+            "VID-3"
+          ],
+          "sha256": "fbf39c836f0328fce9d04f4812e1ee0da8d1ca70f8d065fe3c1f003ac60d9942"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/egl/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "VID-3"
+          ],
+          "sha256": "60ab39295328f1009d9de6a98842780a3e35a1d17ade7b4f046157fea55a74e6"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/tests/egl_wayland.rs",
+          "kind": "test",
+          "criterionIds": [
+            "VID-1",
+            "VID-3"
+          ],
+          "sha256": "ec77f326d916cfde0c0ca7a142a007cb0763e986917182e42dc042024c576827"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s12-egl-wayland.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "VID-1",
+            "VID-3"
+          ],
+          "sha256": "d18c17788de99aaa717f8755cca610092e9c3d23d725c0e305c41c3fdee96171"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "examples/video/src/view/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "VID-5"
+          ],
+          "sha256": "8a25393f003aa4b37c246a614e6579e2a504a3a0a4489c47b7a6b676428008e9"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "examples/video/src/lib.rs",
+          "kind": "source",
+          "criterionIds": [
+            "VID-5"
+          ],
+          "sha256": "ae28e7c73a362e1c0747f713b27d51676c1cbf75cd3b27ae3a7aa3b439197872"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "examples/video/Cargo.toml",
+          "kind": "source",
+          "criterionIds": [
+            "VID-5"
+          ],
+          "sha256": "9f0336e29f26ddc806ca4d28fc8e8209911de95ba683db565870c79f0775da48"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "examples/video/src/view/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "VID-5"
+          ],
+          "sha256": "4b4f50ba374d0267b69106d1c7ecd6128be9ca31e02a72f998bda6eac4a4bf2f"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/package/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "VID-5"
+          ],
+          "sha256": "146784151b27a2703909735f6729cb37462546aab1f36741645e864c79abda0e"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/package/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "VID-5"
+          ],
+          "sha256": "3e345436ec486f11329dd1d1665fd59f5bca7f19936cefce81065244f43e7581"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s12-link-aarch64.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "VID-5"
+          ],
+          "sha256": "3d633a46e40a4b6919d18b6305cdc30d9fa0308e1a17c10c667da336a473bea5"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s12-package-video.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "VID-5"
+          ],
+          "sha256": "ae7ceeaa3c0dbf380f462fdde41faaf13883258e7dc284a8afe5789f52f098cf"
+        }
+      ],
+      "summaryMarkdown": "**Verdict: passed.** All eight findings of `s12-video` are resolved.\n\n**Re-review at snapshot `ca8aac70`.** Only `f-s12-example-play-label` changed. The example's Play/Pause now follows the player's notices, so after an interruption the first press sends Play, which prepares again and plays. `view::tests` passes (5/5) on my rerun, including the new `play_pause_follows_what_the_player_did_on_its_own`.\n\n**Carried over.** The second re-review (revision 212) verified the other seven repairs. The first review verified VID-1's hole pipeline, the bindings, the Inbox and the outputs:\n- `video::tests` and `video_frames::tests`: 21/21;\n- `fast::hole::tests`: 3/3;\n- `egl_wayland` under Weston: 6/6;\n- aarch64, armv7 and x86_64 links export only `dxn_gpui_tizen_main`;\n- the staged TPK carries `res/clip.mp4`.\n\n**Not verified.** These are checked by inspection only: the window-teardown order, `set_alpha` failure recovery and the example's notice mapping. Device behaviour remains VID-4 (`s23`).",
+      "findingIds": [
+        "f-s12-overlay-outlives-window",
+        "f-s12-seek-stuck",
+        "f-s12-start-pause-during-seek",
+        "f-s12-system-unprepare-unrecoverable",
+        "f-s12-overlay-placement-drift",
+        "f-s12-set-alpha-failure-no-surface",
+        "f-s12-decoded-packet-held",
+        "f-s12-example-play-label"
+      ],
+      "recordedAt": "2026-11-09T12:00:56Z",
+      "recordHashes": {
+        "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
     }
   },
   "checkpoints": {
@@ -4611,6 +5084,17 @@
       },
       "reviewHash": "8ef81884980f069fb0b0b98ba7ebe63af34d0bee209f069c6aaeeb850319ec4a",
       "recordedAt": "2026-11-09T10:49:14Z"
+    },
+    "s12-video": {
+      "snapshotId": "ca8aac707392b2a767b19ce5b367947b4ecad980257deba4a9ef9b2c2f23d357",
+      "commits": {
+        "gpuitizen": "959c38a935401c845571ac16f8fa0ea345652829",
+        "gpui-fast": "e6ae34b9484cb050831aa9ab974fdd685e8800e3",
+        "wgpu": "4e3d80d5de97d1e66860f0f74fca92d50be70d4a",
+        "nsh": "7be66038d6cef63581f6bf0180b2bc8087bbf224"
+      },
+      "reviewHash": "e7a2b2f722bb923703b15c652435f8a234ad8c8b4f3a6e98ce8dfa6146e10bcc",
+      "recordedAt": "2026-11-09T12:01:19Z"
     }
   },
   "findings": [
@@ -5834,9 +6318,178 @@
           "path": "crates/dxn_gpui_tizen/src/blob_cache/tests.rs"
         }
       ]
+    },
+    {
+      "id": "f-s12-overlay-outlives-window",
+      "boundaryId": "s12-video",
+      "criterionIds": [
+        "VID-3",
+        "VID-5"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** The overlay's `Ecore_Wl2_Subsurface` and the player that renders into its exported surface are torn down while their parent `Ecore_Wl2_Window` is still alive. If the window goes first, nothing touches the subsurface afterwards.\n\n**Observed.** `Overlay` (`crates/dxn_gpui_tizen/src/tizen/video.rs:353-422`) holds a raw `*mut Ecore_Wl2_Subsurface`, and its `Drop` calls `ecore_wl2_subsurface_del` unconditionally (`:417-421`). Nothing ties the overlay to the window's lifetime. `TizenWindow::drop` frees the Ecore window at once (`tizen/window.rs:469`, `ecore_wl2_window_free`). EFL's window free also frees the window's subsurfaces. Even without that, `ecore_wl2_subsurface_del` unlinks the subsurface through `subsurface->parent`, the freed window.\n\n**Failure scenario.** In `examples/video`, press Back:\n- `cx.quit()` → `ui_app_exit` → `Effect::Quit` → `quit_callbacks` (`tizen/app.rs:149`) → gpui's `App::shutdown` (`../gpui-fast/crates/gpui/src/app.rs:1214`).\n- `shutdown` runs `self.windows.clear()` first. `TizenWindow` drops and the Ecore window and its subsurfaces are freed.\n- `flush_effects()` then releases the dropped entities: `VideoApp` → `VideoPlayer`. `player_destroy` runs on a player whose exported surface's parent is gone, then `ecore_wl2_subsurface_del` runs on freed memory.\n\nSo every quit with the overlay output ends in a use-after-free during shutdown. On a TV that is a crash report or a hang at exit. Any app that keeps a `VideoPlayer` entity after its window closes hits the same path.\n\nA smaller form of the same ordering problem is in `VideoPlayer::open` (`:720-760`). When `set_uri` or `prepare` fails after `Overlay::new`, the locals drop in reverse order, so the subsurface is deleted before the player that was given its handle is destroyed.\n\n**Repair.**\n- Make the window own the overlays' lifetime. Register each live `VideoPlayer`'s player and overlay with `WindowInner`, and destroy them (player first, then `ecore_wl2_subsurface_del`) in `TizenWindow::drop` before `ecore_wl2_window_free`. Or hold a `Weak<WindowInner>` and skip the del, and the player's display use, once it is gone.\n- Declare `player` after `overlay` in `open`, or drop it explicitly first.\n- Test: a host-testable owner, for example a registry of teardown hooks in the window, with a test that the hooks run before the window is freed and never after.\n\n**Re-review (revision 212).** Resolved: the player and its outputs now live in `Media` (`tizen/video.rs:694-750`), registered in a thread-local list. `Media::close` destroys the player first, then the overlay's subsurface. `TizenWindow::drop` calls `video::close_all()` before IMF, AT-SPI, the renderer and `ecore_wl2_window_free` (`tizen/window.rs:458-470`). A later `VideoPlayer` drop finds the player destroyed and the overlay gone, because `close` is idempotent. `open` builds `Media` before the outputs, so a failed `set_uri` or `prepare` destroys the player first. No host test is possible: this is Ecore-only code. Device proof belongs to VID-4.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/video.rs",
+          "symbol": "close_all"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/window.rs",
+          "symbol": "TizenWindow::drop"
+        }
+      ]
+    },
+    {
+      "id": "f-s12-seek-stuck",
+      "boundaryId": "s12-video",
+      "criterionIds": [
+        "VID-2"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** `VID-2`: the state machine serializes seeks. A seek that ends without `player_seek_completed_cb` must not block later seeks. `player.h` (Tizen 8.0) lists `PLAYER_ERROR_SEEK_FAILED` among the codes delivered through `player_error_cb` (`player.h:330-341`). `player_stop` and `player_unprepare` end the playback the seek belonged to.\n\n**Observed.**\n- `Player::seek` sets `seeks.in_flight = true` (`crates/dxn_gpui_tizen/src/video/mod.rs:389-399`). Only `Event::SeekCompleted` (`:517-530`), `unprepare` (`:484`) or a `sync_state` that lands in `Idle` (`:557-561`) clear it.\n- `Event::Error` (`:538-541`), `Event::Interrupted` (`:545-548`), `Player::stop` (`:380-385`) and the `Completed` → `backend.stop()` path (`:531-536`) all leave it set.\n\n**Failure scenario.** In the example, press Forward (+10 s) on the 4 s clip. Or seek on a stream whose seek fails. The player reports `PLAYER_ERROR_SEEK_FAILED` through the error callback, and no completion follows. `Notice::Failed` is emitted, but `in_flight` stays `true`. From then on, every `seek` only replaces `seeks.queued` (`:392-395`) and never reaches the player. Rewind and Forward silently do nothing for the rest of the player's life, and `Notice::Seeked` never comes. The same happens when `stop`, or the end-of-media stop of a non-looping player, ends playback while a seek is in flight.\n\n`video::tests` covers only the happy path of the queue (`seeks_are_serialized_and_the_latest_queued_one_wins`).\n\n**Repair.**\n- Clear the seek state, and drop or re-issue the queued seek, on `Error(SEEK_FAILED)`, on any error or interruption that leaves the seek's playback, on `stop` and in the `Completed` stop.\n- Ignore a stale `SeekCompleted` when no seek is in flight, instead of emitting `Seeked`.\n- Add `video::tests` cases: a seek failed through the error event, then a new seek is issued; a stop during a seek, then a seek after `play` is issued.\n\n**Re-review (revision 212).** Resolved: `Error`, `Interrupted`, `stop` and the non-looping `Completed` stop all reset `Seeks` (`video/mod.rs:416-421`, `:577-599`). `a_failed_or_abandoned_seek_does_not_block_later_ones` covers a seek failed through the error event and a stop during a seek.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/video/tests.rs",
+          "symbol": "a_failed_or_abandoned_seek_does_not_block_later_ones"
+        }
+      ]
+    },
+    {
+      "id": "f-s12-start-pause-during-seek",
+      "boundaryId": "s12-video",
+      "criterionIds": [
+        "VID-2",
+        "VID-5"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** `VID-2`: the state machine rejects calls that are invalid for the player before they reach it. `player.h:876` says: calling `player_pause()` or `player_start()` before `player_seek_completed_cb()` is invoked returns `PLAYER_ERROR_INVALID_OPERATION`.\n\n**Observed.** `Player::play` and `Player::pause` (`crates/dxn_gpui_tizen/src/video/mod.rs:346-377`) ignore `seeks.in_flight` and call `backend.start()` / `backend.pause()` directly. The `Completed` handler can also call `stop` mid-seek.\n\n**Failure scenario.** In the example, press Forward and then, within the seek's latency (often hundreds of ms on network or 4K media), press Play/Pause. `Controls::activate` has already flipped the label (`examples/video/src/view/mod.rs:104-111`). `player.pause()` then returns `Player { error: InvalidOperation }`, which is only logged. The video keeps playing while the button now says \"Play\". The next press sends `Play`, which is a no-op, so the user needs two more presses to pause.\n\n**Repair.**\n- While a seek is in flight, record the requested play/pause and apply it on `SeekCompleted`, the same way `play_when_ready` works for prepare. Or reject the call with `WrongState`.\n- Add a `video::tests` case.\n- In the example, derive `Controls::playing` from the player's notices or state instead of toggling it optimistically.\n\n**Re-review (revision 212).** Resolved for the state machine. While a seek is in flight, `play` and `pause` record `Seeks::then`. It is applied after the last `SeekCompleted`, with `Notice::Playing` or `Notice::Paused` (`video/mod.rs:371-413`, `:605-615`), and `play_and_pause_while_seeking_wait_for_the_seeks` covers it. The example's play/pause label still drifts from the player's state after an interruption; that remains open as `f-s12-example-play-label`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/video/tests.rs",
+          "symbol": "play_and_pause_while_seeking_wait_for_the_seeks"
+        }
+      ]
+    },
+    {
+      "id": "f-s12-system-unprepare-unrecoverable",
+      "boundaryId": "s12-video",
+      "criterionIds": [
+        "VID-2",
+        "VID-5"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** The player wrapper handles the documented interruption `PLAYER_INTERRUPTED_BY_RESOURCE_CONFLICT` (\"paused or unprepared\", `player.h:107`) and a failed asynchronous prepare. An app holding a `VideoPlayer` can get playback back after either one.\n\n**Observed.**\n- `sync_state` maps a player that went back to `IDLE` to `State::Idle` and forgets the URI (`crates/dxn_gpui_tizen/src/video/mod.rs:555-567`). The test calls this deliberate: \"the media must be set again\".\n- `VideoPlayer` (`tizen/video.rs:830-876`) exposes no `set_uri`, `prepare` or `unprepare`. After that event, every call it offers fails with `WrongState`.\n- During `player_prepare_async` the real player reports `PLAYER_STATE_IDLE`. So the guard at `:563` (`Preparing` and `Ready`) never fires, and any `Error` or `Interrupted` event during preparing also drops the state machine to `Idle`. If the prepare then completes, `Event::Prepared` is ignored (`:516`), and the machine says `Idle` while the player is `READY`.\n\n**Failure scenario.** On the TV, the user opens another app that takes the hardware decoder (a resource conflict), then comes back. The player was unprepared. The example shows \"Interrupted\" forever, and Play logs `Play is not valid while Idle`. The only way out is to restart the app.\n\n**Repair.**\n- Give `VideoPlayer` a way to reopen: keep the URI and add `reopen()`/`prepare()`, or re-prepare automatically on an interruption that unprepared the player.\n- Do not take `IDLE` from `player_get_state` as the end of a prepare in flight.\n- Cover both in `video::tests`, and have the example reopen on `Interrupted(Idle)`.\n\n**Re-review (revision 212).** Resolved: the player keeps the URI and sets it again in `prepare()`. A pending prepare is cancelled with `unprepare`, which `player.h:562` allows while idle. With `prepare_pending`, a late `Prepared` still makes the player ready after an error dropped it to idle (`video/mod.rs:348-369`, `:545-559`, `:620-634`). `VideoPlayer::prepare` is public. Covered by `a_prepare_that_completes_after_an_error_still_counts` and the updated interruption test.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/video/tests.rs",
+          "symbol": "a_prepare_that_completes_after_an_error_still_counts"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/video/tests.rs",
+          "symbol": "completion_errors_and_interruptions_update_the_state"
+        }
+      ]
+    },
+    {
+      "id": "f-s12-overlay-placement-drift",
+      "boundaryId": "s12-video",
+      "criterionIds": [
+        "VID-3"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** `VID-3`: the overlay is positioned at the video view's rectangle, which is exactly the hole. When the view stops painting, the overlay is hidden.\n\n**Observed.**\n- **Rounding.** The hole is snapped edge by edge: `snapped` rounds `left`, `top`, `right` and `bottom` (`../gpui-fast/crates/gpui/src/fast/hole.rs:89-101`, and the gpui test asserts \"each edge rounded, not the size\"). `VideoPlayer::paint` instead rounds the origin and the size separately (`crates/dxn_gpui_tizen/src/tizen/video.rs:803-808`).\n- **Hiding.** `OverlayPlacement::hide` (`video/mod.rs:651`) is never called by the shell. Only `place` runs, from `paint`.\n\n**Failure scenario.**\n- A video view at x = 10.2 px, width 100.2 px at scale 2: the hole spans device pixels 20..221, the overlay 20..220. A one-pixel column of transparent black, the bare video plane, shows at the right edge. With other fractions the video is one pixel short on the other side.\n- A view that scrolls away or is removed keeps its exported surface shown at the last rectangle. If any other hole is painted, for example a second player, the stale plane can show through that hole's area.\n\n**Repair.**\n- Compute the overlay rectangle with the same edge snapping as `paint_hole`. For example, have `paint_hole` return the snapped `Bounds<ScaledPixels>`, or expose `snapped`.\n- Track whether the element painted this frame, through the window's frame hook or a generation counter, and apply `hide()` for players that did not.\n- Extend `the_overlay_surface_hears_only_what_changed` with a fractional-bounds case.\n\n**Re-review (revision 212).** Resolved: `DeviceRect::snapped` rounds each edge exactly as gpui's `fast::hole::snapped` does (`video/mod.rs:674-689`), and `the_overlay_rectangle_snaps_like_the_hole` covers it. `end_frame(has_holes)` hides every overlay when the frame has no holes, before the frame's commit (`tizen/window.rs:621-623`). Keying this on the scene is sound, because gpui-fast can reuse cached paint without calling the element.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/video/tests.rs",
+          "symbol": "the_overlay_rectangle_snaps_like_the_hole"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/video.rs",
+          "symbol": "end_frame"
+        }
+      ]
+    },
+    {
+      "id": "f-s12-set-alpha-failure-no-surface",
+      "boundaryId": "s12-video",
+      "criterionIds": [
+        "VID-3"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** Switching the window to translucent, or back, either succeeds or leaves the window drawing as before, and the window reports which happened.\n\n**Observed.** `EglWindow::set_alpha` (`crates/dxn_gpui_tizen/src/egl/mod.rs:603-624`) works in this order:\n1. drops the window surface;\n2. sets `self.config` and `self.alpha` to the new values;\n3. calls `rebuild_surface()`.\n\nIf `eglCreateWindowSurface` or `eglMakeCurrent` fails in step 3, it returns `Err` with no surface and `alpha` already switched. `Backend::set_translucent` then reports success, because `window.alpha() == alpha` (`tizen/renderer.rs:125-136`). `follow_holes` records the window as translucent (`tizen/window.rs:316-336`).\n\nFrom then on, `draw_frame` fails every frame with \"the window surface is released (paused)\" (`egl/mod.rs:878-880`). A later `set_alpha(false)` takes the \"paused\" branch and does not rebuild either. Only a pause and resume (`rebuild_surface`) brings the window back.\n\n**Failure scenario.** A driver refuses an RGBA8888 window surface for the config `choose_config(alpha = true)` picked. The first video turns the app's window into a frozen last frame, with an error logged every frame, until the user leaves the app and comes back.\n\n**Repair.**\n- On rebuild failure, restore the previous config and alpha, rebuild the old surface, and return `Err`.\n- Have `set_translucent` report the actual surface state, so `translucency_failed` latches and the texture fallback can be chosen.\n- Add an `egl_wayland` case with a test hook that makes the alpha surface creation fail.\n\n**Re-review (revision 212).** Resolved: when the rebuild fails, `set_alpha` restores the previous config and alpha, rebuilds the old surface and returns `Err` (`egl/mod.rs:603-635`). `set_translucent` then reports `alpha() == requested` as false, so `translucency_failed` latches. No failure-injection test was added. The path is short and was checked by inspection, and `s12-egl-wayland-2.log` (6/6) covers the success path.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/egl/mod.rs",
+          "symbol": "EglWindow::set_alpha"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/tests/egl_wayland.rs",
+          "symbol": "the_window_turns_translucent_for_holes_and_back"
+        }
+      ]
+    },
+    {
+      "id": "f-s12-decoded-packet-held",
+      "boundaryId": "s12-video",
+      "criterionIds": [
+        "VID-3"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** `player.h` (`player_media_packet_video_decoded_cb`, `:369-375` and `:1079-1081`): the packet must be released as quickly as possible, or the decoder runs out of buffers. A texture output that cannot use a frame says so once.\n\n**Observed.**\n- `on_decoded` (`crates/dxn_gpui_tizen/src/tizen/video.rs:149-180`) runs the full scalar NV12/I420 → RGBA conversion while it still holds the packet. It calls `media_packet_unref` only afterwards (`:179`).\n- Packets in any format other than `MEDIA_FORMAT_NV12`/`I420` (`:119-123`, for example `NV12T`, `NV21` or `YV12`), and frames with odd dimensions (`video_frames/mod.rs:101-103`), are dropped silently. No log and no `Notice`.\n\n**Failure scenario.**\n- On a 32-bit ARM TV, converting a 1080p frame in scalar Rust takes tens of milliseconds. The decoder's packet pool drains, decoding stalls behind the conversion, and A/V sync or frame rate suffers. This is avoidable: copying the planes takes only about 3 MB of `memcpy`.\n- A decoder that emits `NV21`, or an 853x480 clip, plays audio over a permanently empty texture with nothing in dlog.\n\n**Repair.**\n- Copy the planes into the slot's spare buffer, unref the packet, then convert.\n- Log once per player when a frame's format or size is refused, and surface it as a `Notice`/error.\n\nThis is not a blocker for `VID-3`'s host-tested conversion, but it belongs with the texture output before `VID-4`.\n\n**Re-review (revision 212).** Resolved: `on_decoded` copies the planes into the sink's scratch buffer and unrefs the packet before converting (`tizen/video.rs:160-221`). NV21 is converted, and other formats are logged once. Odd sizes convert with ceil chroma dimensions (`video_frames/mod.rs:101-160`), covered by `odd_sizes_take_a_chroma_sample_for_the_last_column_and_row` and the NV21 case of `reference_colours_convert_in_both_layouts_and_matrices`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/video_frames/tests.rs",
+          "symbol": "odd_sizes_take_a_chroma_sample_for_the_last_column_and_row"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/video_frames/tests.rs",
+          "symbol": "reference_colours_convert_in_both_layouts_and_matrices"
+        }
+      ]
+    },
+    {
+      "id": "f-s12-example-play-label",
+      "boundaryId": "s12-video",
+      "criterionIds": [
+        "VID-5"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** `VID-5`: the example's control row drives the player, and Play/Pause shows what pressing it will do. The repair for `f-s12-system-unprepare-unrecoverable` states that, in the example, Play prepares again when the state is Idle.\n\n**Observed.**\n- `Controls::playing` only flips when the user presses the button (`examples/video/src/view/mod.rs:100-108`).\n- The notice subscription (`:161-174`) updates only the status line. `Interrupted`, `Failed`, `Ended` and the deferred `Paused`/`Playing` never touch `controls.playing`.\n\n**Failure scenario.** On the TV, another app takes the decoder, and the player is unprepared (`Interrupted(Idle)`) or paused. The status says \"Interrupted: Play opens it again\", but the button still reads \"Pause\", because `playing` is still `true`.\n1. The first Enter sends `Command::Pause`. `pause` in `Idle` fails with `WrongState`, which is only logged, and the label flips to \"Play\".\n2. Only the second Enter reaches the new `prepare` + `play` path.\n\nThe recovery path the repair added is therefore hidden behind a press that does nothing, and the label disagrees with the status line. `view::tests` runs on the desktop only, with no player, so it cannot catch this.\n\n**Repair.**\n- Set `controls.playing` from the notices: `Playing` → true; `Paused`, `Interrupted(_)`, `Ended` (without looping) and `Failed` → false.\n- Or have `activate` choose Play or Pause from `VideoPlayer::state()`.\n- Add a `view::tests` case that feeds an `Interrupted` notice into the controls (a host-testable `Controls::observe(Notice)`) and checks that the next activation sends `Play`.\n\n**Re-review (revision 214).** Resolved. The notice subscription (`examples/video/src/view/mod.rs:167-182`) now sets the button from what the player did, through `Controls::follow_player`:\n- `Playing` → true;\n- `Paused` and `Ended` → false;\n- `Interrupted(state)` → `state == Playing`;\n- `Failed` → the player's own state is `Playing`.\n\nAfter an interruption, the label therefore reads Play, and the first press sends `Command::Play`, which reaches the `prepare` + `play` path (`:200-207`). Reading `player.read(cx).state()` in the subscriber is safe, because `VideoPlayer::handle` releases its `Media` borrow before it emits. `play_pause_follows_what_the_player_did_on_its_own` covers the controls' side. The notice-to-bool mapping is Tizen-only, and I checked it by inspection.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "examples/video/src/view/tests.rs",
+          "symbol": "play_pause_follows_what_the_player_did_on_its_own"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "examples/video/src/view/mod.rs",
+          "symbol": "Controls::follow_player"
+        }
+      ]
     }
   ],
-  "handoffMarkdown": "",
+  "handoffMarkdown": "examples/video (example_video, cdylib + desktop bin with placeholder), res/clip.mp4 (synthetic, recipe in res/README.md), Controls + view::tests, package table entry video/DxnGpuiTzV with per-app resources copied to res/; dxn_gpui_tizen::resource_path; VideoPlayer::new infallible (error()).",
   "protectedPaths": {
     "gpuitizen": {
       "gpuitizen:.agentx/memory/**": "94784ab15131a5a4ff6827a67fa677677a923e04a068e1e4335659b7b6e5c11e"
