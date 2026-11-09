@@ -1,12 +1,12 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 188,
-  "planRevision": 22,
+  "revision": 203,
+  "planRevision": 25,
   "specHashes": {
-    "requirements": "32e5993b38ee3a250c7a772a752bd70575422f3b105ef3e52346ac3ef9d80d31",
-    "design": "c164d62c644c4ab947ad0e789b792a66c24518c83e31e3c52862e84e89f02781",
-    "plan": "f7bf21c49e9565354ae9747acfe2b409c5b2342dad8b8f445874fdff4fafcf54"
+    "requirements": "6c57b5c275e88b3ce5b4383559edd81181395a7e588ebc5ecfe013b460570c62",
+    "design": "a3e9ab1641d598bff3fdd015bd4af4393cd6025f28b84ab7dab193dcb9794dcc",
+    "plan": "ac3387b65b1ddb37651c5a7025daf602d0a875aeeff64457ae47cc839b4c9c63"
   },
   "tasks": {
     "t1-workspace": {
@@ -265,22 +265,40 @@
       ]
     },
     "t11-blob-cache": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t11-damage-history": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t11-egl": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t11-renderer-select": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t11-egl-wayland-test": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t11-link": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t12-hole": {
       "status": "pending"
@@ -635,6 +653,30 @@
         }
       },
       "recordedAt": "2026-11-09T09:58:23Z"
+    },
+    "55b82371267a386abd33bca07384151cd1518d02542552a63ce2d797bc443e9b": {
+      "snapshot": {
+        "specHash": "2ff60aef7f47b7af9f94e95276074049c56f7348c5cf9a4dbd6ad7cb6aedf6fb",
+        "repositories": {
+          "gpuitizen": "3d6e2abf60b2749782317e72e93a9c5d88cf93723fc6396bfdd00453e6f9ea67",
+          "gpui-fast": "9f4f5b8150fbfa08b05bb8b4ca63801f533bb749c47d391c6a9d85a4bfa6f0b5",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "44cd091043852019714da3ec9eda618bc3e237317015dcf281d4f1afb8693e3f"
+        }
+      },
+      "recordedAt": "2026-11-09T10:25:51Z"
+    },
+    "4dcaf1fadac1f6b8a01cd1a3d3a17c34080cfe329e62ed1cc82c83828a4e14f8": {
+      "snapshot": {
+        "specHash": "2ff60aef7f47b7af9f94e95276074049c56f7348c5cf9a4dbd6ad7cb6aedf6fb",
+        "repositories": {
+          "gpuitizen": "00372683dba3ff4ff83a4ea9a3761e83a69a845909b267b18287c2917d202142",
+          "gpui-fast": "fd02c6ddbbc5c29b0b81d20c358764b7e898df910b3e3e9bb4fbb71a786682b3",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "44cd091043852019714da3ec9eda618bc3e237317015dcf281d4f1afb8693e3f"
+        }
+      },
+      "recordedAt": "2026-11-09T10:45:42Z"
     }
   },
   "checkResults": {
@@ -1742,6 +1784,142 @@
       "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s10-damage-final-93c8bd8ae1cc.log",
       "logSha256": "3903cc173970d151a011e3e34014357bc272874b9f75948757ce8bbe6c50850d",
       "inputsHash": "4dc1144ce7b234cc79e127d7a7e12a2aaeda48aaf63312e8f3325f9662183720"
+    },
+    "s11-platform-egl/chk-xtask-symcheck/final": {
+      "checkId": "chk-xtask-symcheck",
+      "boundaryId": "s11-platform-egl",
+      "phase": "final",
+      "batchId": "55b82371267a386abd33bca07384151cd1518d02542552a63ce2d797bc443e9b",
+      "definitionHash": "f46d6e79f04bf3ae0ed8fd46b5d2a7ecfdfcabe58bca377b94e92aa3b1f8bcb1",
+      "basisHash": "98a8c9cfeb3c29c3cc67e6369b159b63479fd01161bf4932a1ae10499a8dca0b",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 10,
+      "durationSeconds": 0.1202,
+      "recordedAt": "2026-11-09T10:25:26Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s11-platform-egl-final-b8ecd74c8719.log",
+      "logSha256": "67250190a6a194775489b60ac8879c6303da0b0c3f14fb684989156bc45b0176",
+      "inputsHash": "230343ff49b020d4105c41bce62f994757b545dafff057fc2fa32fbfeb81c8b2"
+    },
+    "s11-platform-egl/chk-xtask-release/final": {
+      "checkId": "chk-xtask-release",
+      "boundaryId": "s11-platform-egl",
+      "phase": "final",
+      "batchId": "55b82371267a386abd33bca07384151cd1518d02542552a63ce2d797bc443e9b",
+      "definitionHash": "f510e7d16ecbedaa5ebb805b0420c1cdea899f39c52ea4daf5e70bf65178df08",
+      "basisHash": "b5209c850d71466bb947ec22d254d8f04298d7b7eded2820c10e350d678021cf",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 13,
+      "durationSeconds": 0.0804,
+      "recordedAt": "2026-11-09T10:25:26Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s11-platform-egl-final-06d8171cd6c8.log",
+      "logSha256": "1cd7c58f2c8e3af60dac0785c020c8d7e0ea3f3c95b65058cb3d069e038ea3a7",
+      "inputsHash": "5e163d39bb403664dc152575a319e466c28d654ec24e6551d256044feff6c2ed"
+    },
+    "s11-platform-egl/chk-link-armv7/final": {
+      "checkId": "chk-link-armv7",
+      "boundaryId": "s11-platform-egl",
+      "phase": "final",
+      "batchId": "4dcaf1fadac1f6b8a01cd1a3d3a17c34080cfe329e62ed1cc82c83828a4e14f8",
+      "definitionHash": "cad541758880eab21ab50bda063b3323648dc8d136b6e30ba8b9aebb1f79be87",
+      "basisHash": "09bde1329878f5400458ae541db3391278f215b4c841284c7a2a9d97b128fe1b",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 42.7209,
+      "recordedAt": "2026-11-09T10:44:58Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s11-platform-egl-final-b9e4ed85246f.log",
+      "logSha256": "1d009c8642e52d237538f222c8d2ea60b66a7df3b45aad5fdc818d69ba7dbd03",
+      "inputsHash": "7dc2968e86f79eb63cd666234a0783733c42fc9f9c67f139466db1f67a534b54"
+    },
+    "s11-platform-egl/chk-link-x86_64/final": {
+      "checkId": "chk-link-x86_64",
+      "boundaryId": "s11-platform-egl",
+      "phase": "final",
+      "batchId": "4dcaf1fadac1f6b8a01cd1a3d3a17c34080cfe329e62ed1cc82c83828a4e14f8",
+      "definitionHash": "fdd7f2a500315251c3c2ad62f51069ce873d44715a4af8873ea7dcf514f7ee7c",
+      "basisHash": "f2e176d4cf5ed43a34f8f745cca2f1ed0444ebcfe6a922ff9524a25980e05e85",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 40.0529,
+      "recordedAt": "2026-11-09T10:45:38Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s11-platform-egl-final-cf738d49d0b7.log",
+      "logSha256": "8dbccef51f6be2dc1463d3f54b086fc8ed568ff239da0886709f1fffadc60f3c",
+      "inputsHash": "7dc2968e86f79eb63cd666234a0783733c42fc9f9c67f139466db1f67a534b54"
+    },
+    "s11-platform-egl/chk-egl-blob-cache/final": {
+      "checkId": "chk-egl-blob-cache",
+      "boundaryId": "s11-platform-egl",
+      "phase": "final",
+      "batchId": "4dcaf1fadac1f6b8a01cd1a3d3a17c34080cfe329e62ed1cc82c83828a4e14f8",
+      "definitionHash": "c41881c44cab4641f52b3f6bf352191767fe3723d2ec2c23494626257f1dd48c",
+      "basisHash": "cd6f63873cc8fc213611befc9c06b06f7567a27bbb22271e6ec076beafbf648d",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 5,
+      "durationSeconds": 1.807,
+      "recordedAt": "2026-11-09T10:45:39Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s11-platform-egl-final-45fa00703c34.log",
+      "logSha256": "cb9b970a480db45c98922fbe0dfa797a9ed82b7792ebd11ea38528e24dcecb65",
+      "inputsHash": "54915235daa3226c8855e9970d907ad81345ae0545ec7701ad73caec30a55010"
+    },
+    "s11-platform-egl/chk-egl-damage-history/final": {
+      "checkId": "chk-egl-damage-history",
+      "boundaryId": "s11-platform-egl",
+      "phase": "final",
+      "batchId": "4dcaf1fadac1f6b8a01cd1a3d3a17c34080cfe329e62ed1cc82c83828a4e14f8",
+      "definitionHash": "680db1cba3dd37112b7c173f6a88d731563021143670432df28a9d15f6ab2f10",
+      "basisHash": "f179a01aa8f99e42ef560565d073fb1d5ec2d18904e46624e984c0b9e968060a",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 6,
+      "durationSeconds": 0.1357,
+      "recordedAt": "2026-11-09T10:45:40Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s11-platform-egl-final-9aa6ef3ee764.log",
+      "logSha256": "e8e2b22efbcfcbe977a29b32587b69a2cef6efaa2602e6fd4b66a308b7248012",
+      "inputsHash": "54915235daa3226c8855e9970d907ad81345ae0545ec7701ad73caec30a55010"
+    },
+    "s11-platform-egl/chk-egl-renderer-select/final": {
+      "checkId": "chk-egl-renderer-select",
+      "boundaryId": "s11-platform-egl",
+      "phase": "final",
+      "batchId": "4dcaf1fadac1f6b8a01cd1a3d3a17c34080cfe329e62ed1cc82c83828a4e14f8",
+      "definitionHash": "38cd5f341157f077bf1e458013885813d369541946e1a749ff83abb9dc6ffacd",
+      "basisHash": "a1b60858acb746f2b3d3a5711643938f52aee0099f8ce133ddac30d9329eaa9f",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 4,
+      "durationSeconds": 0.1315,
+      "recordedAt": "2026-11-09T10:45:40Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s11-platform-egl-final-19c06e00dd81.log",
+      "logSha256": "7cb24acba91732a3cfca9fb3da48ba6677d9fb62f398c0af457ba87f6020c4ee",
+      "inputsHash": "54915235daa3226c8855e9970d907ad81345ae0545ec7701ad73caec30a55010"
+    },
+    "s11-platform-egl/chk-egl-wayland/final": {
+      "checkId": "chk-egl-wayland",
+      "boundaryId": "s11-platform-egl",
+      "phase": "final",
+      "batchId": "4dcaf1fadac1f6b8a01cd1a3d3a17c34080cfe329e62ed1cc82c83828a4e14f8",
+      "definitionHash": "86b892dcfe2e77bb433a0d71189f26e1849bb5a8ec38fc6d80435ef508a3c968",
+      "basisHash": "c32c83df217266ab53b28982e3d1606805de63ab32cf8a725a4680a46038d1c2",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 5,
+      "durationSeconds": 2.1879,
+      "recordedAt": "2026-11-09T10:45:42Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s11-platform-egl-final-2bb1874fc90f.log",
+      "logSha256": "549955f31c9c7230839ef580ae4e70dcb665b2aa16fe8f254148fb40733cd258",
+      "inputsHash": "ada0d515302e2e34a2a177962bd7f132ac8ea28bd5267fdc04346cfc27cc6427"
     }
   },
   "reviews": {
@@ -3948,6 +4126,351 @@
         "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
       }
+    },
+    "s11-platform-egl": {
+      "reviewerId": "reviewer-s11-independent",
+      "snapshotId": "4dcaf1fadac1f6b8a01cd1a3d3a17c34080cfe329e62ed1cc82c83828a4e14f8",
+      "criterionIds": [
+        "EGL-1",
+        "EGL-2",
+        "EGL-3",
+        "EGL-4",
+        "EGL-5",
+        "EGL-6"
+      ],
+      "verdict": "passed",
+      "anchors": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/egl/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "EGL-1",
+            "EGL-2",
+            "EGL-3",
+            "EGL-4"
+          ],
+          "sha256": "6fa7f1d8a829844976a7e938af7e64051cd001af71ee9c3b7a66aa000f412dc0"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/blob_cache/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "EGL-2"
+          ],
+          "sha256": "146a78731178277d0af362a681a8ddf07b59286ceca792f7cd6fd0f9c0b218d3"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/blob_cache/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "EGL-2"
+          ],
+          "sha256": "067bc5efc2e78e1675e8a67d87667dd0250ced99cbd9ebdf6d7b75b973c0c86a"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/egl_damage/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "EGL-3"
+          ],
+          "sha256": "0716739b8d8c78807f2ec06450428cd210f165777d19c51f56ee9a192ad27f63"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/egl_damage/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "EGL-3"
+          ],
+          "sha256": "7726109990b696467ff60e7d9c4291f1699641799a282b6cd5c979fe9efe4e72"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/renderer_select/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "EGL-4"
+          ],
+          "sha256": "fdc6052997db2607c46304e550f3c6be041821f724a9a4fb08dd01e74f713cf2"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/renderer_select/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "EGL-4"
+          ],
+          "sha256": "a1dd158848cb767316241a584d547e71f74cf3a9bc660de371398a882face764"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/renderer.rs",
+          "kind": "source",
+          "criterionIds": [
+            "EGL-4"
+          ],
+          "sha256": "c3e5ecf7f7924021a5f4162c5e2fdc934cb860da0baec80ba4d5337b49d9b3c9"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/window.rs",
+          "kind": "source",
+          "criterionIds": [
+            "EGL-3",
+            "EGL-4"
+          ],
+          "sha256": "7ebc3fd9b7499bd6384a846582bb9b033896f19f9d305ebc6339a56d57a8b696"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/display/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "EGL-4"
+          ],
+          "sha256": "6fba2ca56ed69b100fe7491709e2b6841c8bc84ff18d37d145eab90ff6698f80"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/lib.rs",
+          "kind": "source",
+          "criterionIds": [
+            "EGL-1",
+            "EGL-6"
+          ],
+          "sha256": "74b6470a5188e44e6bc155034238b4055d5d2c210d4ce13b917abe8b6669c058"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/Cargo.toml",
+          "kind": "source",
+          "criterionIds": [
+            "EGL-1",
+            "EGL-6"
+          ],
+          "sha256": "45b5b2c381c2be4a85496337814023a3a837a55150e4652619fd0f5724edfc94"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/tests/egl_wayland.rs",
+          "kind": "test",
+          "criterionIds": [
+            "EGL-1",
+            "EGL-2",
+            "EGL-3",
+            "EGL-5"
+          ],
+          "sha256": "805c7c2835369f229c027b62d85372d2c4ff127c7ab02bf62abc27e53ccb3172"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "scripts/lima-run.sh",
+          "kind": "source",
+          "criterionIds": [
+            "EGL-5"
+          ],
+          "sha256": "c9459ee775b52282f729864591034881b7e919925ae285da21884bcb52f74417"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "scripts/lima/gpuitizen.yaml",
+          "kind": "source",
+          "criterionIds": [
+            "EGL-5"
+          ],
+          "sha256": "c326fb7b0ccd83727115fcd64e8b1997eda9ca47182a3adc2c79217828e5e7a3"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/symcheck/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "EGL-6"
+          ],
+          "sha256": "d665da5b3df9893b905ae22a6bcd3c817017ef956fe5f6354f94979e4ed03c7f"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/symcheck/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "EGL-6"
+          ],
+          "sha256": "fed680696d56ac1a1c885d1e84c1364972ec65ae6a656e1358c2db44b9e0d2c7"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/release/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "EGL-6"
+          ],
+          "sha256": "16bb9dafeb08fa13aad5eb48985a686d7011e04711d6ae1548b36032e273d880"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/release/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "EGL-6"
+          ],
+          "sha256": "9e5c1bc0b880b8c73c520ff9cd79f7edfd74f9bcf52dcb7bb688b8de22864004"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/main.rs",
+          "kind": "source",
+          "criterionIds": [
+            "EGL-6"
+          ],
+          "sha256": "4af72dd1b8c2354886f964aa08112ec49828b769beb25a00351fea70b9519f33"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/external_target.rs",
+          "kind": "source",
+          "criterionIds": [
+            "EGL-1",
+            "EGL-3",
+            "EGL-4"
+          ],
+          "sha256": "c5f4f5d7bc86fb98c6f8d8fe531f6f375e4361ab2b2ef3704946a102742bbd51"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/external_target/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "EGL-4"
+          ],
+          "sha256": "fcf0eef4a7658dd889a51bdfa9e5d6bd81fd146367081bdba9c6c1ce425e93b6"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/wgpu_renderer.rs",
+          "kind": "source",
+          "criterionIds": [
+            "EGL-4"
+          ],
+          "sha256": "37b2e785edbc2d5fa850b6ff3b808531dcb77039edbefdb0ba322855f560f7de"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "docs/upstream-sync.md",
+          "kind": "source",
+          "criterionIds": [
+            "EGL-4"
+          ],
+          "sha256": "d1d15c321c6409f66a9a3437cdc542af78603c5d89e84291f806a6a8e08e7338"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s11-platform-egl-final-2bb1874fc90f.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "EGL-1",
+            "EGL-2",
+            "EGL-3",
+            "EGL-4",
+            "EGL-5"
+          ],
+          "sha256": "549955f31c9c7230839ef580ae4e70dcb665b2aa16fe8f254148fb40733cd258"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s11-review2-egl-wayland.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "EGL-1",
+            "EGL-2",
+            "EGL-3",
+            "EGL-4",
+            "EGL-5"
+          ],
+          "sha256": "006bb6eac0606200c6372a8df3ea6d5911519e7e5cd1400c0d9604f0d07455de"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s11-platform-egl-final-45fa00703c34.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "EGL-2"
+          ],
+          "sha256": "cb9b970a480db45c98922fbe0dfa797a9ed82b7792ebd11ea38528e24dcecb65"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s11-platform-egl-final-9aa6ef3ee764.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "EGL-3"
+          ],
+          "sha256": "e8e2b22efbcfcbe977a29b32587b69a2cef6efaa2602e6fd4b66a308b7248012"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s11-platform-egl-final-19c06e00dd81.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "EGL-4"
+          ],
+          "sha256": "7cb24acba91732a3cfca9fb3da48ba6677d9fb62f398c0af457ba87f6020c4ee"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s11-platform-egl-final-b9e4ed85246f.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "EGL-6"
+          ],
+          "sha256": "1d009c8642e52d237538f222c8d2ea60b66a7df3b45aad5fdc818d69ba7dbd03"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s11-platform-egl-final-cf738d49d0b7.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "EGL-6"
+          ],
+          "sha256": "8dbccef51f6be2dc1463d3f54b086fc8ed568ff239da0886709f1fffadc60f3c"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s11-platform-egl-final-b8ecd74c8719.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "EGL-6"
+          ],
+          "sha256": "67250190a6a194775489b60ac8879c6303da0b0c3f14fb684989156bc45b0176"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s11-platform-egl-final-06d8171cd6c8.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "EGL-6"
+          ],
+          "sha256": "1cd7c58f2c8e3af60dac0785c020c8d7e0ea3f3c95b65058cb3d069e038ea3a7"
+        }
+      ],
+      "summaryMarkdown": "**Verdict: passed.** EGL-1 to EGL-6 are met at 4dcaf1fa, and all six findings from the first s11 review are resolved.\n\n**Reruns.**\n- `scripts/lima-run.sh --weston cargo test -p dxn_gpui_tizen --test egl_wayland -- --nocapture` at default parallelism: 5/5 (`s11-review2-egl-wayland.log`). This includes the failed-setup and pause/resume tests. Nothing was left running in the VM.\n- `blob_cache::tests` 5/5 and `egl_damage::tests` 6/6 on the host.\n- The fork's `fast::external_target::tests`: 12/12. `check-upstream`: 0 violations.\n- The rebuilt armv7 and x86_64 example libraries (11:44 and 11:45) still export only `dxn_gpui_tizen_main` and have no EGL/GLES/wayland-egl NEEDED entries or imports.\n\n**Unchanged from the first review.** EGL loading, the display, config, context and loader, the drop order, the blob-cache protocol, the damage plumbing, renderer selection, and the `// SAFETY:` coverage. The only extra effect of the rework is deliberate: `shutdown` terminates the display at window close, and the first test's second window shows re-initializing on the same connection works.\n\n**Left for the owner's TV run.** The pbuffer branch (drivers without surfaceless contexts) and a driver that actually calls the blob-cache callbacks (`amend-s11-blob`).",
+      "findingIds": [
+        "f-s11-egl-failure-cleanup",
+        "f-s11-pause-keeps-targets",
+        "f-s11-nothing-after-commit",
+        "f-s11-surfaceless-release",
+        "f-s11-damage-region-after-error",
+        "f-s11-blob-cache-main-thread-io"
+      ],
+      "recordedAt": "2026-11-09T10:48:41Z",
+      "recordHashes": {
+        "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
     }
   },
   "checkpoints": {
@@ -4077,6 +4600,17 @@
       },
       "reviewHash": "453e07d6800c0b2aa3101668daf9c591ea6973a80709a5c0c822ac3874dcca06",
       "recordedAt": "2026-11-09T10:02:08Z"
+    },
+    "s11-platform-egl": {
+      "snapshotId": "4dcaf1fadac1f6b8a01cd1a3d3a17c34080cfe329e62ed1cc82c83828a4e14f8",
+      "commits": {
+        "gpuitizen": "cbfa0bb48c99da325a8e00465b0eb24652e1da4a",
+        "gpui-fast": "d87f521cf389cb79db0d41578d68b7e87d17160d",
+        "wgpu": "4e3d80d5de97d1e66860f0f74fca92d50be70d4a",
+        "nsh": "7be66038d6cef63581f6bf0180b2bc8087bbf224"
+      },
+      "reviewHash": "8ef81884980f069fb0b0b98ba7ebe63af34d0bee209f069c6aaeeb850319ec4a",
+      "recordedAt": "2026-11-09T10:49:14Z"
     }
   },
   "findings": [
@@ -5161,6 +5695,145 @@
         }
       ],
       "descriptionMarkdown": "**Resolved.** The three surface-renderer hooks are gone. `scene-damage` now touches no upstream file (`git diff upstream/main scene-damage`: `fast/damage.rs`, its tests and `fast/mod.rs`), and `FrameState` has no tracker; `WgpuExternalRenderer` owns it. d23 (amend `amend-s10-d23.json`) names `new`, `draw` with the callback, `WgpuFrameDamage`, `sprite_atlas`, `invalidate`, the owned tracker and the kept-texture flip, and gives the reason (shaders untouched). `docs/upstream-sync.md` lists the same."
+    },
+    {
+      "id": "f-s11-egl-failure-cleanup",
+      "boundaryId": "s11-platform-egl",
+      "criterionIds": [
+        "EGL-1",
+        "EGL-4"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Resolved at 4dcaf1fa.** `EglWindow::new` now creates a `Setup` guard right after `eglInitialize` (`egl/mod.rs:385-392`). The context, the `wl_egl_window` and the surface are recorded in it as soon as each is made (`:432`, `:436`, `:440`). Its `Drop` (`:210-229`) does the following, in order:\n- unbinds the context if ours is current;\n- destroys the surface, then the context;\n- destroys the `wl_egl_window`, while `libwayland-egl` is still loaded, because the library is declared before the guard.\n\nwgpu's locals are declared after the guard, so on an early return they drop first, while the context is still current. Leaving the display initialized is right, because the fallback's EGL shares it. `rebuild_surface` destroys the new `wl_egl_window` when surface creation fails (`:612-621`).\n\n`a_failed_setup_leaves_nothing_behind` fails `new` once everything is made, then asserts that no context is current. It then brings a second window up on the same `wl_surface` and checks its pixels. It passed in my rerun under Weston at default parallelism (`s11-review2-egl-wayland.log`).\n\n---\nOriginal finding:\n\n**Expected.** When `EglWindow::new` fails, it undoes what it made. `Auto` then falls back to wgpu's surface (`SHELL-2`) on a clean `wl_surface` with no context current, as `d24` and `EGL-4` describe.\n\n**Observed.** `crates/dxn_gpui_tizen/src/egl/mod.rs` cleans up only when `eglCreateWindowSurface` fails (`:328-333`). Every later `?` returns with the context, the EGL window surface and the `wl_egl_window` still alive, and the context current on the main thread. The later failures are: `eglMakeCurrent` (`:335-336`), `new_external` → \"wgpu rejected the GL ES context\" (`:365-368`), `request_device` (`:383-390`), and `WgpuExternalRenderer::new` (`:414`). `Backend::open` (`tizen/renderer.rs:51-72`) then calls `WgpuRenderer::new` on the same `wl_surface`.\n\n**Failure scenario.** Take a TV whose GL ES driver wgpu-hal rejects, or whose `adapter.limits()` makes `request_device` fail. `Auto` logs the fallback, but the failed path's 1920x1080 window surface stays attached to the window's `wl_surface`, with its `wl_egl_window`. Its context stays current, and once it has been made current the driver may already have allocated its buffers. wgpu then creates a second `wl_egl_window` and EGL surface on that `wl_surface`. That works on Mesa. On a Wayland EGL that attaches per-surface protocol objects, a second one on the same `wl_surface` is a protocol error that drops the connection (for example `zwp_linux_explicit_synchronization_v1.get_synchronization` → `synchronization_exists`). If that happens, the fallback fails exactly when it is needed.\n\n`rebuild_surface` has the same gap (`:485-493`). If `eglCreateWindowSurface` fails, it keeps the new `wl_egl_window`, and the next attempt overwrites the pointer, leaking it.\n\n**Repair.**\n- Build `new` in stages behind a guard whose `Drop` undoes them: release the current context, destroy the surface, then the context, then the `wl_egl_window`.\n- Destroy the `wl_egl_window` in `rebuild_surface` when surface creation fails.\n- Test: in `egl_wayland`, a test-only hook makes `new` fail after `eglMakeCurrent`. The test then asserts that no context is current (`eglGetCurrentContext` is null) and that a second `EglWindow` comes up on the same `wl_surface`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/egl/mod.rs"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/tests/egl_wayland.rs"
+        }
+      ]
+    },
+    {
+      "id": "f-s11-pause-keeps-targets",
+      "boundaryId": "s11-platform-egl",
+      "criterionIds": [
+        "EGL-4"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Resolved.** The fork adds `WgpuExternalRenderer::release_targets` (`tizen` 9d9b1f2, cherry-picked from `external-target` 0d26380). It calls `invalidate` (which drops the flip source) and `invalidate_intermediate_textures` (which drops the path intermediate and MSAA textures). The latter is now `pub(crate)` and listed in `docs/upstream-sync.md`; `script/check-upstream` reports 0 violations.\n\n`EglWindow::release_surface` (`egl/mod.rs:578-591`) does this with the context current: it clears the atlas, calls `release_targets`, polls the device so wgpu deletes the dropped textures, and only then drops the window surface. `Backend::release` (`tizen/renderer.rs:121-129`) delegates to it.\n\nTests:\n- I ran `fast::external_target::tests` in `../gpui-fast` on `tizen`: 12 passed. Its new test `released_targets_are_freed_and_the_next_frame_is_whole` asserts that the flip, intermediate and MSAA views are gone and that the next frame is whole and pixel-exact.\n- `pause_and_resume_draw_the_frame_whole` covers the EGL path: release, no draw while paused, rebuild, then age 0, a full redraw, pixels equal to a fresh frame, and partial frames again afterwards.\n\n---\nOriginal finding:\n\n**Expected.** `EGL-4`: \"Pause and resume release and rebuild the active path's resources (`CORE-3`)\". `d13` adds: pause frees \"surface and surface-bound resources\". On the wgpu-surface path, `unconfigure_surface` drops the surface and calls `invalidate_intermediate_textures`, which frees the window-sized path intermediate and MSAA textures (`../gpui-fast` `crates/gpui_wgpu/src/wgpu_renderer.rs:2144-2156`, `:206-211`).\n\n**Observed.** On the EGL path, `Backend::release` (`crates/dxn_gpui_tizen/src/tizen/renderer.rs:126-131`) clears the atlas, then `EglWindow::release_surface` (`src/egl/mod.rs:460-469`) destroys only the EGL surface and the `wl_egl_window`. Two sets of window-sized textures stay allocated while paused:\n- the renderer's flip texture, which always exists because the default framebuffer is drawn Y-flipped (`external_target.rs:483-510`);\n- the core's path intermediate and MSAA textures.\n\n`invalidate()` runs only on resume (`egl/mod.rs:504`). It drops the flip source then, but never the intermediates (`external_target.rs:370-376`).\n\n**Failure scenario.** A 1920x1080 app goes to the background. It keeps at least 8.3 MB for the flip texture, plus 8.3 MB for the path intermediate and about 33 MB for 4x MSAA once paths have been drawn. The wgpu-surface path would have freed all of it. That memory decides whether the TV kills the paused app.\n\nAlso, no test exercises `release_surface`/`rebuild_surface`: `renderer_select::tests` covers only the choice, and `egl_wayland` never pauses.\n\n**Repair.**\n- In `release_surface`, with the context current, drop the renderer's window-sized targets: `invalidate()` frees the flip source, and the fork's `invalidate` (or a small `release_targets`) should also call `invalidate_intermediate_textures`.\n- Add an `egl_wayland` test that draws, releases, rebuilds and draws again, and asserts the read-back pixels match a fresh full frame.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/egl/mod.rs"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/tests/egl_wayland.rs"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/renderer.rs"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/external_target.rs"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/external_target/tests.rs"
+        }
+      ]
+    },
+    {
+      "id": "f-s11-nothing-after-commit",
+      "boundaryId": "s11-platform-egl",
+      "criterionIds": [
+        "EGL-3",
+        "EGL-4"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Resolved.** `TizenWindow::draw` (`window.rs:564-585`) passes the `ecore_wl2_window_commit` as a closure to `Backend::draw(scene, commit)` (`renderer.rs:86-107`):\n- On the surface path, it is called first, as before.\n- On the EGL path, `draw_presenting` calls it only right before an actual swap, in both swap arms (`egl/mod.rs:873-896`).\n\nA `Swap::None` frame therefore commits nothing.\n\n---\nOriginal finding:\n\n**Expected.** For a frame where the renderer draws nothing, the window does what it does for a frame GPUI skipped: no frame request and no pending commit. That is what the comment at `crates/dxn_gpui_tizen/src/tizen/window.rs:574` claims.\n\n**Observed.** `TizenWindow::draw` calls `ecore_wl2_window_commit(ecore, EINA_FALSE)` before it knows whether the backend will swap (`window.rs:568`). `Drawn::Nothing` (`:575`) then leaves EFL with:\n- a `wl_surface.frame` request queued for the next commit;\n- `commit_pending` set (`Ecore_Wayland2.h`: without flush, \"some other call in the very near future (such as eglSwapBuffers)\" is expected to commit).\n\n**Failure scenario.** A hover change re-renders an identical scene on an age-1 buffer, so no swap happens. The next real frame's `ecore_wl2_window_commit` sees `commit_pending` and logs \"Commit before previous commit processed\" to dlog. It destroys the dangling callback and creates a new one. Any internal Ecore commit made in between also delivers a frame callback for a frame that was never presented. Scheduling still recovers, because `Skipped` → `not_presented(false)`. The cost is log noise and the stale state above.\n\n**Repair.** Request the commit only when a swap follows. Two ways:\n- `EglWindow::draw` takes a before-swap hook, which `Backend::draw` uses to call `ecore_wl2_window_commit`.\n- The plan's `Swap` decision is exposed to the window before the swap.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/window.rs"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/renderer.rs"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/egl/mod.rs"
+        }
+      ]
+    },
+    {
+      "id": "f-s11-surfaceless-release",
+      "boundaryId": "s11-platform-egl",
+      "criterionIds": [
+        "EGL-1",
+        "EGL-4"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Resolved.**\n- Without `EGL_KHR_surfaceless_context`, `choose_config` prefers a config that can also make pbuffers (`egl/mod.rs:237-275`).\n- `bind_without_window` (`:644-674`) goes surfaceless when the driver offers it, else onto a lazily made 1x1 pbuffer, else unbinds fully with a warning.\n- `drop_window_surface` (`:631-639`) binds that way before destroying the surface and then the `wl_egl_window`, so the destroyed surface is never left current.\n- `shutdown` (`:714-751`), which runs both on `Backend::destroy` and on `Drop`, drops `Gpu` only with a context current and otherwise forgets it with a warning. It then destroys the surface, the pbuffer, the context and the `wl_egl_window`, and terminates the display.\n- The atlas is its own `Arc`, so `sprite_atlas` is safe after shutdown.\n\nMesa exercises only the surfaceless branch. The pbuffer branch is straightforward EGL 1.4 and remains for the TV run.\n\n---\nOriginal finding:\n\n**Expected.** Release and teardown order is valid on any EGL 1.4 driver. The EGL surface must no longer be current before its `wl_egl_window` is destroyed, and wgpu's GL objects are deleted with a context current.\n\n**Observed.**\n- `release_surface` (`crates/dxn_gpui_tizen/src/egl/mod.rs:464-468`) calls `eglMakeCurrent(display, NONE, NONE, ctx)`. This needs `EGL_KHR_surfaceless_context`, which is never checked, and the result is discarded. It then destroys the surface and the `wl_egl_window`.\n- `Drop` (`:656-658`) drops `Gpu` after a `make_current()` that is surfaceless once the surface was released (pause, or `Backend::destroy` at `tizen/renderer.rs:168`).\n\n**Failure scenario.** On a driver without surfaceless contexts, the call fails with `EGL_BAD_MATCH`. The released surface stays current, and EGL defers its destruction. Its `wl_egl_window` is freed underneath it, so the next `eglMakeCurrent` on resume releases a surface whose native window is gone. At teardown, `glDelete*` runs with no current context.\n\n**Repair.** Check `EGL_KHR_surfaceless_context`. Without it:\n- on pause, unbind fully (`eglMakeCurrent(NONE, NONE, NONE)`) after the atlas clear, before destroying the surface;\n- for teardown, keep a 1x1 pbuffer (or the window surface until `Gpu` is dropped) to make the context current.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/egl/mod.rs"
+        }
+      ]
+    },
+    {
+      "id": "f-s11-damage-region-after-error",
+      "boundaryId": "s11-platform-egl",
+      "criterionIds": [
+        "EGL-3"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Resolved.**\n- The result of `eglSetDamageRegionKHR` is checked; on failure it warns and records no region (`egl/mod.rs:848-861`).\n- `FrameState` records the region before the draw's result is examined (`:865-867`) and clears it on a swap (`:898-900`).\n- If a frame fails, in the draw or in the swap, while its region is in force, `Recovery::NewSurface` drops and rebuilds the window surface (`:799-814`). The next frame then has age 0, is fully redrawn by `rebuild_surface`'s invalidate, and has no region in force.\n- Swap errors now carry `eglGetError`.\n- The state machine is covered by `egl_damage::tests::a_frame_failing_with_its_region_in_force_makes_the_surface_again` (6/6 passed).\n\n---\nOriginal finding:\n\n**Expected.** Each frame either ends with a swap or calls no `eglSetDamageRegionKHR`. Under `EGL_KHR_partial_update`, the region stays in force until the next frame boundary, and a second call in the same frame fails with `EGL_BAD_ACCESS`.\n\n**Observed.** `draw_inspecting` (`crates/dxn_gpui_tizen/src/egl/mod.rs:594-611`) sets the region in the renderer's `before_drawing` callback. If `render_frame` then fails, `draw` returns `Err` without a swap. The renderer invalidates, so the next frame is drawn whole. Its `eglSetDamageRegionKHR` is rejected, and the result goes unchecked (`:602-608`). The failed frame's smaller region stays in force.\n\n**Failure scenario.** On a partial-update driver (tile GPUs such as Mali), a single draw error leads to a \"full\" recovery frame whose pixels outside the old region are undefined, and it is presented. The renderer's history now records that buffer as whole, so later partial frames never repair it. The garbage stays until a full frame happens.\n\n**Repair.** Remember that a region is in force for the open frame. The next `draw` either:\n- closes that frame with a swap first, then queries the age and draws whole;\n- or skips `eglSetDamageRegionKHR` and swaps without damage, after redrawing only inside the region already in force.\n\nAdd an `egl_damage` unit case for the open-frame state.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/egl/mod.rs"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/egl_damage/mod.rs"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/egl_damage/tests.rs"
+        }
+      ]
+    },
+    {
+      "id": "f-s11-blob-cache-main-thread-io",
+      "boundaryId": "s11-platform-egl",
+      "criterionIds": [
+        "EGL-2"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Resolved.**\n- `set` no longer calls `sync_data`: temp file plus rename keeps writes atomic, and the checksum rejects torn files.\n- A size probe stashes the bytes it read for the fetch that follows, so each lookup reads the file once.\n- Only the copy counts as a hit and refreshes the mtime.\n- `set` and `evict` clear a stash for their name, so a stale value is never returned.\n- `a_lookup_counts_once_and_only_the_copy_refreshes_the_entry` covers the counts, the untouched mtime after a probe, and the fetch from the stash (`blob_cache::tests` 5/5 passed on the host).\n\n---\nOriginal finding:\n\n**Expected.** The blob cache's callbacks stay cheap. Drivers call them synchronously from `glLinkProgram` and program loads, which on this platform run on the main thread inside `draw` (the AGENTS constraint: the main thread stays responsive).\n\n**Observed.**\n- Every `set` does `sync_data()` before the rename (`crates/dxn_gpui_tizen/src/blob_cache/mod.rs:213-215`).\n- Every `get` hit reopens the file for writing to update its mtime (`:267-269`). EGL calls `get` twice per key (size probe, then fetch), so each lookup costs two of these opens, and `hits` counts each lookup twice.\n\n**Failure scenario.** On a first run on the TV's eMMC, every compiled GPUI pipeline costs one fsync on the main thread. That adds tens to hundreds of milliseconds to the first frames. The `hits` count the owner will read from dlog for `EGL-2` is doubled.\n\n**Repair.**\n- Drop `sync_data`: the checksum already rejects torn or partial entries, and rename keeps writes atomic.\n- Update the mtime only when the value is actually copied out (`out.len() >= value.len()`), and count hits only then.\n- Extend `blob_cache::tests` to cover the counts.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/blob_cache/mod.rs"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/blob_cache/tests.rs"
+        }
+      ]
     }
   ],
   "handoffMarkdown": "",

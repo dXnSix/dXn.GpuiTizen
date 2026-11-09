@@ -337,7 +337,7 @@
         "EGL",
         "SHELL"
       ],
-      "descriptionMarkdown": "The Tizen platform owns EGL by default (`RunOptions::renderer = Auto`), with wgpu's own surface as the fallback. The\n`egl`, `blob_cache`, `damage_history` and `renderer_select` modules are Linux-generic (raw Wayland pointers in, no\nEcore types), so the Lima VM tests them under Weston's headless backend; the Tizen shell only passes Ecore_Wl2's\n`wl_display` and `wl_surface`. The blob cache is registered on the same `EGLDisplay` before any context exists, which\nis only reliable when the platform owns the display.",
+      "descriptionMarkdown": "The Tizen platform owns EGL by default (`RunOptions::renderer = Auto`), with wgpu's own surface as the fallback. The\n`egl`, `blob_cache`, `egl_damage` and `renderer_select` modules are Linux-generic (raw Wayland pointers in, no\nEcore types), so the Lima VM tests them under Weston's headless backend; the Tizen shell only passes Ecore_Wl2's\n`wl_display` and `wl_surface`. The blob cache is registered on the same `EGLDisplay` before any context exists, which\nis only reliable when the platform owns the display. The damage history lives in the `DMG-2` renderer, which redraws by age;\nthe platform declares exactly the region the renderer reports, so the two can never disagree.",
       "rationaleMarkdown": "Owning EGL removes the full-window copy wgpu's GL surfaces do every frame (about 8 MB read and written per 1080p frame, bandwidth shared with the video decoder) and allows partial presents and the driver's cache (`gpui-route.md`, section 6). The fallback keeps TVs whose EGL refuses an external context drawing."
     },
     {

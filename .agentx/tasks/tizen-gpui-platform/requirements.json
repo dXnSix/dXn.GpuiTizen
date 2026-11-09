@@ -402,12 +402,12 @@
         },
         {
           "id": "EGL-2",
-          "descriptionMarkdown": "**The driver's shader cache.** When the display offers `EGL_ANDROID_blob_cache`, the `egl` module registers its\nset/get callbacks before creating the context, backed by a `blob_cache` store: one file per key under\n`<app cache dir>/egl-blob-cache/`, bounded total size with least-recently-used eviction, atomic writes, corrupt or\ntruncated entries ignored. The `blob_cache::tests` group covers store, load, eviction, corruption and concurrent\ncallers; the Lima integration test (`EGL-5`) shows Mesa calling `set` on the first run and `get` hits on a second\ncontext.",
+          "descriptionMarkdown": "**The driver's shader cache.** When the display offers `EGL_ANDROID_blob_cache`, the `egl` module registers its\nset/get callbacks before creating the context, backed by a `blob_cache` store: one file per key under\n`<app cache dir>/egl-blob-cache/`, bounded total size with least-recently-used eviction, atomic writes, corrupt or\ntruncated entries ignored. The `blob_cache::tests` group covers store, load, eviction, corruption and concurrent\ncallers; the Lima integration test (`EGL-5`) shows the store registered on the display and reached through the\ncallbacks EGL was given; whether a driver calls them is checked on the TV in the owner's device run, where the\nwindow logs the cache's counts to dlog (Mesa's llvmpipe advertises the extension but keeps its own disk cache).",
           "verification": "automated"
         },
         {
           "id": "EGL-3",
-          "descriptionMarkdown": "**Partial presents.** Each frame the `egl` module queries `EGL_BUFFER_AGE_EXT`, asks the renderer for the frame's\ndamage (`DMG-1`), keeps a damage history of the last three frames in `damage_history` (pure, host-tested by\n`damage_history::tests`: age 0 and ages beyond the history mean full frame, rectangle unions in GL's bottom-left\ncoordinates), calls `eglSetDamageRegionKHR` before drawing and `eglSwapBuffersWithDamageKHR` after, and draws nothing\nwhen GPUI did not ask for a frame. Without the extensions it draws and swaps the full frame.",
+          "descriptionMarkdown": "**Partial presents.** Each frame the `egl` module queries `EGL_BUFFER_AGE_EXT` and passes the age to the `DMG-2`\nrenderer, which keeps the damage history and returns, before drawing, the frame's damage and the region it redraws\nfor that age, in GL's bottom-left coordinates (`DMG-3`). The pure `egl_damage` module (host-tested by\n`egl_damage::tests`) reads the display's extensions and turns that into EGL calls: `eglSetDamageRegionKHR` with the\nredraw region before drawing (`EGL_KHR_partial_update`), `eglSwapBuffersWithDamageKHR`/`EXT` with the frame damage\nafter, no swap when the renderer drew nothing, and age 0 (a full frame) without `EGL_EXT_buffer_age` or when the query\nfails. Without the extensions it draws and swaps the full frame.",
           "verification": "automated"
         },
         {
@@ -417,7 +417,7 @@
         },
         {
           "id": "EGL-5",
-          "descriptionMarkdown": "**Desktop proof.** In the Lima VM, under `weston --backend=headless` with Mesa's software EGL on Wayland, the\n`egl_wayland` integration test of `dxn_gpui_tizen` creates a `wl_surface` with `wayland-client`, runs the `egl`\nmodule with a small GPUI-free scene through the `DMG-2` renderer, and asserts: the context is GL ES 3.x, blob-cache\ncallbacks fire, a second frame with a small change swaps with damage (when Mesa reports buffer age), and read-back\npixels match the expected frame.",
+          "descriptionMarkdown": "**Desktop proof.** In the Lima VM, under `weston --backend=headless` with Mesa's software EGL on Wayland, the\n`egl_wayland` integration test of `dxn_gpui_tizen` creates a `wl_surface` with `wayland-client`, runs the `egl`\nmodule with a small GPUI-free scene through the `DMG-2` renderer, and asserts: the context is GL ES 3.x, the blob cache is\nregistered and its callbacks reach the store, a second frame with a small change swaps with damage (when Mesa reports buffer age), and read-back\npixels match the expected frame.",
           "verification": "automated"
         },
         {

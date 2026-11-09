@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 22,
+  "revision": 25,
   "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
   "repositories": [
     {
@@ -1381,7 +1381,7 @@
         "-p",
         "dxn_gpui_tizen",
         "--lib",
-        "damage_history::tests"
+        "egl_damage::tests"
       ],
       "expected": {
         "exitCode": 0,
@@ -4030,8 +4030,8 @@
         },
         {
           "id": "t11-damage-history",
-          "title": "Damage history for buffer age",
-          "descriptionMarkdown": "Implement the `damage_history` module of `EGL-3` (three-frame history, union by age, conversion to GL's bottom-left origin, full frame on age 0 or beyond history) with `damage_history::tests`.",
+          "title": "Damage to EGL calls",
+          "descriptionMarkdown": "Implement the `egl_damage` module of `EGL-3` (extension support from the display's extension string, the age\nto pass the renderer, EGL rectangle arrays from the renderer's `WgpuFrameDamage`, which calls to make, no swap when\nnothing was drawn) with `egl_damage::tests`.",
           "criterionIds": [
             "EGL-3"
           ],
@@ -4115,7 +4115,9 @@
           ],
           "checkIds": [
             "chk-link-armv7",
-            "chk-link-x86_64"
+            "chk-link-x86_64",
+            "chk-xtask-symcheck",
+            "chk-xtask-release"
           ]
         }
       ]
