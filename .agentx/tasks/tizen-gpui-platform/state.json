@@ -1,12 +1,12 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 177,
-  "planRevision": 20,
+  "revision": 188,
+  "planRevision": 22,
   "specHashes": {
-    "requirements": "4dbaca28ac846a064bc1cd1d6006c1250a9388f43f49a9fca8da78f8471d3fcb",
-    "design": "5487385df03e43e1022c72c2eabd27cc363a581ba19579287a2972b2b2d6f2e2",
-    "plan": "c3dedbc39b2307c55c1bdf9a0d559ccb3ac810137f63fda0bb4d2c3097d158b1"
+    "requirements": "32e5993b38ee3a250c7a772a752bd70575422f3b105ef3e52346ac3ef9d80d31",
+    "design": "c164d62c644c4ab947ad0e789b792a66c24518c83e31e3c52862e84e89f02781",
+    "plan": "f7bf21c49e9565354ae9747acfe2b409c5b2342dad8b8f445874fdff4fafcf54"
   },
   "tasks": {
     "t1-workspace": {
@@ -247,13 +247,22 @@
       ]
     },
     "t10-scene-damage": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t10-external-target": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t10-integration": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t11-blob-cache": {
       "status": "pending"
@@ -614,6 +623,18 @@
         }
       },
       "recordedAt": "2026-11-09T02:08:46Z"
+    },
+    "32cecbe2da79356299dde150dc5b1ae70648f3825c591fa365c5cc97ae41a146": {
+      "snapshot": {
+        "specHash": "e103742af758eb482297a91dff7106a052d0a86fccb7062cd5ff1c419d59c1ef",
+        "repositories": {
+          "gpuitizen": "a03d3baf5259f07e137748a4cc76532d89d81abde5010b36fd554c245f0a3e5b",
+          "gpui-fast": "9f4f5b8150fbfa08b05bb8b4ca63801f533bb749c47d391c6a9d85a4bfa6f0b5",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "44cd091043852019714da3ec9eda618bc3e237317015dcf281d4f1afb8693e3f"
+        }
+      },
+      "recordedAt": "2026-11-09T09:58:23Z"
     }
   },
   "checkResults": {
@@ -1636,6 +1657,91 @@
       "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s9-wgpu-final-019a3b3c9659.log",
       "logSha256": "7bba57e28bb3ec17ed9980796fd15b2bd327ea07b0a1a847ae99884a657cbed3",
       "inputsHash": "a1d7b2ada2cc4129970a6b130ce0e3d3d0800d056a37a89ade9a4c0dc30db67f"
+    },
+    "s10-damage/chk-gf-check-upstream/final": {
+      "checkId": "chk-gf-check-upstream",
+      "boundaryId": "s10-damage",
+      "phase": "final",
+      "batchId": "32cecbe2da79356299dde150dc5b1ae70648f3825c591fa365c5cc97ae41a146",
+      "definitionHash": "325cf7713b8a7381b79561f8b5fb535cadb56abe2963189d0accfc2fe32d530a",
+      "basisHash": "908a9c180beb842bea92e92fc08b2185beb8930102ca4b1658d3aadf1ddc7eba",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 2.2795,
+      "recordedAt": "2026-11-09T09:57:47Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s10-damage-final-8d1d2cb97d4e.log",
+      "logSha256": "31112719c0bd456370b4968ab295c62a11ce7f3f05108c5cb0dc78fa5e6e4863",
+      "inputsHash": "2dabb2f50f20c743015f3d215df532754a323ead261834f250b592d3e0c96c05"
+    },
+    "s10-damage/chk-gf-clippy/final": {
+      "checkId": "chk-gf-clippy",
+      "boundaryId": "s10-damage",
+      "phase": "final",
+      "batchId": "32cecbe2da79356299dde150dc5b1ae70648f3825c591fa365c5cc97ae41a146",
+      "definitionHash": "6210c8f9ffd02fab8295f1c70c442921093b877892f607a51a9834d49784de75",
+      "basisHash": "62837ea63dd55eb86521388c46af8d3337bbf68447e8a3beedced1019d949dc9",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 0.447,
+      "recordedAt": "2026-11-09T09:57:47Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s10-damage-final-57f18347258e.log",
+      "logSha256": "bcb74884a78099501f6bfc31de29d15aae4eb48dcd18d5c99bdde44d75b90089",
+      "inputsHash": "1e164e46a5e6a5b9058da8c667222fd11a4796aa7473495fdde4c56c31bb9dcf"
+    },
+    "s10-damage/chk-gf-release/final": {
+      "checkId": "chk-gf-release",
+      "boundaryId": "s10-damage",
+      "phase": "final",
+      "batchId": "32cecbe2da79356299dde150dc5b1ae70648f3825c591fa365c5cc97ae41a146",
+      "definitionHash": "44bc68fe0dafd089441686890151bbd098d3682c60b008da53c97c0f59875c4f",
+      "basisHash": "a675a1dcc713899b4725b6e8c6eadf0276408603e9a20a33e65ef14cc1fbeb3a",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 33.5468,
+      "recordedAt": "2026-11-09T09:58:21Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s10-damage-final-77fa1905c18d.log",
+      "logSha256": "c79f754f890e848baa07cc00223d8e7120dfc89c8161484e0614e77b9b3ca931",
+      "inputsHash": "74b9400d30cdf74261ee2fb5189b4291b05d465e722d47c33ebaa81efe89644a"
+    },
+    "s10-damage/chk-gf-damage/final": {
+      "checkId": "chk-gf-damage",
+      "boundaryId": "s10-damage",
+      "phase": "final",
+      "batchId": "32cecbe2da79356299dde150dc5b1ae70648f3825c591fa365c5cc97ae41a146",
+      "definitionHash": "6f583cad62beff5c6430f654cee53aa6b92d01b83a6fcfc18ea15e4775e36cf6",
+      "basisHash": "f76c47de458477ad6b0e2f0d6f27611817091bdfb52797226fbe645cc5ad1e00",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 13,
+      "durationSeconds": 0.5687,
+      "recordedAt": "2026-11-09T09:58:21Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s10-damage-final-7ee1551d0c39.log",
+      "logSha256": "41174f6e3792db5737ebc2380b034c8a6e577da56ea3d7c79f68ce28c5aca9fb",
+      "inputsHash": "4dc1144ce7b234cc79e127d7a7e12a2aaeda48aaf63312e8f3325f9662183720"
+    },
+    "s10-damage/chk-gf-external-target/final": {
+      "checkId": "chk-gf-external-target",
+      "boundaryId": "s10-damage",
+      "phase": "final",
+      "batchId": "32cecbe2da79356299dde150dc5b1ae70648f3825c591fa365c5cc97ae41a146",
+      "definitionHash": "d70b8e3a5cb1addd991379e702a57de2c147cbe05fb6c726ae3bf735096fb98f",
+      "basisHash": "290ee2c0d3cdbad7a7cc19b3dd03b512540eb41ea1b42db6341b01730fe80103",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 11,
+      "durationSeconds": 0.5622,
+      "recordedAt": "2026-11-09T09:58:22Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s10-damage-final-93c8bd8ae1cc.log",
+      "logSha256": "3903cc173970d151a011e3e34014357bc272874b9f75948757ce8bbe6c50850d",
+      "inputsHash": "4dc1144ce7b234cc79e127d7a7e12a2aaeda48aaf63312e8f3325f9662183720"
     }
   },
   "reviews": {
@@ -3680,6 +3786,168 @@
         "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
       }
+    },
+    "s10-damage": {
+      "reviewerId": "reviewer-s10-independent",
+      "snapshotId": "32cecbe2da79356299dde150dc5b1ae70648f3825c591fa365c5cc97ae41a146",
+      "criterionIds": [
+        "DMG-1",
+        "DMG-2",
+        "DMG-3",
+        "DMG-4"
+      ],
+      "verdict": "passed",
+      "anchors": [
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/damage.rs",
+          "kind": "source",
+          "criterionIds": [
+            "DMG-1"
+          ],
+          "sha256": "d42ce2080f1f97dc98acdf336697f1bfbab19a7a5057e35488e45c0b48e1625d"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/damage/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "DMG-1"
+          ],
+          "sha256": "a03a83be2d3f18defdff14270648d297df43eecec5f1aca4e16e79856703a56e"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/frame.rs",
+          "kind": "source",
+          "criterionIds": [
+            "DMG-3"
+          ],
+          "sha256": "6d8923be32f5956b0e16180a15194bab229b02dd263e93fb0aafcd7bf36ed0d4"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/external_target.rs",
+          "kind": "source",
+          "criterionIds": [
+            "DMG-2",
+            "DMG-3"
+          ],
+          "sha256": "7b93fe81e2b279ee21d986ee36477e4d863ceab9fcd9c5291ea0aaebd5dde681"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/external_target/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "DMG-2",
+            "DMG-3"
+          ],
+          "sha256": "e171c03acc36467059279fbba15c66054647771ad9939ccb395163913cccaeb4"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/wgpu_context.rs",
+          "kind": "source",
+          "criterionIds": [
+            "DMG-2"
+          ],
+          "sha256": "d559bdf636f168300ebec16a302c458c62087cd916f9d88e69259d05e49c36c6"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/gpui_wgpu.rs",
+          "kind": "source",
+          "criterionIds": [
+            "DMG-2",
+            "DMG-4"
+          ],
+          "sha256": "ad54378c4c63b67efb7ff7c0a8c2daadf6ae3f4eb1bfcf918792782ff2b05860"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "docs/upstream-sync.md",
+          "kind": "source",
+          "criterionIds": [
+            "DMG-2",
+            "DMG-4"
+          ],
+          "sha256": "1e186e272a9658c6641c2ae1afeb9d27a791b1f0ef7f7111a57454c0cd268087"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "script/check-upstream",
+          "kind": "source",
+          "criterionIds": [
+            "DMG-4"
+          ],
+          "sha256": "853b588d0f3a87e5c137ce617e4e6948130f6702ccb2d48f71416ef9e9df9d4d"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s10-damage-final-7ee1551d0c39.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "DMG-1"
+          ],
+          "sha256": "41174f6e3792db5737ebc2380b034c8a6e577da56ea3d7c79f68ce28c5aca9fb"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s10-damage-final-93c8bd8ae1cc.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "DMG-2",
+            "DMG-3"
+          ],
+          "sha256": "3903cc173970d151a011e3e34014357bc272874b9f75948757ce8bbe6c50850d"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s10-review2-linux-gl.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "DMG-1",
+            "DMG-2",
+            "DMG-3"
+          ],
+          "sha256": "c753ae09fae49c8d00af4a8208565f7f5794356bb8ed5bf41f0b7c84524c7eca"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s10-damage-final-8d1d2cb97d4e.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "DMG-4"
+          ],
+          "sha256": "31112719c0bd456370b4968ab295c62a11ce7f3f05108c5cb0dc78fa5e6e4863"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s10-damage-final-77fa1905c18d.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "DMG-4"
+          ],
+          "sha256": "c79f754f890e848baa07cc00223d8e7120dfc89c8161484e0614e77b9b3ca931"
+        }
+      ],
+      "summaryMarkdown": "**Verdict: passed.** DMG-1 to DMG-4 are met at 32cecbe2, and all eight findings from the first s10 review are resolved. I re-read the full source on `tizen` 9099eaa and both change branches.\n\n**DMG-1**\n- The soundness argument is unchanged: a Myers diff of order-free hashes, so primitives on the common subsequence keep their content and relative order.\n- Primitive areas cover blur, wavy underlines, antialiasing and content masks. Transformed sprites damage the whole window.\n- Layer tiles are keyed by generation, and clip groups by their content plus their geometry frames.\n- Merging is bounded (above 64 areas, one bounding rectangle).\n- Full damage on resize, `invalidate`, more than 512 edits and `GPUI_PARTIAL_REDRAW=0`.\n\n**DMG-2 and DMG-3**\n- The partial-frame path:\n  - The caller gets `WgpuFrameDamage` before any GPU work, in the target's coordinates.\n  - A partial rectangle is cleared to transparent, then drawn with load and scissor.\n  - Tile rasterization and path intermediates are untouched.\n- Age counts frames that had damage (empty frames are not recorded), which is conservative whether or not the caller swaps.\n- Failure handling: device loss, uncaptured errors and drawing errors fail the frame and invalidate, and the next frame is whole.\n\n**DMG-4**\n- `script/check-upstream` passes on `scene-damage` and on `external-target` (I reran both in temporary worktrees, now removed) and on `tizen`.\n- `scene-damage` passes library clippy on its own (I reran it).\n- The cherry-picks follow changes 1-3, and `gpui-fast-release --verify` reports ok at 9099eaa.\n\n**Reruns:**\n- `fast::damage::tests` 13/13 and `fast::external_target::tests` 11/11 on Metal.\n- The same 24 on llvmpipe GL in the Lima VM (`s10-review2-linux-gl.log`).\n\n**Note (not a criterion defect):** `tizen`'s `fast/damage.rs` has a double blank line after the module docs, left where the branch's `#![cfg_attr(.., allow(dead_code))]` was removed. `cargo fmt -p gpui_wgpu --check` flags it on `tizen` only. gpui-fast's CI formats only `gpui`/`gpui_perf`, so this is cleanup for the next `tizen` commit.",
+      "findingIds": [
+        "f-s10-partial-no-clear",
+        "f-s10-empty-frame-history",
+        "f-s10-failed-frame-desync",
+        "f-s10-damage-before-draw",
+        "f-s10-merge-cubic",
+        "f-s10-dirty-tile-salt",
+        "f-s10-clip-vertical-radii",
+        "f-s10-design-drift"
+      ],
+      "recordedAt": "2026-11-09T10:01:47Z",
+      "recordHashes": {
+        "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
     }
   },
   "checkpoints": {
@@ -3798,6 +4066,17 @@
       "refs": {
         "wgpu": "agentx/tizen-gpui-platform"
       }
+    },
+    "s10-damage": {
+      "snapshotId": "32cecbe2da79356299dde150dc5b1ae70648f3825c591fa365c5cc97ae41a146",
+      "commits": {
+        "gpuitizen": "3822e5f34b839a8675a6f367ca020aa35b0ca29f",
+        "gpui-fast": "9099eaa1716b4fa00430e2c96d69dbb295f1f6eb",
+        "wgpu": "4e3d80d5de97d1e66860f0f74fca92d50be70d4a",
+        "nsh": "7be66038d6cef63581f6bf0180b2bc8087bbf224"
+      },
+      "reviewHash": "453e07d6800c0b2aa3101668daf9c591ea6973a80709a5c0c822ac3874dcca06",
+      "recordedAt": "2026-11-09T10:02:08Z"
     }
   },
   "findings": [
@@ -4716,6 +4995,172 @@
           "path": "tests/tests/wgpu-gpu/pipeline_cache.rs"
         }
       ]
+    },
+    {
+      "id": "f-s10-partial-no-clear",
+      "boundaryId": "s10-damage",
+      "criterionIds": [
+        "DMG-3"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/external_target.rs"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/external_target/tests.rs"
+        }
+      ],
+      "descriptionMarkdown": "**Resolved at 32cecbe2** (`tizen` 9099eaa, `external-target` 79b5148). Before a partial frame, `draw_region` (`external_target.rs:551-573`) runs a scissored pass whose pipeline writes `vec4(0)` with blending off, the same as the full frame's `TRANSPARENT` clear. It then draws with `LoadOp::Load` and the same scissor. My repro is now `a_partial_frame_clears_what_disappears`: a red quad over nothing, removed, age 1, flipped and unflipped. It compares the whole image with a full redraw of the empty scene and passes on Metal and on llvmpipe GL (`s10-review2-linux-gl.log`)."
+    },
+    {
+      "id": "f-s10-empty-frame-history",
+      "boundaryId": "s10-damage",
+      "criterionIds": [
+        "DMG-3"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/external_target.rs"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/external_target/tests.rs"
+        }
+      ],
+      "descriptionMarkdown": "**Resolved.** An empty `Damage::Rects` is no longer recorded (`external_target.rs:435-439`). An unchanged frame redraws nothing at age 1, and `redraw_region(history, age-1)` otherwise (`:442-447`).\n\nThis is conservative whether or not the caller swaps. The non-empty frames among the last n-1 frames are a prefix of `history` of length at most n-1, and a shorter history gives a full frame. `an_unchanged_frame_is_not_counted_in_the_age` covers A changed, B unchanged, then C into an age-2 target: A's area is redrawn and its pixels match."
+    },
+    {
+      "id": "f-s10-failed-frame-desync",
+      "boundaryId": "s10-damage",
+      "criterionIds": [
+        "DMG-2",
+        "DMG-3"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/external_target.rs"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/external_target/tests.rs"
+        }
+      ],
+      "descriptionMarkdown": "**Resolved.** `draw` (`external_target.rs:386-412`):\n- fails and invalidates (tracker, history, flip texture) on device loss, or on an uncaptured error observed since the last frame (generation starts at `current_generation()`);\n- invalidates on any error from drawing;\n- documents in `new` that it replaces the device's callbacks and wgpu's default panic.\n\nA validation error raised during frame N is reported by frame N+1, and frame N+2 is whole, so the tracker never builds on an unconfirmed frame for more than one presented frame. Checking right after submitting would catch native wgpu's synchronous validation errors one frame earlier; that is optional. `a_gpu_error_fails_the_next_frame_and_the_one_after_is_whole` (an invalid `MAP_READ|MAP_WRITE` buffer) passes on Metal and GL."
+    },
+    {
+      "id": "f-s10-damage-before-draw",
+      "boundaryId": "s10-damage",
+      "criterionIds": [
+        "DMG-2"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/external_target.rs"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/external_target/tests.rs"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "docs/upstream-sync.md"
+        }
+      ],
+      "descriptionMarkdown": "**Resolved.** `draw(.., age, before_drawing: impl FnOnce(&WgpuFrameDamage))` calls the callback after the damage and redraw region are computed and before any GPU work (`external_target.rs:472-476`), including flip-texture creation. It returns the same `WgpuFrameDamage { damage, redraw }`.\n\nWith `flip_y`, both are in the target's coordinates (`flip_rect`, rows from the bottom, as EGL's rectangles). `redraw` is exactly what the target receives: the scissored clear and scene for an unflipped target, and the scissored blit of the flipped `redraw` for a flipped one. That is what `eglSetDamageRegionKHR` needs.\n\nThe harness asserts on every frame that the callback got the returned value. `damage_is_given_before_drawing_in_target_coordinates` checks the flipped rows. d23 and `docs/upstream-sync.md` name the revised API."
+    },
+    {
+      "id": "f-s10-merge-cubic",
+      "boundaryId": "s10-damage",
+      "criterionIds": [
+        "DMG-1"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/damage.rs"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/damage/tests.rs"
+        }
+      ],
+      "descriptionMarkdown": "**Resolved.** More than `MAX_MERGED_AREAS` (64) device rectangles fold into one bounding rectangle before the pairwise passes (`damage.rs:485-488`). That is conservative and is what DMG-3 draws anyway.\n\nThe remaining cubic passes run on at most 64 rectangles: 0.36 ms on Apple Silicon for 64 changed cells in my copy of the old algorithm, which is the same worst case. `many_changed_areas_become_one_rectangle` (200 changed quads, 400 areas) checks the single covering rectangle."
+    },
+    {
+      "id": "f-s10-dirty-tile-salt",
+      "boundaryId": "s10-damage",
+      "criterionIds": [
+        "DMG-1"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/damage.rs"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/damage/tests.rs"
+        }
+      ],
+      "descriptionMarkdown": "**Resolved.** Layer tiles hash only their layer's generation (`damage.rs:333-338`). `a_dirty_layer_tile_is_damaged_when_its_layer_changes` shows a tile still listed as dirty with the same generation gives no damage, and a new generation damages it."
+    },
+    {
+      "id": "f-s10-clip-vertical-radii",
+      "boundaryId": "s10-damage",
+      "criterionIds": [
+        "DMG-1"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/damage.rs"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/damage/tests.rs"
+        }
+      ],
+      "descriptionMarkdown": "**Resolved.** Clip groups also hash every `layers.frames` entry of their content scene: key, generation, tile size, and background, which holds the geometry frame's vertical radii (`damage.rs:316-323`). `a_clip_group_s_vertical_radii_are_part_of_it` changes only the vertical radii and gets the group's area as damage."
+    },
+    {
+      "id": "f-s10-design-drift",
+      "boundaryId": "s10-damage",
+      "criterionIds": [
+        "DMG-1",
+        "DMG-2"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/wgpu_renderer.rs"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "docs/upstream-sync.md"
+        }
+      ],
+      "descriptionMarkdown": "**Resolved.** The three surface-renderer hooks are gone. `scene-damage` now touches no upstream file (`git diff upstream/main scene-damage`: `fast/damage.rs`, its tests and `fast/mod.rs`), and `FrameState` has no tracker; `WgpuExternalRenderer` owns it. d23 (amend `amend-s10-d23.json`) names `new`, `draw` with the callback, `WgpuFrameDamage`, `sprite_atlas`, `invalidate`, the owned tracker and the kept-texture flip, and gives the reason (shaders untouched). `docs/upstream-sync.md` lists the same."
     }
   ],
   "handoffMarkdown": "",

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 20,
+  "revision": 22,
   "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
   "repositories": [
     {
@@ -3952,7 +3952,7 @@
         {
           "id": "t10-external-target",
           "title": "Drawing into a supplied target with partial redraw (`external-target`)",
-          "descriptionMarkdown": "Cut `external-target` from `upstream/main` with `scene-damage` cherry-picked first (record that dependency in the\nbranch's description for upstream). Implement `DMG-2` and `DMG-3`: the constructor over an existing adapter and\ndevice, the draw call into a supplied view (Y-flip through the projection, `LoadOp::Load` plus scissor rectangles for\npartial frames, `LoadOp::Clear` for full ones), returning the damage. Keep logic in `fast/external_target.rs`; the\npublic items are the documented exception, listed in the fork's `docs/upstream-sync.md`. Pixel tests through\n`WgpuHeadlessRenderer`'s device. Cherry-pick into `tizen`.",
+          "descriptionMarkdown": "Cut `external-target` from `upstream/main` with `scene-damage` cherry-picked first (record that dependency in the\nbranch's description for upstream). Implement `DMG-2` and `DMG-3`: the constructor over an existing adapter and\ndevice, the draw call into a supplied view (Y-flip through a kept texture and a flipped blit, `LoadOp::Load` plus a cleared scissor rectangle for\npartial frames, `LoadOp::Clear` for full ones), returning the damage. Keep logic in `fast/external_target.rs`; the\npublic items are the documented exception, listed in the fork's `docs/upstream-sync.md`. Pixel tests through\n`WgpuHeadlessRenderer`'s device. Cherry-pick into `tizen`.",
           "criterionIds": [
             "DMG-2",
             "DMG-3"

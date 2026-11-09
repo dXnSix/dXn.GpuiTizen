@@ -380,7 +380,7 @@
         },
         {
           "id": "DMG-3",
-          "descriptionMarkdown": "**Partial redraw into a preserved target** (on `external-target`, using `scene-damage`). Given the damage of `DMG-1`\nand the target's age (how many frames ago its contents were drawn, 0 when unknown), the renderer loads the existing\ncontents and draws only inside the union of the damage of the last `age` frames, scissored; age 0 or more than the\nkept history draws the whole frame. `fast::external_target::tests::partial` proves with pixel read-back that pixels\noutside the damage keep the previous frame and pixels inside match a full redraw.",
+          "descriptionMarkdown": "**Partial redraw into a preserved target** (on `external-target`, using `scene-damage`). Given the damage of `DMG-1`\nand the target's age (how many frames ago its contents were drawn, 0 when unknown), the renderer loads the existing\ncontents and draws only inside the bounding rectangle of the union of the damage of the last `age` frames, scissored (a\nconservative superset, design `d23-damage-external-target`: a render pass has one scissor rectangle); age 0 or more than the\nkept history draws the whole frame. `fast::external_target::tests::partial` proves with pixel read-back that pixels\noutside the damage keep the previous frame and pixels inside match a full redraw.",
           "verification": "automated"
         },
         {
