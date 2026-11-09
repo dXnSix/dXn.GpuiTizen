@@ -217,6 +217,18 @@ pub fn uses_patch_config(cargo_args: &[String]) -> bool {
     })
 }
 
+/// The Cargo arguments of a TV build of this workspace: `--config <patch config>` in front,
+/// unless they name the patch config already. The platform builds on the forks' API (the
+/// external-target renderer), so TV builds always take gpui-fast and wgpu from the forks.
+pub fn patched_cargo_args(cargo_args: &[String], config: &Path) -> Vec<String> {
+    if uses_patch_config(cargo_args) {
+        return cargo_args.to_vec();
+    }
+    let mut args = vec!["--config".to_owned(), config.display().to_string()];
+    args.extend(cargo_args.iter().cloned());
+    args
+}
+
 /// Files of the release workspace that `cargo check` adds and `prepare-release.ts` does not
 /// write; they stay out of `tizen-release`.
 pub const NOT_RELEASED: &[&str] = &["target", "Cargo.lock", ".git"];

@@ -198,3 +198,15 @@ fn std_s_weak_glibc_functions_newer_than_the_tvs_glibc_pass_only_weak() {
         "a strong import would fail to load on the TV"
     );
 }
+
+#[test]
+fn std_s_weak_time64_functions_on_32_bit_pass_only_weak() {
+    // `File::set_modified` on armv7 (the EGL blob cache's access times).
+    let weak = format!("{CLEAN_UNDEFINED}         w __futimens64\n         U futimens@GLIBC_2.6\n");
+    assert_eq!(run(CLEAN_DEFINED, &weak), []);
+    let strong = format!("{CLEAN_UNDEFINED}         U __futimens64\n");
+    assert_eq!(
+        run(CLEAN_DEFINED, &strong),
+        [Violation::UndocumentedImport("__futimens64".into())]
+    );
+}

@@ -248,3 +248,21 @@ fn wgpu_hal_from_the_registry_or_twice_fails_the_lock() {
             .contains("wgpu-hal is not in the graph")
     );
 }
+
+#[test]
+fn tv_builds_take_the_patch_config_once() {
+    let config = Path::new("/repo/artifacts-temp/gpui-fast-patch.toml");
+    let args = |list: &[&str]| -> Vec<String> { list.iter().map(|s| (*s).to_owned()).collect() };
+    assert_eq!(
+        patched_cargo_args(&args(&["-p", "example_counter"]), config),
+        args(&[
+            "--config",
+            "/repo/artifacts-temp/gpui-fast-patch.toml",
+            "-p",
+            "example_counter"
+        ])
+    );
+    let already = args(&["--config", "artifacts-temp/gpui-fast-patch.toml", "-p", "x"]);
+    assert_eq!(patched_cargo_args(&already, config), already);
+    assert!(uses_patch_config(&patched_cargo_args(&[], config)));
+}

@@ -96,6 +96,25 @@ fn run_cross(options: &Options) -> Result<ExitCode> {
 /// `cdylib`s it built, or `None` when the build or a check failed.
 fn cross_build(options: &Options) -> Result<Option<Vec<PathBuf>>> {
     let root = workspace_root();
+    // This workspace's TV builds take gpui-fast and wgpu from the forks (the patch config that
+    // `cargo xtask gpui-fast-release --verify` writes); a build of another workspace does not.
+    let patched;
+    let options = if options.manifest_path().is_none() {
+        let config = root.join(xtask::release::PATCH_CONFIG);
+        if !config.is_file() {
+            bail!(
+                "{} is missing: TV builds take gpui-fast and wgpu from the forks; run `cargo xtask gpui-fast-release --verify` first",
+                config.display()
+            );
+        }
+        patched = Options {
+            cargo_args: xtask::release::patched_cargo_args(&options.cargo_args, &config),
+            ..options.clone()
+        };
+        &patched
+    } else {
+        options
+    };
     let toolchain = pinned_toolchain(&root)?;
     let own_metadata = cargo_metadata(&toolchain, None, None)?;
     let tv_libs = cross::cdylib_packages(&own_metadata);

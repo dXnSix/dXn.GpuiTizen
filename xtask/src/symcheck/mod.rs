@@ -17,7 +17,9 @@ pub const DEFAULT_ENTRY: &str = "dxn_gpui_tizen_main";
 pub const SYSTEM_VERSION_PREFIXES: &[&str] = &["GLIBC_", "GCC_"];
 
 /// Unversioned weak imports emitted by the C runtime start files and Rust's `std` that the
-/// run-time loader resolves (or leaves null) without a library. The last three are glibc
+/// run-time loader resolves (or leaves null) without a library. `__clock_gettime64` and
+/// `__futimens64` are 32-bit glibc's 64-bit-time variants, which `std` binds weakly and falls back
+/// from (to the versioned `clock_gettime` and `futimens`). The last three are glibc
 /// functions newer than the TVs' glibc 2.30 that `std::process` binds weakly (unversioned, since
 /// the rootstrap's glibc lacks them) and falls back from when null; `zbus` (under
 /// `accesskit_unix`) links process spawning in.
@@ -26,6 +28,7 @@ pub const LOADER_WEAK_IMPORTS: &[&str] = &[
     "_ITM_deregisterTMCloneTable",
     "_ITM_registerTMCloneTable",
     "__clock_gettime64",
+    "__futimens64",
     "__pthread_get_minstack",
     "pidfd_getpid",
     "pidfd_spawnp",
