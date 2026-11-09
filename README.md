@@ -63,6 +63,39 @@ while its frame has holes (on the EGL path with `EGL_KHR_no_config_context`). Wh
 translucent, or when asked (`Output::Texture`), decoded frames are converted to RGBA and drawn as a dynamic texture,
 which also works inside transformed or clipped UI. `examples/video` plays a bundled clip with a control row over it.
 
+## Packaging and store submission
+
+`cargo xtask package --app <app> --target <armv7|x86_64|aarch64>` stages a TPK tree under `target/tpk/`;
+`--target all` stages one package per TV architecture (armv7 and aarch64, each with its own fourth version number
+and CPU feature) and the multi-architecture `.zip` for Seller Office (see the assumptions below). Packages are signed only with
+`--sign <profile>`, the owner's Samsung certificate profile (`tz pack`).
+
+Before submitting, `cargo xtask store-check <tpk or staged dir>` checks what can be checked on the Mac: the manifest
+(package id, version, API version 8.0, the `tv-samsung` profile, the app id), the icon (a 512×423 PNG), the
+privileges against those the feature description declares, one export and only allowlisted imports in each native
+library, the sizes, and the feature description file itself. The templates are in `store/feature-description.<app>.md`;
+complete them for the app being submitted.
+
+NSH apps package with `nsh package --target tizen`; check the TPK it writes with the NSH entry point and the app's own
+feature description:
+
+```bash
+cargo xtask store-check path/to/App.tpk --entry nsh_tizen_main --feature-description store/feature-description.my_app.md
+```
+
+`store-check` also takes the multi-architecture `.zip`: it checks the upload as a whole (one package id and
+version, a fourth version number unique to each package, each package's CPU feature against its library's
+architecture) and then each package.
+
+The multi-architecture layout follows Seller Office's launch checklist, which leaves details open. These are
+assumptions until the first submission confirms them (the owner's store sprint): the CPU feature keys
+(`http://tizen.org/feature/platform.core.cpu.arch.armv7` / `armv8`), that a four-part version is accepted in
+`tizen-manifest.xml`, that the `.zip` holds the packages at its top level, and where `tz pack` writes the signed
+package (`--target all --sign` looks next to and inside each staged tree).
+
+Submission itself (Seller Office, the certificates, the answer on native libraries for public sellers) is the
+owner's.
+
 ## Licence
 
 Licensed under either of [Apache License, Version 2.0](LICENSE-APACHE) or [MIT license](LICENSE-MIT) at your option.
