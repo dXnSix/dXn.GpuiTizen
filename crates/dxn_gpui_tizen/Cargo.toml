@@ -19,6 +19,14 @@ ttf-parser = "0.25"
 # D-Bus; the version gpui-fast 0.1.13's Linux platform uses. Its `zbus` is no desktop platform.
 [target.'cfg(target_os = "linux")'.dependencies]
 accesskit_unix = "0.22"
+# The platform-owned EGL path (the `egl` module): EGL, GL ES and wayland-egl loaded at run time,
+# wgpu on the context through its GL backend, gpui_wgpu's external-target renderer.
+anyhow.workspace = true
+futures = "0.3"
+gpui_wgpu.workspace = true
+khronos-egl = { version = "6", features = ["dynamic"] }
+libloading = "0.8"
+log = "0.4"
 
 # Tizen-only: the renderer and the shell's bindings.
 [target.'cfg(target_vendor = "tizen")'.dependencies]
@@ -38,6 +46,10 @@ async-task = "4.7"
 [target.'cfg(target_os = "linux")'.dev-dependencies]
 serde = "1"
 zbus = { version = "5.5", default-features = false, features = ["async-io", "blocking-api"] }
+# The Weston integration test (`tests/egl_wayland.rs`) makes its own Wayland surface.
+wayland-backend = { version = "0.3", features = ["client_system"] }
+wayland-client = "0.31"
+wayland-protocols = { version = "0.32", features = ["client"] }
 
 [lints]
 workspace = true

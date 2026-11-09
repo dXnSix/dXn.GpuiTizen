@@ -1410,12 +1410,17 @@ dependencies = [
  "futures",
  "gpui-fast",
  "gpui-fast-wgpu",
+ "khronos-egl",
  "libc",
+ "libloading",
  "log",
  "raw-window-handle",
  "serde",
  "ttf-parser",
  "uuid",
+ "wayland-backend",
+ "wayland-client",
+ "wayland-protocols",
  "zbus 5.19.0",
 ]
 

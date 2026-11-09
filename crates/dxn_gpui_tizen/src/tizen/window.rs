@@ -17,12 +17,13 @@ use gpui::{
     TextInputStateChange, WindowAppearance, WindowBackgroundAppearance, WindowBounds,
     WindowControlArea, WindowInsets, WindowParams, WindowVisibility, px, size,
 };
-use gpui_wgpu::{WgpuRenderer, WgpuSurfaceConfig};
+use gpui_wgpu::WgpuSurfaceConfig;
 use raw_window_handle as rwh;
 
 use super::display::TizenDisplay;
 use super::imf::Imf;
 use super::platform::Shared;
+use super::renderer::{Backend, Drawn};
 use crate::a11y::{MainThreadEvent, OnMainThread, Post, UnixAdapter};
 use crate::dispatcher::MainLoop;
 use crate::display;
@@ -34,6 +35,16 @@ use crate::keygrab::GrabCall;
 pub(crate) struct RawWindow {
     surface: NonNull<c_void>,
     display: NonNull<c_void>,
+}
+
+impl RawWindow {
+    pub(crate) fn surface_ptr(&self) -> *mut c_void {
+        self.surface.as_ptr()
+    }
+
+    pub(crate) fn display_ptr(&self) -> *mut c_void {
+        self.display.as_ptr()
+    }
 }
 
 // SAFETY: the pointers are the window's wl_surface and the app's wl_display, which outlive the
@@ -81,7 +92,7 @@ pub(crate) struct WindowInner {
     raw: RawWindow,
     pixels: (u32, u32),
     scale: f32,
-    renderer: RefCell<WgpuRenderer>,
+    renderer: RefCell<Backend>,
     callbacks: RefCell<Callbacks>,
     input_handler: RefCell<Option<PlatformInputHandler>>,
     /// The window's input method context; dropped before the window is freed.
@@ -275,27 +286,13 @@ impl WindowInner {
     }
 
     pub(crate) fn release_gpu(&self) {
-        let mut renderer = self.renderer.borrow_mut();
-        renderer.unconfigure_surface();
-        renderer.sprite_atlas().clear();
+        self.renderer.borrow_mut().release();
     }
 
     pub(crate) fn rebuild_gpu(&self, gpu: &gpui_wgpu::GpuContext) {
-        let instance = gpu
-            .borrow()
-            .as_ref()
-            .map(|context| context.instance.clone());
-        let Some(instance) = instance else {
-            log::error!("no wgpu context to rebuild the surface with");
-            return;
-        };
-        if let Err(err) =
-            self.renderer
-                .borrow_mut()
-                .replace_surface(&self.raw, self.config(), &instance)
-        {
-            log::error!("rebuilding the surface failed: {err:#}");
-        }
+        self.renderer
+            .borrow_mut()
+            .rebuild(&self.raw, self.config(), gpu);
     }
 
     fn logical_size(&self) -> Size<Pixels> {
@@ -357,7 +354,7 @@ impl TizenWindow {
             transparent: false,
             preferred_present_mode: None,
         };
-        let renderer = WgpuRenderer::new(shared.gpu.clone(), &raw, config, None)?;
+        let renderer = Backend::open(shared, &raw, config)?;
         let inner = Rc::new(WindowInner {
             handle,
             ecore,
@@ -566,16 +563,29 @@ impl PlatformWindow for TizenWindow {
 
     fn draw(&self, scene: &Scene) {
         // The frame callback is requested on the commit that carries this frame's buffer: commit
-        // without flushing, then the swap in `draw` flushes it (`Ecore_Wayland2.h`).
-        // SAFETY: the window is alive.
-        unsafe { sys::ecore_wl2_window_commit(self.0.ecore, sys::EINA_FALSE) };
-        let presented = self.0.renderer.borrow_mut().draw(scene);
-        self.0.drawn.set(true);
-        self.0.presented.set(presented);
+        // without flushing, then the swap flushes it (`Ecore_Wayland2.h`). A frame that is not
+        // swapped commits nothing.
+        let ecore = self.0.ecore;
+        let commit = || {
+            // SAFETY: the window is alive.
+            unsafe { sys::ecore_wl2_window_commit(ecore, sys::EINA_FALSE) };
+        };
+        match self.0.renderer.borrow_mut().draw(scene, commit) {
+            Drawn::Presented => {
+                self.0.drawn.set(true);
+                self.0.presented.set(true);
+            }
+            // Nothing changed: no swap and no frame callback, like a frame GPUI skipped.
+            Drawn::Nothing => {}
+            Drawn::Failed => {
+                self.0.drawn.set(true);
+                self.0.presented.set(false);
+            }
+        }
     }
 
     fn sprite_atlas(&self) -> Arc<dyn PlatformAtlas> {
-        self.0.renderer.borrow().sprite_atlas().clone()
+        self.0.renderer.borrow().sprite_atlas()
     }
 
     fn is_subpixel_rendering_supported(&self) -> bool {

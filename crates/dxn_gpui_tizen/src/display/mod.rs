@@ -27,6 +27,8 @@ pub struct RunOptions {
     /// The font families loaded into the text system (`crate::fonts`); `None` loads the TV's
     /// UI family and its fallbacks.
     pub font_families: Option<Vec<String>>,
+    /// What draws the window (`crate::renderer_select`); `DXN_GPUI_TIZEN_RENDERER` overrides it.
+    pub renderer: crate::renderer_select::Renderer,
 }
 
 /// The scale factor and the overrides it rejected (for a warning in the log).

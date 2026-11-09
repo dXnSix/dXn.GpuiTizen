@@ -8,6 +8,7 @@ mod fonts;
 mod imf;
 mod main_loop;
 mod platform;
+mod renderer;
 mod settings;
 mod window;
 

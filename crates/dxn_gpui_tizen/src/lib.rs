@@ -6,14 +6,19 @@
 
 #[cfg(any(target_os = "linux", target_os = "macos"))]
 pub mod a11y;
+pub mod blob_cache;
 pub mod dispatcher;
 pub mod display;
+#[cfg(target_os = "linux")]
+pub mod egl;
+pub mod egl_damage;
 pub mod fonts;
 pub mod frame;
 pub mod ime;
 pub mod keygrab;
 pub mod keys;
 pub mod lifecycle;
+pub mod renderer_select;
 pub mod settings;
 
 pub use display::RunOptions;

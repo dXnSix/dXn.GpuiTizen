@@ -47,6 +47,10 @@ pub(crate) struct Shared {
     pub(crate) held: RefCell<HeldKeys>,
     /// The TV keys grabbed while the window is shown, and whether they are grabbed now.
     grab_keys: Vec<&'static str>,
+    /// The renderer the app asked for, the app's cache directory, and the fallback logged once.
+    pub(crate) renderer: crate::renderer_select::Renderer,
+    pub(crate) cache_dir: Option<std::path::PathBuf>,
+    pub(crate) renderer_fallback: RefCell<crate::renderer_select::FallbackLog>,
     grabs: RefCell<KeyGrabs>,
     pub(crate) gpu: gpui_wgpu::GpuContext,
     pub(crate) display: Cell<*mut sys::Ecore_Wl2_Display>,
@@ -352,7 +356,12 @@ pub struct TizenPlatform {
 }
 
 impl TizenPlatform {
-    pub(crate) fn new(argc: c_int, argv: *mut *mut c_char, options: RunOptions) -> Self {
+    pub(crate) fn new(
+        argc: c_int,
+        argv: *mut *mut c_char,
+        options: RunOptions,
+        cache_dir: Option<PathBuf>,
+    ) -> Self {
         let scale = display::scale(&options, std::env::var(display::SCALE_ENV).ok().as_deref());
         for rejected in &scale.rejected {
             log::warn!("{rejected}");
@@ -377,6 +386,9 @@ impl TizenPlatform {
             chained: Cell::new(false),
             held: RefCell::new(HeldKeys::default()),
             grab_keys: grab_plan.keys,
+            renderer: options.renderer,
+            cache_dir,
+            renderer_fallback: RefCell::default(),
             grabs: RefCell::new(KeyGrabs::default()),
             gpu: gpui_wgpu::GpuContext::default(),
             display: Cell::new(ptr::null_mut()),

@@ -102,13 +102,14 @@ pub unsafe fn run(
     // exists: the dispatcher's workers start with the platform below.
     // SAFETY: no function call returns a string we keep; the value is freed by `malloced_string`.
     let cache = malloced_string(unsafe { sys::app_get_cache_path() });
+    let cache_dir = cache.as_ref().map(std::path::PathBuf::from);
     if let Some(cache) = cache {
         // SAFETY: no GPUI or wgpu thread exists yet, and the .NET host is blocked in the P/Invoke
         // that called us; the runtime's own threads do not read this variable, so nothing reads
         // the environment concurrently with this write in practice.
         unsafe { std::env::set_var("GPUI_PIPELINE_CACHE_DIR", cache) };
     }
-    let platform = Rc::new(TizenPlatform::new(argc, argv, options));
+    let platform = Rc::new(TizenPlatform::new(argc, argv, options, cache_dir));
     let shared = platform.shared();
     install(Rc::clone(&shared));
     gpui::Application::with_platform(platform).run(on_launch);
