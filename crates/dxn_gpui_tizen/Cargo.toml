@@ -3,9 +3,13 @@ name = "dxn_gpui_tizen"
 description = "The Tizen platform for GPUI (gpui-fast)."
 version.workspace = true
 edition.workspace = true
+rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
-publish.workspace = true
+readme = "README.md"
+keywords = ["tizen", "gpui", "samsung", "tv", "gui"]
+categories = ["gui", "os::linux-apis"]
+include = ["src/**/*.rs", "tests/**/*.rs", "README.md", "LICENSE-MIT", "LICENSE-APACHE"]
 
 [dependencies]
 # GPUI (gpui-fast) without default features: the platform-neutral modules implement its traits and
@@ -31,7 +35,7 @@ log = "0.4"
 # Tizen-only: the renderer and the shell's bindings.
 [target.'cfg(target_vendor = "tizen")'.dependencies]
 anyhow.workspace = true
-dxn_gpui_tizen_sys = { path = "../dxn_gpui_tizen_sys" }
+dxn_gpui_tizen_sys = { path = "../dxn_gpui_tizen_sys", version = "0.1.0" }
 futures = "0.3"
 libc = "0.2"
 gpui_wgpu.workspace = true

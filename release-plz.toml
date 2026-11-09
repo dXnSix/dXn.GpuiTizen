@@ -1,0 +1,89 @@
+# release-plz: keeps a release pull request with the version bump and the changelog sections open on
+# `main`; merging it makes the `release` job tag `<crate>-vX.Y.Z`, create the GitHub Release with the
+# section as notes, and publish the crates to crates.io. See docs/releasing.md.
+
+[workspace]
+# Versions come from the published crates and the tags; only the two library crates are released.
+publish = true
+git_tag_enable = true
+git_release_enable = true
+changelog_update = true
+# 0.x: a breaking change bumps the minor version (cargo-semver-checks reports it), and so does a
+# `feat` commit (release-plz would bump the patch on 0.x otherwise).
+semver_check = true
+features_always_increment_minor = true
+# Only changes that reach users start a release (`fix`/`perf` patch, `feat` minor); docs, tests, CI,
+# build and agentx commits ride along in the next one.
+release_commits = "^(feat|fix|perf)"
+
+[[package]]
+name = "dxn_gpui_tizen_sys"
+changelog_path = "crates/dxn_gpui_tizen_sys/CHANGELOG.md"
+git_tag_name = "dxn_gpui_tizen_sys-v{{ version }}"
+
+[[package]]
+name = "dxn_gpui_tizen"
+changelog_path = "crates/dxn_gpui_tizen/CHANGELOG.md"
+git_tag_name = "dxn_gpui_tizen-v{{ version }}"
+
+# Never versioned or released: the diagnostic app, the examples and the build tooling.
+[[package]]
+name = "dxn_gpui_tizen_diag"
+release = false
+
+[[package]]
+name = "example_counter"
+release = false
+
+[[package]]
+name = "example_long_list"
+release = false
+
+[[package]]
+name = "example_video"
+release = false
+
+[[package]]
+name = "xtask"
+release = false
+
+[changelog]
+header = """# Changelog
+
+All notable changes to this crate are documented in this file. The format follows
+[Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project follows
+[Semantic Versioning](https://semver.org/spec/v2.0.0.html). It is generated from
+Conventional Commits by release-plz.
+
+"""
+# One `## [X.Y.Z] - YYYY-MM-DD` section per release; release-plz uses it as the Release body.
+body = """
+## [{{ version }}] - {{ timestamp | date(format="%Y-%m-%d") }}
+{% for group, commits in commits | group_by(attribute="group") %}
+### {{ group | upper_first }}
+{% for commit in commits %}
+{%- if commit.scope -%}
+- *({{ commit.scope }})* {% if commit.breaking %}[**breaking**] {% endif %}{{ commit.message }}
+{% else -%}
+- {% if commit.breaking %}[**breaking**] {% endif %}{{ commit.message }}
+{% endif -%}
+{% endfor -%}
+{% endfor %}
+"""
+trim = true
+protect_breaking_commits = true
+sort_commits = "oldest"
+commit_parsers = [
+  # Housekeeping that is not a change to the crates.
+  { message = "^chore\\(agentx\\)", skip = true },
+  { message = "^chore\\(release\\)", skip = true },
+  { message = "^chore\\(deps\\)", skip = true },
+  { message = "^feat", group = "Features" },
+  { message = "^fix", group = "Fixes" },
+  { message = "^perf", group = "Performance" },
+  { message = "^refactor", group = "Refactoring" },
+  { message = "^docs", group = "Documentation" },
+  { message = "^(ci|build)", group = "Build and CI" },
+  { message = "^test", group = "Tests" },
+  { message = "^chore", group = "Maintenance" },
+]

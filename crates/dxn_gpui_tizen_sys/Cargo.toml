@@ -3,9 +3,13 @@ name = "dxn_gpui_tizen_sys"
 description = "Hand-written bindings to the documented Tizen native C APIs used by dxn_gpui_tizen."
 version.workspace = true
 edition.workspace = true
+rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
-publish.workspace = true
+readme = "README.md"
+keywords = ["tizen", "samsung", "tv", "ffi", "bindings"]
+categories = ["external-ffi-bindings", "os::linux-apis"]
+include = ["src/**/*.rs", "symbols.allow", "README.md", "LICENSE-MIT", "LICENSE-APACHE"]
 
 [lints]
 workspace = true

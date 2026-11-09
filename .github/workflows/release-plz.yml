@@ -1,0 +1,75 @@
+name: Release-plz
+
+# Runs on pushes to `main`. It runs no tests: `ci.yml` covers the release pull request and every
+# push. `release` publishes dxn_gpui_tizen_sys and dxn_gpui_tizen to crates.io, tags
+# `<crate>-vX.Y.Z` and creates the GitHub Releases (release-plz, with the CHANGELOG.md sections as
+# notes) when a crate's version is not on crates.io yet: the merged release pull request, or the
+# first 0.1.0. `release-pr` then keeps the next release pull request up to date; it waits for
+# `release` so it never reads an unreleased history.
+#
+# Both jobs stay off until the repository variable PUBLISH_CRATES is `true`: the first publish waits
+# for gpui-fast's release of the renderer changes, since a published crate cannot carry
+# `[patch]` lines (docs/releasing.md). RELEASE_PLZ_TOKEN is a fine-grained personal access token
+# (events made with the default GITHUB_TOKEN start no workflows, so the release pull request would
+# get no CI); CARGO_REGISTRY_TOKEN is the crates.io token.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  release:
+    name: release
+    if: github.repository == 'dXnSix/dXn.GpuiTizen' && vars.PUBLISH_CRATES == 'true'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    concurrency:
+      group: release-plz-release-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.RELEASE_PLZ_TOKEN }}
+
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          cache: false
+          rustflags: ""
+
+      - uses: release-plz/action@v0.5
+        with:
+          command: release
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_PLZ_TOKEN }}
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+
+  release-pr:
+    name: release-pr
+    needs: release
+    if: github.repository == 'dXnSix/dXn.GpuiTizen' && vars.PUBLISH_CRATES == 'true'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+      pull-requests: write
+    concurrency:
+      group: release-plz-pr-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.RELEASE_PLZ_TOKEN }}
+
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          cache: false
+          rustflags: ""
+
+      - uses: release-plz/action@v0.5
+        with:
+          command: release-pr
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_PLZ_TOKEN }}
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
