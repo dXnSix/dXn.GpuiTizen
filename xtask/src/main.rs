@@ -18,7 +18,7 @@ Commands:
   diag pull      fetch the diagnostic app's report through `sdb forward`: [--port <p>] [--no-forward]
   gpui-fast-release  generate and check gpui-fast's release workspace from ../gpui-fast's `tizen`;
                  commit it to `tizen-release`, or with --verify write the local patch config
-  package        stage (and with --sign, sign) a TPK: --app <diag|counter|long_list>
+  package        stage (and with --sign, sign) a TPK: --app <diag|counter|long_list|video>
                  --target <armv7|x86_64|aarch64> [--sign <profile>]
   tizen-deps     check the Tizen dependency graph: --target <armv7|x86_64|aarch64>
   policy         check the workspace pins, lints, release profile, alias and toolchain
@@ -572,7 +572,7 @@ fn run_package(args: &[String]) -> Result<ExitCode> {
     }
     let (Some(app), Some(target)) = (app, target) else {
         bail!(
-            "usage: cargo xtask package --app <diag|counter|long_list> --target <armv7|x86_64|aarch64> [--sign <profile>]"
+            "usage: cargo xtask package --app <diag|counter|long_list|video> --target <armv7|x86_64|aarch64> [--sign <profile>]"
         );
     };
     let root = workspace_root();
@@ -630,6 +630,10 @@ fn run_package(args: &[String]) -> Result<ExitCode> {
     let entries = package::layout(
         &package::host_files(&root.join("host/bin/Release/tizen80")),
         &library,
+        &app.resources
+            .iter()
+            .map(|file| root.join(file))
+            .collect::<Vec<_>>(),
         &root.join("host/shared/res/icon.png"),
         manifest.clone(),
     );

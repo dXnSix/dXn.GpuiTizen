@@ -16,7 +16,7 @@ fn app_table_and_package_ids() {
         App::find("long_list").unwrap().app_id(),
         "DxnGpuiTzL.LongList"
     );
-    assert!(App::find("video").is_err());
+    assert!(App::find("nope").is_err());
     for app in APPS {
         validate_package_id(app.package_id).unwrap();
     }
@@ -93,6 +93,7 @@ fn staged_layout_follows_the_tpk_tree() {
     let entries = layout(
         &host,
         Path::new("/repo/target/armv7-tizen-linux-gnueabi/release/libexample_counter.so"),
+        &[],
         Path::new("/repo/host/shared/res/icon.png"),
         "<manifest/>".into(),
     );
@@ -156,4 +157,30 @@ fn the_host_files_exist_in_the_repository() {
     assert_eq!(program.matches("DllImport(").count(), 1, "one P/Invoke");
     assert!(program.contains(r#"DllImport("libdxn_app.so", ExactSpelling = true)"#));
     assert!(program.contains("dxn_gpui_tizen_main(int argc, IntPtr* argv)"));
+}
+
+#[test]
+fn the_video_app_ships_its_clip_in_res() {
+    let app = App::find("video").unwrap();
+    assert_eq!(app.package, "example_video");
+    assert_eq!(app.app_id(), "DxnGpuiTzV.Video");
+    validate_package_id(app.package_id).unwrap();
+    let root = workspace_root();
+    let resources: Vec<PathBuf> = app.resources.iter().map(|file| root.join(file)).collect();
+    for file in &resources {
+        assert!(file.is_file(), "{} is missing", file.display());
+    }
+    let entries = layout(
+        &[],
+        Path::new("/lib/libexample_video.so"),
+        &resources,
+        Path::new("/icon.png"),
+        String::new(),
+    );
+    assert!(entries.contains(&Entry::Copy {
+        from: root.join("examples/video/res/clip.mp4"),
+        to: "res/clip.mp4".into()
+    }));
+    let others = APPS.iter().filter(|a| a.name != "video");
+    assert!(others.clone().all(|a| a.resources.is_empty()));
 }

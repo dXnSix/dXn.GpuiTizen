@@ -28,6 +28,8 @@ pub struct App {
     pub app_suffix: &'static str,
     /// The label on the TV.
     pub label: &'static str,
+    /// Files (relative to the repository) copied into the TPK's `res/`.
+    pub resources: &'static [&'static str],
 }
 
 pub const APPS: &[App] = &[
@@ -37,6 +39,7 @@ pub const APPS: &[App] = &[
         package_id: "DxnGpuiTzD",
         app_suffix: "Diag",
         label: "GpuiTizen Diag",
+        resources: &[],
     },
     App {
         name: "counter",
@@ -44,6 +47,7 @@ pub const APPS: &[App] = &[
         package_id: "DxnGpuiTzC",
         app_suffix: "Counter",
         label: "GpuiTizen Counter",
+        resources: &[],
     },
     App {
         name: "long_list",
@@ -51,6 +55,15 @@ pub const APPS: &[App] = &[
         package_id: "DxnGpuiTzL",
         app_suffix: "LongList",
         label: "GpuiTizen Long List",
+        resources: &[],
+    },
+    App {
+        name: "video",
+        package: "example_video",
+        package_id: "DxnGpuiTzV",
+        app_suffix: "Video",
+        label: "GpuiTizen Video",
+        resources: &["examples/video/res/clip.mp4"],
     },
 ];
 
@@ -166,10 +179,12 @@ pub enum Entry {
     Write { to: PathBuf, contents: String },
 }
 
-/// The staged layout (flutter-tizen's single-architecture layout: the library in `lib/`).
+/// The staged layout (flutter-tizen's single-architecture layout: the library in `lib/`, the
+/// app's `resources` in `res/`).
 pub fn layout(
     host_output: &[PathBuf],
     library: &Path,
+    resources: &[PathBuf],
     icon: &Path,
     manifest: String,
 ) -> Vec<Entry> {
@@ -188,6 +203,12 @@ pub fn layout(
         to: Path::new("lib").join(LIBRARY_NAME),
     });
     entries.push(Entry::Dir(PathBuf::from("res")));
+    entries.extend(resources.iter().filter_map(|file| {
+        Some(Entry::Copy {
+            from: file.clone(),
+            to: Path::new("res").join(file.file_name()?),
+        })
+    }));
     entries.push(Entry::Copy {
         from: icon.to_path_buf(),
         to: PathBuf::from("shared/res/icon.png"),
