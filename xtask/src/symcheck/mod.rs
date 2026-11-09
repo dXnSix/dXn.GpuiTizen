@@ -17,13 +17,19 @@ pub const DEFAULT_ENTRY: &str = "dxn_gpui_tizen_main";
 pub const SYSTEM_VERSION_PREFIXES: &[&str] = &["GLIBC_", "GCC_"];
 
 /// Unversioned weak imports emitted by the C runtime start files and Rust's `std` that the
-/// run-time loader resolves (or leaves null) without a library.
+/// run-time loader resolves (or leaves null) without a library. The last three are glibc
+/// functions newer than the TVs' glibc 2.30 that `std::process` binds weakly (unversioned, since
+/// the rootstrap's glibc lacks them) and falls back from when null; `zbus` (under
+/// `accesskit_unix`) links process spawning in.
 pub const LOADER_WEAK_IMPORTS: &[&str] = &[
     "__gmon_start__",
     "_ITM_deregisterTMCloneTable",
     "_ITM_registerTMCloneTable",
     "__clock_gettime64",
     "__pthread_get_minstack",
+    "pidfd_getpid",
+    "pidfd_spawnp",
+    "posix_spawn_file_actions_addchdir",
 ];
 
 /// The system libraries a TV library may need besides the Tizen ones of `DECLARED_SYMBOLS`: glibc's

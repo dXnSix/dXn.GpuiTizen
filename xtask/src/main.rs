@@ -166,20 +166,23 @@ fn cross_build(options: &Options) -> Result<Option<Vec<PathBuf>>> {
         toolchain,
     };
     let invocation = cross::plan(options, &ctx, &tv_libs)?;
-    let status = execute(&invocation)?;
-    if !status {
-        return Ok(None);
-    }
-    let target_dir = metadata["target_directory"]
-        .as_str()
-        .map(PathBuf::from)
-        .context("cargo metadata has no target_directory")?;
-    let libraries = cross::built_libraries(
-        &target_dir,
-        options.target,
-        options.release,
-        &cross::selected_cdylibs(&metadata, options, &tv_libs),
-    );
+    let selected = cross::selected_cdylibs(&metadata, options, &tv_libs);
+    let libraries = if options.check_symbols {
+        // This build's own libraries, from Cargo's messages (see `xtask::artifacts`).
+        let Some(stdout) = execute_capturing(&invocation)? else {
+            return Ok(None);
+        };
+        xtask::artifacts::cdylibs(&stdout, &selected, Path::exists)
+    } else {
+        if !execute(&invocation)? {
+            return Ok(None);
+        }
+        let target_dir = metadata["target_directory"]
+            .as_str()
+            .map(PathBuf::from)
+            .context("cargo metadata has no target_directory")?;
+        cross::built_libraries(&target_dir, options.target, options.release, &selected)
+    };
     if options.check_symbols {
         if libraries.is_empty() {
             bail!("`--check-symbols`: the selected packages build no cdylib");
@@ -685,6 +688,25 @@ fn execute(invocation: &Invocation) -> Result<bool> {
         .status()
         .with_context(|| format!("running {}", invocation.program))?;
     Ok(status.success())
+}
+
+/// Runs `invocation` with stdout captured (Cargo's JSON messages); `None` when it failed.
+fn execute_capturing(invocation: &Invocation) -> Result<Option<String>> {
+    eprintln!("+ {} {}", invocation.program, invocation.args.join(" "));
+    let mut command = Command::new(&invocation.program);
+    for key in &invocation.env_remove {
+        command.env_remove(key);
+    }
+    let output = command
+        .args(&invocation.args)
+        .envs(invocation.env.iter().map(|(k, v)| (k, v)))
+        .stderr(std::process::Stdio::inherit())
+        .output()
+        .with_context(|| format!("running {}", invocation.program))?;
+    Ok(output
+        .status
+        .success()
+        .then(|| String::from_utf8_lossy(&output.stdout).into_owned()))
 }
 
 fn cargo_metadata(

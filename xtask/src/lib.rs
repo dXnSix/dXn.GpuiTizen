@@ -3,6 +3,7 @@
 
 use std::path::PathBuf;
 
+pub mod artifacts;
 pub mod cross;
 pub mod gcc;
 pub mod package;

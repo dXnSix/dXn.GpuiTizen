@@ -183,3 +183,18 @@ fn needed_libraries_are_glibc_libgcc_loader_or_declared_tizen_ones() {
         "a prefix of a declared library is not enough"
     );
 }
+
+#[test]
+fn std_s_weak_glibc_functions_newer_than_the_tvs_glibc_pass_only_weak() {
+    // What `std::process` leaves behind once `zbus` links process spawning in.
+    let weak = format!(
+        "{CLEAN_UNDEFINED}         w pidfd_getpid\n         w pidfd_spawnp\n         w posix_spawn_file_actions_addchdir\n         w posix_spawn_file_actions_addchdir_np@GLIBC_2.29\n"
+    );
+    assert_eq!(run(CLEAN_DEFINED, &weak), []);
+    let strong = format!("{CLEAN_UNDEFINED}         U pidfd_spawnp\n");
+    assert_eq!(
+        run(CLEAN_DEFINED, &strong),
+        [Violation::UndocumentedImport("pidfd_spawnp".into())],
+        "a strong import would fail to load on the TV"
+    );
+}

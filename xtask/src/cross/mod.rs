@@ -297,6 +297,10 @@ pub fn plan(options: &Options, ctx: &Context, tv_libs: &[String]) -> Result<Invo
             args.push(package.clone());
         }
     }
+    // The libraries to check are read from Cargo's messages (`crate::artifacts`).
+    if options.check_symbols {
+        args.push("--message-format=json-render-diagnostics".to_owned());
+    }
     if options.clippy || !trailing.is_empty() {
         args.push("--".to_owned());
         args.extend(trailing.iter().cloned());
