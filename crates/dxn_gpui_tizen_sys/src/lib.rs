@@ -257,6 +257,78 @@ pub const DLOG_INFO: log_priority = 4;
 pub const DLOG_WARN: log_priority = 5;
 pub const DLOG_ERROR: log_priority = 6;
 
+/// `player_h` (`media/player.h`).
+#[repr(C)]
+pub struct player_s {
+    _private: [u8; 0],
+}
+pub type player_h = *mut player_s;
+/// `player_display_h` (`media/player.h`): for `PLAYER_DISPLAY_TYPE_OVERLAY_SYNC_UI`, the exported
+/// shell handle of an `Ecore_Wl2_Subsurface` (`ecore_wl2_subsurface_exported_surface_handle_get`);
+/// the plain overlay type takes an Evas object, which a native Ecore_Wl2 window does not have.
+pub type player_display_h = *mut c_void;
+/// `player_state_e`.
+pub type player_state_e = c_int;
+pub const PLAYER_STATE_NONE: player_state_e = 0;
+pub const PLAYER_STATE_IDLE: player_state_e = 1;
+pub const PLAYER_STATE_READY: player_state_e = 2;
+pub const PLAYER_STATE_PLAYING: player_state_e = 3;
+pub const PLAYER_STATE_PAUSED: player_state_e = 4;
+/// `player_display_type_e`.
+pub type player_display_type_e = c_int;
+pub const PLAYER_DISPLAY_TYPE_OVERLAY: player_display_type_e = 0;
+pub const PLAYER_DISPLAY_TYPE_NONE: player_display_type_e = 4;
+pub const PLAYER_DISPLAY_TYPE_OVERLAY_SYNC_UI: player_display_type_e = 5;
+/// `player_interrupted_code_e`.
+pub type player_interrupted_code_e = c_int;
+pub const PLAYER_INTERRUPTED_BY_RESOURCE_CONFLICT: player_interrupted_code_e = 4;
+
+/// `Ecore_Wl2_Subsurface` (`ecore-wl2-1/Ecore_Wayland2.h`).
+#[repr(C)]
+pub struct Ecore_Wl2_Subsurface {
+    _private: [u8; 0],
+}
+
+/// `media_packet_h` (`media/media_packet.h`).
+#[repr(C)]
+pub struct media_packet_s {
+    _private: [u8; 0],
+}
+pub type media_packet_h = *mut media_packet_s;
+/// `media_format_h` (`media/media_format.h`).
+#[repr(C)]
+pub struct media_format_s {
+    _private: [u8; 0],
+}
+pub type media_format_h = *mut media_format_s;
+/// `media_format_mimetype_e`.
+pub type media_format_mimetype_e = c_int;
+const MEDIA_FORMAT_VIDEO: media_format_mimetype_e = 0x0200_0000;
+const MEDIA_FORMAT_RAW: media_format_mimetype_e = 0x2000_0000;
+pub const MEDIA_FORMAT_I420: media_format_mimetype_e =
+    MEDIA_FORMAT_VIDEO | MEDIA_FORMAT_RAW | 0x2510;
+pub const MEDIA_FORMAT_NV12: media_format_mimetype_e =
+    MEDIA_FORMAT_VIDEO | MEDIA_FORMAT_RAW | 0x2520;
+pub const MEDIA_FORMAT_NV21: media_format_mimetype_e =
+    MEDIA_FORMAT_VIDEO | MEDIA_FORMAT_RAW | 0x2550;
+pub type player_media_packet_video_decoded_cb =
+    Option<unsafe extern "C" fn(packet: media_packet_h, user_data: *mut c_void)>;
+
+/// `TIZEN_ERROR_PLAYER` (`tizen_error.h`).
+pub const TIZEN_ERROR_PLAYER: c_int = -0x0194_0000;
+/// `PLAYER_ERROR_CLASS`: the player's own error codes are this ORed with 0x01..=0x12.
+pub const PLAYER_ERROR_CLASS: c_int = TIZEN_ERROR_PLAYER | 0x20;
+/// `TIZEN_ERROR_NOT_SUPPORTED`: `TIZEN_ERROR_MIN_PLATFORM_ERROR` + 2.
+pub const TIZEN_ERROR_NOT_SUPPORTED: c_int = -1_073_741_824 + 2;
+
+pub type player_prepared_cb = Option<unsafe extern "C" fn(user_data: *mut c_void)>;
+pub type player_completed_cb = Option<unsafe extern "C" fn(user_data: *mut c_void)>;
+pub type player_seek_completed_cb = Option<unsafe extern "C" fn(user_data: *mut c_void)>;
+pub type player_interrupted_cb =
+    Option<unsafe extern "C" fn(code: player_interrupted_code_e, user_data: *mut c_void)>;
+pub type player_error_cb = Option<unsafe extern "C" fn(error_code: c_int, user_data: *mut c_void)>;
+pub type player_buffering_cb = Option<unsafe extern "C" fn(percent: c_int, user_data: *mut c_void)>;
+
 // ---------------------------------------------------------------------------------------------
 // Functions and globals
 // ---------------------------------------------------------------------------------------------
@@ -312,6 +384,28 @@ tizen_extern! {
     }
     // ecore-wl2-1/Ecore_Wayland2.h (EFL > Ecore > Ecore_Wl2)
     "ecore_wl2" {
+        fn ecore_wl2_subsurface_new(window: *mut Ecore_Wl2_Window) -> *mut Ecore_Wl2_Subsurface;
+        fn ecore_wl2_subsurface_del(subsurface: *mut Ecore_Wl2_Subsurface);
+        fn ecore_wl2_subsurface_export(subsurface: *mut Ecore_Wl2_Subsurface) -> Eina_Bool;
+        fn ecore_wl2_subsurface_exported_surface_handle_get(
+            subsurface: *mut Ecore_Wl2_Subsurface
+        ) -> *const c_char;
+        fn ecore_wl2_subsurface_exported_surface_show(subsurface: *mut Ecore_Wl2_Subsurface);
+        fn ecore_wl2_subsurface_exported_surface_hide(subsurface: *mut Ecore_Wl2_Subsurface);
+        fn ecore_wl2_subsurface_exported_surface_place_below(
+            subsurface: *mut Ecore_Wl2_Subsurface,
+            other: *mut Ecore_Wl2_Subsurface
+        );
+        fn ecore_wl2_subsurface_exported_surface_move(
+            subsurface: *mut Ecore_Wl2_Subsurface,
+            x: c_int,
+            y: c_int
+        );
+        fn ecore_wl2_subsurface_exported_surface_resize(
+            subsurface: *mut Ecore_Wl2_Subsurface,
+            w: c_int,
+            h: c_int
+        );
         fn ecore_wl2_init() -> c_int;
         fn ecore_wl2_shutdown() -> c_int;
         fn ecore_wl2_connected_display_get(name: *const c_char) -> *mut Ecore_Wl2_Display;
@@ -421,6 +515,90 @@ tizen_extern! {
     // system/system_info.h (System > System Information)
     "capi-system-info" {
         fn system_info_get_platform_string(key: *const c_char, value: *mut *mut c_char) -> c_int;
+    }
+    // media/player.h (Multimedia > Media Player)
+    "capi-media-player" {
+        fn player_create(player: *mut player_h) -> c_int;
+        fn player_destroy(player: player_h) -> c_int;
+        fn player_set_uri(player: player_h, uri: *const c_char) -> c_int;
+        fn player_prepare_async(
+            player: player_h,
+            callback: player_prepared_cb,
+            user_data: *mut c_void
+        ) -> c_int;
+        fn player_unprepare(player: player_h) -> c_int;
+        fn player_start(player: player_h) -> c_int;
+        fn player_pause(player: player_h) -> c_int;
+        fn player_stop(player: player_h) -> c_int;
+        fn player_get_state(player: player_h, state: *mut player_state_e) -> c_int;
+        fn player_set_play_position(
+            player: player_h,
+            milliseconds: c_int,
+            accurate: bool,
+            callback: player_seek_completed_cb,
+            user_data: *mut c_void
+        ) -> c_int;
+        fn player_get_play_position(player: player_h, milliseconds: *mut c_int) -> c_int;
+        fn player_get_duration(player: player_h, milliseconds: *mut c_int) -> c_int;
+        fn player_set_volume(player: player_h, left: f32, right: f32) -> c_int;
+        fn player_set_mute(player: player_h, muted: bool) -> c_int;
+        fn player_set_looping(player: player_h, looping: bool) -> c_int;
+        fn player_set_completed_cb(
+            player: player_h,
+            callback: player_completed_cb,
+            user_data: *mut c_void
+        ) -> c_int;
+        fn player_set_error_cb(player: player_h, callback: player_error_cb, user_data: *mut c_void) -> c_int;
+        fn player_set_buffering_cb(
+            player: player_h,
+            callback: player_buffering_cb,
+            user_data: *mut c_void
+        ) -> c_int;
+        fn player_set_display(
+            player: player_h,
+            kind: player_display_type_e,
+            display: player_display_h
+        ) -> c_int;
+        fn player_set_media_packet_video_frame_decoded_cb(
+            player: player_h,
+            callback: player_media_packet_video_decoded_cb,
+            user_data: *mut c_void
+        ) -> c_int;
+        fn player_set_interrupted_cb(
+            player: player_h,
+            callback: player_interrupted_cb,
+            user_data: *mut c_void
+        ) -> c_int;
+    }
+    // media/media_packet.h, media/media_format.h (Multimedia > Media Tool)
+    "capi-media-tool" {
+        fn media_packet_get_format(packet: media_packet_h, fmt: *mut media_format_h) -> c_int;
+        fn media_packet_get_number_of_video_planes(packet: media_packet_h, num: *mut u32) -> c_int;
+        fn media_packet_get_video_plane_data_ptr(
+            packet: media_packet_h,
+            plane_idx: c_int,
+            plane_data_ptr: *mut *mut c_void
+        ) -> c_int;
+        fn media_packet_get_video_stride_width(
+            packet: media_packet_h,
+            plane_idx: c_int,
+            stride_width: *mut c_int
+        ) -> c_int;
+        fn media_packet_get_video_stride_height(
+            packet: media_packet_h,
+            plane_idx: c_int,
+            stride_height: *mut c_int
+        ) -> c_int;
+        fn media_packet_unref(packet: media_packet_h) -> c_int;
+        fn media_format_get_video_info(
+            fmt: media_format_h,
+            mimetype: *mut media_format_mimetype_e,
+            width: *mut c_int,
+            height: *mut c_int,
+            avg_bps: *mut c_int,
+            max_bps: *mut c_int
+        ) -> c_int;
+        fn media_format_unref(fmt: media_format_h) -> c_int;
     }
     // dlog/dlog.h (System > dlog)
     "dlog" {
