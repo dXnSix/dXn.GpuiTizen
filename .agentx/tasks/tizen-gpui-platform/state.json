@@ -1,12 +1,12 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 216,
-  "planRevision": 25,
+  "revision": 226,
+  "planRevision": 26,
   "specHashes": {
-    "requirements": "6c57b5c275e88b3ce5b4383559edd81181395a7e588ebc5ecfe013b460570c62",
+    "requirements": "75ca9179f88ef16908038516d574dbd0eedc9caddae5cc048c250aa046c42104",
     "design": "a3e9ab1641d598bff3fdd015bd4af4393cd6025f28b84ab7dab193dcb9794dcc",
-    "plan": "ac3387b65b1ddb37651c5a7025daf602d0a875aeeff64457ae47cc839b4c9c63"
+    "plan": "ebe8f5f19234cf991bd8c0b14528efa9e4c3b36bb2753cacf4e5a94084756cb2"
   },
   "tasks": {
     "t1-workspace": {
@@ -325,13 +325,22 @@
       ]
     },
     "t13-aarch64-packages": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t13-store-check": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t13-crates": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t14-focus-core": {
       "status": "pending"
@@ -725,6 +734,18 @@
         }
       },
       "recordedAt": "2026-11-09T12:00:25Z"
+    },
+    "1c71f288e91e8280e7e39eeb19cb543f90b6aa41cbe277446efd58485f2498b2": {
+      "snapshot": {
+        "specHash": "6d66abb0b75abe3ad09b6133b4ad41a2705efda7b6615652d05ffdaa6550b057",
+        "repositories": {
+          "gpuitizen": "be1eca3e8e50a58c04c35847a8a8ef650c27f66f25e1c15a566f8a09ba29c4f9",
+          "gpui-fast": "c318780179e3efe79b3549e66b723ee445ed7dd36b3d54e1db560726aee9a019",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "44cd091043852019714da3ec9eda618bc3e237317015dcf281d4f1afb8693e3f"
+        }
+      },
+      "recordedAt": "2026-11-09T12:22:03Z"
     }
   },
   "checkResults": {
@@ -2104,6 +2125,91 @@
       "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s12-video-final-a3ac923f4751.log",
       "logSha256": "1dc1c836271e00bd20482e3257940be9894d063c35df5a524062edcbbc50c298",
       "inputsHash": "cce0e8b7d86cf37269dc03b219d9ce5eddb746c9c8ba4992bbf3e1beebe7d277"
+    },
+    "s13-release-readiness/chk-xtask-package/final": {
+      "checkId": "chk-xtask-package",
+      "boundaryId": "s13-release-readiness",
+      "phase": "final",
+      "batchId": "1c71f288e91e8280e7e39eeb19cb543f90b6aa41cbe277446efd58485f2498b2",
+      "definitionHash": "e8d75b094ee965bc199fd4b13b0f1c1ac301529b94c6b6cb260ccd53f39d2c04",
+      "basisHash": "ade07fe42b0759fa79d53e0e82737282b3b00b06432e2139ebca792b8e8b20a7",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 8,
+      "durationSeconds": 0.0958,
+      "recordedAt": "2026-11-09T12:21:57Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s13-release-readiness-final-f67b3a8a4182.log",
+      "logSha256": "e4abd0fa7e62df0a0779cd7083ed242943df1aa7662d2af22207d67aa79ed28f",
+      "inputsHash": "c3b47c638857e1646962be2b887a0f793194f0d133656b2322eb0b5cd2376e5e"
+    },
+    "s13-release-readiness/chk-link-aarch64/final": {
+      "checkId": "chk-link-aarch64",
+      "boundaryId": "s13-release-readiness",
+      "phase": "final",
+      "batchId": "1c71f288e91e8280e7e39eeb19cb543f90b6aa41cbe277446efd58485f2498b2",
+      "definitionHash": "30da60d9d8a8d21ff07a3a600dc02058e41a4bb7fe5f1ed06d81ae664ec4eb42",
+      "basisHash": "9e72f131e99794bf9e17ddf93421b416e12f3a67870066bfc244c093bff0e7b3",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 2.44,
+      "recordedAt": "2026-11-09T12:22:00Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s13-release-readiness-final-626e6c41ecfd.log",
+      "logSha256": "ffff0349882a8879157637dcab4f0a90cd29c3610f275a70ebf03f8d51a6f60a",
+      "inputsHash": "d70117443aab9feae77224ad0f77d16e36c9f3fe213c21cc4218e737b9c638f2"
+    },
+    "s13-release-readiness/chk-xtask-store-check/final": {
+      "checkId": "chk-xtask-store-check",
+      "boundaryId": "s13-release-readiness",
+      "phase": "final",
+      "batchId": "1c71f288e91e8280e7e39eeb19cb543f90b6aa41cbe277446efd58485f2498b2",
+      "definitionHash": "b20c7734934b0d6bab1986ded1f0b6b4eaec63654ca9b9fea358319490be92b0",
+      "basisHash": "90f41ab196184bfae8841abdfe4c6b630b2320bb8077d4130c33c55de2543683",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 13,
+      "durationSeconds": 0.0846,
+      "recordedAt": "2026-11-09T12:22:00Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s13-release-readiness-final-2c80768a0996.log",
+      "logSha256": "0a80951d8db5626fbb4932b9497d8d9769d3337a94a2ec3cd05ba914e0f2f550",
+      "inputsHash": "834b9b89eb1edc3b00af058cdc4ec95d3c1e8937da6bf144643c58000af70ecb"
+    },
+    "s13-release-readiness/chk-package-crates/final": {
+      "checkId": "chk-package-crates",
+      "boundaryId": "s13-release-readiness",
+      "phase": "final",
+      "batchId": "1c71f288e91e8280e7e39eeb19cb543f90b6aa41cbe277446efd58485f2498b2",
+      "definitionHash": "735a0ce461c2376a5c18bce9305ad209a61593215b3b5dc3c4bebcea9a764626",
+      "basisHash": "9b44160420f1e47c94d46c384e5cd9c9b3abd1ad78d728872843421c3467210c",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 2.5132,
+      "recordedAt": "2026-11-09T12:22:02Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s13-release-readiness-final-da4a4f3d0f47.log",
+      "logSha256": "9af50f51f4c784b0ae8a4e55c53cc5dc0bc598b7902f878c0c08238afe8e12dc",
+      "inputsHash": "ddd717f79955223be048cd494496c1abde9440e0a42972c9b4aa346a36a8c059"
+    },
+    "s13-release-readiness/chk-release-yaml/final": {
+      "checkId": "chk-release-yaml",
+      "boundaryId": "s13-release-readiness",
+      "phase": "final",
+      "batchId": "1c71f288e91e8280e7e39eeb19cb543f90b6aa41cbe277446efd58485f2498b2",
+      "definitionHash": "1a097009e0b58590df82945fb157d9af2d66ba9b9829b30bdd1cda4122dd168c",
+      "basisHash": "dd1645fae1b350e6306057bd454e14e206c3fa403111e5a4126ebc83fdbccdb3",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 0.0415,
+      "recordedAt": "2026-11-09T12:22:02Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s13-release-readiness-final-8cee28c17f1b.log",
+      "logSha256": "b5ef34948d119b8c9a2a83ea3fa7be28686336c326ed4fa8cbd531bc51a84a27",
+      "inputsHash": "95fa0ce12e4f78ccbf31b8db025cf95ff8c087d413817bc5eebe4632d31b353c"
     }
   },
   "reviews": {
@@ -4944,6 +5050,225 @@
         "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
       }
+    },
+    "s13-release-readiness": {
+      "reviewerId": "reviewer-s13-independent",
+      "snapshotId": "1c71f288e91e8280e7e39eeb19cb543f90b6aa41cbe277446efd58485f2498b2",
+      "criterionIds": [
+        "ARM64-2",
+        "STORE-1",
+        "PUB-1"
+      ],
+      "verdict": "passed",
+      "anchors": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/package/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "ARM64-2"
+          ],
+          "sha256": "e94a555b7126cf4a40a4bb206f0fc3d0fb6cbfaa0f205b45b9668cf51bcf2f0e"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/main.rs",
+          "kind": "source",
+          "criterionIds": [
+            "ARM64-2",
+            "STORE-1"
+          ],
+          "sha256": "1c4479a112b0d917f420b1b132149b48af9721c7b294badc1adbeb46048b4e0c"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "host/tizen-manifest.template.xml",
+          "kind": "source",
+          "criterionIds": [
+            "ARM64-2"
+          ],
+          "sha256": "fdfc1cbeac37231efa678d10f1f69c5da868c50c33dff13a0140a095315b58cf"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/package/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "ARM64-2"
+          ],
+          "sha256": "670357c951247259866d6bff307e29a80989ef8bf3d2d119c392a2c069ecd05b"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s13-release-readiness-final-626e6c41ecfd.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "ARM64-2"
+          ],
+          "sha256": "ffff0349882a8879157637dcab4f0a90cd29c3610f275a70ebf03f8d51a6f60a"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s13-package-all.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "ARM64-2"
+          ],
+          "sha256": "73394494b8754ead3b745c8955ecde53f3b6962a7f19200656180fb16973b94e"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/store_check/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "STORE-1"
+          ],
+          "sha256": "11f7dcd8385fbccf34c3b136059307aa5b56f57d3a2976e1d0a607aae14f9fa2"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "store/feature-description.counter.md",
+          "kind": "source",
+          "criterionIds": [
+            "STORE-1"
+          ],
+          "sha256": "f64c720f684271d65d5cecc01766cc2118998d5a37118c7a4e5ce4c685a2cc8f"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/store_check/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "STORE-1"
+          ],
+          "sha256": "9587202202cc06df175c8d314402010ede0a0bb59f2e664f18b2537b7bfbffa8"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "Cargo.toml",
+          "kind": "source",
+          "criterionIds": [
+            "PUB-1"
+          ],
+          "sha256": "354e446a8ab89bc04bb63f805cfe72521a7318282689c02830adb43c49350acb"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_sys/Cargo.toml",
+          "kind": "source",
+          "criterionIds": [
+            "PUB-1"
+          ],
+          "sha256": "d8feb42303f09e48282baa794756edc827ddb5c197a4b908fd0152fca8559960"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/Cargo.toml",
+          "kind": "source",
+          "criterionIds": [
+            "PUB-1"
+          ],
+          "sha256": "1ef9df12d05b181085091b1cac6607385e6a1069392a6fab93d6b26699d501af"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "release-plz.toml",
+          "kind": "source",
+          "criterionIds": [
+            "PUB-1"
+          ],
+          "sha256": "b3dffe5d616012f4766ca9f627dedaddffe4a0534e9298e977a9d651dcdbb848"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": ".github/workflows/release-plz.yml",
+          "kind": "source",
+          "criterionIds": [
+            "PUB-1"
+          ],
+          "sha256": "f584d53e579f0dc063b45514899b38cc0073c87c5dd1206fc54bd8e90ce2b1d0"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "scripts/check_workflow_yaml.rb",
+          "kind": "source",
+          "criterionIds": [
+            "PUB-1"
+          ],
+          "sha256": "dabf3dea172cb2e8ccf3804cd3b36b7e063631f7100454ef1d5c8ceff975ebde"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/releasing.md",
+          "kind": "source",
+          "criterionIds": [
+            "PUB-1"
+          ],
+          "sha256": "f0e65960d17b326cc2f17d65f468223ee000810aa048195cca8e13775108ae04"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s13-release-readiness-final-da4a4f3d0f47.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "PUB-1"
+          ],
+          "sha256": "9af50f51f4c784b0ae8a4e55c53cc5dc0bc598b7902f878c0c08238afe8e12dc"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s13-release-readiness-final-8cee28c17f1b.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "PUB-1"
+          ],
+          "sha256": "b5ef34948d119b8c9a2a83ea3fa7be28686336c326ed4fa8cbd531bc51a84a27"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s13-release-readiness-final-f67b3a8a4182.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "ARM64-2"
+          ],
+          "sha256": "e4abd0fa7e62df0a0779cd7083ed242943df1aa7662d2af22207d67aa79ed28f"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s13-release-readiness-final-2c80768a0996.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "STORE-1"
+          ],
+          "sha256": "0a80951d8db5626fbb4932b9497d8d9769d3337a94a2ec3cd05ba914e0f2f550"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "README.md",
+          "kind": "source",
+          "criterionIds": [
+            "ARM64-2",
+            "STORE-1"
+          ],
+          "sha256": "3dfb2f0e8e68e8cbbbd29fb097051716da8a38b97357894431c86c5fc9b2c000"
+        }
+      ],
+      "summaryMarkdown": "**Verdict: passed.** All eight s13 findings are resolved, and I verified each repair in source and by rerunning it.\n\n- **`ARM64-2`.**\n  - The aarch64 link of every TV library passes with the symbol check (`626e6c41ecfd`).\n  - I reran `package::tests` (8/8). `multi_arch` now asserts real uniqueness.\n  - `sign()` no longer breaks a single-target `--sign`. Only `--target all` needs the path, and it fails with an explanation.\n- **`STORE-1`.**\n  - I reran `store_check::tests` (13/13).\n  - The manifest scan now survives comments, both quote styles, whitespace and self-closing tags. Privileges ⊆ declared covers Samsung's namespace.\n  - An unfilled template fails.\n  - The upload `.zip` is checked as one: id, base version, unique fourth numbers, and each CPU feature against ELF `e_machine`. Then each package is checked. A real run on `DxnGpuiTzC-0.1.0.zip` passes.\n- **`PUB-1`.**\n  - There is no `homepage` and no manifest warning.\n  - Both crates ship `LICENSE-MIT` and `LICENSE-APACHE` (`cargo package`: 11 and 52 files; contents checked).\n  - `features_always_increment_minor = true` makes `feat:` bump the minor on 0.x, and `docs/releasing.md` describes the shared workspace version and the coupling to the TPK version.\n  - The workflow and the checker are unchanged (`workflow yaml ok`).\n\nStill owner-run, and now recorded in `README.md` and in `STORE-2` / `t25-store` (amendment rev 223): the CPU feature keys, Seller Office and TV acceptance of the four-part version, the zip layout, and `tz pack`'s output location. Nit, not blocking: the README does not cite the launch-checklist URL.",
+      "findingIds": [
+        "f-s13-release-bump-docs",
+        "f-s13-redundant-homepage",
+        "f-s13-crate-licence-texts",
+        "f-s13-store-check-manifest-scan",
+        "f-s13-store-check-template-placeholders",
+        "f-s13-store-check-multi-arch-upload",
+        "f-s13-multi-arch-uniqueness-test",
+        "f-s13-owner-store-assumptions"
+      ],
+      "recordedAt": "2026-11-09T12:23:39Z",
+      "recordHashes": {
+        "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
     }
   },
   "checkpoints": {
@@ -5095,6 +5420,17 @@
       },
       "reviewHash": "e7a2b2f722bb923703b15c652435f8a234ad8c8b4f3a6e98ce8dfa6146e10bcc",
       "recordedAt": "2026-11-09T12:01:19Z"
+    },
+    "s13-release-readiness": {
+      "snapshotId": "1c71f288e91e8280e7e39eeb19cb543f90b6aa41cbe277446efd58485f2498b2",
+      "commits": {
+        "gpuitizen": "66bfb33f4326a5dd0ec0f2a204197c941599bc80",
+        "gpui-fast": "e6ae34b9484cb050831aa9ab974fdd685e8800e3",
+        "wgpu": "4e3d80d5de97d1e66860f0f74fca92d50be70d4a",
+        "nsh": "7be66038d6cef63581f6bf0180b2bc8087bbf224"
+      },
+      "reviewHash": "b7ba304cd6825d331403ea700a9afa0ceb6b945bbe02e06f68d156756ad4665f",
+      "recordedAt": "2026-11-09T12:24:08Z"
     }
   },
   "findings": [
@@ -6487,9 +6823,186 @@
           "symbol": "Controls::follow_player"
         }
       ]
+    },
+    {
+      "id": "f-s13-release-bump-docs",
+      "boundaryId": "s13-release-readiness",
+      "criterionIds": [
+        "PUB-1"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** The release policy that `release-plz.toml` and `docs/releasing.md` describe is the one release-plz applies.\n\n**Observed.**\n- `release-plz.toml:13` and `docs/releasing.md:18` say a `feat:` commit bumps the minor version. release-plz's `features_always_increment_minor` defaults to `false`. Its schema (release-plz 0.3.172, `generate-schema`) says: \"feature commits will only bump the minor version starting with 1.x releases\". On 0.x, a `feat:` bumps the patch.\n- `docs/releasing.md:5` says release-plz \"never versions\" the diagnostic app, the examples and `xtask`. Every member, the two libraries included, inherits `[workspace.package] version` (`Cargo.toml:22`). A release therefore edits the shared workspace version:\n  - every unpublished member moves with it;\n  - the two crates can never have different versions, so their per-crate tags and changelogs always move together;\n  - the TV packages' version moves too, because `cargo xtask package` reads `[workspace.package] version` (`xtask/src/main.rs`, `run_package`).\n\n**Failure scenario.** The first `feat:` after 0.1.0 opens a release pull request for 0.1.1, not the documented 0.2.0. Merging it also changes every app's TPK version to 0.1.1, and Seller Office sees that version on the next upload. Nothing in the docs mentions this.\n\n**Repair.**\n- Set `features_always_increment_minor = true`, or correct the table and the comment.\n- Either declare the lockstep (`version_group`) and document it, including the coupling to the TPK version, or give the library crates their own `version` and keep the apps' package version separate.\n\n**Resolved (re-review).** `features_always_increment_minor = true` is set. The bump table and comment match it. `docs/releasing.md` now states the shared workspace version, the lockstep crates and the coupling to the TPK version.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "release-plz.toml"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/releasing.md"
+        }
+      ]
+    },
+    {
+      "id": "f-s13-redundant-homepage",
+      "boundaryId": "s13-release-readiness",
+      "criterionIds": [
+        "PUB-1"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** The metadata change adds no warnings to the workspace.\n\n**Observed.** `Cargo.toml:27` sets `homepage` to the same URL as `repository`, and both library crates inherit it (`homepage.workspace = true`). The pinned cargo (1.101.0-nightly 2026-10-12) now prints `warning: package.homepage is redundant with package.repository` (`cargo::redundant_homepage`) twice, on every cargo command in the workspace. I saw it on `cargo check -p dxn_gpui_tizen_sys` and on every `cargo xtask` run. PUB-1 does not ask for `homepage`.\n\n**Failure scenario.** Every build, test and xtask log, and later CI, carries two manifest warnings. Real warnings get harder to spot, and any future `-D warnings`-style gate on cargo lints fails.\n\n**Repair.** Drop `homepage` from `[workspace.package]` and from both crates (crates.io shows `repository`), or point it at a different page such as the docs.\n\n**Resolved (re-review).** `homepage` is gone from the workspace and from both crates. `cargo check -p dxn_gpui_tizen_sys` and `cargo package` print no manifest warnings.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "Cargo.toml"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_sys/Cargo.toml"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/Cargo.toml"
+        }
+      ]
+    },
+    {
+      "id": "f-s13-crate-licence-texts",
+      "boundaryId": "s13-release-readiness",
+      "criterionIds": [
+        "PUB-1"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** A published crate under `MIT OR Apache-2.0` carries both licence texts. Apache-2.0 §4(a) asks redistributors to give recipients a copy of the licence.\n\n**Observed.** The `include` lists (`crates/dxn_gpui_tizen_sys/Cargo.toml:13`, `crates/dxn_gpui_tizen/Cargo.toml:13`) contain only sources, `symbols.allow`/tests and `README.md`. `LICENSE-MIT` and `LICENSE-APACHE` live only at the workspace root, which the crate packages do not include. `cargo package --list` shows no licence file in either `.crate`, and the crate READMEs name the licences without linking them.\n\n**Failure scenario.** Both crates are published to crates.io (and vendored by consumers) without any licence text.\n\n**Repair.**\n- Copy or symlink `LICENSE-MIT` and `LICENSE-APACHE` into each crate directory and add them to `include`. cargo packages a symlink's contents.\n- Assert their presence, for example in a `cargo package --list` check.\n\n**Resolved (re-review).** `LICENSE-MIT` and `LICENSE-APACHE` are symlinks in each crate and are listed in `include`. I reran `cargo package`: 11 and 52 files. Both `.crate` files carry the real licence texts (checked with `tar`).",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_sys/Cargo.toml"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/Cargo.toml"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s13-release-readiness-final-da4a4f3d0f47.log"
+        }
+      ]
+    },
+    {
+      "id": "f-s13-store-check-manifest-scan",
+      "boundaryId": "s13-release-readiness",
+      "criterionIds": [
+        "STORE-1"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** `store-check` reads any well-formed Tizen manifest and feature description correctly, including NSH's `nsh package --target tizen` output, which `README.md` tells the owner to check. Privileges ⊆ declared holds for every privilege namespace.\n\n**Observed.**\n- `declared_privileges` (`xtask/src/store_check/mod.rs:181`) collects only `http://tizen.org/privilege/...` URIs. Samsung's TV privileges (`http://developer.samsung.com/privilege/...`) can never count as declared. A manifest that requests one always fails with \"is not declared\", even when it is listed under `## Privileges`.\n- `attributes` and `texts` (`mod.rs:120-153`) are substring scans, not XML parsing:\n  - Comments are not skipped. A commented-out `<privilege>` or an old `<icon>` placed before the real one is read as real. This gives a false failure, or the wrong icon file is checked.\n  - Attributes in single quotes or with spaces around `=` (`package = 'X'`, valid XML) read as missing, so package id, version, API version and profile fail.\n  - `<privilege >` with whitespace, or with an attribute, is not matched. That privilege escapes the ⊆ check, a false pass.\n  - A self-closing `<icon/>` is correctly reported as \"no `<icon>`\".\n- `store_check::tests` exercise only the formatting of the repository's own template.\n\n**Failure scenario.** An NSH TV app that needs `http://developer.samsung.com/privilege/productinfo` declares it in its feature description. `cargo xtask store-check App.tpk --entry nsh_tizen_main --feature-description …` still fails, and no edit to the description can make it pass.\n\n**Repair.**\n- Strip `<!-- … -->` before scanning, or parse with a small XML crate in `xtask` (for example `roxmltree`).\n- Accept both quote styles and whitespace around `=`.\n- Match `<privilege` followed by `>` or whitespace.\n- Collect every `http(s)://…/privilege/…` URI in the `## Privileges` section.\n- Add `store_check::tests` cases for a comment, single quotes, a Samsung privilege and `<privilege >`.\n\n**Resolved (re-review).** `strip_comments`, the `tags` scanner, both quote styles with whitespace around `=`, and `<privilege >` are all handled. `privilege_start` accepts any `http(s)://…/privilege/…` URI. New cases: `manifests_are_read_past_comments_quotes_and_spaces` and `samsung_privileges_count_when_declared`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/store_check/mod.rs"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/store_check/tests.rs"
+        }
+      ]
+    },
+    {
+      "id": "f-s13-store-check-template-placeholders",
+      "boundaryId": "s13-release-readiness",
+      "criterionIds": [
+        "STORE-1"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** STORE-1: the feature description must be \"written for the app being submitted\". The committed files are templates. Each says \"complete the bracketed parts before submitting\" (for example `store/feature-description.counter.md:3`, `:16`, `:20`: `[declared by the shared host; …]`, `[Contact for review questions.]`).\n\n**Observed.** `check` (`xtask/src/store_check/mod.rs:294`) accepts any non-empty text. `cargo xtask store-check target/tpk/counter-armv7` reports `ok feature description` and `store check passed` with the template still unfilled.\n\n**Failure scenario.** The owner runs the pre-submission check, sees it pass, and uploads a feature description that still contains `[Contact for review questions.]`. Seller Office review then rejects it or asks questions.\n\n**Repair.**\n- Fail, or at least warn, while the description still has the template banner, or a bracketed placeholder that is not a Markdown link (`[` … `]` not followed by `(`).\n- Add a `store_check::tests` case. The committed templates should then report the outstanding placeholders.\n\n**Resolved (re-review).** `placeholders()` fails the feature description, while links and checkboxes are exempt (`an_unfilled_template_fails`, on the real template). A real run on `target/tpk/counter-armv7` now reports both placeholders and fails.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/store_check/mod.rs"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/store_check/tests.rs"
+        }
+      ]
+    },
+    {
+      "id": "f-s13-store-check-multi-arch-upload",
+      "boundaryId": "s13-release-readiness",
+      "criterionIds": [
+        "ARM64-2",
+        "STORE-1"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** The file the owner actually uploads for a multi-architecture release, the `.zip`, can be checked before submission. So can its own invariants: each entry is a TPK that passes the checks, all entries share the package id and `x.y.z`, the fourth numbers are distinct, and each `<feature>` matches its library's architecture.\n\n**Observed.** `read_package` (`xtask/src/main.rs:929`) treats every zip as a TPK. `cargo xtask store-check target/tpk/DxnGpuiTzC-0.1.0.zip` prints `FAIL manifest: no tizen-manifest.xml at the package root`. Nothing checks the invariants on the produced artifact. `package::tests::multi_arch` covers only the pure helpers. Nothing compares the CPU `<feature>` with the ELF `e_machine` of `lib/libdxn_app.so`.\n\n**Failure scenario.** A zip assembled by hand, or by a later change to `package_all`, holds two packages with the same fourth number, or an aarch64 library under the armv7 feature. `store-check` cannot be pointed at the zip, so the owner learns about it only from Seller Office or from a TV that cannot load the library.\n\n**Repair.**\n- Recognise a zip whose top level holds only `.tpk` entries, and run the check on each.\n- Add the cross-package checks, including `<feature>` against `e_machine`.\n- Cover it in `store_check::tests`.\n\n**Resolved (re-review).** `check_upload` checks 1–10 packages, one id and `x.y.z`, unique fourth numbers, and exactly one CPU feature that matches the library's ELF `e_machine`. Each package is then checked on its own. Test: `a_multi_architecture_upload_is_checked_as_one`. I reran `store-check target/tpk/DxnGpuiTzC-0.1.0.zip` with a filled-in description: it passes, with armv7↔40 and armv8↔183 matched.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/store_check/mod.rs"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/main.rs"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/store_check/tests.rs"
+        }
+      ]
+    },
+    {
+      "id": "f-s13-multi-arch-uniqueness-test",
+      "boundaryId": "s13-release-readiness",
+      "criterionIds": [
+        "ARM64-2"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** `package::tests::multi_arch` proves that the fourth version number is unique per architecture, as its assertion message says.\n\n**Observed.** `xtask/src/package/tests.rs:195-199` calls `dedup()` on `[1, 3, 2]`, the numbers in `Target::ALL` order (Armv7, X86_64, Aarch64), without sorting first. `Vec::dedup` removes only adjacent duplicates.\n\n**Failure scenario.** A regression that maps aarch64 to 1 gives `[1, 3, 1]`. `dedup` leaves three items and the test passes. Seller Office would then get two packages with version `x.y.z.1`.\n\n**Repair.** Collect the numbers into a `BTreeSet`, or `sort()` before `dedup()`.\n\n**Resolved (re-review).** The test now uses a `BTreeSet` length compared with `Target::ALL.len()`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/package/tests.rs"
+        }
+      ]
+    },
+    {
+      "id": "f-s13-owner-store-assumptions",
+      "boundaryId": "s13-release-readiness",
+      "criterionIds": [
+        "ARM64-2"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** The packaging choices that cannot be verified offline are recorded as assumptions, and an owner-run step exercises them before they are relied on.\n\n**Observed.** These assumptions are unverified:\n- the CPU feature keys (`xtask/src/package/mod.rs:144-150`);\n- whether `tz pack` and the TV's package manager accept a four-part `version`, and the `<feature>` element after `</privileges>`;\n- the internal layout of the zip (top-level TPKs, named `<id>-<x.y.z.n>-<arch>.tpk`);\n- where `tz pack` writes its output.\n\nOn the last one: `sign()` (`xtask/src/main.rs:699-718`) looks only in the staged directory and its parent for a fresh `.tpk`. Before this sprint, a single-target `--sign` succeeded when `tz` exited 0. It now fails (\"wrote 0 .tpk files\") whenever `tz` writes anywhere else.\n\n`README.md:70` presents the output as \"the multi-architecture `.zip` Seller Office takes\". No document marks any of this as unverified. The owner-run steps do not exercise it either: `STORE-2` / `t25-store` submit \"one app … as a `tizen` TPK\".\n\n**Failure scenario.** s25 submits a single-architecture NSH TPK and closes. `--target all --sign` and the multi-architecture upload are never run with a real profile. A wrong feature key or a rejected four-part version first shows up at the first real multi-architecture release.\n\n**Repair.**\n- Record the assumptions, with the launch-checklist URL and what is unverified, in the README packaging section or under `docs/`.\n- Amend `t25-store` (`STORE-2`) so the owner:\n  - runs `cargo xtask package --app <app> --target all --sign <profile>`;\n  - runs `store-check` on the outputs;\n  - uploads the `.zip`, or at least validates it in Seller Office;\n  - installs the four-part package on a TV or in Remote Test Lab;\n  - records the outcome in the verification log.\n\n**Resolved (re-review).** With `Signed::{Failed, Package, Elsewhere}`, a single-target `--sign` succeeds on `tz` exit 0, and only `--target all` requires the path. `README.md` lists the four assumptions. Amendment `amend-s13-store.json` adds `--target all --sign`, `store-check` on the zip and the recording of assumptions to `STORE-2` / `t25-store`. Residual nit, not blocking: the launch-checklist URL is not cited in the README.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/main.rs"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "README.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": ".agentx/tasks/tizen-gpui-platform/requirements.json"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": ".agentx/tasks/tizen-gpui-platform/implementation-plan.json"
+        }
+      ]
     }
   ],
-  "handoffMarkdown": "examples/video (example_video, cdylib + desktop bin with placeholder), res/clip.mp4 (synthetic, recipe in res/README.md), Controls + view::tests, package table entry video/DxnGpuiTzV with per-app resources copied to res/; dxn_gpui_tizen::resource_path; VideoPlayer::new infallible (error()).",
+  "handoffMarkdown": "metadata (rust-version, homepage, readme, keywords, categories, include) on sys and dxn_gpui_tizen (publish default), workspace publish=false for the rest; sys path dep versioned; crate READMEs and CHANGELOGs; release-plz.toml (crates.io, per-crate tags), .github/workflows/release-plz.yml gated by vars.PUBLISH_CRATES; scripts/check_workflow_yaml.rb; docs/releasing.md.",
   "protectedPaths": {
     "gpuitizen": {
       "gpuitizen:.agentx/memory/**": "94784ab15131a5a4ff6827a67fa677677a923e04a068e1e4335659b7b6e5c11e"

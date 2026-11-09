@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 25,
+  "revision": 26,
   "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
   "repositories": [
     {
@@ -5292,7 +5292,7 @@
         {
           "id": "t25-store",
           "title": "Seller Office and submission (owner)",
-          "descriptionMarkdown": "Run `cargo xtask store-check` on the package chosen for submission, then `STORE-2`.",
+          "descriptionMarkdown": "Run `cargo xtask store-check` on the package chosen for submission, then `STORE-2`. Include the multi-architecture upload (`--target all --sign`, `store-check` on the `.zip`) and record which of the README's packaging assumptions held.",
           "criterionIds": [
             "STORE-2"
           ],

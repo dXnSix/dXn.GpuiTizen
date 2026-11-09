@@ -488,7 +488,7 @@
         },
         {
           "id": "STORE-2",
-          "descriptionMarkdown": "**Owner-run.** The owner registers in Seller Office, raises the native `.so` question with Samsung (`distribution.md`),\nsubmits one app built by this epic (the NSH gallery as a `tizen` TPK, or the owner's choice) with its feature\ndescription, and records the review outcome or its status in the verification log.",
+          "descriptionMarkdown": "**Owner-run.** The owner registers in Seller Office, raises the native `.so` question with Samsung (`distribution.md`),\nsubmits one app built by this epic (the NSH gallery as a `tizen` TPK, or the owner's choice) with its feature\ndescription, and records the review outcome or its status in the verification log. It also builds the multi-architecture upload with `cargo xtask package --app <app> --target all --sign <profile>`, checks it with `cargo xtask store-check <zip>`, and records whether Seller Office accepts it, confirming or correcting the assumptions listed in `README.md` (\"Packaging and store submission\"): the CPU feature keys, the four-part manifest version, the `.zip` layout and where `tz pack` writes the signed package.",
           "verification": "manual"
         }
       ]
