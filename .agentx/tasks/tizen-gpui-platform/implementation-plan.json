@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 17,
+  "revision": 20,
   "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
   "repositories": [
     {
@@ -39,7 +39,6 @@
     ],
     "forbiddenPaths": [
       "gpuitizen:.agentx/memory/**",
-      "wgpu:.github/**",
       "nsh:.github/workflows/release.yml",
       "nsh:.github/workflows/release-crate.yml",
       "nsh:.github/workflows/fork-release.yml",
@@ -47,7 +46,8 @@
       "gpui-fast:.github/**",
       "gpui-fast:UPSTREAM",
       "gpui-fast:crates/gpui_platform/**",
-      "gpui-fast:crates/gpui_linux/**"
+      "gpui-fast:crates/gpui_linux/**",
+      "wgpu:.github/**"
     ]
   },
   "validationMode": "sprint",
@@ -1242,23 +1242,20 @@
       "descriptionMarkdown": "wgpu GPU test on the GL backend (Mesa) in the Lima VM; resolve the exact test-harness selector from wgpu's `tests/` layout at sprint start (wgpu's GPU tests run per backend).",
       "argv": [
         "../dXn.GpuiTizen/scripts/lima-run.sh",
-        "cargo",
-        "test",
-        "-p",
-        "wgpu-test",
-        "--test",
-        "wgpu-gpu",
-        "--",
-        "pipeline_cache"
+        "bash",
+        "-c",
+        "WGPU_INFO_SAVE_GPUCONFIG_REPORT=1 cargo test -p wgpu-info generate_gpuconfig_report && cargo test -p wgpu-test --test wgpu-gpu -- pipeline_cache --test-threads=1"
       ],
       "expected": {
         "exitCode": 0,
-        "minimumTests": 1
+        "minimumTests": 2
       },
       "timeoutSeconds": 5400,
       "reuse": false,
       "inputs": [
         "wgpu-hal/**",
+        "wgpu-core/**",
+        "wgpu/**",
         "tests/**",
         "Cargo.lock"
       ]

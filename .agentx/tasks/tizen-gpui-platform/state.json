@@ -1,12 +1,12 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 165,
-  "planRevision": 17,
+  "revision": 177,
+  "planRevision": 20,
   "specHashes": {
     "requirements": "4dbaca28ac846a064bc1cd1d6006c1250a9388f43f49a9fca8da78f8471d3fcb",
-    "design": "7112697615efa4bc441d3a50b5079109960d08a3da1ca79dc70d74f6d98cedfd",
-    "plan": "a39b726073e0f592a1fdafce821fe5ba891b9555d4b44bccbcaae5a4fafe434d"
+    "design": "5487385df03e43e1022c72c2eabd27cc363a581ba19579287a2972b2b2d6f2e2",
+    "plan": "c3dedbc39b2307c55c1bdf9a0d559ccb3ac810137f63fda0bb4d2c3097d158b1"
   },
   "tasks": {
     "t1-workspace": {
@@ -229,13 +229,22 @@
       ]
     },
     "t9-egl14": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t9-program-binaries": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t9-wgpu-integration": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t10-scene-damage": {
       "status": "pending"
@@ -581,6 +590,30 @@
         }
       },
       "recordedAt": "2026-11-09T01:30:12Z"
+    },
+    "42ca71b31742d162c00d8c63170209c50938968ae98857c8b28f132df60a02b5": {
+      "snapshot": {
+        "specHash": "12375b01c465007d8076843738ac79d4edaaf029efbf0c72e5f98ab1a6f89460",
+        "repositories": {
+          "gpuitizen": "929067cb87eabe7c841653e18d856bf6b8eea7af8e99798075c0a4153d2c78a4",
+          "gpui-fast": "fe7eaaaf49262a9f593267dd395a5abd837f1bb2ec8c0acc93921b1caf5974d1",
+          "wgpu": "2f52bc7fd0edc7fe9cd843e9db1ccf5f4e072b22e4da2544633816535029da10",
+          "nsh": "44cd091043852019714da3ec9eda618bc3e237317015dcf281d4f1afb8693e3f"
+        }
+      },
+      "recordedAt": "2026-11-09T01:56:43Z"
+    },
+    "dfeefe2da240b6fea4f79f2894ac86117160642733a4eae60b358f7dd317c639": {
+      "snapshot": {
+        "specHash": "b95161dec24a7ef2ebb6b5252204560e8d185a57d4993459c303343e613be8b1",
+        "repositories": {
+          "gpuitizen": "a03d3baf5259f07e137748a4cc76532d89d81abde5010b36fd554c245f0a3e5b",
+          "gpui-fast": "fe7eaaaf49262a9f593267dd395a5abd837f1bb2ec8c0acc93921b1caf5974d1",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "44cd091043852019714da3ec9eda618bc3e237317015dcf281d4f1afb8693e3f"
+        }
+      },
+      "recordedAt": "2026-11-09T02:08:46Z"
     }
   },
   "checkResults": {
@@ -1501,6 +1534,108 @@
       "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s8-completion-final-876f1f326a7d.log",
       "logSha256": "4e9cbccf1a420d05fba1b29b54d175c0ab28c6c8775571e60dbececa4431a07c",
       "inputsHash": "97d95f7e018a5e15eeaff9d2289eb955a44b2b9a68861ed46a8238eeb5823278"
+    },
+    "s9-wgpu/chk-xtask-release/final": {
+      "checkId": "chk-xtask-release",
+      "boundaryId": "s9-wgpu",
+      "phase": "final",
+      "batchId": "42ca71b31742d162c00d8c63170209c50938968ae98857c8b28f132df60a02b5",
+      "definitionHash": "f510e7d16ecbedaa5ebb805b0420c1cdea899f39c52ea4daf5e70bf65178df08",
+      "basisHash": "112b05cb824f0eee082c43903cc669067996d3e9c7b3d5abeb46bdf6330f68da",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 12,
+      "durationSeconds": 0.4311,
+      "recordedAt": "2026-11-09T01:55:33Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s9-wgpu-final-efc294e92bcd.log",
+      "logSha256": "a144867d079d7afeeb4fe61d173dbd6d8db10bc062116966ab9287d9391d6866",
+      "inputsHash": "4892cb14f87170abc6853ec59cd40a2b7a6e6319d382b8347b4ffe2b92492cde"
+    },
+    "s9-wgpu/chk-gf-release/final": {
+      "checkId": "chk-gf-release",
+      "boundaryId": "s9-wgpu",
+      "phase": "final",
+      "batchId": "dfeefe2da240b6fea4f79f2894ac86117160642733a4eae60b358f7dd317c639",
+      "definitionHash": "44bc68fe0dafd089441686890151bbd098d3682c60b008da53c97c0f59875c4f",
+      "basisHash": "3c665875ea6a9047ead6d5fb8aadf03e2acb264675afee748da501505c86c2cf",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 33.3304,
+      "recordedAt": "2026-11-09T02:08:09Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s9-wgpu-final-b55c5420f5b8.log",
+      "logSha256": "0f61ecbb31e6bae58c7425ebad2a4a95202e5a840aa99b611eda7b9cd4513c24",
+      "inputsHash": "c53f57fcae6f3c432443001c644b416159fd7c01d843b017401ff4837c54b40a"
+    },
+    "s9-wgpu/chk-gles-smoke/final": {
+      "checkId": "chk-gles-smoke",
+      "boundaryId": "s9-wgpu",
+      "phase": "final",
+      "batchId": "dfeefe2da240b6fea4f79f2894ac86117160642733a4eae60b358f7dd317c639",
+      "definitionHash": "b7ea8eb0e5aaa761e15f3cc33b235fe9c09705874a831138e734a1a8b487626c",
+      "basisHash": "860dd28e82530cdc66243bc0c32a0b158a5dc30770ee1cd40aec081e99de546e",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 2,
+      "durationSeconds": 18.7124,
+      "recordedAt": "2026-11-09T02:08:27Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s9-wgpu-final-b32ad5b00c21.log",
+      "logSha256": "aa99793c3b19ca079b57e5e0053a831e54ec03097903002b31706be58a56a67e",
+      "inputsHash": "cf9c371aa349a4990dda2b72c5c49020970107c22016576647c53995f69d0de7"
+    },
+    "s9-wgpu/chk-wgpu-egl-unit/final": {
+      "checkId": "chk-wgpu-egl-unit",
+      "boundaryId": "s9-wgpu",
+      "phase": "final",
+      "batchId": "dfeefe2da240b6fea4f79f2894ac86117160642733a4eae60b358f7dd317c639",
+      "definitionHash": "656e3ac11c64c5265b10fc972d7511e2a66e7c57347b7c245c041442d37c6d07",
+      "basisHash": "ffcf79b53149e122b6036156faa2f971b98ef84306e124c14a81a6c13d00fce8",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 3,
+      "durationSeconds": 2.709,
+      "recordedAt": "2026-11-09T02:08:30Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s9-wgpu-final-d3fb58c2d68d.log",
+      "logSha256": "03c6a070577506cf9ef52b8c504c3bb3cc777bbb3714b544e8fd825b89b2a2a7",
+      "inputsHash": "a1d7b2ada2cc4129970a6b130ce0e3d3d0800d056a37a89ade9a4c0dc30db67f"
+    },
+    "s9-wgpu/chk-wgpu-program-binaries/final": {
+      "checkId": "chk-wgpu-program-binaries",
+      "boundaryId": "s9-wgpu",
+      "phase": "final",
+      "batchId": "dfeefe2da240b6fea4f79f2894ac86117160642733a4eae60b358f7dd317c639",
+      "definitionHash": "34eed7afc8022da48b77dcc7360758af5e5242f290b04e509df3d4eca5951103",
+      "basisHash": "9de60de31dfb22f418e9803a6a7e1eab24095b0e7a5303c67a8725a4c3d0da5a",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 3,
+      "durationSeconds": 13.8444,
+      "recordedAt": "2026-11-09T02:08:44Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s9-wgpu-final-9a13a6e57dbd.log",
+      "logSha256": "ead8bc6d084050ac1c977ed43d2a53ca1a19fa7ea75990771f4a235533f631ce",
+      "inputsHash": "4dc8bb5f17b10b5c82384208a4d12d9d50eed88adf888e0a096b4819b99bb68c"
+    },
+    "s9-wgpu/chk-wgpu-clippy/final": {
+      "checkId": "chk-wgpu-clippy",
+      "boundaryId": "s9-wgpu",
+      "phase": "final",
+      "batchId": "dfeefe2da240b6fea4f79f2894ac86117160642733a4eae60b358f7dd317c639",
+      "definitionHash": "f411e55ef54856ed2e27fdaa116b6ac5810322a8cbacfb7c0b8322b537a62573",
+      "basisHash": "a004e88c1240a4eec4d7a5fd3a5e90fc6db252e534425752f1e325c2b40e69c0",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 1.8514,
+      "recordedAt": "2026-11-09T02:08:46Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s9-wgpu-final-019a3b3c9659.log",
+      "logSha256": "7bba57e28bb3ec17ed9980796fd15b2bd327ea07b0a1a847ae99884a657cbed3",
+      "inputsHash": "a1d7b2ada2cc4129970a6b130ce0e3d3d0800d056a37a89ade9a4c0dc30db67f"
     }
   },
   "reviews": {
@@ -3321,6 +3456,230 @@
         "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
       }
+    },
+    "s9-wgpu": {
+      "reviewerId": "reviewer-s9-independent",
+      "snapshotId": "dfeefe2da240b6fea4f79f2894ac86117160642733a4eae60b358f7dd317c639",
+      "criterionIds": [
+        "WGPU-1",
+        "WGPU-2",
+        "WGPU-3",
+        "WGPU-4"
+      ],
+      "verdict": "passed",
+      "anchors": [
+        {
+          "repositoryId": "wgpu",
+          "path": "wgpu-hal/src/gles/egl.rs",
+          "kind": "source",
+          "criterionIds": [
+            "WGPU-1",
+            "WGPU-2"
+          ],
+          "sha256": "b5361abdf77f1d93422f9f971704c85de44ee34a3fc57ac6501ed5d7d14a1c81"
+        },
+        {
+          "repositoryId": "wgpu",
+          "path": "wgpu-hal/src/gles/egl.rs",
+          "kind": "test",
+          "criterionIds": [
+            "WGPU-1",
+            "WGPU-2"
+          ],
+          "sha256": "b5361abdf77f1d93422f9f971704c85de44ee34a3fc57ac6501ed5d7d14a1c81"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s9-wgpu-final-d3fb58c2d68d.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "WGPU-1",
+            "WGPU-2"
+          ],
+          "sha256": "03c6a070577506cf9ef52b8c504c3bb3cc777bbb3714b544e8fd825b89b2a2a7"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "examples/counter/tests/gles_smoke.rs",
+          "kind": "test",
+          "criterionIds": [
+            "WGPU-2"
+          ],
+          "sha256": "875971101f50aee883f40704cf25335aababdef1ca8dd8bddc0f202e4bafb9d3"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s9-wgpu-final-b32ad5b00c21.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "WGPU-2",
+            "WGPU-4"
+          ],
+          "sha256": "aa99793c3b19ca079b57e5e0053a831e54ec03097903002b31706be58a56a67e"
+        },
+        {
+          "repositoryId": "wgpu",
+          "path": "wgpu-hal/src/gles/pipeline_cache.rs",
+          "kind": "source",
+          "criterionIds": [
+            "WGPU-3"
+          ],
+          "sha256": "dc57334349280a20d0e335b6128294aab43c58eb089d4588f8b03fea43767a46"
+        },
+        {
+          "repositoryId": "wgpu",
+          "path": "wgpu-hal/src/gles/device.rs",
+          "kind": "source",
+          "criterionIds": [
+            "WGPU-3"
+          ],
+          "sha256": "01cb1cde424ec23c6ea839d6860c6dbc68b540dcfb4f7674e95c7335c86807e3"
+        },
+        {
+          "repositoryId": "wgpu",
+          "path": "wgpu-hal/src/gles/adapter.rs",
+          "kind": "source",
+          "criterionIds": [
+            "WGPU-3"
+          ],
+          "sha256": "8ed6415b317b8de0f57a1a114f641f0c1748df0e4385425f39a01578c3631ab4"
+        },
+        {
+          "repositoryId": "wgpu",
+          "path": "wgpu-hal/src/gles/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "WGPU-3"
+          ],
+          "sha256": "536e4678bd28e128b0cdc3418c54e6e8c988b5ecc2a25eef3581745c40a53424"
+        },
+        {
+          "repositoryId": "wgpu",
+          "path": "wgpu-core/src/pipeline_cache.rs",
+          "kind": "source",
+          "criterionIds": [
+            "WGPU-3"
+          ],
+          "sha256": "3c8863af8ea8e7284b97a11f0d125e5153176b28ad334b9726a165574394d954"
+        },
+        {
+          "repositoryId": "wgpu",
+          "path": "wgpu/src/util/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "WGPU-3"
+          ],
+          "sha256": "32c5fffc258cb83c720bb760510797c7ec6963a63923c18ff1389427a38158cb"
+        },
+        {
+          "repositoryId": "wgpu",
+          "path": "wgpu-hal/src/gles/pipeline_cache.rs",
+          "kind": "test",
+          "criterionIds": [
+            "WGPU-3"
+          ],
+          "sha256": "dc57334349280a20d0e335b6128294aab43c58eb089d4588f8b03fea43767a46"
+        },
+        {
+          "repositoryId": "wgpu",
+          "path": "tests/tests/wgpu-gpu/pipeline_cache.rs",
+          "kind": "test",
+          "criterionIds": [
+            "WGPU-3"
+          ],
+          "sha256": "53a09e4ba0b66f3f11fff96a62213bda52369f3ee565de49ba144cceb2349d6b"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s9-wgpu-final-9a13a6e57dbd.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "WGPU-3"
+          ],
+          "sha256": "ead8bc6d084050ac1c977ed43d2a53ca1a19fa7ea75990771f4a235533f631ce"
+        },
+        {
+          "repositoryId": "wgpu",
+          "path": "CHANGELOG.md",
+          "kind": "source",
+          "criterionIds": [
+            "WGPU-1",
+            "WGPU-2",
+            "WGPU-3"
+          ],
+          "sha256": "cede6cbbaf1f02681633c22010ce3ebaacea72d8453384c48a4bbd1394620d5f"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/release/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "WGPU-4"
+          ],
+          "sha256": "6b011f08d0d177841f4beb00818f2c7a6ed12879c157a860cf0343fc965f4040"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/main.rs",
+          "kind": "source",
+          "criterionIds": [
+            "WGPU-4"
+          ],
+          "sha256": "55ad086f8da3e307947ecf29ed619656d549ec0e865cc6539efd8f32aa63adbf"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "scripts/lima-run.sh",
+          "kind": "source",
+          "criterionIds": [
+            "WGPU-2",
+            "WGPU-4"
+          ],
+          "sha256": "4b4bbd4070730807b1a66f2d797ecf874008bbab10fbc6798b2b7c9bc6e0f571"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/release/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "WGPU-4"
+          ],
+          "sha256": "a6c58a7b88b23a4a39382365dbaef39d17ae4df58a8c9bdf9a72b4d780412a86"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s9-wgpu-final-b55c5420f5b8.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "WGPU-4"
+          ],
+          "sha256": "0f61ecbb31e6bae58c7425ebad2a4a95202e5a840aa99b611eda7b9cd4513c24"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s9-wgpu-final-efc294e92bcd.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "WGPU-4"
+          ],
+          "sha256": "a144867d079d7afeeb4fe61d173dbd6d8db10bc062116966ab9287d9391d6866"
+        }
+      ],
+      "summaryMarkdown": "**Verdict: passed.** WGPU-1 to WGPU-4 are met at dfeefe2d, and all seven s9 findings are resolved.\n\n`egl.rs` has not changed since the first review (`git diff 66e825217 v30-tizen -- wgpu-hal/src/gles/egl.rs` is empty), so the WGPU-1/2 conclusions stand:\n- EGL 1.5 keeps upstream's arms. EGL 1.4 uses `eglGetPlatformDisplayEXT` or `eglGetDisplay(wl_display)`.\n- The presentable tier changes only for Wayland.\n- The retry runs once, only after a `SINGLE_BUFFER` request fails with `BadAttribute`/`BadMatch`.\n- `gles_smoke` still presents through the patched surface code on X11/Mesa.\n\n**WGPU-3** is now proven by behaviour, with no public hal addition:\n- A cache whose plain key holds the shifted shader's binary makes the pipeline compute the shifted values, so the binary was loaded.\n- A garbage binary behind a valid checksum is rejected by the driver, recompiled and replaced.\n- Checksum-corrupt data is dropped.\n- A program linked earlier without a cache is stored into a cache passed later.\n\nd22 now names the wgpu-core and util changes. The CHANGELOG entry is under New Features.\n\n**WGPU-4** is unchanged: eleven patched wgpu crates and the `cargo tree -i wgpu-hal` check. The patch verification passes at `v30-tizen` `4e3d80d5d`.\n\n`lima-run.sh` reads its timeout on the host and treats repository subdirectories as the repository.\n\n**Reruns:** wgpu-hal `gles::` 7/7, wgpu-core `pipeline_cache` 13/13, xtask `release::tests` 12/12.",
+      "findingIds": [
+        "f-s9-driver-rejection-untested",
+        "f-s9-hal-public-counter-api",
+        "f-s9-d22-scope-outside-gles",
+        "f-s9-changelog-section",
+        "f-s9-lima-timeout-env",
+        "f-s9-lima-subdirectory",
+        "f-s9-inmemory-program-cache-bypass"
+      ],
+      "recordedAt": "2026-11-09T02:10:27Z",
+      "recordHashes": {
+        "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
     }
   },
   "checkpoints": {
@@ -3425,6 +3784,20 @@
       },
       "reviewHash": "d41c93515fc255a5e3196a133b447d604a2e4b4afc02a8e08492aeb04f1738f0",
       "recordedAt": "2026-11-09T01:32:01Z"
+    },
+    "s9-wgpu": {
+      "snapshotId": "dfeefe2da240b6fea4f79f2894ac86117160642733a4eae60b358f7dd317c639",
+      "commits": {
+        "gpuitizen": "d570cc64136b3ea73aa6ab91356b4791252c8a47",
+        "gpui-fast": "3b6ea11663f8a0ff8639f886ac28a6b7dcccdf8a",
+        "wgpu": "7033768098180f77f636b14d1b314787e9de5107",
+        "nsh": "7be66038d6cef63581f6bf0180b2bc8087bbf224"
+      },
+      "reviewHash": "626e08574a78d1bdfec36a1c4149b35d3ecc4e7e2c189f4641767b09a102234b",
+      "recordedAt": "2026-11-09T09:23:33Z",
+      "refs": {
+        "wgpu": "agentx/tizen-gpui-platform"
+      }
     }
   },
   "findings": [
@@ -4211,6 +4584,138 @@
           "path": "artifacts-temp/agentx/tizen-gpui-platform/s8-completion-final-3862d8761922.log"
         }
       ]
+    },
+    {
+      "id": "f-s9-driver-rejection-untested",
+      "boundaryId": "s9-wgpu",
+      "criterionIds": [
+        "WGPU-3"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Resolved at dfeefe2d** (wgpu `de226d2fa`, merged into `v30-tizen` as `4e3d80d5d`). `pipeline_cache_gl_program_binaries` now re-encodes an entry, using the documented layout and the entry checksum recomputed in the test, that keeps the plain shader's key and format but holds 64 bytes of garbage. That entry passes decoding and reaches `glProgramBinary`. Mesa rejects it. `create_program` drops the entry and recompiles on the same program object (`device.rs:559-570`), and the pipeline computes the plain values (`0`). `create_pipeline` then stores a fresh binary under that key, and the test asserts the stored binary is no longer the garbage. The checksum-corrupt case is still there. Passed 2/2 on llvmpipe GL in the VM (`s9-wgpu-final-9a13a6e57dbd.log`).",
+      "regressionRefs": [
+        {
+          "repositoryId": "wgpu",
+          "path": "tests/tests/wgpu-gpu/pipeline_cache.rs"
+        },
+        {
+          "repositoryId": "wgpu",
+          "path": "wgpu-hal/src/gles/device.rs"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s9-wgpu-final-9a13a6e57dbd.log"
+        }
+      ]
+    },
+    {
+      "id": "f-s9-hal-public-counter-api",
+      "boundaryId": "s9-wgpu",
+      "criterionIds": [
+        "WGPU-3"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Resolved at dfeefe2d.** `program_binary_counts`, `ProgramBinaryCounts` and the device field are gone (`git grep program_binary_counts v30-tizen` is empty). The test proves loading by behaviour instead: under the key of the shader that writes `index`, it stores the binary of the shader that writes `index + 1000`, and the pipeline computes `1000`. That can only happen if the binary was loaded rather than the shader compiled. d22's invariant now says GPU tests prove loading through behaviour, not through hal accessors (`amend-s9-d22.json`).",
+      "regressionRefs": [
+        {
+          "repositoryId": "wgpu",
+          "path": "tests/tests/wgpu-gpu/pipeline_cache.rs"
+        },
+        {
+          "repositoryId": "wgpu",
+          "path": "wgpu-hal/src/gles/mod.rs"
+        }
+      ]
+    },
+    {
+      "id": "f-s9-d22-scope-outside-gles",
+      "boundaryId": "s9-wgpu",
+      "criterionIds": [
+        "WGPU-3"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Resolved.** The d22 invariant in the current context names wgpu-core's GL adapter key and `util::pipeline_cache_key`'s GL arm (`amend-s9-d22.json`, whose reason matches the finding). Those are still the only changes outside `wgpu-hal/src/gles/` and the test crate (`git diff upstream/v30 v30-tizen --stat`).",
+      "regressionRefs": [
+        {
+          "repositoryId": "wgpu",
+          "path": "wgpu-core/src/pipeline_cache.rs"
+        },
+        {
+          "repositoryId": "wgpu",
+          "path": "wgpu/src/util/mod.rs"
+        }
+      ]
+    },
+    {
+      "id": "f-s9-changelog-section",
+      "boundaryId": "s9-wgpu",
+      "criterionIds": [
+        "WGPU-3"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Resolved.** The program-binaries entry is under `## Unreleased` → `### New Features` → `#### GLES`, and the EGL entry stays under Bug Fixes. The missing PR link is accepted until s22 prepares the upstream PR: a placeholder number would be wrong.",
+      "regressionRefs": [
+        {
+          "repositoryId": "wgpu",
+          "path": "CHANGELOG.md"
+        }
+      ]
+    },
+    {
+      "id": "f-s9-lima-timeout-env",
+      "boundaryId": "s9-wgpu",
+      "criterionIds": [],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Resolved.** `scripts/lima-run.sh` reads `LIMA_RUN_TIMEOUT` on the host, rejects anything that is not digits, and puts the value into the VM's `timeout --kill-after=30` command. A rerun with `LIMA_RUN_TIMEOUT=abc` exits 2 with the message and never starts the VM. The coordinator reports `LIMA_RUN_TIMEOUT=3` with `sleep 10` exiting 124.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "scripts/lima-run.sh"
+        }
+      ]
+    },
+    {
+      "id": "f-s9-lima-subdirectory",
+      "boundaryId": "s9-wgpu",
+      "criterionIds": [],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Resolved.** The repository test is now `case \"$WORKDIR/\" in \"$REPO_REAL\"/*`. The root and every subdirectory count as this repository and get the repository's target dir, the patch config and the GL ES overrides. A sibling such as `../wgpu` or a `dXn.GpuiTizen-x` prefix does not match, because the pattern needs the trailing slash. `gles_smoke` passed again through the script (`s9-wgpu-final-b32ad5b00c21.log`).",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "scripts/lima-run.sh"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s9-wgpu-final-b32ad5b00c21.log"
+        }
+      ]
+    },
+    {
+      "id": "f-s9-inmemory-program-cache-bypass",
+      "boundaryId": "s9-wgpu",
+      "criterionIds": [
+        "WGPU-3"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Resolved.** Programs are keyed whenever the context has program binaries (`PipelineInner::binary_key`), and every linked program gets the retrievable hint. After the in-memory program cache lookup, `create_pipeline` (`device.rs:450-463`) stores the program's binary into the passed cache whenever that cache has no entry for the key. The store happens outside the `program_cache` guard, but it holds its own `Arc` and the GL context lock, so a concurrent destroy cannot delete the program. The test's last case creates a pipeline without a cache, then one with the same module and layout and a cache, and asserts the cache's data holds a non-empty binary.",
+      "regressionRefs": [
+        {
+          "repositoryId": "wgpu",
+          "path": "wgpu-hal/src/gles/device.rs"
+        },
+        {
+          "repositoryId": "wgpu",
+          "path": "tests/tests/wgpu-gpu/pipeline_cache.rs"
+        }
+      ]
     }
   ],
   "handoffMarkdown": "",
@@ -4225,7 +4730,7 @@
       "gpui-fast:crates/gpui_linux/**": "f62d27b5c1b792285d1e474f84a6509068b262c66b4111a304a372fc07b98973"
     },
     "wgpu": {
-      "wgpu:.github/**": "09cf735204ba28ec9a161a57156f060765b362bc3bfcfe3877ad67f93c9ffc22"
+      "wgpu:.github/**": "d979309f23d7c4df2f9622d02113c369890d00036e3ad2ff7531368c846b9275"
     },
     "nsh": {
       "nsh:.github/workflows/release.yml": "250c684e5e6ed108288ff684d2216c78df359b82ecdfc08c865fb6ee0d876931",

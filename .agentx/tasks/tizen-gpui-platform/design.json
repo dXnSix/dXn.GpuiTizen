@@ -290,7 +290,7 @@
         "WGPU"
       ],
       "descriptionMarkdown": "`../wgpu` (`dXnSix/wgpu`) becomes an execution repository. Its TV branches are cut from upstream's `v30` maintenance\nbranch (gpui-fast 0.1.13 uses wgpu 30.0.1, and `wgpu-core 30` asks for `wgpu-hal ^30.0.0`): `v30-egl14`\n(`WGPU-1`, `WGPU-2`) and `v30-gles-program-binaries` (`WGPU-3`), merged into `v30-tizen`, the branch the checkout\nstays on while checks run and the one TV builds patch from. Version numbers are never touched. For upstream, each\nchange is ported to a branch cut from upstream `trunk` in the upstream sprint (wgpu takes PRs on `trunk`).",
-      "invariantsMarkdown": "- Changes live in `wgpu-hal/src/gles/` (and wgpu's test crate for the GPU tests); decisions that can be pure\n  functions (display path, config tiers, render buffer fallback, binary cache keys) are, with unit tests.\n- No change to wgpu's public API beyond implementing the existing pipeline-cache entry points for GL.\n- Actions stay off on the fork; nothing is pushed by the agent.",
+      "invariantsMarkdown": "- Changes live in `wgpu-hal/src/gles/` (and wgpu's test crate for the GPU tests); decisions that can be pure\n  functions (display path, config tiers, render buffer fallback, binary cache keys) are, with unit tests. Two\n  changes outside it are part of implementing the GL pipeline cache: wgpu-core's pipeline-cache header gets a GL\n  adapter key (renderer and version strings; without it `get_data` panics for GL), and\n  `wgpu::util::pipeline_cache_key` returns a key for GL, as it does for Vulkan.\n- No change to wgpu's public API beyond implementing the existing pipeline-cache entry points for GL; the GPU\n  tests prove program-binary loading through behaviour (a cache holding another shader's binary), not through\n  new hal accessors.\n- Actions stay off on the fork; nothing is pushed by the agent.",
       "rationaleMarkdown": "The fixes are small and belong in wgpu's EGL code (`gpui-route.md`, section 9); program binaries are the second way to cache shaders across starts, after the driver's blob cache (section 6). Making both unconditional keeps the TV path independent of which Mali driver a given model ships.",
       "sourceRefs": [
         {
@@ -300,6 +300,14 @@
         {
           "repositoryId": "wgpu",
           "path": "wgpu-hal/src/gles/device.rs"
+        },
+        {
+          "repositoryId": "wgpu",
+          "path": "wgpu-core/src/pipeline_cache.rs"
+        },
+        {
+          "repositoryId": "wgpu",
+          "path": "wgpu/src/util/mod.rs"
         }
       ]
     },
