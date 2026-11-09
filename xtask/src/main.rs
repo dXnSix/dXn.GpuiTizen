@@ -7,7 +7,7 @@ use anyhow::{Context as _, Result, bail};
 use xtask::cross::{self, Context, Invocation, Options};
 use xtask::package::{self, App, Entry, ManifestValues};
 use xtask::targets::Target;
-use xtask::{pinned_toolchain, policy, symcheck, workspace_root};
+use xtask::{pinned_toolchain, policy, store_check, symcheck, workspace_root};
 
 const HELP: &str = "\
 cargo xtask <command>
@@ -20,6 +20,9 @@ Commands:
                  commit it to `tizen-release`, or with --verify write the local patch config
   package        stage (and with --sign, sign) a TPK: --app <diag|counter|long_list|video>
                  --target <armv7|x86_64|aarch64> [--sign <profile>]
+  store-check    check a TPK, staged tree or multi-architecture .zip before submission:
+                 <tpk|dir|zip> [--entry <symbol>]
+                 [--feature-description <md>]
   tizen-deps     check the Tizen dependency graph: --target <armv7|x86_64|aarch64>
   policy         check the workspace pins, lints, release profile, alias and toolchain
   help           show this text
@@ -65,6 +68,7 @@ fn run(args: Vec<String>) -> Result<ExitCode> {
         "diag" => run_diag(rest),
         "gpui-fast-release" => run_gpui_fast_release(rest),
         "package" => run_package(rest),
+        "store-check" => run_store_check(rest),
         "tizen-deps" => run_tizen_deps(rest),
         "policy" => {
             let errors = policy::check(&policy::Inputs::read(&workspace_root())?);
@@ -565,29 +569,189 @@ fn run_package(args: &[String]) -> Result<ExitCode> {
         };
         match arg.as_str() {
             "--app" => app = Some(App::find(&value()?)?),
-            "--target" => target = Some(Target::parse(&value()?)?),
+            "--target" => {
+                let name = value()?;
+                target = Some(if name == "all" {
+                    None
+                } else {
+                    Some(Target::parse(&name)?)
+                });
+            }
             "--sign" => profile = Some(value()?),
             other => bail!("unknown `cargo xtask package` argument `{other}`"),
         }
     }
     let (Some(app), Some(target)) = (app, target) else {
         bail!(
-            "usage: cargo xtask package --app <diag|counter|long_list|video> --target <armv7|x86_64|aarch64> [--sign <profile>]"
+            "usage: cargo xtask package --app <diag|counter|long_list|video> --target <armv7|x86_64|aarch64|all> [--sign <profile>]"
         );
     };
     let root = workspace_root();
+    let manifest_toml: toml::Value = std::fs::read_to_string(root.join("Cargo.toml"))?.parse()?;
+    let version = manifest_toml["workspace"]["package"]["version"]
+        .as_str()
+        .context("[workspace.package] has no version")?
+        .to_owned();
 
+    let Some(target) = target else {
+        return package_all(&root, app, &version, profile.as_deref());
+    };
+    let staging = stage(&root, app, target, ManifestValues::for_app(app, &version))?;
+    match profile {
+        Some(profile) => Ok(match sign(&staging, &profile)? {
+            Signed::Failed => ExitCode::FAILURE,
+            Signed::Package(_) | Signed::Elsewhere => ExitCode::SUCCESS,
+        }),
+        None => {
+            eprintln!("{}", package::UNSIGNED_NOTE);
+            Ok(ExitCode::SUCCESS)
+        }
+    }
+}
+
+/// `--target all`: one package per TV architecture (`package::STORE_TARGETS`) and the
+/// multi-architecture `.zip` Seller Office takes. Signed with `--sign`; unsigned packages (plain
+/// zips of the staged trees) only show the layout.
+fn package_all(root: &Path, app: &App, version: &str, profile: Option<&str>) -> Result<ExitCode> {
+    let out = root.join("target/tpk");
+    let mut packages = Vec::new();
+    for target in package::STORE_TARGETS {
+        let staging = stage(
+            root,
+            app,
+            target,
+            ManifestValues::for_architecture(app, version, target),
+        )?;
+        let tpk = match profile {
+            Some(profile) => match sign(&staging, profile)? {
+                Signed::Package(tpk) => tpk,
+                Signed::Failed => return Ok(ExitCode::FAILURE),
+                Signed::Elsewhere => bail!(
+                    "the multi-architecture .zip needs each signed .tpk, and `tz pack` wrote none \
+                     next to or inside {}",
+                    staging.display()
+                ),
+            },
+            None => {
+                let tpk = out.join(package::tpk_file_name(app, version, target));
+                zip_dir(&staging, &tpk)?;
+                tpk
+            }
+        };
+        packages.push((target, tpk));
+    }
+    let entries = package::multi_arch_entries(app, version, &packages)?;
+    let zip_path = out.join(package::multi_arch_zip_name(app, version));
+    let file = std::fs::File::create(&zip_path)?;
+    let mut zip = zip::ZipWriter::new(file);
+    for (from, name) in entries {
+        zip.start_file(
+            name,
+            zip::write::SimpleFileOptions::default()
+                .compression_method(zip::CompressionMethod::Stored),
+        )?;
+        std::io::copy(&mut std::fs::File::open(&from)?, &mut zip)?;
+    }
+    zip.finish()?;
+    eprintln!("multi-architecture upload: {}", zip_path.display());
+    if profile.is_none() {
+        eprintln!("{}", package::UNSIGNED_NOTE);
+    }
+    Ok(ExitCode::SUCCESS)
+}
+
+/// Zips a staged tree into an (unsigned) `.tpk`.
+fn zip_dir(dir: &Path, to: &Path) -> Result<()> {
+    let mut zip = zip::ZipWriter::new(std::fs::File::create(to)?);
+    let options = zip::write::SimpleFileOptions::default()
+        .compression_method(zip::CompressionMethod::Deflated);
+    let mut stack = vec![dir.to_path_buf()];
+    let mut files = Vec::new();
+    while let Some(next) = stack.pop() {
+        for entry in std::fs::read_dir(&next)? {
+            let path = entry?.path();
+            if path.is_dir() {
+                stack.push(path);
+            } else {
+                files.push(path);
+            }
+        }
+    }
+    files.sort();
+    for path in files {
+        let name = path
+            .strip_prefix(dir)?
+            .to_string_lossy()
+            .replace(std::path::MAIN_SEPARATOR, "/");
+        zip.start_file(name, options)?;
+        std::io::copy(&mut std::fs::File::open(&path)?, &mut zip)?;
+    }
+    zip.finish()?;
+    Ok(())
+}
+
+/// What `tz pack` did.
+enum Signed {
+    Failed,
+    /// It wrote this package.
+    Package(PathBuf),
+    /// It succeeded, but the package was not found next to or inside the staged tree.
+    Elsewhere,
+}
+
+/// Signs a staged tree with `tz pack`.
+fn sign(staging: &Path, profile: &str) -> Result<Signed> {
+    let started = std::time::SystemTime::now();
+    let command = package::sign_command(staging, profile);
+    let status = Command::new(&command[0])
+        .args(&command[1..])
+        .status()
+        .context("running `tz` (the Tizen SDK CLI)")?;
+    if !status.success() {
+        return Ok(Signed::Failed);
+    }
+    // Where `tz pack` writes the .tpk is not documented: next to or inside the staged tree.
+    let mut written = Vec::new();
+    for dir in [Some(staging), staging.parent()].into_iter().flatten() {
+        for entry in std::fs::read_dir(dir)?.filter_map(Result::ok) {
+            let path = entry.path();
+            let fresh = entry
+                .metadata()
+                .and_then(|m| m.modified())
+                .is_ok_and(|modified| modified >= started);
+            if fresh && path.extension().is_some_and(|e| e == "tpk") {
+                written.push(path);
+            }
+        }
+    }
+    match written.as_slice() {
+        [tpk] => {
+            eprintln!("signed {}", tpk.display());
+            Ok(Signed::Package(tpk.clone()))
+        }
+        _ => {
+            eprintln!(
+                "`tz pack` succeeded; found {} new .tpk files next to or inside {}",
+                written.len(),
+                staging.display()
+            );
+            Ok(Signed::Elsewhere)
+        }
+    }
+}
+
+/// Builds `app`'s library for `target` (with the symbol check), builds the host and stages the
+/// TPK tree with `values`' manifest.
+fn stage(root: &Path, app: &App, target: Target, values: ManifestValues) -> Result<PathBuf> {
     // The app's release library, through the cross driver (with the symbol check).
-    let mut cross_args = vec![
+    let cross_args = vec![
         "--target".to_owned(),
         target.spec_name().to_owned(),
         "--release".to_owned(),
-    ];
-    cross_args.extend([
         "--check-symbols".to_owned(),
         "-p".to_owned(),
         app.package.to_owned(),
-    ]);
+    ];
     // Stage exactly the library the cross build produced and the symbol check passed.
     let Some(mut libraries) = cross_build(&Options::parse(&cross_args)?)? else {
         bail!("building {} for {} failed", app.package, target.spec_name());
@@ -597,13 +761,9 @@ fn run_package(args: &[String]) -> Result<ExitCode> {
         .context("the cross build produced no library")?;
 
     // The staged tree.
-    let manifest_toml: toml::Value = std::fs::read_to_string(root.join("Cargo.toml"))?.parse()?;
-    let version = manifest_toml["workspace"]["package"]["version"]
-        .as_str()
-        .context("[workspace.package] has no version")?;
     let template = std::fs::read_to_string(root.join("host/tizen-manifest.template.xml"))?;
-    let manifest = package::render_manifest(&template, &ManifestValues::for_app(app, version))?;
-    let staging = package::staging_dir(&root, app, target);
+    let manifest = package::render_manifest(&template, &values)?;
+    let staging = package::staging_dir(root, app, target);
     if staging.exists() {
         std::fs::remove_dir_all(&staging)?;
     }
@@ -635,7 +795,7 @@ fn run_package(args: &[String]) -> Result<ExitCode> {
             .map(|file| root.join(file))
             .collect::<Vec<_>>(),
         &root.join("host/shared/res/icon.png"),
-        manifest.clone(),
+        manifest,
     );
     for entry in entries {
         match entry {
@@ -653,29 +813,28 @@ fn run_package(args: &[String]) -> Result<ExitCode> {
         }
     }
     eprintln!("staged {}", staging.display());
-
-    match profile {
-        Some(profile) => {
-            let command = package::sign_command(&staging, &profile);
-            let status = Command::new(&command[0])
-                .args(&command[1..])
-                .status()
-                .context("running `tz` (the Tizen SDK CLI)")?;
-            Ok(if status.success() {
-                ExitCode::SUCCESS
-            } else {
-                ExitCode::FAILURE
-            })
-        }
-        None => {
-            eprintln!("{}", package::UNSIGNED_NOTE);
-            Ok(ExitCode::SUCCESS)
-        }
-    }
+    Ok(staging)
 }
 
 /// Runs the pinned toolchain's `llvm-nm` on a library and reports every policy violation.
 fn check_symbols(rustlib_bin: &Path, library: &Path, entry: &str) -> Result<bool> {
+    let violations = library_violations(rustlib_bin, library, entry)?;
+    for violation in &violations {
+        eprintln!("{}: {violation}", library.display());
+    }
+    if violations.is_empty() {
+        eprintln!("{}: symbols ok (exports only `{entry}`)", library.display());
+    }
+    Ok(violations.is_empty())
+}
+
+/// The symbol policy's violations in a library (`llvm-nm` and `llvm-readobj` of the pinned
+/// toolchain).
+fn library_violations(
+    rustlib_bin: &Path,
+    library: &Path,
+    entry: &str,
+) -> Result<Vec<symcheck::Violation>> {
     let nm = rustlib_bin.join("llvm-nm");
     let run = |only: &str| -> Result<String> {
         let output = Command::new(&nm)
@@ -710,19 +869,143 @@ fn check_symbols(rustlib_bin: &Path, library: &Path, entry: &str) -> Result<bool
             String::from_utf8_lossy(&needed.stderr)
         );
     }
-    let violations = symcheck::check_library(
+    Ok(symcheck::check_library(
         &run("--defined-only")?,
         &run("--undefined-only")?,
         &String::from_utf8_lossy(&needed.stdout),
         entry,
+    ))
+}
+
+/// `cargo xtask store-check <tpk or staged dir> [--entry <symbol>] [--feature-description <md>]`.
+fn run_store_check(args: &[String]) -> Result<ExitCode> {
+    let (mut input, mut entry, mut description) = (None, symcheck::DEFAULT_ENTRY.to_owned(), None);
+    let mut iter = args.iter();
+    while let Some(arg) = iter.next() {
+        match arg.as_str() {
+            "--entry" => entry = iter.next().cloned().context("`--entry` needs a symbol")?,
+            "--feature-description" => {
+                description = Some(PathBuf::from(
+                    iter.next()
+                        .context("`--feature-description` needs a path")?,
+                ))
+            }
+            other if input.is_none() && !other.starts_with("--") => {
+                input = Some(PathBuf::from(other))
+            }
+            other => bail!("unknown `cargo xtask store-check` argument `{other}`"),
+        }
+    }
+    let Some(input) = input else {
+        bail!(
+            "usage: cargo xtask store-check <tpk or staged dir> [--entry <symbol>] [--feature-description <md>]"
+        );
+    };
+    let files = read_package(&input)?;
+    // A multi-architecture upload: a zip of packages, no manifest of its own.
+    let packages: Vec<(String, store_check::Files)> = if files.contains_key("tizen-manifest.xml") {
+        Vec::new()
+    } else {
+        files
+            .iter()
+            .filter(|(name, _)| name.ends_with(".tpk") && !name.contains('/'))
+            .map(|(name, bytes)| Ok((name.clone(), read_zip(std::io::Cursor::new(bytes))?)))
+            .collect::<Result<_>>()?
+    };
+    let root = workspace_root();
+    let description = description.or_else(|| {
+        let first = packages.first().map_or(&files, |(_, files)| files);
+        let manifest = String::from_utf8_lossy(first.get("tizen-manifest.xml")?);
+        let id = store_check::package_id(&manifest)?;
+        store_check::feature_description_for(&id).map(|path| root.join(path))
+    });
+    let description_path = description.as_ref().map_or(
+        "store/feature-description.<app>.md (pass --feature-description)".to_owned(),
+        |p| p.display().to_string(),
     );
-    for violation in &violations {
-        eprintln!("{}: {violation}", library.display());
+    let description_text = description
+        .as_ref()
+        .and_then(|path| std::fs::read_to_string(path).ok());
+    let toolchain = pinned_toolchain(&root)?;
+    let rustlib_bin = rustlib_bin(&toolchain)?;
+    let scratch = root.join("artifacts-temp/store-check");
+    std::fs::create_dir_all(&scratch)?;
+    let check_one = |files: &store_check::Files| {
+        store_check::check(
+            &store_check::Inputs {
+                files,
+                feature_description: description_text.as_deref(),
+                feature_description_path: &description_path,
+            },
+            |name, bytes| {
+                let path = scratch.join(name.replace('/', "_"));
+                std::fs::write(&path, bytes)?;
+                Ok(library_violations(&rustlib_bin, &path, &entry)?
+                    .iter()
+                    .map(ToString::to_string)
+                    .collect())
+            },
+        )
+    };
+    let report = if packages.is_empty() {
+        check_one(&files)
+    } else {
+        let upload: Vec<store_check::UploadPackage<'_>> = packages
+            .iter()
+            .map(|(name, files)| store_check::UploadPackage { name, files })
+            .collect();
+        store_check::check_upload(&upload, check_one)
+    };
+    print!("{report}");
+    Ok(if report.passed() {
+        ExitCode::SUCCESS
+    } else {
+        ExitCode::FAILURE
+    })
+}
+
+/// A package's files: a staged directory, or a `.tpk` (a zip).
+fn read_package(input: &Path) -> Result<store_check::Files> {
+    let mut files = store_check::Files::new();
+    if input.is_dir() {
+        let mut stack = vec![input.to_path_buf()];
+        while let Some(dir) = stack.pop() {
+            for entry in std::fs::read_dir(&dir)? {
+                let path = entry?.path();
+                if path.is_dir() {
+                    stack.push(path);
+                } else {
+                    let name = path
+                        .strip_prefix(input)?
+                        .to_string_lossy()
+                        .replace(std::path::MAIN_SEPARATOR, "/");
+                    files.insert(name, std::fs::read(&path)?);
+                }
+            }
+        }
+    } else {
+        files = read_zip(
+            std::fs::File::open(input).with_context(|| format!("opening {}", input.display()))?,
+        )
+        .with_context(|| format!("{} is not a .tpk or upload (zip)", input.display()))?;
     }
-    if violations.is_empty() {
-        eprintln!("{}: symbols ok (exports only `{entry}`)", library.display());
+    Ok(files)
+}
+
+/// The files of a zip (a `.tpk` or a multi-architecture upload).
+fn read_zip(reader: impl std::io::Read + std::io::Seek) -> Result<store_check::Files> {
+    let mut files = store_check::Files::new();
+    let mut archive = zip::ZipArchive::new(reader)?;
+    for index in 0..archive.len() {
+        let mut entry = archive.by_index(index)?;
+        if entry.is_dir() {
+            continue;
+        }
+        let mut bytes = Vec::with_capacity(entry.size() as usize);
+        std::io::Read::read_to_end(&mut entry, &mut bytes)?;
+        files.insert(entry.name().to_owned(), bytes);
     }
-    Ok(violations.is_empty())
+    Ok(files)
 }
 
 fn execute(invocation: &Invocation) -> Result<bool> {

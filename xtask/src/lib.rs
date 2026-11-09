@@ -9,6 +9,7 @@ pub mod gcc;
 pub mod package;
 pub mod policy;
 pub mod release;
+pub mod store_check;
 pub mod symcheck;
 pub mod targets;
 pub mod tizen_deps;

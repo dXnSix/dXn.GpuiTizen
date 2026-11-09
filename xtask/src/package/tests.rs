@@ -184,3 +184,73 @@ fn the_video_app_ships_its_clip_in_res() {
     let others = APPS.iter().filter(|a| a.name != "video");
     assert!(others.clone().all(|a| a.resources.is_empty()));
 }
+
+/// Seller Office's multi-architecture upload (launch checklist): one package per architecture,
+/// a fourth version number unique to each, its architecture in the manifest, at most ten
+/// packages of one type in the `.zip`.
+#[test]
+fn multi_arch() {
+    let app = App::find("video").unwrap();
+    assert_eq!(STORE_TARGETS, [Target::Armv7, Target::Aarch64]);
+    let numbers: std::collections::BTreeSet<u32> =
+        Target::ALL.iter().map(|t| arch_number(*t)).collect();
+    assert_eq!(numbers.len(), Target::ALL.len(), "unique per architecture");
+
+    let manifests: Vec<String> = STORE_TARGETS
+        .iter()
+        .map(|target| {
+            render_manifest(
+                &template(),
+                &ManifestValues::for_architecture(app, "0.1.0", *target),
+            )
+            .unwrap()
+        })
+        .collect();
+    assert!(
+        manifests[0].contains(r#"version="0.1.0.1""#),
+        "{}",
+        manifests[0]
+    );
+    assert!(manifests[1].contains(r#"version="0.1.0.2""#));
+    assert!(manifests[0].contains(
+        r#"<feature name="http://tizen.org/feature/platform.core.cpu.arch.armv7">true</feature>"#
+    ));
+    assert!(manifests[1].contains(
+        r#"<feature name="http://tizen.org/feature/platform.core.cpu.arch.armv8">true</feature>"#
+    ));
+    assert!(manifests[1].trim_end().ends_with("</manifest>"));
+    let single = render_manifest(&template(), &ManifestValues::for_app(app, "0.1.0")).unwrap();
+    assert!(single.contains(r#"version="0.1.0""#) && !single.contains("<feature"));
+
+    let packages = [
+        (Target::Armv7, PathBuf::from("/t/video-armv7.tpk")),
+        (Target::Aarch64, PathBuf::from("/t/video-aarch64.tpk")),
+    ];
+    assert_eq!(
+        multi_arch_entries(app, "0.1.0", &packages).unwrap(),
+        [
+            (
+                PathBuf::from("/t/video-armv7.tpk"),
+                "DxnGpuiTzV-0.1.0.1-armv7.tpk".to_owned()
+            ),
+            (
+                PathBuf::from("/t/video-aarch64.tpk"),
+                "DxnGpuiTzV-0.1.0.2-aarch64.tpk".to_owned()
+            ),
+        ]
+    );
+    assert_eq!(multi_arch_zip_name(app, "0.1.0"), "DxnGpuiTzV-0.1.0.zip");
+    assert!(multi_arch_entries(app, "0.1.0", &[]).is_err());
+    let twice = [packages[0].clone(), packages[0].clone()];
+    assert!(multi_arch_entries(app, "0.1.0", &twice).is_err());
+    let eleven: Vec<_> = (0..11).map(|_| packages[0].clone()).collect();
+    assert!(multi_arch_entries(app, "0.1.0", &eleven).is_err());
+
+    validate_version("255.255.65535", false).unwrap();
+    validate_version("1.2.3.99999", true).unwrap();
+    for bad in ["256.0.0", "1.2.65536", "1.2", "1.2.3.4"] {
+        assert!(validate_version(bad, false).is_err(), "{bad}");
+    }
+    assert!(validate_version("1.2.3.100000", true).is_err());
+    assert!(validate_version("1.2.3", true).is_err());
+}
