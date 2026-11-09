@@ -187,6 +187,53 @@ pub struct Ecore_IMF_Event_Delete_Surrounding {
     pub n_chars: c_int,
 }
 
+/// `Ecore_IMF_Event_Type` (`ecore-imf-1/Ecore_IMF.h`), in header order from 0.
+pub type Ecore_IMF_Event_Type = c_int;
+pub const ECORE_IMF_EVENT_KEY_DOWN: Ecore_IMF_Event_Type = 6;
+pub const ECORE_IMF_EVENT_KEY_UP: Ecore_IMF_Event_Type = 7;
+
+/// `struct _Ecore_IMF_Event_Key_Down` and `_Key_Up` (`ecore-imf-1/Ecore_IMF.h`), which share a
+/// layout, in header order.
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub struct Ecore_IMF_Event_Key {
+    pub keyname: *const c_char,
+    /// `Ecore_IMF_Keyboard_Modifiers` (an enum of bits).
+    pub modifiers: c_int,
+    /// `Ecore_IMF_Keyboard_Locks` (an enum of bits).
+    pub locks: c_int,
+    pub key: *const c_char,
+    pub string: *const c_char,
+    pub compose: *const c_char,
+    pub timestamp: c_uint,
+    pub dev_name: *const c_char,
+    /// `Ecore_IMF_Device_Class` (an enum; 0 is none).
+    pub dev_class: c_int,
+    /// `Ecore_IMF_Device_Subclass` (an enum; 0 is none).
+    pub dev_subclass: c_int,
+    pub keycode: c_uint,
+}
+
+/// `union _Ecore_IMF_Event` (`ecore-imf-1/Ecore_IMF.h`): the key members, padded to the size of
+/// its largest member (`Ecore_IMF_Event_Mouse_Move`, twelve `int`s).
+#[repr(C)]
+pub union Ecore_IMF_Event {
+    pub key_down: Ecore_IMF_Event_Key,
+    pub key_up: Ecore_IMF_Event_Key,
+    pub mouse_move: [c_int; 12],
+}
+
+/// The `retrieve_surrounding` callback of `ecore_imf_context_retrieve_surrounding_callback_set`
+/// (`ecore-imf-1/Ecore_IMF.h`): `text` is malloc'd by the callback and freed by Ecore_IMF.
+pub type Ecore_IMF_Retrieve_Surrounding_Cb = Option<
+    unsafe extern "C" fn(
+        data: *mut c_void,
+        ctx: *mut Ecore_IMF_Context,
+        text: *mut *mut c_char,
+        cursor_pos: *mut c_int,
+    ) -> Eina_Bool,
+>;
+
 /// `system_settings_key_e` (`system/system_settings.h`); values computed from the header's enum.
 pub type system_settings_key_e = c_int;
 pub const SYSTEM_SETTINGS_KEY_FONT_SIZE: system_settings_key_e = 3;
@@ -322,6 +369,23 @@ tizen_extern! {
         fn ecore_imf_context_cursor_position_set(ctx: *mut Ecore_IMF_Context, cursor_pos: c_int);
         fn ecore_imf_context_input_panel_show(ctx: *mut Ecore_IMF_Context);
         fn ecore_imf_context_input_panel_hide(ctx: *mut Ecore_IMF_Context);
+        fn ecore_imf_context_cursor_location_set(
+            ctx: *mut Ecore_IMF_Context,
+            x: c_int,
+            y: c_int,
+            w: c_int,
+            h: c_int
+        );
+        fn ecore_imf_context_retrieve_surrounding_callback_set(
+            ctx: *mut Ecore_IMF_Context,
+            func: Ecore_IMF_Retrieve_Surrounding_Cb,
+            data: *const c_void
+        );
+        fn ecore_imf_context_filter_event(
+            ctx: *mut Ecore_IMF_Context,
+            kind: Ecore_IMF_Event_Type,
+            event: *mut Ecore_IMF_Event
+        ) -> Eina_Bool;
         fn ecore_imf_context_preedit_string_get(
             ctx: *mut Ecore_IMF_Context,
             text: *mut *mut c_char,
