@@ -220,7 +220,7 @@
         },
         {
           "id": "SHELL-4",
-          "descriptionMarkdown": "**GL ES 3.0 path on desktop Linux.** In the `gpuitizen` Lima VM (`scripts/lima/gpuitizen.yaml`, Ubuntu with Mesa,\nXvfb and the build dependencies), `scripts/lima-run.sh` runs each example's `gles_smoke` integration test, which starts\nthe desktop binary under Xvfb with `WGPU_BACKEND=gl`, `MESA_GLES_VERSION_OVERRIDE=3.0`, the local gpui-fast patch of\n`GF-5` and `--exit-after-frames 60`, and asserts exit 0 and the change-1 log line that instance data goes through\ntextures.",
+          "descriptionMarkdown": "**GL ES 3.0 path on desktop Linux.** In the `gpuitizen` Lima VM (`scripts/lima/gpuitizen.yaml`, Ubuntu with Mesa,\nXvfb and the build dependencies), `scripts/lima-run.sh` runs each example's `gles_smoke` integration test, which starts\nthe desktop binary under Xvfb with `WGPU_BACKEND=gl`, `MESA_GLES_VERSION_OVERRIDE=3.0`, no storage buffers\n(`MESA_EXTENSION_OVERRIDE=-GL_ARB_shader_storage_buffer_object`: wgpu 30 opens a desktop GL context through EGL\nthere, which the GL ES override does not reach), the local gpui-fast patch of\n`GF-5` and `--exit-after-frames 60`, and asserts exit 0 and the change-1 log line that instance data goes through\ntextures.",
           "verification": "automated"
         },
         {

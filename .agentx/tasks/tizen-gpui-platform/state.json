@@ -1,12 +1,12 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 130,
-  "planRevision": 14,
+  "revision": 149,
+  "planRevision": 15,
   "specHashes": {
-    "requirements": "7f40eabea8018da7c092adab5d640322247fd6e8c5649948c00a60d816e6b895",
-    "design": "7181301ed4bad314a845da9594e230ab2ea2a32d071ff92ea081d5f0563714b5",
-    "plan": "331a8b71aa09d76704dfa5ee42fc09299b53b0bd5520252f9ae8a984ab7b52e5"
+    "requirements": "4dbaca28ac846a064bc1cd1d6006c1250a9388f43f49a9fca8da78f8471d3fcb",
+    "design": "7112697615efa4bc441d3a50b5079109960d08a3da1ca79dc70d74f6d98cedfd",
+    "plan": "b2a2fb596e2fac8dffc6451dbf7b5dcf1f47b5d9e920f40df9756769a7a43747"
   },
   "tasks": {
     "t1-workspace": {
@@ -142,10 +142,16 @@
       ]
     },
     "t6-gles-smoke": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t6-link": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t7-ime": {
       "status": "pending"
@@ -199,7 +205,10 @@
       ]
     },
     "t6-long-list": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t9-egl14": {
       "status": "pending"
@@ -518,6 +527,18 @@
         }
       },
       "recordedAt": "2026-11-08T23:54:01Z"
+    },
+    "e48fde49e06d215f8717b6e5af89951ccc86b9c73b4ac931d151b883e5a1f708": {
+      "snapshot": {
+        "specHash": "30b578d44b78f82a131556fab92cc77c493d0b2c04ef41878389ece423a0934c",
+        "repositories": {
+          "gpuitizen": "4083a1325580e50552adabc1e31d10d49db9fe6693e807d8d08ed7fb121e93a8",
+          "gpui-fast": "fe7eaaaf49262a9f593267dd395a5abd837f1bb2ec8c0acc93921b1caf5974d1",
+          "wgpu": "593a0f2f051a329f2703d9ead1daf9f7906493105f4fba31d3fd91867a528ec2",
+          "nsh": "44cd091043852019714da3ec9eda618bc3e237317015dcf281d4f1afb8693e3f"
+        }
+      },
+      "recordedAt": "2026-11-09T00:39:00Z"
     }
   },
   "checkResults": {
@@ -1149,6 +1170,91 @@
       "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s6-shell-final-4e0854c4ec79.log",
       "logSha256": "56e68d712dc95d255a3d3d8a149e0bcb7c7f70645302e8c2612d85792965b079",
       "inputsHash": "ec1b3492c71ae2f8cd9490b77721a85e48ed9ad23d41fd4a490c66c015ec6d97"
+    },
+    "s7-examples/chk-gf-release/final": {
+      "checkId": "chk-gf-release",
+      "boundaryId": "s7-examples",
+      "phase": "final",
+      "batchId": "e48fde49e06d215f8717b6e5af89951ccc86b9c73b4ac931d151b883e5a1f708",
+      "definitionHash": "44bc68fe0dafd089441686890151bbd098d3682c60b008da53c97c0f59875c4f",
+      "basisHash": "44125dac0e2b1298f863d7a3141d27652868760c0e9f049302c717edaa081fe6",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 35.832,
+      "recordedAt": "2026-11-09T00:38:41Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s7-examples-final-357cc5b146f8.log",
+      "logSha256": "b7940642d5ff3179dbc41a6feb70508c937e59bc6721a2aa490b6ce3add321b2",
+      "inputsHash": "c95528ffbf04d288aab09b0661abd53f2734b4cb5b858cc3746a620c011b2f07"
+    },
+    "s7-examples/chk-ex-long-list/final": {
+      "checkId": "chk-ex-long-list",
+      "boundaryId": "s7-examples",
+      "phase": "final",
+      "batchId": "e48fde49e06d215f8717b6e5af89951ccc86b9c73b4ac931d151b883e5a1f708",
+      "definitionHash": "037231861dad6b93a810b04cf706246e28020ff1eb1cd017d91b80b84bfcd488",
+      "basisHash": "cf6a89e2873758aef86894a515216e9c2d785fda2b8a057415ac9fb2e599ac3e",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 5,
+      "durationSeconds": 0.3363,
+      "recordedAt": "2026-11-09T00:38:41Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s7-examples-final-ba429ccf19d1.log",
+      "logSha256": "d5630925d88c867323d36819023bd16fc4306a708d945a434b12a433c3ab374d",
+      "inputsHash": "9d18ab14b9285571c84003c9a135f3cd2771489f71bd83261e16623fd0a898bc"
+    },
+    "s7-examples/chk-gles-smoke/final": {
+      "checkId": "chk-gles-smoke",
+      "boundaryId": "s7-examples",
+      "phase": "final",
+      "batchId": "e48fde49e06d215f8717b6e5af89951ccc86b9c73b4ac931d151b883e5a1f708",
+      "definitionHash": "b7ea8eb0e5aaa761e15f3cc33b235fe9c09705874a831138e734a1a8b487626c",
+      "basisHash": "92e4b05b8d8f760076e717988b1d855ec96b52f79f391d23eeda985ae20e08c9",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 2,
+      "durationSeconds": 15.6485,
+      "recordedAt": "2026-11-09T00:38:57Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s7-examples-final-a91fc903f548.log",
+      "logSha256": "a0f2595d5068f42877a0e44315d1024b2b13841d56eafe48378cc4d655e3cc0f",
+      "inputsHash": "dd7938f464652f930d551396f292a5d4566cf86866af283750b0b665f52978d4"
+    },
+    "s7-examples/chk-link-armv7/final": {
+      "checkId": "chk-link-armv7",
+      "boundaryId": "s7-examples",
+      "phase": "final",
+      "batchId": "e48fde49e06d215f8717b6e5af89951ccc86b9c73b4ac931d151b883e5a1f708",
+      "definitionHash": "cad541758880eab21ab50bda063b3323648dc8d136b6e30ba8b9aebb1f79be87",
+      "basisHash": "ea9dc6a4e84e69a4d0341a4b6cf52eeb4ddc6a3831d0de4651008056d6b91879",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 1.2306,
+      "recordedAt": "2026-11-09T00:38:58Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s7-examples-final-0a04caeb1020.log",
+      "logSha256": "854b74a57566891826d99d9a39bf5ee9e4654db6c654d535fa6c8f4c85eee180",
+      "inputsHash": "717995df7c34ac02f009401188e78a7bc5eb73d82c1b82a00331da180e1ef4f9"
+    },
+    "s7-examples/chk-link-x86_64/final": {
+      "checkId": "chk-link-x86_64",
+      "boundaryId": "s7-examples",
+      "phase": "final",
+      "batchId": "e48fde49e06d215f8717b6e5af89951ccc86b9c73b4ac931d151b883e5a1f708",
+      "definitionHash": "fdd7f2a500315251c3c2ad62f51069ce873d44715a4af8873ea7dcf514f7ee7c",
+      "basisHash": "a58c865f6395496def585c7ba588645f24f7eb201cd606370efd4fd54487a1e5",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 0.8419,
+      "recordedAt": "2026-11-09T00:38:59Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s7-examples-final-68ac0967a3c4.log",
+      "logSha256": "459c7b0017b30ae8f542725c116217e1632b3adee321ecec3aad76fada1ad8ea",
+      "inputsHash": "717995df7c34ac02f009401188e78a7bc5eb73d82c1b82a00331da180e1ef4f9"
     }
   },
   "reviews": {
@@ -2363,6 +2469,238 @@
         "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
       }
+    },
+    "s7-examples": {
+      "reviewerId": "reviewer-s7-independent",
+      "snapshotId": "e48fde49e06d215f8717b6e5af89951ccc86b9c73b4ac931d151b883e5a1f708",
+      "criterionIds": [
+        "SHELL-4",
+        "SHELL-5",
+        "SHELL-6"
+      ],
+      "verdict": "passed",
+      "anchors": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "examples/long_list/src/view/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-6"
+          ],
+          "sha256": "0d590a74ed61c90be707185ce9dd7586ceeacdd2f3f02d69457a165fd0e8c0b5"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "examples/long_list/src/lib.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-6",
+            "SHELL-5"
+          ],
+          "sha256": "d19e499cf6b9fbe4b1d3def4568ed90a66667b7c0530b5d27d5e2021b6afb1b5"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "examples/long_list/src/main.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-6",
+            "SHELL-4"
+          ],
+          "sha256": "017cbf93670990b0bb432fac994ea7e50f7f7caa6c72cfa28a4cc5bc449824ae"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "examples/long_list/Cargo.toml",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-6",
+            "SHELL-5"
+          ],
+          "sha256": "e4026259361c94dca54f2f5533f73675dd57c020eb2f72a2ef8e7fcd0f344dfd"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "examples/long_list/src/view/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "SHELL-6"
+          ],
+          "sha256": "a303621c4b43ee48ef817511f8aff6f577037bd8c60a68abd97526bcb4d96010"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "examples/counter/src/main.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-4"
+          ],
+          "sha256": "e8e64200f48f37955912b2f00ddeeacc8315226cdd23e79f1c80329ca6f972c2"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "examples/counter/Cargo.toml",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-4",
+            "SHELL-5"
+          ],
+          "sha256": "d064a4c905ef4eb4cb32bea7496ed389bfe322f8958e0da9ebf54ec7fe67bf17"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "scripts/lima-run.sh",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-4"
+          ],
+          "sha256": "3963bc79feeb15953e7a71efa4a0daf95c4e9a2b2ee197ccfa9846670565eb4f"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "scripts/lima/gpuitizen.yaml",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-4"
+          ],
+          "sha256": "52f8b6b671dfce5bf38d09bf3b1b7b16997ae79b51fd9b9df81c0fa5011f2d75"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/gles.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-4"
+          ],
+          "sha256": "da37b04d50a145f269e6f0b0f0fb5441461dceb1ab5bf149974ad39e394a95ee"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/pipeline_cache.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-4"
+          ],
+          "sha256": "332323291b0fbe46b7e263baccd4c0603e983527d444cfeeef34bb8a777561d6"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "examples/long_list/tests/gles_smoke.rs",
+          "kind": "test",
+          "criterionIds": [
+            "SHELL-4"
+          ],
+          "sha256": "2ac3052cc650af5170fd710578bdffae842f50cd46d11fbebf991f2f2b4f2d25"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "examples/counter/tests/gles_smoke.rs",
+          "kind": "test",
+          "criterionIds": [
+            "SHELL-4"
+          ],
+          "sha256": "875971101f50aee883f40704cf25335aababdef1ca8dd8bddc0f202e4bafb9d3"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s7-examples-final-a91fc903f548.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "SHELL-4"
+          ],
+          "sha256": "a0f2595d5068f42877a0e44315d1024b2b13841d56eafe48378cc4d655e3cc0f"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/cross/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "SHELL-5"
+          ],
+          "sha256": "e2ef4852dda4230e4a5ceab8e52e41bed667d37d60afc91fd4c09e79719eb4ca"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s7-examples-final-0a04caeb1020.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "SHELL-5"
+          ],
+          "sha256": "854b74a57566891826d99d9a39bf5ee9e4654db6c654d535fa6c8f4c85eee180"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s7-examples-final-68ac0967a3c4.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "SHELL-5"
+          ],
+          "sha256": "459c7b0017b30ae8f542725c116217e1632b3adee321ecec3aad76fada1ad8ea"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/package-counter-armv7.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "SHELL-5"
+          ],
+          "sha256": "fdb5d4f138e901c117c8d1de6112bcfc70658bc9ffe9812893df2584834d13d5"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/package-counter-x86_64.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "SHELL-5"
+          ],
+          "sha256": "300e97680dc5075e85253a07e057e087501743305b8e8ace5c56d9572648c603"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/package-diag-armv7.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "SHELL-5"
+          ],
+          "sha256": "aebefaa5927e7ab6800156791c04e06f1556ecb9c20d1b4ebe1e2b4633dc5cd0"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/package-diag-x86_64.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "SHELL-5"
+          ],
+          "sha256": "abcf59cf889685bd37be29b9b67d1382f9a7f33bcd917572dbf65866878b7ac8"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/package-long_list-armv7.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "SHELL-5"
+          ],
+          "sha256": "71d62a7882a7022f51e3176288765b3982344588cf7289d1fec5f9ecbba48054"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/package-long_list-x86_64.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "SHELL-5"
+          ],
+          "sha256": "cd69942c292273967148cb2c2279ccbb8b1796784c818f3931ab8dff37287e38"
+        }
+      ],
+      "summaryMarkdown": "**SHELL-6** is met. `view/mod.rs` has 1,000 rows in a `uniform_list`; Up/Down clamp and call `scroll_to_item(Nearest)`; `back`/`escape` quit, following `d14-keys`. The TV entry goes through `dxn_gpui_tizen::run` and the desktop binary takes `--exit-after-frames`. `view::tests` (5 tests, rerun: pass) checks movement, both ends, real visibility from the laid-out scroll offset at 1080p, and Back.\n\n**SHELL-4 amendment: accepted as honest.** wgpu-hal 30's `egl.rs` creates a desktop GL context whenever EGL's `CLIENT_APIS` lists `OpenGL`, and it ignores a forced GLES minor version with a warning. On Mesa EGL no environment variable can make it use GL ES. With `-GL_ARB_shader_storage_buffer_object`, `supports_storage` is false: Mesa drops below 4.3, so `max_storage_buffers_per_shader_stage` is 0 and `VERTEX_STORAGE` is off. Those are exactly the inputs `fast::gles::AdapterFacts` reads for a GL ES 3.0 adapter. The run therefore exercises change 1's real decisions (instance textures, WebGL2 limits, `Rgba8Unorm` atlas) and draws 60 frames on a real driver. The log line asserted only prints for `Backend::Gl`, and the build used the release workspace at 3b6ea11. This is the task's own foreseen fallback ('a driver without SSBOs in vertex shaders'). What it does not prove is a GL ES context with naga's GLSL ES 3.00 compiled by an ES driver. `EGL-5` (a platform-owned GLES 3.x context in the same VM, where `MESA_GLES_VERSION_OVERRIDE=3.0` takes effect, so keeping it in `d19` is justified) and the owner-run emulator/TV runs (`DEV-2`) cover that. The tests are now named for what they prove (no vertex storage).\n\n**gpui-fast 3b6ea11.** The pipeline-cache slot is now a `thread_local` (identical on `pipeline-cache` 9864e93). `open`/`get`/`store` are all called from device and pipeline creation on the platform thread. The slot now gets dropped at thread-local destruction. I checked wgpu-core 30.0.1: its `Device` and `PipelineCache` drops take no snatch lock, and only `Queue`'s does, which the slot does not hold. So the hazard noted in `new_headless` does not apply.\n\n**SHELL-5** is met. All three TV libraries link for armv7 and x86_64, with only `dxn_gpui_tizen_main` exported. `gpui-fast-platform` (wayland+x11) and `log` stay under `cfg(not(target_vendor = \"tizen\"))`.\n\n**`f-s7-stale-tpks` resolved.** At e48fde49, `cmp` shows all six `target/tpk/<app>-<t>/lib/libdxn_app.so` files are byte-identical to `target/<triple>/release/lib<crate>.so`. The counter and diag TPKs were restaged by `cargo xtask package`, which builds the package release with `--check-symbols` and stages that library (`artifacts-temp/package-{counter,diag}-*.log`).\n\n**The diag explanation holds.** Each target has two diag release units: `ddfa4c78`/`bf344340` from the unified `--all-tv-libs` build, and `79ed289a`/`de3b8e7a` from the standalone `-p dxn_gpui_tizen_diag` build. Their sizes differ in line with wgpu feature unification. `llvm-nm -D --defined-only` shows only `dxn_gpui_tizen_main` in all four. The staged diag is the standalone build, which is what an install ships. That is correct.\n\nSide note, not blocking: at this snapshot the uplifted `release/libdxn_gpui_tizen_diag.so` that the later fresh `--all-tv-libs` check symbol-checked holds the standalone build, not the unified unit that run resolved to. `--check-symbols` reads the uplifted path, so with two feature sets it can check the other variant. Both variants are clean today. Having `cross` check the artifact paths Cargo reports (`--message-format=json`) would make this exact.\n\n**Notes taken up.** Both smoke tests are now `draws_through_instance_textures_without_vertex_storage` and read stdout and stderr on threads while the child runs. `chk-gles-smoke` passes 2/2 under the new name (`s7-examples-final-a91fc903f548.log`).",
+      "findingIds": [
+        "f-s7-stale-tpks"
+      ],
+      "recordedAt": "2026-11-09T00:41:07Z",
+      "recordHashes": {
+        "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
     }
   },
   "checkpoints": {
@@ -2445,6 +2783,17 @@
       },
       "reviewHash": "39fab2e26b6c4a076bd69bb9c4f8d765b006f44c12b3b833a36a793f517bb3e2",
       "recordedAt": "2026-11-08T23:54:57Z"
+    },
+    "s7-examples": {
+      "snapshotId": "e48fde49e06d215f8717b6e5af89951ccc86b9c73b4ac931d151b883e5a1f708",
+      "commits": {
+        "gpuitizen": "6cefcdfe253846d6cfab3902db77d315c73273b4",
+        "gpui-fast": "3b6ea11663f8a0ff8639f886ac28a6b7dcccdf8a",
+        "wgpu": "b672a540043b7177cdd53858340d7aca7ff8eb68",
+        "nsh": "7be66038d6cef63581f6bf0180b2bc8087bbf224"
+      },
+      "reviewHash": "9d6fb3b5f2e6c87c980b0528795d38b9b06978acc498e8324d20806aab152133",
+      "recordedAt": "2026-11-09T00:41:20Z"
     }
   },
   "findings": [
@@ -3181,6 +3530,34 @@
           "repositoryId": "gpuitizen",
           "path": "crates/dxn_gpui_tizen/src/tizen/app.rs",
           "symbol": "run"
+        }
+      ]
+    },
+    {
+      "id": "f-s7-stale-tpks",
+      "boundaryId": "s7-examples",
+      "criterionIds": [
+        "SHELL-5"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected** (`SHELL-5`, task `t6-link`): the staged, unsigned TPKs under `target/tpk/` carry the TV libraries this sprint links and symbol-checks. **Observed**: only `long_list-{armv7,x86_64}/lib/libdxn_app.so` are byte-identical to `target/<triple>/release/libexample_long_list.so`. `counter-{armv7,x86_64}` (staged 00:35-00:37, `artifacts-temp/package-counter-*.log`) and `diag-{armv7,x86_64}` differ from the current `libexample_counter.so` / `libdxn_gpui_tizen_diag.so` (ELF headers differ at the entry/phdr fields). The counter libraries were rebuilt at 00:53, after the Tizen shell edits of `crates/dxn_gpui_tizen/src/tizen/{main_loop,app,platform,window}.rs` (00:48-00:53, commit 96112c7). So the staged counter and diag TPKs hold an older shell than the code that passed `--check-symbols`. **Repair**: after the final link, restage all of them with `cargo xtask package --app counter --target armv7|x86_64` and `--app diag --target armv7|x86_64`, then confirm with `cmp target/tpk/<app>-<t>/lib/libdxn_app.so target/<triple>/release/lib<crate>.so` for all six trees.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/package-counter-armv7.log"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/package-counter-x86_64.log"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/package-diag-armv7.log"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/package-diag-x86_64.log"
         }
       ]
     }
