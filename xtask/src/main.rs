@@ -17,7 +17,8 @@ Commands:
   check-symbols  check a built TV library's dynamic symbols: <lib.so> [--entry <symbol>]
   diag pull      fetch the diagnostic app's report through `sdb forward`: [--port <p>] [--no-forward]
   gpui-fast-release  generate and check gpui-fast's release workspace from ../gpui-fast's `tizen`;
-                 commit it to `tizen-release`, or with --verify write the local patch config
+                 commit it to `tizen-release`, or with --verify write the local patch config;
+                 --from <tizen-release checkout> [--wgpu <dir>] writes it for existing checkouts
   package        stage (and with --sign, sign) a TPK: --app <diag|counter|long_list|video>
                  --target <armv7|x86_64|aarch64> [--sign <profile>]
   store-check    check a TPK, staged tree or multi-architecture .zip before submission:
@@ -240,12 +241,40 @@ fn git_in(dir: &Path, args: &[&str]) -> Result<String> {
 
 fn run_gpui_fast_release(args: &[String]) -> Result<ExitCode> {
     use xtask::release;
-    let verify = match args {
-        [] => false,
-        [flag] if flag == "--verify" => true,
-        _ => bail!("usage: cargo xtask gpui-fast-release [--verify]"),
-    };
+    let mode = release::parse_mode(args).map_err(anyhow::Error::msg)?;
     let root = workspace_root();
+    if let release::Mode::From {
+        release_workspace,
+        wgpu,
+    } = &mode
+    {
+        let canonical = |dir: &Path, what: &str| {
+            std::fs::canonicalize(dir).with_context(|| format!("no {what} at {}", dir.display()))
+        };
+        let workspace = canonical(release_workspace, "release workspace")?;
+        if !workspace.join("gpui/Cargo.toml").is_file() {
+            bail!(
+                "{} is not a gpui-fast release workspace (no gpui/Cargo.toml); check out `{}`",
+                workspace.display(),
+                release::RELEASE_BRANCH
+            );
+        }
+        let wgpu = canonical(
+            &wgpu
+                .clone()
+                .unwrap_or_else(|| root.join(release::WGPU_CHECKOUT)),
+            "wgpu checkout",
+        )?;
+        let source = git_in(&workspace, &["rev-parse", "--short=12", "HEAD"])
+            .unwrap_or_else(|_| "a checkout".to_owned());
+        return write_and_verify_patch(
+            &root,
+            &workspace,
+            &wgpu,
+            &format!("{} at {source}", release::RELEASE_BRANCH),
+        );
+    }
+    let verify = mode == release::Mode::Verify;
     let gpui_fast = std::env::var_os("GPUI_FAST_DIR")
         .map(PathBuf::from)
         .unwrap_or_else(|| root.join("../gpui-fast"));
@@ -303,70 +332,12 @@ fn run_gpui_fast_release(args: &[String]) -> Result<ExitCode> {
                 release::WGPU_BRANCH
             );
         }
-        let config = root.join(release::PATCH_CONFIG);
-        std::fs::create_dir_all(config.parent().unwrap_or(&root))?;
-        std::fs::write(&config, release::patch_config(&workspace, &wgpu))?;
-        // The patched resolution goes to a scratch lockfile seeded from `Cargo.lock`, so the
-        // committed lockfile never changes.
-        let lock = root.join("Cargo.lock");
-        let lock_before = std::fs::read(&lock).context("reading Cargo.lock")?;
-        let scratch = root.join(release::SCRATCH_LOCK);
-        std::fs::create_dir_all(scratch.parent().unwrap_or(&root))?;
-        std::fs::write(&scratch, &lock_before)?;
-        let toolchain = pinned_toolchain(&root)?;
-        let tree = |crate_name: &str| {
-            Command::new("cargo")
-                .env("RUSTUP_TOOLCHAIN", &toolchain)
-                .current_dir(&root)
-                .arg("--config")
-                .arg(&config)
-                .args(cross::lockfile_config(&scratch))
-                .args(["tree", "-Zjson-target-spec", "--target"])
-                .arg(Target::Armv7.spec_path(&root))
-                .args(["-p", "dxn_gpui_tizen", "-i", crate_name, "-e", "normal"])
-                .output()
-                .context("running cargo tree")
-        };
-        let output = tree("gpui-fast")?;
-        let wgpu_output = tree("wgpu-hal")?;
-        if std::fs::read(&lock)? != lock_before {
-            std::fs::write(&lock, &lock_before)?;
-            bail!(
-                "the patched cargo tree changed Cargo.lock (restored); it must resolve into {}",
-                scratch.display()
-            );
-        }
-        for output in [&output, &wgpu_output] {
-            if !output.status.success() {
-                bail!(
-                    "cargo tree with the patch failed: {}",
-                    String::from_utf8_lossy(&output.stderr)
-                );
-            }
-        }
-        let unused = release::unused_wgpu_patches(&String::from_utf8_lossy(&wgpu_output.stderr));
-        if !unused.is_empty() {
-            bail!("unused wgpu patches: {}", unused.join(", "));
-        }
-        let stdout = String::from_utf8_lossy(&output.stdout);
-        let wgpu_stdout = String::from_utf8_lossy(&wgpu_output.stdout);
-        let checked = release::verify_tree(&stdout, &workspace)
-            .and_then(|()| release::verify_wgpu_hal_tree(&wgpu_stdout, &wgpu))
-            .and_then(|()| {
-                release::verify_lock(&std::fs::read_to_string(&scratch).unwrap_or_default())
-            });
-        if let Err(problem) = checked {
-            bail!("{problem}");
-        }
-        let wgpu_sha = git_in(&wgpu, &["rev-parse", "--short", "HEAD"])?;
-        println!(
-            "{} ({} at {source_sha}, wgpu {} at {wgpu_sha}, {})",
-            release::OK_LINE,
-            release::SOURCE_BRANCH,
-            release::WGPU_BRANCH,
-            config.display()
+        return write_and_verify_patch(
+            &root,
+            &workspace,
+            &wgpu,
+            &format!("{} at {source_sha}", release::SOURCE_BRANCH),
         );
-        return Ok(ExitCode::SUCCESS);
     }
 
     // Commit exactly the generated workspace to the orphan `tizen-release` branch.
@@ -427,6 +398,82 @@ fn run_gpui_fast_release(args: &[String]) -> Result<ExitCode> {
 }
 
 /// Copies a directory's files (not `target/` or `.git`) into another.
+/// Writes the patch config for a release workspace and a wgpu checkout, and proves it with
+/// `cargo tree` into a scratch lockfile (`Cargo.lock` never changes). `source` names where the
+/// release workspace came from, for the success line.
+fn write_and_verify_patch(
+    root: &Path,
+    workspace: &Path,
+    wgpu: &Path,
+    source: &str,
+) -> Result<ExitCode> {
+    use xtask::release;
+    let root = root.to_path_buf();
+    let config = root.join(release::PATCH_CONFIG);
+    std::fs::create_dir_all(config.parent().unwrap_or(&root))?;
+    std::fs::write(&config, release::patch_config(workspace, wgpu))?;
+    // The patched resolution goes to a scratch lockfile seeded from `Cargo.lock`, so the
+    // committed lockfile never changes.
+    let lock = root.join("Cargo.lock");
+    let lock_before = std::fs::read(&lock).context("reading Cargo.lock")?;
+    let scratch = root.join(release::SCRATCH_LOCK);
+    std::fs::create_dir_all(scratch.parent().unwrap_or(&root))?;
+    std::fs::write(&scratch, &lock_before)?;
+    let toolchain = pinned_toolchain(&root)?;
+    let tree = |crate_name: &str| {
+        Command::new("cargo")
+            .env("RUSTUP_TOOLCHAIN", &toolchain)
+            .current_dir(&root)
+            .arg("--config")
+            .arg(&config)
+            .args(cross::lockfile_config(&scratch))
+            .args(["tree", "-Zjson-target-spec", "--target"])
+            .arg(Target::Armv7.spec_path(&root))
+            .args(["-p", "dxn_gpui_tizen", "-i", crate_name, "-e", "normal"])
+            .output()
+            .context("running cargo tree")
+    };
+    let output = tree("gpui-fast")?;
+    let wgpu_output = tree("wgpu-hal")?;
+    if std::fs::read(&lock)? != lock_before {
+        std::fs::write(&lock, &lock_before)?;
+        bail!(
+            "the patched cargo tree changed Cargo.lock (restored); it must resolve into {}",
+            scratch.display()
+        );
+    }
+    for output in [&output, &wgpu_output] {
+        if !output.status.success() {
+            bail!(
+                "cargo tree with the patch failed: {}",
+                String::from_utf8_lossy(&output.stderr)
+            );
+        }
+    }
+    let unused = release::unused_wgpu_patches(&String::from_utf8_lossy(&wgpu_output.stderr));
+    if !unused.is_empty() {
+        bail!("unused wgpu patches: {}", unused.join(", "));
+    }
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    let wgpu_stdout = String::from_utf8_lossy(&wgpu_output.stdout);
+    let checked = release::verify_tree(&stdout, workspace)
+        .and_then(|()| release::verify_wgpu_hal_tree(&wgpu_stdout, wgpu))
+        .and_then(|()| {
+            release::verify_lock(&std::fs::read_to_string(&scratch).unwrap_or_default())
+        });
+    if let Err(problem) = checked {
+        bail!("{problem}");
+    }
+    let wgpu_sha = git_in(wgpu, &["rev-parse", "--short", "HEAD"])?;
+    println!(
+        "{} ({source}, wgpu {} at {wgpu_sha}, {})",
+        release::OK_LINE,
+        release::WGPU_BRANCH,
+        config.display()
+    );
+    Ok(ExitCode::SUCCESS)
+}
+
 fn copy_tree(from: &Path, to: &Path) -> Result<()> {
     for entry in std::fs::read_dir(from)? {
         let entry = entry?;

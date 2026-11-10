@@ -266,3 +266,71 @@ fn tv_builds_take_the_patch_config_once() {
     assert_eq!(patched_cargo_args(&already, config), already);
     assert!(uses_patch_config(&patched_cargo_args(&[], config)));
 }
+
+/// `--from`: CI writes the patch config for the `tizen-release` and `v30-tizen` checkouts it made,
+/// without Bun and without generating a release.
+mod from_checkout {
+    use super::*;
+
+    fn args(list: &[&str]) -> Vec<String> {
+        list.iter().map(|s| (*s).to_owned()).collect()
+    }
+
+    #[test]
+    fn the_three_modes_parse() {
+        assert_eq!(parse_mode(&[]), Ok(Mode::Commit));
+        assert_eq!(parse_mode(&args(&["--verify"])), Ok(Mode::Verify));
+        assert_eq!(
+            parse_mode(&args(&["--from", "forks/gpui-fast"])),
+            Ok(Mode::From {
+                release_workspace: "forks/gpui-fast".into(),
+                wgpu: None
+            })
+        );
+        assert_eq!(
+            parse_mode(&args(&[
+                "--from",
+                "forks/gpui-fast",
+                "--wgpu",
+                "forks/wgpu"
+            ])),
+            Ok(Mode::From {
+                release_workspace: "forks/gpui-fast".into(),
+                wgpu: Some("forks/wgpu".into())
+            })
+        );
+    }
+
+    #[test]
+    fn anything_else_is_the_usage() {
+        for bad in [
+            &["--from"][..],
+            &["--from", "--wgpu", "x"],
+            &["--from", "a", "--wgpu"],
+            &["--from", "a", "--wgpu", "--verify"],
+            &["--verify", "--from", "a"],
+            &["--wgpu", "x"],
+            &["release"],
+        ] {
+            assert_eq!(parse_mode(&args(bad)), Err(USAGE.to_owned()), "{bad:?}");
+        }
+    }
+
+    #[test]
+    fn a_checked_out_release_patches_its_crate_directories() {
+        let config = patch_config(
+            Path::new("/ci/forks/gpui-fast"),
+            Path::new("/ci/forks/wgpu"),
+        );
+        let value: toml::Value = config.parse().unwrap();
+        let patch = value["patch"]["crates-io"].as_table().unwrap();
+        assert_eq!(
+            patch["gpui-fast"]["path"].as_str(),
+            Some("/ci/forks/gpui-fast/gpui")
+        );
+        assert_eq!(
+            patch["wgpu-hal"]["path"].as_str(),
+            Some("/ci/forks/wgpu/wgpu-hal")
+        );
+    }
+}

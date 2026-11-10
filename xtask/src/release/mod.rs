@@ -7,10 +7,14 @@
 //! patches the wgpu stack with the wgpu fork's `v30-tizen` checkout (`../wgpu`, design
 //! `d22-wgpu-fork`), proven with `cargo tree -i wgpu-hal`.
 //!
-//! The patch entries, the commit message and the `cargo tree` verdict are pure functions tested
-//! by `release::tests`; `main.rs` runs Bun, Cargo and Git.
+//! With `--from <dir>` no release is generated: the patch config is written for a release
+//! workspace already checked out (the fork's `tizen-release` branch, as CI checks it out next to the
+//! wgpu fork's `v30-tizen`), and proven the same way.
+//!
+//! The patch entries, the commit message, the command line and the `cargo tree` verdict are pure
+//! functions tested by `release::tests`; `main.rs` runs Bun, Cargo and Git.
 
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
 /// The release tag `tizen` is built on (design `d05-gpui-fast-pin`).
 pub const TAG: &str = "v0.1.13";
@@ -227,6 +231,50 @@ pub fn patched_cargo_args(cargo_args: &[String], config: &Path) -> Vec<String> {
     let mut args = vec!["--config".to_owned(), config.display().to_string()];
     args.extend(cargo_args.iter().cloned());
     args
+}
+
+/// The usage line of `cargo xtask gpui-fast-release`.
+pub const USAGE: &str =
+    "usage: cargo xtask gpui-fast-release [--verify | --from <release-workspace> [--wgpu <dir>]]";
+
+/// What `cargo xtask gpui-fast-release` does.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum Mode {
+    /// Generate the release workspace from `tizen` and commit it to `tizen-release`.
+    Commit,
+    /// Generate it and write the patch config into it, committing nothing.
+    Verify,
+    /// Write the patch config for a release workspace already checked out (`tizen-release`)
+    /// and a wgpu checkout (default [`WGPU_CHECKOUT`]), generating nothing.
+    From {
+        release_workspace: PathBuf,
+        wgpu: Option<PathBuf>,
+    },
+}
+
+/// Parses the arguments of `cargo xtask gpui-fast-release`.
+pub fn parse_mode(args: &[String]) -> Result<Mode, String> {
+    let usage = || USAGE.to_owned();
+    match args {
+        [] => Ok(Mode::Commit),
+        [flag] if flag == "--verify" => Ok(Mode::Verify),
+        [flag, dir] if flag == "--from" && !dir.starts_with('-') => Ok(Mode::From {
+            release_workspace: dir.into(),
+            wgpu: None,
+        }),
+        [flag, dir, wgpu_flag, wgpu]
+            if flag == "--from"
+                && wgpu_flag == "--wgpu"
+                && !dir.starts_with('-')
+                && !wgpu.starts_with('-') =>
+        {
+            Ok(Mode::From {
+                release_workspace: dir.into(),
+                wgpu: Some(wgpu.into()),
+            })
+        }
+        _ => Err(usage()),
+    }
 }
 
 /// Files of the release workspace that `cargo check` adds and `prepare-release.ts` does not
