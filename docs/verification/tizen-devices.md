@@ -54,8 +54,22 @@ Still open in this step (the owner's): add the signing secrets (`README.md`, "Co
 | 42883920411 | 9cd8fa3 (no committed patch) | every job past `plan` and `host` failed in `setup`: with the forks checked out under `artifacts-temp/forks/`, `cargo tree` with the generated patch config could not load `naga` (`error inheriting authors from workspace root manifest's workspace.package.authors`). The fallback stays for a tree without the committed patch, but no CI run takes it any more |
 | 42887002585 | f1fa54d (the git patch) | `plan`, `host`, `check` and `test` (ubuntu-24.04, macos-15), `egl` and `gles` passed; `cross (armv7)` and `cross (x86_64)` failed in `tizen-sdk`: the package manager stopped on the OS prerequisites `python3.8` and `libpython3.8`, which Ubuntu 24.04 lacks |
 
-The fix (`.github/actions/tizen-sdk`: empty stand-in packages for the prerequisite check, run in the `gpuitizen` VM
-on Ubuntu 24.04) went through a pull request; its run is recorded below.
+The fix went through dXnSix/dXn.GpuiTizen#1: `.github/actions/tizen-sdk` installs empty stand-in packages for the
+prerequisite check (tried in the `gpuitizen` VM on Ubuntu 24.04). On that PR, every `ci.yml` job passed, the
+`cross` jobs included.
+
+`tizen-emulator.yml`, dispatched on the PR's branch:
+
+| Run | Result |
+| --- | --- |
+| 42890534996 | passed the prerequisite check, then the runner's disk filled up while the SDK installed the TV emulator packages (`No space left on device`); fixed by a step that frees disk space |
+| 42891492722 | SDK installed; the signing step (a throwaway `tz cert` author certificate and the SDK's public distributor, no secrets) and the signed x86_64 diagnostic TPK passed. The emulator did not boot in 15 minutes, then `sdb dlog` waited for a device until the job's 90-minute limit, and GitHub kept no logs. The boot step now prints the emulator's logs itself, and the steps have their own limits |
+
+Found while preparing the certificates (`docs/development_setup.md`): `cargo xtask package --sign` could never sign,
+because `tz pack` rejects a plain directory ("is not a valid project"). It now zips the staged tree and re-signs it
+with `tz pack -b` (tried locally with a throwaway profile: `author-signature.xml` and `signature1.xml` in the
+package). And `tz` keeps certificate passwords in the OS keyring, never in `profiles.xml`, so the planned
+`TIZEN_PROFILES_XML` secret could not have worked. The emulator job needs no secrets.
 
 ## Devices (`HOST-3`, `DIAG-5`, `DEV-2`, `PLAT-7`, `VID-4`, `DEV-3`)
 
