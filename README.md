@@ -87,7 +87,9 @@ an about screen shows; every read is `None` off Tizen.
 `cargo xtask package --app <app> --target <armv7|x86_64|aarch64>` stages a TPK tree under `target/tpk/`;
 `--target all` stages one package per TV architecture (armv7 and aarch64, each with its own fourth version number
 and CPU feature) and the multi-architecture `.zip` for Seller Office (see the assumptions below). Packages are signed only with
-`--sign <profile>`, the owner's Samsung certificate profile (`tz pack`).
+`--sign <profile>`, a certificate profile of `tz security-profiles` (a Samsung certificate for a TV, a Tizen
+certificate for the emulator; `docs/development_setup.md`): the staged tree is zipped and re-signed with `tz pack -b`,
+because `tz pack` does not sign a plain directory. The signed package is `target/tpk/<package id>-<version>-<arch>.tpk`.
 
 Before submitting, `cargo xtask store-check <tpk or staged dir>` checks what can be checked on the Mac: the manifest
 (package id, version, API version 8.0, the `tv-samsung` profile, the app id), the icon (a 512×423 PNG), the
@@ -109,8 +111,7 @@ architecture) and then each package.
 The multi-architecture layout follows Seller Office's launch checklist, which leaves details open. These are
 assumptions until the first submission confirms them (the owner's store sprint): the CPU feature keys
 (`http://tizen.org/feature/platform.core.cpu.arch.armv7` / `armv8`), that a four-part version is accepted in
-`tizen-manifest.xml`, that the `.zip` holds the packages at its top level, and where `tz pack` writes the signed
-package (`--target all --sign` looks next to and inside each staged tree).
+`tizen-manifest.xml`, and that the `.zip` holds the packages at its top level.
 
 Submission itself (Seller Office, the certificates, the answer on native libraries for public sellers) is the
 owner's.
@@ -142,17 +143,13 @@ artifacts-temp/forks/wgpu` instead.
 
 `.github/workflows/tizen-emulator.yml` (manual and weekly) boots the Samsung TV emulator headless on an Ubuntu runner
 with KVM, packages and signs the x86_64 diagnostic TPK, installs and launches it, pulls its report with `cargo xtask
-diag pull` and uploads the report and the emulator's logs. It needs these repository secrets, read only by that job:
-
-| Secret | Value |
-| --- | --- |
-| `TIZEN_AUTHOR_P12`, `TIZEN_DISTRIBUTOR_P12` | the author and distributor certificates, base64-encoded `.p12` files |
-| `TIZEN_AUTHOR_PASSWORD`, `TIZEN_DISTRIBUTOR_PASSWORD` | their passwords |
-| `TIZEN_PROFILES_XML` | a `profiles.xml` with a profile named `ci`, with `@CERT_DIR@` where the certificates' directory goes (the job writes them there as `author.p12` and `distributor.p12`, so the profile names `@CERT_DIR@/author.p12` and `@CERT_DIR@/distributor.p12`) and `@AUTHOR_PASSWORD@` / `@DISTRIBUTOR_PASSWORD@` where the passwords go |
+diag pull` and uploads the report and the emulator's logs. It needs no secrets: the emulator accepts a Tizen
+certificate, so the job creates a throwaway author certificate with `tz cert` and pairs it with the SDK's public
+Tizen distributor certificate in a profile `ci` (`tz security-profiles add`, which keeps the passwords in a
+gnome-keyring the job unlocks). Samsung certificates, which a TV needs, stay on the owner's machine.
 
 Both workflows install the Tizen SDK CLI with `--accept-license`: running them is the owner's acceptance of Samsung's
-SDK licence on the runner. The emulator's distributor certificate must allow it (Samsung's public distributor
-certificate does).
+SDK licence on the runner.
 
 ## Licence
 

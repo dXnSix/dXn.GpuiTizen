@@ -125,21 +125,42 @@ fn staged_layout_follows_the_tpk_tree() {
     );
 }
 
-#[test]
-fn signing_runs_tz_pack_with_the_profile_only() {
-    assert_eq!(
-        sign_command(Path::new("/repo/target/tpk/diag-armv7"), "owner"),
-        [
-            "tz",
-            "pack",
-            "-t",
-            "tpk",
-            "-s",
-            "owner",
-            "/repo/target/tpk/diag-armv7"
-        ]
-    );
-    assert!(UNSIGNED_NOTE.contains("certificate profile"));
+/// `--sign`: `tz pack` re-signs a zip of the staged tree (its repack mode), never the directory.
+mod signing {
+    use super::*;
+
+    #[test]
+    fn tz_pack_re_signs_the_unsigned_package_into_the_named_one() {
+        let signed = Path::new("/repo/target/tpk/DxnGpuiTzD-0.1.0-armv7.tpk");
+        let unsigned = unsigned_tpk_path(signed);
+        assert_eq!(
+            unsigned,
+            Path::new("/repo/target/tpk/DxnGpuiTzD-0.1.0-armv7.unsigned.tpk")
+        );
+        assert_eq!(
+            sign_command(&unsigned, signed, "owner"),
+            [
+                "tz",
+                "pack",
+                "-t",
+                "tpk",
+                "-s",
+                "owner",
+                "-b",
+                "/repo/target/tpk/DxnGpuiTzD-0.1.0-armv7.unsigned.tpk",
+                "-o",
+                "/repo/target/tpk/DxnGpuiTzD-0.1.0-armv7.tpk",
+            ]
+        );
+        assert!(UNSIGNED_NOTE.contains("certificate profile"));
+    }
+
+    #[test]
+    fn a_single_architecture_package_keeps_the_cargo_version() {
+        let diag = App::find("diag").expect("diag is in the app table");
+        let name = single_tpk_file_name(diag, "0.1.0", Target::Armv7);
+        assert_eq!(name, format!("{}-0.1.0-armv7.tpk", diag.package_id));
+    }
 }
 
 #[test]

@@ -772,10 +772,16 @@ fn run_package(args: &[String]) -> Result<ExitCode> {
     };
     let staging = stage(&root, app, target, ManifestValues::for_app(app, &version))?;
     match profile {
-        Some(profile) => Ok(match sign(&staging, &profile)? {
-            Signed::Failed => ExitCode::FAILURE,
-            Signed::Package(_) | Signed::Elsewhere => ExitCode::SUCCESS,
-        }),
+        Some(profile) => {
+            let signed = root
+                .join("target/tpk")
+                .join(package::single_tpk_file_name(app, &version, target));
+            Ok(if sign(&staging, &profile, &signed)? {
+                ExitCode::SUCCESS
+            } else {
+                ExitCode::FAILURE
+            })
+        }
         None => {
             eprintln!("{}", package::UNSIGNED_NOTE);
             Ok(ExitCode::SUCCESS)
@@ -796,22 +802,15 @@ fn package_all(root: &Path, app: &App, version: &str, profile: Option<&str>) -> 
             target,
             ManifestValues::for_architecture(app, version, target),
         )?;
-        let tpk = match profile {
-            Some(profile) => match sign(&staging, profile)? {
-                Signed::Package(tpk) => tpk,
-                Signed::Failed => return Ok(ExitCode::FAILURE),
-                Signed::Elsewhere => bail!(
-                    "the multi-architecture .zip needs each signed .tpk, and `tz pack` wrote none \
-                     next to or inside {}",
-                    staging.display()
-                ),
-            },
-            None => {
-                let tpk = out.join(package::tpk_file_name(app, version, target));
-                zip_dir(&staging, &tpk)?;
-                tpk
+        let tpk = out.join(package::tpk_file_name(app, version, target));
+        match profile {
+            Some(profile) => {
+                if !sign(&staging, profile, &tpk)? {
+                    return Ok(ExitCode::FAILURE);
+                }
             }
-        };
+            None => zip_dir(&staging, &tpk)?,
+        }
         packages.push((target, tpk));
     }
     let entries = package::multi_arch_entries(app, version, &packages)?;
@@ -864,54 +863,26 @@ fn zip_dir(dir: &Path, to: &Path) -> Result<()> {
     Ok(())
 }
 
-/// What `tz pack` did.
-enum Signed {
-    Failed,
-    /// It wrote this package.
-    Package(PathBuf),
-    /// It succeeded, but the package was not found next to or inside the staged tree.
-    Elsewhere,
-}
-
-/// Signs a staged tree with `tz pack`.
-fn sign(staging: &Path, profile: &str) -> Result<Signed> {
-    let started = std::time::SystemTime::now();
-    let command = package::sign_command(staging, profile);
+/// Signs a staged tree into `signed`: zips it into an unsigned package next to `signed`, re-signs
+/// that with `tz pack` (its repack mode; `package::sign_command`) and removes the unsigned one.
+/// False when `tz pack` failed.
+fn sign(staging: &Path, profile: &str, signed: &Path) -> Result<bool> {
+    if let Some(dir) = signed.parent() {
+        std::fs::create_dir_all(dir)?;
+    }
+    let unsigned = package::unsigned_tpk_path(signed);
+    zip_dir(staging, &unsigned)?;
+    let command = package::sign_command(&unsigned, signed, profile);
     let status = Command::new(&command[0])
         .args(&command[1..])
         .status()
         .context("running `tz` (the Tizen SDK CLI)")?;
-    if !status.success() {
-        return Ok(Signed::Failed);
+    std::fs::remove_file(&unsigned)?;
+    if !status.success() || !signed.is_file() {
+        return Ok(false);
     }
-    // Where `tz pack` writes the .tpk is not documented: next to or inside the staged tree.
-    let mut written = Vec::new();
-    for dir in [Some(staging), staging.parent()].into_iter().flatten() {
-        for entry in std::fs::read_dir(dir)?.filter_map(Result::ok) {
-            let path = entry.path();
-            let fresh = entry
-                .metadata()
-                .and_then(|m| m.modified())
-                .is_ok_and(|modified| modified >= started);
-            if fresh && path.extension().is_some_and(|e| e == "tpk") {
-                written.push(path);
-            }
-        }
-    }
-    match written.as_slice() {
-        [tpk] => {
-            eprintln!("signed {}", tpk.display());
-            Ok(Signed::Package(tpk.clone()))
-        }
-        _ => {
-            eprintln!(
-                "`tz pack` succeeded; found {} new .tpk files next to or inside {}",
-                written.len(),
-                staging.display()
-            );
-            Ok(Signed::Elsewhere)
-        }
-    }
+    eprintln!("signed {}", signed.display());
+    Ok(true)
 }
 
 /// Builds `app`'s library for `target` (with the symbol check), builds the host and stages the
