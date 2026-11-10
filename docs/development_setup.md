@@ -118,7 +118,7 @@ mkdir -p ~/tizen-certs && chmod 700 ~/tizen-certs
 $tz cert -n "$(id -un)-emulator" -p '<a password>' -f ~/tizen-certs/emulator-author
 $tz security-profiles add -n emulator \
   -a ~/tizen-certs/emulator-author.p12 -p '<the same password>' \
-  -d ~/tizen-studio/tools/certificate-generator/certificates/distributor/sdk-public/tizen-distributor-signer.p12 \
+  -d ~/tizen-studio/tools/certificate-generator/certificates/distributor/sdk-public/tizen-distributor-signer-new.p12 \
   -P tizenpkcs12passfordsigner
 ```
 
@@ -138,8 +138,18 @@ This builds the release library and the C# host, stages the tree and signs it in
 `target/tpk/DxnGpuiTzD-<version>-armv7.tpk`, where the version comes from `Cargo.toml` (`0.1.0` today). Then install it, start it, and pull its report:
 
 ```bash
-~/tizen-studio/tools/sdb install target/tpk/DxnGpuiTzD-0.1.0-armv7.tpk
+~/tizen-studio/tools/tizen-core/tz install -p target/tpk/DxnGpuiTzD-0.1.0-armv7.tpk -e <tv-ip>:26101
 ```
+
+Check that the TV lists it:
+
+```bash
+~/tizen-studio/tools/sdb shell 0 vd_applist | grep DxnGpuiTzD
+```
+
+Don't use `sdb install` on a TV. A TV has no `pkgcmd`, so `sdb install` hands a `.tpk` to the web-app installer,
+which rejects it, and `sdb` still reports success. `tz install` uses the TVs' installer (`sdb shell 0
+vd_appinstall`), as the emulator job does ([`ci-emulator.md`](ci-emulator.md#installing)).
 
 ```bash
 ~/tizen-studio/tools/sdb shell 0 execute DxnGpuiTzD.Diag
@@ -152,7 +162,7 @@ cargo xtask diag pull
 `diag pull` forwards the app's port over `sdb` and saves the report and its log under `artifacts-temp/diag/`.
 Send those to the agent, which records the results in [`verification/tizen-devices.md`](verification/tizen-devices.md).
 
-If `sdb install` fails:
+If `tz install` fails, or `vd_applist` doesn't list the package:
 
 | What it reports | Cause | Fix |
 | --- | --- | --- |

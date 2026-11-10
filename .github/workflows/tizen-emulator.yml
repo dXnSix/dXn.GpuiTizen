@@ -78,10 +78,12 @@ jobs:
           password="$(openssl rand -hex 16)"
           echo "::add-mask::$password"
           tz cert -n dXn.GpuiTizen-CI -p "$password" -f "$certs/author"
-          # The SDK's public distributor certificate; its password is the SDK's published one.
+          # The SDK's current public distributor certificate (the older tizen-distributor-signer.p12 next
+          # to it expired in 2012; the emulator rejects it as an invalid chain). Its password is the
+          # SDK's published one.
           tz security-profiles add -n "$PROFILE" -A \
             -a "$certs/author.p12" -p "$password" \
-            -d "$HOME/tizen-studio/tools/certificate-generator/certificates/distributor/sdk-public/tizen-distributor-signer.p12" \
+            -d "$HOME/tizen-studio/tools/certificate-generator/certificates/distributor/sdk-public/tizen-distributor-signer-new.p12" \
             -P tizenpkcs12passfordsigner
           tz security-profiles list
 
