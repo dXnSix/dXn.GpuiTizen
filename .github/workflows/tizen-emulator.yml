@@ -33,6 +33,17 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - name: Free disk space
+        # The SDK, the TV emulator platform and its VM image do not fit next to the runner image's
+        # preinstalled toolchains (the first run stopped with "No space left on device"). None of
+        # those removed here is used by this job; .NET stays for the C# host.
+        run: |
+          df -h /
+          sudo rm -rf /usr/local/lib/android /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache/CodeQL \
+            /usr/share/swift /usr/local/share/powershell /usr/local/share/chromium /usr/local/julia*
+          sudo docker image prune --all --force >/dev/null 2>&1 || true
+          df -h /
+
       - name: KVM and Xvfb
         run: |
           sudo apt-get update && sudo apt-get install -y --no-install-recommends xvfb
