@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 35,
+  "revision": 42,
   "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
   "repositories": [
     {
@@ -1890,7 +1890,7 @@
       "argv": [
         "bash",
         "-c",
-        "CARGO_TARGET_DIR=target CC_wasm32_unknown_unknown=/opt/homebrew/opt/llvm/bin/clang AR_wasm32_unknown_unknown=/opt/homebrew/opt/llvm/bin/llvm-ar cargo build -p nsh-platform-web --target wasm32-unknown-unknown --no-default-features --features browser-tests --profile web && node --expose-gc --test crates/nsh-platform-web/web/browser/focus.test.mjs"
+        "CARGO_TARGET_DIR=target CC_wasm32_unknown_unknown=/opt/homebrew/opt/llvm/bin/clang AR_wasm32_unknown_unknown=/opt/homebrew/opt/llvm/bin/llvm-ar cargo build -p nsh-platform-web --target wasm32-unknown-unknown --no-default-features --features browser-tests --profile web && NSH_BROWSER_WASM=target/wasm32-unknown-unknown/web/nsh_platform_web.wasm node --expose-gc --test crates/nsh-platform-web/web/browser/focus.test.mjs"
       ],
       "expected": {
         "exitCode": 0,
@@ -1992,10 +1992,9 @@
         "TV-3"
       ],
       "argv": [
-        "node",
-        "--expose-gc",
-        "--test",
-        "crates/nsh-platform-web/web/browser/tv.test.mjs"
+        "bash",
+        "-c",
+        "CARGO_TARGET_DIR=target CC_wasm32_unknown_unknown=/opt/homebrew/opt/llvm/bin/clang AR_wasm32_unknown_unknown=/opt/homebrew/opt/llvm/bin/llvm-ar cargo build -p nsh-platform-web --target wasm32-unknown-unknown --no-default-features --features browser-tests --profile web && NSH_BROWSER_WASM=target/wasm32-unknown-unknown/web/nsh_platform_web.wasm node --expose-gc --test crates/nsh-platform-web/web/browser/tv.test.mjs"
       ],
       "expected": {
         "exitCode": 0,
@@ -2005,7 +2004,7 @@
       "inputs": [
         "crates/nsh-platform-web/**"
       ],
-      "descriptionMarkdown": "Resolve the exact selector and test-count pattern from the NSH checkout at sprint start (`amend` the check if it differs).",
+      "descriptionMarkdown": "Resolve the exact selector and test-count pattern from the NSH checkout at sprint start (`amend` the check if it differs). Builds the browser-test Wasm into the worktree's `target/` first (as `chk-nsh-focus-web`).",
       "environment": {
         "NSH_BROWSER_WASM": "target/wasm32-unknown-unknown/web/nsh_platform_web.wasm"
       }
@@ -2069,7 +2068,7 @@
     {
       "id": "chk-nsh-compat",
       "repositoryId": "nsh",
-      "kind": "test",
+      "kind": "static",
       "criterionIds": [
         "TV-5"
       ],
@@ -2080,16 +2079,19 @@
       ],
       "expected": {
         "exitCode": 0,
-        "minimumTests": 1
+        "stdoutPattern": "compatible with every recorded release"
       },
       "inputs": [
         "crates/**",
         "tests/compat/**",
         "Cargo.lock"
       ],
-      "descriptionMarkdown": "Clones nsh-compat into `target/nsh-compat/`, hence `reuse: false`. Select the touched domains with `NSH_COMPAT_APP` if the full compat run is too slow. Resolve the exact selector and test-count pattern from the NSH checkout at sprint start (`amend` the check if it differs).",
+      "descriptionMarkdown": "`cargo xtask compat` with nsh-compat from the local clone's `tv-idiom` branch (`platform <os> tv`, `platform tizen`, focus props; prepared for the owner to send upstream), cloned into `target/nsh-compat/nsh-compat` of the worktree, where `crates/xtask/src/compat.rs` looks for it. `cargo xtask compat` reports one line and no count (\"compatible with every recorded release\", or the first incompatible step), so the check matches that line. nsh-compat looks for `nsh` under the checkout's `target/`; NSH's `.cargo/config.toml` builds into a shared target directory, so `NSH_BIN` names it there.",
       "reuse": false,
-      "timeoutSeconds": 5400
+      "timeoutSeconds": 5400,
+      "environment": {
+        "NSH_BIN": "/Users/dinko/work-private/projects/dXn/nsh/target-shared/debug/nsh"
+      }
     },
     {
       "id": "chk-nsh-shader-wgpu30",
@@ -3121,6 +3123,264 @@
         "Cargo.lock"
       ],
       "descriptionMarkdown": "macOS arrow focus over `nsh_core::focus` (`focus::Arrow`), the repair of `f-s15-desktop-arrows`.",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-keys-gpui",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "TV-1"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "crates/gpui/Cargo.toml",
+        "-p",
+        "nsh-platform-gpui",
+        "--lib",
+        "--",
+        "keys::tests::tv",
+        "keymap::tests::tv_keys"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "crates/gpui/**"
+      ],
+      "descriptionMarkdown": "The Tizen platform's TV key names (d14-keys) to `Key` in the GPUI backend, and bindings firing on them.",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-keys-web",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "TV-1"
+      ],
+      "argv": [
+        "node",
+        "--test",
+        "--test-name-pattern=TV remote",
+        "crates/nsh-platform-web/web/nsh.test.mjs"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1,
+        "testCountPattern": "(?:#|ℹ) pass (\\d+)"
+      },
+      "inputs": [
+        "crates/nsh-platform-web/**"
+      ],
+      "descriptionMarkdown": "The web runtime maps `KeyboardEvent.key` and Samsung TVs' key codes to the TV keys.",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-remote-keys-tui",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "FOC-7"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-platform-tui",
+        "--features",
+        "dev,run-app",
+        "--test",
+        "tui",
+        "remote_keys::"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "crates/nsh-platform-tui/**",
+        "crates/nsh-testing/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "The terminal agent presses the TV remote keys by the keymap's names.",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-dev-idiom-gpui",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "TV-4"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "crates/gpui/Cargo.toml",
+        "-p",
+        "nsh-platform-gpui",
+        "--lib",
+        "app::idiom_tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "crates/gpui/**"
+      ],
+      "descriptionMarkdown": "The GPUI host starts its surface in the idiom it is given.",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-compat-tizen",
+      "repositoryId": "nsh",
+      "kind": "static",
+      "criterionIds": [
+        "NTZ-2"
+      ],
+      "argv": [
+        "cargo",
+        "xtask",
+        "compat"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "stdoutPattern": "compatible with every recorded release"
+      },
+      "inputs": [
+        "crates/**",
+        "tests/compat/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "`cargo xtask compat` once `Os::Tizen` is in: the `tizen` domain's case runs on nsh-compat's `platform tizen` (local clone, branch `nsh-tizen`: `tv-idiom`, `tizen-platform` and `focus-props` merged). `cargo xtask compat` reports one line and no count (\"compatible with every recorded release\", or the first incompatible step), so the check matches that line. nsh-compat looks for `nsh` under the checkout's `target/`; NSH's `.cargo/config.toml` builds into a shared target directory, so `NSH_BIN` names it there.",
+      "reuse": false,
+      "timeoutSeconds": 5400,
+      "environment": {
+        "NSH_BIN": "/Users/dinko/work-private/projects/dXn/nsh/target-shared/debug/nsh"
+      }
+    },
+    {
+      "id": "chk-nsh-keys-macos-build",
+      "repositoryId": "nsh",
+      "kind": "static",
+      "criterionIds": [
+        "TV-1"
+      ],
+      "argv": [
+        "cargo",
+        "clippy",
+        "-p",
+        "nsh-platform-macos",
+        "--all-targets",
+        "--features",
+        "dev",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "expected": {
+        "exitCode": 0
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "crates/nsh-platform-macos/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "The macOS backend builds with the new keys (finding `f-s16-macos-agent-key-match`: its agent's key match broke and no check built the crate).",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-remote-keys-gpui",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "FOC-7"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "crates/gpui/Cargo.toml",
+        "-p",
+        "nsh-platform-gpui",
+        "--features",
+        "dev",
+        "--lib",
+        "agent::tests::remote_keys"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "crates/gpui/**",
+        "crates/nsh-testing/**"
+      ],
+      "descriptionMarkdown": "The GPUI agent presses the remote keys (Back as `VK_BROWSER_BACK`).",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-remote-keys-web",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "FOC-7"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-cli",
+        "--bin",
+        "nsh",
+        "test_web::tests::remote_keys"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-cli/**",
+        "crates/nsh-platform-web/web/nsh.js",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "The web agent sends Samsung TVs' key codes that `nsh.js` decodes to the same keys.",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-remote-keys-agent",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "FOC-7"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-testing",
+        "--features",
+        "agent",
+        "--lib",
+        "agent::tests::remote_keys"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-testing/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "`Native::press_remote_key`'s default.",
       "timeoutSeconds": 3600
     }
   ],
@@ -4640,7 +4900,15 @@
         "chk-nsh-remote-keys",
         "chk-nsh-compat",
         "chk-nsh-shader-wgpu30",
-        "chk-nsh-one-wgpu"
+        "chk-nsh-one-wgpu",
+        "chk-nsh-keys-gpui",
+        "chk-nsh-keys-web",
+        "chk-nsh-remote-keys-tui",
+        "chk-nsh-dev-idiom-gpui",
+        "chk-nsh-keys-macos-build",
+        "chk-nsh-remote-keys-gpui",
+        "chk-nsh-remote-keys-web",
+        "chk-nsh-remote-keys-agent"
       ],
       "tasks": [
         {
@@ -4655,7 +4923,10 @@
           ],
           "dependsOn": [],
           "checkIds": [
-            "chk-nsh-keymap-tv"
+            "chk-nsh-keymap-tv",
+            "chk-nsh-keys-gpui",
+            "chk-nsh-keys-web",
+            "chk-nsh-keys-macos-build"
           ],
           "sourceRefs": [
             {
@@ -4703,7 +4974,8 @@
             "t16-category"
           ],
           "checkIds": [
-            "chk-nsh-dev-idiom"
+            "chk-nsh-dev-idiom",
+            "chk-nsh-dev-idiom-gpui"
           ]
         },
         {
@@ -4721,7 +4993,11 @@
             "t16-keys"
           ],
           "checkIds": [
-            "chk-nsh-remote-keys"
+            "chk-nsh-remote-keys",
+            "chk-nsh-remote-keys-tui",
+            "chk-nsh-remote-keys-gpui",
+            "chk-nsh-remote-keys-web",
+            "chk-nsh-remote-keys-agent"
           ],
           "sourceRefs": [
             {
@@ -4780,7 +5056,8 @@
         "chk-nsh-tv-env",
         "chk-nsh-gpui-default",
         "chk-nsh-gpui-tizen-deps",
-        "chk-nsh-gpui-tizen-build"
+        "chk-nsh-gpui-tizen-build",
+        "chk-nsh-compat-tizen"
       ],
       "tasks": [
         {
@@ -4821,7 +5098,8 @@
           "dependsOn": [],
           "checkIds": [
             "chk-nsh-os-tizen",
-            "chk-nsh-tv-env"
+            "chk-nsh-tv-env",
+            "chk-nsh-compat-tizen"
           ],
           "sourceRefs": [
             {

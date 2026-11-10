@@ -584,7 +584,7 @@
         },
         {
           "id": "TV-5",
-          "descriptionMarkdown": "`Os::Tizen`, `platform.tv`, the `tv` prop group, the `tv` select key and the new keys widen types: each has a\n`tests/compat` case passing the v0.2.0 record with `cargo xtask compat`; if nsh-compat must learn to print them, the\nnsh-compat change is prepared beside them (applied for the local compat run, sent upstream in the upstream sprint).",
+          "descriptionMarkdown": "`platform.tv`, the `tv` prop group, the `tv` select key, the new keys and the TV focus props widen types: each has a\n`tests/compat` case passing the v0.2.0 record with `cargo xtask compat`; if nsh-compat must learn to print them, the\nnsh-compat change is prepared beside them (applied for the local compat run, sent upstream in the upstream sprint). `Os::Tizen`'s case belongs to `NTZ-2`.",
           "verification": "automated"
         },
         {
@@ -606,7 +606,7 @@
         },
         {
           "id": "NTZ-2",
-          "descriptionMarkdown": "`Os::Tizen` (`name()` = `\"tizen\"`, `is_desktop()` false, `Idiom::desktop_on` false for it) in `nsh-core`, `\"tizen\"`\nin the JS `OS` type, `platform.select({ tizen })` through the OS key; `tizen-web` keeps `Os::Web`. New `tizen` cases\nin `platform::tests` and the JS environment tests.",
+          "descriptionMarkdown": "`Os::Tizen` (`name()` = `\"tizen\"`, `is_desktop()` false, `Idiom::desktop_on` false for it) in `nsh-core`, `\"tizen\"`\nin the JS `OS` type, `platform.select({ tizen })` through the OS key; `tizen-web` keeps `Os::Web`. New `tizen` cases\nin `platform::tests` and the JS environment tests. A `tests/compat` case (domain `tizen`, nsh-compat's `platform tizen`) passes with `cargo xtask compat`, the\nnsh-compat change prepared as `TV-5` describes.",
           "verification": "automated"
         },
         {

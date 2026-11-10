@@ -1,12 +1,12 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 260,
-  "planRevision": 35,
+  "revision": 282,
+  "planRevision": 42,
   "specHashes": {
-    "requirements": "75ca9179f88ef16908038516d574dbd0eedc9caddae5cc048c250aa046c42104",
+    "requirements": "068b40fba8f3eeb831a46d913cc2bbd60e3e470cfbbed6933dc6aede91ac4a6e",
     "design": "a3e9ab1641d598bff3fdd015bd4af4393cd6025f28b84ab7dab193dcb9794dcc",
-    "plan": "16df909faf85cc3a3a0057146f0c53d522efb3d7cd1f72de0d437803be4694d3"
+    "plan": "30c336edabd531dc306d9905ac3bfa557b476db37fdedbe6e80d3e8e49c558c0"
   },
   "tasks": {
     "t1-workspace": {
@@ -385,22 +385,40 @@
       ]
     },
     "t16-keys": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t16-category": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t16-dev-idiom": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t16-remote-keys": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t16-compat": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t16-wgpu30": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t17-os": {
       "status": "pending"
@@ -803,6 +821,42 @@
         }
       },
       "recordedAt": "2026-11-10T10:41:37Z"
+    },
+    "d3d1f13c018387744708549a18c74cea36a4a93149942946207f797e4ffe3d2d": {
+      "snapshot": {
+        "specHash": "d41b3d9f0aa4ee01dc956380a2a96af27654d3f13f2300a98866c4bab214c958",
+        "repositories": {
+          "gpuitizen": "2b8aa75c0e47ff44b8c137492b5c4600d14092c023b94374071192cdb927f487",
+          "gpui-fast": "c318780179e3efe79b3549e66b723ee445ed7dd36b3d54e1db560726aee9a019",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "c3a4b72e7941401c57d28312e7093e1250c12df577693e8831bf730682369bdc"
+        }
+      },
+      "recordedAt": "2026-11-10T11:26:26Z"
+    },
+    "f7fc92d3cc6cfad539d210629b0c46dac7341928a5c9eee0675c83c884fa3b57": {
+      "snapshot": {
+        "specHash": "cec4b3bd686e059ed2eff84c9e734a921e4968e5adcc1876303f1e17c5ff14a7",
+        "repositories": {
+          "gpuitizen": "2c30884a7b376c8298154d8a6653a0cec4054b1e493d47bb8110cea6f2c078a0",
+          "gpui-fast": "c318780179e3efe79b3549e66b723ee445ed7dd36b3d54e1db560726aee9a019",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "23001f6ea2a36c8c04b7cf550a73fe0597c679d92d61a7aaa221a8a8d852cb95"
+        }
+      },
+      "recordedAt": "2026-11-10T12:44:19Z"
+    },
+    "3517f00591e33d1128b7c0dd981622e85f3ee9660e38263126dd1fe77e30134f": {
+      "snapshot": {
+        "specHash": "500167ebe557c5670726774f7c9114c33bb20ad4ab08483ef3b470a60a2f1f30",
+        "repositories": {
+          "gpuitizen": "2c30884a7b376c8298154d8a6653a0cec4054b1e493d47bb8110cea6f2c078a0",
+          "gpui-fast": "c318780179e3efe79b3549e66b723ee445ed7dd36b3d54e1db560726aee9a019",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "23001f6ea2a36c8c04b7cf550a73fe0597c679d92d61a7aaa221a8a8d852cb95"
+        }
+      },
+      "recordedAt": "2026-11-10T13:00:37Z"
     }
   },
   "checkResults": {
@@ -2522,6 +2576,295 @@
       "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-80a2163883a5.log",
       "logSha256": "ebcfc32993051befe0adcd9d526678e7361434ba1c3b1acb0ab226f8a539768f",
       "inputsHash": "0bd4523aa49e36b938200e16ed437a689ea5301c2130d4c9af0aee8d12d535ac"
+    },
+    "s16-nsh-tv/chk-nsh-keymap-tv/final": {
+      "checkId": "chk-nsh-keymap-tv",
+      "boundaryId": "s16-nsh-tv",
+      "phase": "final",
+      "batchId": "f7fc92d3cc6cfad539d210629b0c46dac7341928a5c9eee0675c83c884fa3b57",
+      "definitionHash": "a6ea9bf359b59333874427b61a50927e4f901c6e08557125786bedf51a2eb2ff",
+      "basisHash": "ccb073fa8855b21d0a84eccc27a42321a3169e9a70d19ae525df379a22737505",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 7,
+      "durationSeconds": 92.9366,
+      "recordedAt": "2026-11-10T12:15:47Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-fe3b271c83e4.log",
+      "logSha256": "a634b162aa3708d58e2a381d4d006196d312ae0c7f32fc8e785276e1bf8bcd2e",
+      "inputsHash": "678a09a7caaacb66939bd6973b061a2c9b66d8c0f28d37dd5adb73ccb13cd5c9"
+    },
+    "s16-nsh-tv/chk-nsh-tv-env/final": {
+      "checkId": "chk-nsh-tv-env",
+      "boundaryId": "s16-nsh-tv",
+      "phase": "final",
+      "batchId": "f7fc92d3cc6cfad539d210629b0c46dac7341928a5c9eee0675c83c884fa3b57",
+      "definitionHash": "78294c624bf7ad40898c1bd7a15e75154faeeb12abcf3abe56311922d9364799",
+      "basisHash": "5f790f8f572c2e7dbc29c990cb492e4a40a49ad73bd4cbe97939f09b000b3f31",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 3,
+      "durationSeconds": 124.8863,
+      "recordedAt": "2026-11-10T12:17:52Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-cf44cb315ed2.log",
+      "logSha256": "1aa05597e43a120d034d036ece7816cb706bb25ebf36fadee3b3cae3f4c96730",
+      "inputsHash": "6a30f63baa82a57b6d4292092af0822a93fd1b6a763f1392bdbf71f21d992ba7"
+    },
+    "s16-nsh-tv/chk-nsh-tv-props/final": {
+      "checkId": "chk-nsh-tv-props",
+      "boundaryId": "s16-nsh-tv",
+      "phase": "final",
+      "batchId": "f7fc92d3cc6cfad539d210629b0c46dac7341928a5c9eee0675c83c884fa3b57",
+      "definitionHash": "9641d7fd178efb4572418a46947a4bd835d61cc0c1eba3bba52cd818c03a2068",
+      "basisHash": "092f3739ee5cf00b7ca0a4ef48a16b730ac4d53cf634d02a983b2f29e523f0a5",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 2,
+      "durationSeconds": 114.0708,
+      "recordedAt": "2026-11-10T12:19:46Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-abe1fc14c1a3.log",
+      "logSha256": "1538fa08e144060891b3ba824ce7a94cec8b9b1b5de2102b5e16789b2dd59776",
+      "inputsHash": "7ef2504194d9c204ad87f276a43d031a9f495c13fc12663acda121d3885de969"
+    },
+    "s16-nsh-tv/chk-nsh-tv-web/final": {
+      "checkId": "chk-nsh-tv-web",
+      "boundaryId": "s16-nsh-tv",
+      "phase": "final",
+      "batchId": "3517f00591e33d1128b7c0dd981622e85f3ee9660e38263126dd1fe77e30134f",
+      "definitionHash": "8720d6e301c15e519f17448b9a48abd0100899b99e14835cf35c1e7bba08087d",
+      "basisHash": "5d2475ec0ea3d9482c0f3ab78232e39b7c91afd97578161df982828f3f138002",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 4,
+      "durationSeconds": 0.3874,
+      "recordedAt": "2026-11-10T12:47:31Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-6b3ab1864dab.log",
+      "logSha256": "cce0546beca2ccfc5de973613838af2f7fc73a08b6ee7a215d9f8d111603f5a7",
+      "inputsHash": "75ef9a1326ea418e8f538aa0d3739bbb239c1ca73fcdb1343c61cde099c18ee8"
+    },
+    "s16-nsh-tv/chk-nsh-dev-idiom/final": {
+      "checkId": "chk-nsh-dev-idiom",
+      "boundaryId": "s16-nsh-tv",
+      "phase": "final",
+      "batchId": "f7fc92d3cc6cfad539d210629b0c46dac7341928a5c9eee0675c83c884fa3b57",
+      "definitionHash": "38dd661f40214ac5ea63ab7e0a332a3e257bf66362fd89ddc75c1d536bfd1bd1",
+      "basisHash": "863719d4add86df60d6f496429dcf16e984cdde0073043d708f9938cd52e9051",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 4,
+      "durationSeconds": 169.2747,
+      "recordedAt": "2026-11-10T12:24:22Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-609fa870b882.log",
+      "logSha256": "47ce856cfb0c96a5082eafc7df98a7c350914375bb6af53d8f9572fdb2da0f12",
+      "inputsHash": "55b3b936b937ef026a7a74e6da8ba483bde529d4f22419634ab6826d0f01d687"
+    },
+    "s16-nsh-tv/chk-nsh-remote-keys/final": {
+      "checkId": "chk-nsh-remote-keys",
+      "boundaryId": "s16-nsh-tv",
+      "phase": "final",
+      "batchId": "f7fc92d3cc6cfad539d210629b0c46dac7341928a5c9eee0675c83c884fa3b57",
+      "definitionHash": "0c3d1d656f86337ca7eac2472d11b6538f7bd2db4cca26560f191e7189f68077",
+      "basisHash": "c97b8c1f49cb9ae05190200066a3d428bf968b6d6576f2b95bb8138f8a7c151a",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 1,
+      "durationSeconds": 92.5284,
+      "recordedAt": "2026-11-10T12:25:55Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-27b73bb190e2.log",
+      "logSha256": "3d55e09a18e74ab6cf63da6f74d6e579343cd1430c1e6fce17090bd5d2be610c",
+      "inputsHash": "0047c2dc14aec7d5af2f1b655a35d47a61486647e694e3487e4b7758279dad43"
+    },
+    "s16-nsh-tv/chk-nsh-compat/final": {
+      "checkId": "chk-nsh-compat",
+      "boundaryId": "s16-nsh-tv",
+      "phase": "final",
+      "batchId": "3517f00591e33d1128b7c0dd981622e85f3ee9660e38263126dd1fe77e30134f",
+      "definitionHash": "d63ffb6fbbdb8d3c3375b43a5983e73920d5023bf169947810cb7f2027ddab8f",
+      "basisHash": "388830e53eb5da9271dcfd1e101fa07f089567995cc631d2184eb35e976884ed",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 784.787,
+      "recordedAt": "2026-11-10T13:00:36Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-209355964f2c.log",
+      "logSha256": "8e185eee145d779f8edc310311f4c5bbfa9ad0bdd9f53e30ad13c1df304be503",
+      "inputsHash": "ce6529748dd2a141483a6119032e06dd775eff7345f8b8138cf90e0e7f1137fb"
+    },
+    "s16-nsh-tv/chk-nsh-shader-wgpu30/final": {
+      "checkId": "chk-nsh-shader-wgpu30",
+      "boundaryId": "s16-nsh-tv",
+      "phase": "final",
+      "batchId": "d3d1f13c018387744708549a18c74cea36a4a93149942946207f797e4ffe3d2d",
+      "definitionHash": "d1095488115fec61de0b9529fdac72ec1bccc07cf46a76dd83b91ca4b70e3f7e",
+      "basisHash": "ad6504c5dde9a5f6868fb8a1b6bcfbd96313f0e0d915cd866bb6bc7df434c44d",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 5,
+      "durationSeconds": 2.8602,
+      "recordedAt": "2026-11-10T11:26:24Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-5f04bc2f09ed.log",
+      "logSha256": "77ed23638ce8d99440a2872b8fb67afe75530200870d2ade6966e2f0d5f11792",
+      "inputsHash": "0f78ceeea738931764985eeef272472479644a582fa0f0b29789e32e1e1976ba"
+    },
+    "s16-nsh-tv/chk-nsh-one-wgpu/final": {
+      "checkId": "chk-nsh-one-wgpu",
+      "boundaryId": "s16-nsh-tv",
+      "phase": "final",
+      "batchId": "d3d1f13c018387744708549a18c74cea36a4a93149942946207f797e4ffe3d2d",
+      "definitionHash": "18c230937ddac890ad650f1a1c337834d10ab38fc41caf075ac36d69cf5d42ca",
+      "basisHash": "48c26aa59f601e93a2c04dffa7e84b574aeb2bc055711a1670f5809524335897",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 0.5536,
+      "recordedAt": "2026-11-10T11:26:24Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-bb57f1880820.log",
+      "logSha256": "3df1f7c6458c4742b8a70f1823a3d48cba7146b74e0bdf1d3c88ec9d7ecf343b",
+      "inputsHash": "1c972008f0d80eb4dbafb1a38e97cefc12cef00a4b8ba48e353f88a419d80c39"
+    },
+    "s16-nsh-tv/chk-nsh-keys-gpui/final": {
+      "checkId": "chk-nsh-keys-gpui",
+      "boundaryId": "s16-nsh-tv",
+      "phase": "final",
+      "batchId": "f7fc92d3cc6cfad539d210629b0c46dac7341928a5c9eee0675c83c884fa3b57",
+      "definitionHash": "2e5652dcbb64a3371a50c317863debbc27bc67a36b6313923d7b5cf79c8e8a52",
+      "basisHash": "62fd28bf3cc9e32ffe83e7b96e4741237aa4a76ddca822eba4739e2a073af016",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 3,
+      "durationSeconds": 74.494,
+      "recordedAt": "2026-11-10T12:41:34Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-045e0e013315.log",
+      "logSha256": "622b2173d46f5c5ebeb2978e61f64409892f4e826f4da427fa9b0e19635a7073",
+      "inputsHash": "a540dd25f4bf22116ae565157cb3a6f33ebc2b9d8bbb49262d1a8e95dc2ea462"
+    },
+    "s16-nsh-tv/chk-nsh-keys-web/final": {
+      "checkId": "chk-nsh-keys-web",
+      "boundaryId": "s16-nsh-tv",
+      "phase": "final",
+      "batchId": "f7fc92d3cc6cfad539d210629b0c46dac7341928a5c9eee0675c83c884fa3b57",
+      "definitionHash": "4db582cb8466e66d42293ab5ed77db3f90fcc98d2cfc1fab3a91f58c0c147cd8",
+      "basisHash": "b286e38997778859ca62d09ce65cf47e75be5bfb810121b687b4966619f1b997",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 2,
+      "durationSeconds": 0.0718,
+      "recordedAt": "2026-11-10T12:41:34Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-aa49364685c2.log",
+      "logSha256": "cf8d55e3f99a80bf8ae131761b7b163b3702aba902d863fae464ea1c48670a57",
+      "inputsHash": "75ef9a1326ea418e8f538aa0d3739bbb239c1ca73fcdb1343c61cde099c18ee8"
+    },
+    "s16-nsh-tv/chk-nsh-remote-keys-tui/final": {
+      "checkId": "chk-nsh-remote-keys-tui",
+      "boundaryId": "s16-nsh-tv",
+      "phase": "final",
+      "batchId": "f7fc92d3cc6cfad539d210629b0c46dac7341928a5c9eee0675c83c884fa3b57",
+      "definitionHash": "d79e21aae0f5b64acec3b44c632699272258e76fc3f8235317652790d8d9c788",
+      "basisHash": "427d8dddd1e868177244fb2edcedaeb6af227da61ad90bf07eb298b29f1e516c",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 1,
+      "durationSeconds": 48.9437,
+      "recordedAt": "2026-11-10T12:42:23Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-8e410236f697.log",
+      "logSha256": "c4643a2845d7ed1a02932d8fb26c16ef081ad6ae5f6697fa4c4c8bf770aba84a",
+      "inputsHash": "7e3dca1492e6db24e9fb34a1ce5c3be2347e122978ec1741172ff5c368ae2ac4"
+    },
+    "s16-nsh-tv/chk-nsh-dev-idiom-gpui/final": {
+      "checkId": "chk-nsh-dev-idiom-gpui",
+      "boundaryId": "s16-nsh-tv",
+      "phase": "final",
+      "batchId": "f7fc92d3cc6cfad539d210629b0c46dac7341928a5c9eee0675c83c884fa3b57",
+      "definitionHash": "ca103bd91fa02d3bad5dba92c58e730cb556c2c4a5cc85b6f851eb75cef2106a",
+      "basisHash": "0bee164262bd6e7056ead52c156b7ae14a9b88f698558dad6fbaeaa887d8c4b6",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 1,
+      "durationSeconds": 0.5266,
+      "recordedAt": "2026-11-10T12:42:23Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-18898d7690cb.log",
+      "logSha256": "de08e553b499b5cb86b7f5e0850df35482b6c9df694e5b2be41c6bb4cf2e18fa",
+      "inputsHash": "a540dd25f4bf22116ae565157cb3a6f33ebc2b9d8bbb49262d1a8e95dc2ea462"
+    },
+    "s16-nsh-tv/chk-nsh-keys-macos-build/final": {
+      "checkId": "chk-nsh-keys-macos-build",
+      "boundaryId": "s16-nsh-tv",
+      "phase": "final",
+      "batchId": "f7fc92d3cc6cfad539d210629b0c46dac7341928a5c9eee0675c83c884fa3b57",
+      "definitionHash": "135decb401ed30b42f4540484496c0fa1fd8683006dc35e0eb933a4878eab53c",
+      "basisHash": "88000f14ccdcc4bdc905b61076f2559a536b1f5fa20f4cbe8cbb8840291296f5",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 33.9937,
+      "recordedAt": "2026-11-10T12:42:57Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-814ef43c5457.log",
+      "logSha256": "b56aa2f3ad1b0e68b18626e0356e966ba27480fb61e7fc1f5d439371542d2b3d",
+      "inputsHash": "803305dcc1b617f7c48036506d34d0cc02ea69da250d8d453baea54eb0f605e9"
+    },
+    "s16-nsh-tv/chk-nsh-remote-keys-gpui/final": {
+      "checkId": "chk-nsh-remote-keys-gpui",
+      "boundaryId": "s16-nsh-tv",
+      "phase": "final",
+      "batchId": "f7fc92d3cc6cfad539d210629b0c46dac7341928a5c9eee0675c83c884fa3b57",
+      "definitionHash": "f99f68a281df3327b373983ae6375ef0c47246335c5101c10778c6806bff2401",
+      "basisHash": "21e4e77f7a010bfb00498d4cd347c5748b1fb883403b668a00101070f115af0b",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 2,
+      "durationSeconds": 21.7686,
+      "recordedAt": "2026-11-10T12:43:19Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-4e8aae719539.log",
+      "logSha256": "92f8a8871bdf5d0d2aee9ea00a8c3279174198e435a1ad1ce67b6054316fd648",
+      "inputsHash": "1700beacafce9cbcab5ee284abc99f451cf8cd74b1f224d8ff4e4eb7dc9cff94"
+    },
+    "s16-nsh-tv/chk-nsh-remote-keys-web/final": {
+      "checkId": "chk-nsh-remote-keys-web",
+      "boundaryId": "s16-nsh-tv",
+      "phase": "final",
+      "batchId": "f7fc92d3cc6cfad539d210629b0c46dac7341928a5c9eee0675c83c884fa3b57",
+      "definitionHash": "12ee5df7a9cd6f0fb2ee3996ef7c0f4d53d28009a3b84687cd325e73e9abff49",
+      "basisHash": "bd68d879b75beb390e8f0ca08a7c473c09be956e0242bf0aeacc68b083dc1015",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 2,
+      "durationSeconds": 9.5521,
+      "recordedAt": "2026-11-10T12:43:29Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-7c3eedb3378a.log",
+      "logSha256": "a87be51f2372910b29045ff136eb2d619d23932acd4a2f61ef86dcc76135280b",
+      "inputsHash": "bf941f95f48ec9e7ad6d5bbe5dc692c12e4a369b49661fc9c35028fa9c031cb7"
+    },
+    "s16-nsh-tv/chk-nsh-remote-keys-agent/final": {
+      "checkId": "chk-nsh-remote-keys-agent",
+      "boundaryId": "s16-nsh-tv",
+      "phase": "final",
+      "batchId": "f7fc92d3cc6cfad539d210629b0c46dac7341928a5c9eee0675c83c884fa3b57",
+      "definitionHash": "0c66b4001c3ce2d2e74634c9652fab15d6d40fe4a6c833472bc504f15e32f69a",
+      "basisHash": "4bff8be4eef082527d6bb780ce62efb2692418f98b037a3f472c0d99dc7d7404",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 1,
+      "durationSeconds": 49.4634,
+      "recordedAt": "2026-11-10T12:44:18Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-8b93f7a97c2c.log",
+      "logSha256": "4899f95e808877c1873420f2bf2346e7bb8797d50f6390555ad5019e8c7f692f",
+      "inputsHash": "bfcb0e2f4dfd1f939fe0cedb59bb5ebce68b2f1e330ba17d0bb68d4f9ba5d20c"
     }
   },
   "reviews": {
@@ -6191,6 +6534,648 @@
         "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "gpuitizen:docs/pr/**": "954cd9e92ba3838651abc431be0fd4aab6c6e2c3e40ee630588fd6bdc639b38d"
       }
+    },
+    "s16-nsh-tv": {
+      "reviewerId": "reviewer-s16-independent",
+      "snapshotId": "3517f00591e33d1128b7c0dd981622e85f3ee9660e38263126dd1fe77e30134f",
+      "criterionIds": [
+        "FOC-7",
+        "TV-1",
+        "TV-2",
+        "TV-3",
+        "TV-4",
+        "TV-5",
+        "TV-6"
+      ],
+      "verdict": "passed",
+      "anchors": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/keymap.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TV-1"
+          ],
+          "sha256": "326d165101c3405a5652849fceea80d4acbdc7ae2780fb8b8a526399ce48ceef"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/keymap.rs",
+          "kind": "test",
+          "criterionIds": [
+            "TV-1"
+          ],
+          "sha256": "326d165101c3405a5652849fceea80d4acbdc7ae2780fb8b8a526399ce48ceef"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-js/src/keymap.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TV-1"
+          ],
+          "sha256": "69cd54932a31c4ff41edce35cf8da28ad7dbbe3ee936b7efbacae22801b9e2c1"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/web/nsh.js",
+          "kind": "source",
+          "criterionIds": [
+            "TV-1",
+            "TV-3"
+          ],
+          "sha256": "fae50a539e13ea226d493cffb111d166eb176250c544023eae64f5105890d00b"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/src/lib.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TV-1",
+            "TV-3"
+          ],
+          "sha256": "2d65aae6c4cb9acbc0e2e347a8d093fe4ba5639d074966dc5550f1bf8755c846"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/web/nsh.test.mjs",
+          "kind": "test",
+          "criterionIds": [
+            "TV-1"
+          ],
+          "sha256": "422d4c77b97567f62b3f0e3c66f76fd07ae8bb696f1596c9b9b3e6643ffe9ae7"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/keys.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TV-1"
+          ],
+          "sha256": "bbea50fbc143178ac75c4dc5db434d086eaea04100e2f5aba9f4c165bead3943"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/keymap.rs",
+          "kind": "test",
+          "criterionIds": [
+            "TV-1"
+          ],
+          "sha256": "54b94463edbdd2cddf46d5bbb799bf9209a0ed6c981fc6fe0d8e0820cd51ea65"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-macos/src/agent.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TV-1",
+            "FOC-7"
+          ],
+          "sha256": "4fc47fd4f46befb2d10b97c0d01651f6fb534a16f475a327d9d8f5156fd71f92"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-testing/src/remote.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-7"
+          ],
+          "sha256": "e8a2a6aa120b9750a4e9315dfb00d80b676d2cd4f8586d3fb50225ad57630ea3"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-testing/src/agent.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-7"
+          ],
+          "sha256": "982c370fe57bbe7c1084aa191030e5d55598cf750e5978b0861b1b161fd8ec65"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-testing/src/headless/keyboard.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-7"
+          ],
+          "sha256": "6597a2aac362e51a1d248059478b8003ebca813a7a016d32282d96a712b4414f"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-testing/src/module.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-7"
+          ],
+          "sha256": "2e84b5464712e6cecd32979d5ef1ad9a1a56a80a34864122f4a6508abf57a10d"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/test_web.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-7"
+          ],
+          "sha256": "ad23b80ec4cfbedd0423937dd1849e612046f6f263e3f35fb2bb6335f1e131c8"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/agent.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-7"
+          ],
+          "sha256": "bf4ec5803a47632ec30ee1208f06dd29644c1e3520524ce6eaffc25c06ca1b3b"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-tui/src/agent.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-7"
+          ],
+          "sha256": "92d4c0befd94e80aeb5f1f5388265e6a09df95827065ff94468bd64aa5ccfb06"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-testing/tests/testing/remote_keys.rs",
+          "kind": "test",
+          "criterionIds": [
+            "FOC-7"
+          ],
+          "sha256": "07e65d8510059abe25ebd38f50466be93399b89bac883b56b6c37629248ac8c0"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-testing/tests/testing/remote/App.test.tsx",
+          "kind": "test",
+          "criterionIds": [
+            "FOC-7"
+          ],
+          "sha256": "ce89948e63efbc6ba3f74f3c76a39ae61bf2fd72d4145dcfdc975d1a66283bd7"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-tui/tests/tui/remote_keys.rs",
+          "kind": "test",
+          "criterionIds": [
+            "FOC-7"
+          ],
+          "sha256": "fcb978a5833a936aa4d19c8e865c63aca94cf3c847e3169dbefcf5ede87328f1"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/platform.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TV-2"
+          ],
+          "sha256": "aa9be9a08a3d06c4b8e391431ca8dfa29913ac56d175e0cda888d682ebaf58bd"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/element/ambient.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TV-2"
+          ],
+          "sha256": "3286c3335bee1ccc04286845d2d9768cf8050d16d3ec4a6d4beaacdcf1ec6c37"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-js/src/env.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TV-2"
+          ],
+          "sha256": "ddb0505bb8a6481a06d8373148d65c355918abbd6bc3901c8f46ed5cee23a5a6"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-js/src/dom.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TV-2"
+          ],
+          "sha256": "dbfd3440bbd6e959a73ba31540b1ba5de48edf9dfccc7e155964488913bb9814"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-js/src/declarations.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TV-2"
+          ],
+          "sha256": "634385c615a20b8835f1cefe3761467ef274de4b15f606565b3b5ed062ac5f68"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/web/browser/dom.js",
+          "kind": "source",
+          "criterionIds": [
+            "TV-2"
+          ],
+          "sha256": "79380091e5dad18efb00b727883c07ed9bf9d1fdffd06f17f5e513312054708e"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/web/browser/environment.js",
+          "kind": "source",
+          "criterionIds": [
+            "TV-2"
+          ],
+          "sha256": "f92fa03d08c3d8016770dfcc19ca81cc66474df5bec7d6c353e73205098edfc0"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-js/src/env/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "TV-2"
+          ],
+          "sha256": "a1ceefaae64d3a11d0e899ca99aef5fd50ae70ae13b61729ddaf466314126ec6"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-base/tests/base/tv_props.rs",
+          "kind": "test",
+          "criterionIds": [
+            "TV-2"
+          ],
+          "sha256": "dd3edde0b66ff29ea6520831bc810bec0156cc62b510a0e421b901326cb2f311"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/web/browser/tv.test.mjs",
+          "kind": "test",
+          "criterionIds": [
+            "TV-2",
+            "TV-3"
+          ],
+          "sha256": "a46d8c83a92c43e80f674d7588e349f06a851a77c60448c5f11756b1709c70e1"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/run.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TV-4"
+          ],
+          "sha256": "5980366d9e472144380b23b14dfa50737838599cddbff5c91e888d883a0f82fa"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/web.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TV-4"
+          ],
+          "sha256": "a8676a2e130efe05c345faf3cb0cde4541c91c8ceadb24ab674ffb2365e57637"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/app.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TV-4"
+          ],
+          "sha256": "e99abe00394d9c92eed2daa709a3098ae7ed854cb88ca3f65db1e131731d56f2"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-gpui-host/src/lib.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TV-4"
+          ],
+          "sha256": "6514c3ba90d8e77f0dee261b19ceedb6c89d5def9cb9d9dca572208319efa563"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/tests/cli/dev_idiom.rs",
+          "kind": "test",
+          "criterionIds": [
+            "TV-4"
+          ],
+          "sha256": "f8a356d29d98bb1b4b61287d3ad84d1ea6f19783afddd53856e373a747fbc177"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "tests/compat/cases/tv/props-platform-tv.tsx",
+          "kind": "source",
+          "criterionIds": [
+            "TV-5"
+          ],
+          "sha256": "a27cda83176a0b3b9af820d4fa0602573604a83016d0d8bac1726fe0246a7eff"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "tests/compat/cases/tv/mod-device-tv.tsx",
+          "kind": "source",
+          "criterionIds": [
+            "TV-5"
+          ],
+          "sha256": "e3257349ae4317696ecb2a8d55a1c1a928305ee8337b28c50e5344992e143b7b"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "tests/compat/cases/modules/mod-keymap-tv.tsx",
+          "kind": "source",
+          "criterionIds": [
+            "TV-5"
+          ],
+          "sha256": "37ae6d3c99514956ac697a29994ee386c02545e93cd335081da6b6629724871a"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "tests/compat/cases/tv/script.txt",
+          "kind": "test",
+          "criterionIds": [
+            "TV-5"
+          ],
+          "sha256": "e30be06dcaee79fb23c9a34ce1aa031ac34a366c06d29e7bdc85ba4cae77618a"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "tests/compat/cases/modules/script.txt",
+          "kind": "test",
+          "criterionIds": [
+            "TV-5"
+          ],
+          "sha256": "de9d295b7fb8b493a764f5f3e61f01bb54ed4f4ee2932a6623f9c48c8169132b"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-engine/src/shader.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TV-6"
+          ],
+          "sha256": "05ea57441306885e556b2f29b89ae3c62c0c4a4b8db9b9ac90a80984ce3be012"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-engine/src/shader_surfaces.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TV-6"
+          ],
+          "sha256": "5fbbd70483ad1b87a2e461dac48022d124a74aaac7137f4942b5614ba82cbe9e"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/Cargo.lock",
+          "kind": "source",
+          "criterionIds": [
+            "TV-6"
+          ],
+          "sha256": "9100e35172c221fb3db33db98a62c77643c29ffbe6f5a16a06a7bd4aa59a1ef1"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "Cargo.toml",
+          "kind": "source",
+          "criterionIds": [
+            "TV-6"
+          ],
+          "sha256": "41c8e58fadfcabe9e9bc9b0995eb23ca16f772bb30e929909e9e0e29ab94ff83"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-5f04bc2f09ed.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "TV-6"
+          ],
+          "sha256": "77ed23638ce8d99440a2872b8fb67afe75530200870d2ade6966e2f0d5f11792"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-bb57f1880820.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "TV-6"
+          ],
+          "sha256": "3df1f7c6458c4742b8a70f1823a3d48cba7146b74e0bdf1d3c88ec9d7ecf343b"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-windows/src/agent.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-7"
+          ],
+          "sha256": "efb9ec40acb8073e86e12d8ddb9ae31fc87e4ec77d9230a734a078397cbf6250"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-ios/src/agent.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-7"
+          ],
+          "sha256": "fc5ebf6cc8f7a800480f69ee8b12c2b53acd0b2e2aee8576ccaaf30f192d4480"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/agent.rs",
+          "kind": "test",
+          "criterionIds": [
+            "FOC-7"
+          ],
+          "sha256": "bf4ec5803a47632ec30ee1208f06dd29644c1e3520524ce6eaffc25c06ca1b3b"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/test_web.rs",
+          "kind": "test",
+          "criterionIds": [
+            "FOC-7"
+          ],
+          "sha256": "ad23b80ec4cfbedd0423937dd1849e612046f6f263e3f35fb2bb6335f1e131c8"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-testing/src/agent.rs",
+          "kind": "test",
+          "criterionIds": [
+            "FOC-7"
+          ],
+          "sha256": "982c370fe57bbe7c1084aa191030e5d55598cf750e5978b0861b1b161fd8ec65"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/src/browser/engine.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TV-2",
+            "TV-3"
+          ],
+          "sha256": "3afcee5ccc411a9c64ad072ca8c13aec2aaceedb078a0a943c59dfdb93a1fb59"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/src/browser/fixtures.rs",
+          "kind": "test",
+          "criterionIds": [
+            "TV-3"
+          ],
+          "sha256": "b3854967b76a004a40420b7c681bab78dc88739adeda2a21bc07cf8dc427d961"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/js/host.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TV-2"
+          ],
+          "sha256": "7a94448249656e29c12b9ee7dd9719229e7a4a59f3ee6aa791253033d56013e4"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-macros/src/host_props.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TV-2"
+          ],
+          "sha256": "b3e2b44be7f696cdfc1f1cfa897ed379a9f9a956dbedf9d06293f3f1f5246022"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "tests/compat/cases/props/props-view-focus.tsx",
+          "kind": "source",
+          "criterionIds": [
+            "TV-5"
+          ],
+          "sha256": "4dadd234eeec0b0025e504ba25da88f5ae45f0ed9b4361752aa5436c3298c2a0"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "tests/compat/cases/base/base-focus-group.tsx",
+          "kind": "source",
+          "criterionIds": [
+            "TV-5"
+          ],
+          "sha256": "aabf02e331df70b93a52c34517ecb4dc3fb9fc5dacc26a27c2b03c2e7055aa93"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "tests/compat/cases/props/script.txt",
+          "kind": "test",
+          "criterionIds": [
+            "TV-5"
+          ],
+          "sha256": "4fce37becc7f60e621fdb20c6c17920c6e9e4ae1240bd37a96e10bc9e685c50b"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "tests/compat/cases/base/script.txt",
+          "kind": "test",
+          "criterionIds": [
+            "TV-5"
+          ],
+          "sha256": "16c2f9de1ad729ee1ac865bf1d9630b81cc94b9d1ab1102b44c0c576fd907779"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/keys/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TV-1"
+          ],
+          "sha256": "28e946034bde676998e780ee1bc29ced3171e2a4065b4e673759c6c78447f458"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/keys/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "TV-1"
+          ],
+          "sha256": "2d00531e74ab449f61aac1a65906cdc55decc814ab5157195c4ae6ad915b7f37"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-6ce005c859fc.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "TV-5"
+          ],
+          "sha256": "69cf4be5fe93fed6451c66e753ea4451e644ec8740c61b3aa75eecc6573735be"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-814ef43c5457.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "TV-1",
+            "FOC-7"
+          ],
+          "sha256": "b56aa2f3ad1b0e68b18626e0356e966ba27480fb61e7fc1f5d439371542d2b3d"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-4e8aae719539.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "FOC-7"
+          ],
+          "sha256": "92f8a8871bdf5d0d2aee9ea00a8c3279174198e435a1ad1ce67b6054316fd648"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-7c3eedb3378a.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "FOC-7"
+          ],
+          "sha256": "a87be51f2372910b29045ff136eb2d619d23932acd4a2f61ef86dcc76135280b"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-8b93f7a97c2c.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "FOC-7"
+          ],
+          "sha256": "4899f95e808877c1873420f2bf2346e7bb8797d50f6390555ad5019e8c7f692f"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-aa49364685c2.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "TV-1"
+          ],
+          "sha256": "cf8d55e3f99a80bf8ae131761b7b163b3702aba902d863fae464ea1c48670a57"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-6b3ab1864dab.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "TV-2",
+            "TV-3"
+          ],
+          "sha256": "cce0546beca2ccfc5de973613838af2f7fc73a08b6ee7a215d9f8d111603f5a7"
+        }
+      ],
+      "summaryMarkdown": "Passed. All eight findings from the first review are resolved, with regression refs, and none is new. feat/tizen is at 08195a029, and all 17 checks pass at snapshot 3517f005.\n\n**Repairs:**\n- The macOS agent fails the 15 keys clearly, and a clippy build check now covers that crate.\n- `keyboard.remote`'s coverage per platform is documented, with clear errors on Windows and iOS. The GPUI and web remote paths have their own tests.\n- In the TV idiom, the web reads Samsung's key codes for any key it does not name.\n- d14 names Info `info`.\n- The unused `tv` host-prop platform is removed.\n- nsh-compat is split into `tv-idiom`, `focus-props` and `tizen-platform`; the text-matching Tizen gate is accepted.\n- TV-5's `Os::Tizen` part moved to NTZ-2 by amendment, checked by `chk-nsh-compat-tizen` in s17.\n- `tv.test.mjs` runs on the real browser-tests Wasm inside `chk-nsh-tv-web`.\n\n**Judged correct and unchanged since the first review:**\n- The key tables per platform: Windows' 4 VKs, Android, Samsung's codes, and GPUI's own codes above 0xFF.\n- Bindings firing in text inputs for keys that edit no text.\n- A TV is never desktop, so `nsh/base` behaves there as on mobile.\n- The select order: OS key, then `tv`, then desktop / mobile.\n- `--idiom` is refused on hosts that take none, while `nsh.json`'s setting there gets only a warning.\n- Back semantics; web Back and Exit are deferred to TWEB-2.\n- The wgpu 30 adaptations, with a single wgpu and naga in both lockfiles.\n- Branches stay topic-only, with no AgentX files and no attribution; docs ship in English and zh-CN.",
+      "findingIds": [
+        "f-s16-macos-agent-key-match",
+        "f-s16-remote-keys-every-platform",
+        "f-s16-tv5-os-tizen-unmet",
+        "f-s16-tv-web-test-reads-source",
+        "f-s16-nsh-compat-one-thing-per-pr",
+        "f-s16-tv-keycode-fallback-narrow",
+        "f-s16-gpui-info-key-name",
+        "f-s16-tv-host-props-undeclared"
+      ],
+      "recordedAt": "2026-11-10T13:01:30Z",
+      "recordHashes": {
+        "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "gpuitizen:docs/pr/**": "954cd9e92ba3838651abc431be0fd4aab6c6e2c3e40ee630588fd6bdc639b38d"
+      }
     }
   },
   "checkpoints": {
@@ -6375,6 +7360,17 @@
       },
       "reviewHash": "3378d647aeb76349ce843b8c3c80a0b04f0b8e13cbb9c24eb22725f0690be90c",
       "recordedAt": "2026-11-10T10:45:22Z"
+    },
+    "s16-nsh-tv": {
+      "snapshotId": "3517f00591e33d1128b7c0dd981622e85f3ee9660e38263126dd1fe77e30134f",
+      "commits": {
+        "gpuitizen": "e8e5693b4d6f654334cb61b31eae65833690a03d",
+        "gpui-fast": "e6ae34b9484cb050831aa9ab974fdd685e8800e3",
+        "wgpu": "4e3d80d5de97d1e66860f0f74fca92d50be70d4a",
+        "nsh": "08195a0292a38b834773b80fcfcd6429bfeb311d"
+      },
+      "reviewHash": "679c4eab1ed6360606d95bdcec62fd77c261bc52942901e3cd04e566b8c0bbdc",
+      "recordedAt": "2026-11-10T13:01:32Z"
     }
   },
   "findings": [
@@ -8212,9 +9208,208 @@
           "symbol": "an_arrow_past_a_list_s_mounted_rows_asks_the_engine_for_the_next"
         }
       ]
+    },
+    {
+      "id": "f-s16-macos-agent-key-match",
+      "boundaryId": "s16-nsh-tv",
+      "criterionIds": [
+        "TV-1",
+        "FOC-7"
+      ],
+      "descriptionMarkdown": "Resolved by `pr/tv/01-keys` b8bc8dee1. `MacNative::press_keys` now matches the 15 media and TV keys and fails with an error that names the key and macOS; on a Mac the media keys go to the system as NX events, never as app key events. The new check `chk-nsh-keys-macos-build` (`cargo clippy -p nsh-platform-macos --all-targets --features dev -D warnings`) passes (log 814ef43c5457). A grep finds no other exhaustive `nsh_core::keymap::Key` match in the Windows, iOS, Android or Linux crates; the matches still there are over `nsh_core::desktop::Key`, or have wildcards.",
+      "severity": "major",
+      "status": "resolved",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-macos/src/agent.rs",
+          "symbol": "MacNative::press_keys"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-814ef43c5457.log"
+        }
+      ]
+    },
+    {
+      "id": "f-s16-remote-keys-every-platform",
+      "boundaryId": "s16-nsh-tv",
+      "criterionIds": [
+        "FOC-7"
+      ],
+      "descriptionMarkdown": "Resolved by `pr/tv/04-remote-keys` aa20e0e58. The docs now say which keys work where: `docs/dev/tooling.md`, `website/docs/testing-and-trace.md` and its zh-CN copy, and the `Keyboard::remote` comment the declarations are generated from. The Windows and iOS agents fail an unsupported media or TV key with an error that names the key and the platform. GPUI's remote path is now the testable `remote_virtual_key`, with Back as `VK_BROWSER_BACK` (`agent::tests::remote_keys`, 2 tests). The web agent's path is `tv_key_event`, held by `test_web::tests::remote_keys` to the codes `nsh.js` reads back. Both are sprint checks and pass. The terminal agent's naming has no agent-level test of its own. It is covered by composition: the agent writes `Keystroke::to_string`, which `keymap::tests::tv::names_round_trip` pins, and `tui::remote_keys` shows `key_scheme` firing bindings by those names. That is acceptable.",
+      "severity": "minor",
+      "status": "resolved",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/agent.rs",
+          "symbol": "remote_virtual_key"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/test_web.rs",
+          "symbol": "tv_key_event"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-windows/src/agent.rs"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-ios/src/agent.rs"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "website/docs/testing-and-trace.md"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "website/zh-CN/docs/testing-and-trace.md"
+        }
+      ]
+    },
+    {
+      "id": "f-s16-tv5-os-tizen-unmet",
+      "boundaryId": "s16-nsh-tv",
+      "criterionIds": [
+        "TV-5"
+      ],
+      "descriptionMarkdown": "Resolved by a specification amendment. TV-5 no longer lists `Os::Tizen` (\"`Os::Tizen`'s case belongs to `NTZ-2`\"), and `chk-nsh-compat-tizen` sits in s17 beside `t17-os`, whose branch `pr/tizen/01-os` carries `tests/compat/cases/tizen/`. TV-5 now also lists the TV focus props, which `props/props-view-focus.tsx` and `base/base-focus-group.tsx` cover. nsh-compat's `focus-props` branch prints them, and the compat run passes (log 6ce005c859fc).",
+      "severity": "major",
+      "status": "resolved",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "tests/compat/cases/tv/script.txt"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "tests/compat/cases/props/props-view-focus.tsx"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "tests/compat/cases/base/base-focus-group.tsx"
+        }
+      ]
+    },
+    {
+      "id": "f-s16-tv-web-test-reads-source",
+      "boundaryId": "s16-nsh-tv",
+      "criterionIds": [
+        "TV-3",
+        "TV-2"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "Resolved. 532345852 changed `tv.test.mjs` to send the page's settings to the module's own `nsh_environment`. It then checks the environment the module sends back through `nsh_browser_test_environment`, which uses `engine::environment_data`, the same function `set_environment` uses. No test reads the Rust source any more.\n\nPlan revision 42 sets `NSH_BROWSER_WASM=target/wasm32-unknown-unknown/web/nsh_platform_web.wasm` inside `chk-nsh-tv-web`'s `bash -c` command, after the `browser-tests` build; `chk-nsh-focus-web` is amended the same way. The rerun passes 4 of 4 with none skipped (log 6b3ab1864dab). With the variable set, the test must read and compile that file and assert `nsh_browser_test_environment` is exported, so this run used the real module, not the fake engine. I also ran the same command once myself on the built Wasm: 4 of 4 pass. TV-3's Rust half (`\"tv\"` read as `Idiom::Tv`, the engine reporting `tv` true and `desktop` false, and an unknown idiom read as a phone) is now proven by the check.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/web/browser/tv.test.mjs"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/src/browser/fixtures.rs",
+          "symbol": "nsh_browser_test_environment"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/src/browser/engine.rs",
+          "symbol": "environment_data"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-6b3ab1864dab.log"
+        }
+      ]
+    },
+    {
+      "id": "f-s16-nsh-compat-one-thing-per-pr",
+      "boundaryId": "s16-nsh-tv",
+      "criterionIds": [
+        "TV-5"
+      ],
+      "descriptionMarkdown": "Resolved. The local nsh-compat clone now has three topic branches: `tv-idiom` (a5188f7, on 578f574), `focus-props` (32a1859, on 578f574) and `tizen-platform` (9c3cead plus the gate 57754c4, stacked on `tv-idiom`, as `pr/tizen/01-os` stacks on the TV category). `nsh-tizen` (bc033c9) merges them for the local runs, and its tree equals the old `tv-idiom` tip (94b6a7b9). The fix-up 57754c4 stays a separate commit on the Tizen branch, which is acceptable within one PR. I accept the text-matching `nsh_has_tizen` probe: `build.rs` cannot name a variant that may not exist, and `Os` has no name lookup. The probe reads the same `platform.rs` the build compiles, and its PR goes with `pr/tizen/01-os`.",
+      "severity": "minor",
+      "status": "resolved",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "tests/compat/cases/tv/script.txt"
+        }
+      ]
+    },
+    {
+      "id": "f-s16-tv-keycode-fallback-narrow",
+      "boundaryId": "s16-nsh-tv",
+      "criterionIds": [
+        "TV-1"
+      ],
+      "descriptionMarkdown": "Resolved by `pr/tv/01-keys` c621bc72b. In the TV idiom, `keyCode(e, tv)` applies `TV_KEY_CODES` to any key whose `key` is none of `NAMED_KEYS` (empty, missing, `Pause` for 19, `XF86PlayBack`). Named keys and printable characters keep their meaning, and other idioms still need `Unidentified`. `Player.shortcut` passes `this.idiom === \"tv\"`. `nsh.test.mjs` now has 2 \"TV remote\" tests, covering both idioms and the shortcut path; they pass (log aa49364685c2). `docs/dev/web.md` is updated.",
+      "severity": "minor",
+      "status": "resolved",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/web/nsh.js",
+          "symbol": "keyCode"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/web/nsh.test.mjs"
+        }
+      ]
+    },
+    {
+      "id": "f-s16-gpui-info-key-name",
+      "boundaryId": "s16-nsh-tv",
+      "criterionIds": [
+        "TV-1"
+      ],
+      "descriptionMarkdown": "Resolved. dXn.GpuiTizen e8e5693 adds `(\"XF86Info\", \"info\")` to `keys::NAMED_KEYS`; `keys::tests::info` covers it, along with Info not being among the default grabs. NSH f908ff626 corrects `docs/dev/gpui.md` (Info is `info`, with `xf86info` an alias) and the comment in `keys.rs`.",
+      "severity": "minor",
+      "status": "resolved",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/keys/mod.rs",
+          "symbol": "NAMED_KEYS"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/keys/tests.rs"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/keys.rs",
+          "symbol": "vk_of"
+        }
+      ]
+    },
+    {
+      "id": "f-s16-tv-host-props-undeclared",
+      "boundaryId": "s16-nsh-tv",
+      "criterionIds": [
+        "TV-2"
+      ],
+      "descriptionMarkdown": "Resolved by `pr/tv/02-category` a8f7ad63c. `#[prop(tv = …)]`, `Platform::Tv` and the `declarations()` entry are gone. The `Platform` doc says `tv={{…}}` has no props of its own, since `TvProps` takes the props every element takes.",
+      "severity": "minor",
+      "status": "resolved",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/js/host.rs",
+          "symbol": "Platform"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-macros/src/host_props.rs"
+        }
+      ]
     }
   ],
-  "handoffMarkdown": "FOC-8 in each behavior commit: docs/dev elements, gpui, web, macos, linux, windows, components, api-naming; website en+zh-CN (gpui, web, elements/index, view, focus-group, forms-and-keyboard, macos/linux/windows, nsh-base); compat cases props-view-focus, base-focus-group; AGENTS.md FocusGroup (6fcc13829).",
+  "handoffMarkdown": "pr/engine/01-wgpu-30 c5a018805: root wgpu and naga 29 -> 30, nsh-engine shader adapted; one wgpu 30.0.1 and one naga in crates/gpui/Cargo.lock (shader:: 5).",
   "protectedPaths": {
     "gpuitizen": {
       "gpuitizen:.agentx/memory/**": "94784ab15131a5a4ff6827a67fa677677a923e04a068e1e4335659b7b6e5c11e"
