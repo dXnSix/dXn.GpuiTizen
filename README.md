@@ -147,7 +147,8 @@ with KVM, packages and signs the x86_64 diagnostic TPK, installs and launches it
 diag pull` and uploads the report and the emulator's logs. It needs no secrets: the emulator accepts a Tizen
 certificate, so the job creates a throwaway author certificate with `tz cert` and pairs it with the SDK's public
 Tizen distributor certificate in a profile `ci` (`tz security-profiles add`, which keeps the passwords in a
-gnome-keyring the job unlocks). Samsung certificates, which a TV needs, stay on the owner's machine.
+gnome-keyring the job unlocks). Samsung certificates, which a TV needs, stay on the owner's machine. [docs/ci-emulator.md](docs/ci-emulator.md)
+describes what the job needs and what each step works around.
 
 Both workflows install the Tizen SDK CLI with `--accept-license`: running them is the owner's acceptance of Samsung's
 SDK licence on the runner.
