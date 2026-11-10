@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 57,
+  "revision": 58,
   "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
   "repositories": [
     {
@@ -6114,7 +6114,7 @@
         {
           "id": "t9-publish",
           "title": "Publish the gpui-fast branches and switch to the git patch (owner)",
-          "descriptionMarkdown": "Owner: confirm Actions are off on `dXnSix/gpui-fast` and `dXnSix/wgpu`, push their branches (`DEV-1`). Agent, on the\nowner's go: commit the git `[patch.crates-io]` lines in `dXn.GpuiTizen` and NSH's `crates/gpui`, confirm `cargo tree`.\nAgent (the owner's standing go, 2026-11-10): push its commits, open and watch the fork PRs, fix CI failures, get\n`tizen-emulator.yml` and the NSH emulator job to pass or record why not (`CI-3`; the emulator signs with a throwaway\nTizen certificate, no secrets). Record results in `docs/verification/tizen-devices.md`, the emulator's CI needs in\n`docs/ci-emulator.md`.",
+          "descriptionMarkdown": "Owner: confirm Actions are off on `dXnSix/gpui-fast` and `dXnSix/wgpu`, push their branches (`DEV-1`). Agent, on the\nowner's go: commit the git `[patch.crates-io]` lines in `dXn.GpuiTizen` and NSH's `crates/gpui`, confirm `cargo tree`.\nAgent (the owner's standing go, 2026-11-10): push its commits, open and watch the fork PRs, fix CI failures, get\n`tizen-emulator.yml` and the NSH emulator job to pass or record why not (`CI-3`; installing on the emulator needs the owner's Samsung\ncertificate, deferred to `t9-install`, so the emulator part records that). Record results in `docs/verification/tizen-devices.md`, the emulator's CI needs in\n`docs/ci-emulator.md`.",
           "criterionIds": [
             "DEV-1",
             "CI-3"
@@ -6164,7 +6164,7 @@
         {
           "id": "t9-install",
           "title": "Sign, install and launch on the emulator and a TV (owner)",
-          "descriptionMarkdown": "Owner: create the Samsung author and distributor certificates (distributor listing the TV's DUID), put the TV in\ndeveloper mode, `sdb connect`. Then `cargo xtask package --app <diag|counter|long_list> --target <armv7|x86_64>\n--sign <profile>`, `sdb install`, launch. Record device, Tizen version, `sdb capability` CPU architecture and results\n(`HOST-3`).",
+          "descriptionMarkdown": "Owner (`docs/development_setup.md`): create the Samsung author and distributor certificates, with the distributor listing\nthe TV's DUID and the TV emulator's DUID `XTCJYJZXZBZVK`; put the TV in developer mode and `sdb connect`; add the four\n`TIZEN_*` signing secrets (section 5). Agent: run `tizen-emulator.yml` with them, which installs and launches the\ndiagnostic app on the emulator. Owner: `cargo xtask package --app <diag|counter|long_list> --target <armv7|aarch64>\n--sign <profile>`, `tz install`, launch. Record device, Tizen version, `sdb capability` CPU architecture and results\n(`HOST-3`).",
           "criterionIds": [
             "HOST-3"
           ],

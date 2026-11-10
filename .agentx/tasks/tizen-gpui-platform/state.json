@@ -1,12 +1,12 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 364,
-  "planRevision": 57,
+  "revision": 365,
+  "planRevision": 58,
   "specHashes": {
     "requirements": "60413f195bcf549f5b389e6c8f2dba0fa898f72a83e7e70c517f89432e4fe923",
     "design": "a3e9ab1641d598bff3fdd015bd4af4393cd6025f28b84ab7dab193dcb9794dcc",
-    "plan": "52097f677ee8d65027aed6bf2197c316a49d18291fedd7d730d26892bf563217"
+    "plan": "a28192103d279ad634c6f9b2fce65a5cda6b3897aa3688956278f67d8dfcb47f"
   },
   "tasks": {
     "t1-workspace": {
