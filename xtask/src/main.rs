@@ -25,6 +25,8 @@ Commands:
                  <tpk|dir|zip> [--entry <symbol>]
                  [--feature-description <md>]
   tizen-deps     check the Tizen dependency graph: --target <armv7|x86_64|aarch64>
+                 [--manifest-path <Cargo.toml> [-p <pkg>] [--no-default-features] [--features <f>]],
+                 or one version of a crate in a lockfile: --single <crate> [--manifest-path <m>]
   policy         check the workspace pins, lints, release profile, alias and toolchain
   help           show this text
 ";
@@ -494,21 +496,93 @@ fn copy_tree(from: &Path, to: &Path) -> Result<()> {
 }
 
 fn run_tizen_deps(args: &[String]) -> Result<ExitCode> {
-    use xtask::tizen_deps;
-    let target = match args {
-        [flag, target] if flag == "--target" => Target::parse(target)?,
-        _ => bail!("usage: cargo xtask tizen-deps --target <armv7|x86_64|aarch64>"),
-    };
+    use xtask::tizen_deps::{self, Check};
     let root = workspace_root();
+    let workspace_of = |manifest_path: &Option<String>| -> Result<PathBuf> {
+        Ok(match manifest_path {
+            Some(path) => {
+                let manifest = std::fs::canonicalize(path)
+                    .with_context(|| format!("resolving --manifest-path {path}"))?;
+                cross::workspace_root_of(&manifest, |p| std::fs::read_to_string(p).ok())
+            }
+            None => root.clone(),
+        })
+    };
+    let (target, manifest_path, package, no_default_features, features) =
+        match tizen_deps::parse_check(args).map_err(anyhow::Error::msg)? {
+            Check::Single {
+                crate_name,
+                manifest_path,
+            } => {
+                let lock = workspace_of(&manifest_path)?.join("Cargo.lock");
+                let text = std::fs::read_to_string(&lock)
+                    .with_context(|| format!("reading {}", lock.display()))?;
+                return Ok(match tizen_deps::single_in_lock(&text, &crate_name) {
+                    Ok(version) => {
+                        println!("one {crate_name} ({version}) in {}", lock.display());
+                        ExitCode::SUCCESS
+                    }
+                    Err(violation) => {
+                        eprintln!("{}: {violation}", lock.display());
+                        ExitCode::FAILURE
+                    }
+                });
+            }
+            Check::Graph {
+                target,
+                manifest_path,
+                package,
+                no_default_features,
+                features,
+            } => (
+                Target::parse(&target)?,
+                manifest_path,
+                package,
+                no_default_features,
+                features,
+            ),
+        };
     let toolchain = pinned_toolchain(&root)?;
+    // Another workspace resolves into a lockfile kept here, seeded from its committed one.
+    let lockfile = match &manifest_path {
+        Some(_) => {
+            let workspace = workspace_of(&manifest_path)?;
+            match cross::foreign_lockfile(&root, &workspace) {
+                Some(kept) => {
+                    std::fs::create_dir_all(kept.parent().unwrap_or(&root))?;
+                    let committed = workspace.join("Cargo.lock");
+                    if committed.is_file() {
+                        std::fs::copy(&committed, &kept)
+                            .with_context(|| format!("copying {}", committed.display()))?;
+                    }
+                    Some(kept)
+                }
+                None => None,
+            }
+        }
+        None => None,
+    };
     let tree = |package: Option<&str>| -> Result<String> {
         let mut command = Command::new("cargo");
         command
             .env("RUSTUP_TOOLCHAIN", &toolchain)
-            .current_dir(&root)
+            .current_dir(&root);
+        if let Some(lockfile) = &lockfile {
+            command.args(cross::lockfile_config(lockfile));
+        }
+        command
             .args(["tree", "-Zjson-target-spec", "--target"])
             .arg(target.spec_path(&root))
             .args(["-e", "normal", "--prefix", "none", "--format", "{p}"]);
+        if let Some(path) = &manifest_path {
+            command.args(["--manifest-path", path]);
+        }
+        if no_default_features {
+            command.arg("--no-default-features");
+        }
+        if let Some(features) = &features {
+            command.args(["--features", features]);
+        }
         match package {
             Some(package) => command.args(["-p", package]),
             None => command.arg("--workspace"),
@@ -522,6 +596,24 @@ fn run_tizen_deps(args: &[String]) -> Result<ExitCode> {
         }
         Ok(String::from_utf8_lossy(&output.stdout).into_owned())
     };
+    if manifest_path.is_some() {
+        let graph = tizen_deps::parse_tree(&tree(package.as_deref())?);
+        let violations = tizen_deps::foreign_violations(&graph);
+        for violation in &violations {
+            eprintln!("{}: {violation}", target.spec_name());
+        }
+        if !violations.is_empty() {
+            return Ok(ExitCode::FAILURE);
+        }
+        let wgpu = tizen_deps::wgpu_versions(&graph);
+        println!(
+            "{}: {}; wgpu {}",
+            target.spec_name(),
+            tizen_deps::OK_LINE,
+            wgpu.first().map_or("absent", String::as_str)
+        );
+        return Ok(ExitCode::SUCCESS);
+    }
     let workspace = tizen_deps::parse_tree(&tree(None)?);
     let mut violations = tizen_deps::desktop_crates(&workspace);
     let wgpu = match tizen_deps::single_wgpu(&workspace) {

@@ -82,3 +82,136 @@ fn duplicate_lines_collapse() {
     let packages = parse_tree("wgpu v30.0.1\nwgpu v30.0.1 (*)\n\n  \n");
     assert_eq!(packages.len(), 1);
 }
+
+/// `--manifest-path`, `-p`, the features and `--single`: NSH's GPUI workspace checked from here.
+mod foreign {
+    use super::*;
+
+    fn args(list: &[&str]) -> Vec<String> {
+        list.iter().map(|s| (*s).to_owned()).collect()
+    }
+
+    const LOCK: &str = r#"
+version = 4
+
+[[package]]
+name = "wgpu"
+version = "30.0.1"
+
+[[package]]
+name = "wgpu-hal"
+version = "30.0.1"
+
+[[package]]
+name = "naga"
+version = "29.0.0"
+
+[[package]]
+name = "naga"
+version = "30.0.0"
+"#;
+
+    #[test]
+    fn this_workspace_takes_only_a_target() {
+        assert_eq!(
+            parse_check(&args(&["--target", "armv7"])),
+            Ok(Check::Graph {
+                target: "armv7".into(),
+                manifest_path: None,
+                package: None,
+                no_default_features: false,
+                features: None,
+            })
+        );
+        for narrowed in [
+            &["--target", "armv7", "-p", "x"][..],
+            &["--target", "armv7", "--no-default-features"],
+            &["--target", "armv7", "--features", "js"],
+        ] {
+            assert_eq!(
+                parse_check(&args(narrowed)),
+                Err(USAGE.to_owned()),
+                "{narrowed:?}"
+            );
+        }
+    }
+
+    #[test]
+    fn another_workspace_narrows_its_graph() {
+        assert_eq!(
+            parse_check(&args(&[
+                "--target",
+                "armv7",
+                "--manifest-path",
+                "../nsh/crates/gpui/Cargo.toml",
+                "-p",
+                "nsh-platform-gpui",
+                "--no-default-features",
+                "--features",
+                "js",
+            ])),
+            Ok(Check::Graph {
+                target: "armv7".into(),
+                manifest_path: Some("../nsh/crates/gpui/Cargo.toml".into()),
+                package: Some("nsh-platform-gpui".into()),
+                no_default_features: true,
+                features: Some("js".into()),
+            })
+        );
+    }
+
+    #[test]
+    fn single_reads_a_lockfile() {
+        assert_eq!(
+            parse_check(&args(&[
+                "--manifest-path",
+                "m/Cargo.toml",
+                "--single",
+                "wgpu"
+            ])),
+            Ok(Check::Single {
+                crate_name: "wgpu".into(),
+                manifest_path: Some("m/Cargo.toml".into()),
+            })
+        );
+        for bad in [
+            &["--single", "wgpu", "--target", "armv7"][..],
+            &["--single", "wgpu", "--features", "js"],
+            &["--single"],
+            &["--single", "--target"],
+            &[],
+            &["--target"],
+            &["--bogus"],
+        ] {
+            assert_eq!(parse_check(&args(bad)), Err(USAGE.to_owned()), "{bad:?}");
+        }
+    }
+
+    #[test]
+    fn one_version_in_the_lock_passes_and_two_fail() {
+        assert_eq!(single_in_lock(LOCK, "wgpu"), Ok("30.0.1".to_owned()));
+        assert_eq!(lock_versions(LOCK, "naga").unwrap(), ["29.0.0", "30.0.0"]);
+        let err = single_in_lock(LOCK, "naga").unwrap_err();
+        assert!(
+            err.contains("2 naga versions") && err.contains("29.0.0, 30.0.0"),
+            "{err}"
+        );
+        assert_eq!(
+            single_in_lock(LOCK, "ash"),
+            Err("no ash in the lockfile".to_owned())
+        );
+        assert!(single_in_lock("not = [toml", "wgpu").is_err());
+    }
+
+    #[test]
+    fn a_foreign_graph_allows_no_wgpu_but_not_two() {
+        let one = parse_tree("nsh-platform-gpui v0.4.0\nwgpu v30.0.1\n");
+        assert!(foreign_violations(&one).is_empty());
+        let none = parse_tree("nsh-core v0.4.0\n");
+        assert!(foreign_violations(&none).is_empty());
+        let two = parse_tree("wgpu v29.0.0\nwgpu v30.0.1\ngpui-fast-linux v0.1.13\n");
+        let violations = foreign_violations(&two);
+        assert_eq!(violations.len(), 2, "{violations:?}");
+        assert!(violations.iter().any(|v| v.contains("gpui-fast-linux")));
+    }
+}

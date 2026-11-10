@@ -3,6 +3,12 @@
 //! exactly one wgpu, and the diagnostic app's graph must hold no GPUI crate and that same wgpu
 //! (the one gpui-fast-wgpu resolves to). Input is
 //! `cargo tree -e normal --prefix none --format '{p}'` output.
+//!
+//! Another workspace (NSH's `crates/gpui`) is checked with `--manifest-path`: its Tizen graph
+//! (`-p`, `--no-default-features`, `--features`) holds no desktop platform crate and one wgpu,
+//! resolved into a lockfile kept under `artifacts-temp/locks/`. `--single <crate>` reads a
+//! workspace's committed `Cargo.lock` and requires exactly one version of the crate across every
+//! target.
 
 use std::collections::BTreeSet;
 
@@ -92,6 +98,131 @@ pub fn diag_violations(
         ([_], None) => {}
         ([], _) => violations.push("no wgpu in the diagnostic app".to_owned()),
         (many, _) => violations.push(format!("{} wgpu versions: {}", many.len(), many.join(", "))),
+    }
+    violations
+}
+
+/// The usage line of `cargo xtask tizen-deps`.
+pub const USAGE: &str = "usage: cargo xtask tizen-deps --target <armv7|x86_64|aarch64> \
+[--manifest-path <Cargo.toml> [-p <package>] [--no-default-features] [--features <f>]]
+       cargo xtask tizen-deps --single <crate> [--manifest-path <Cargo.toml>]";
+
+/// What `cargo xtask tizen-deps` checks.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum Check {
+    /// The Tizen graph of a target: this workspace (with the diagnostic app's rules) when
+    /// `manifest_path` is `None`, else another workspace's.
+    Graph {
+        target: String,
+        manifest_path: Option<String>,
+        package: Option<String>,
+        no_default_features: bool,
+        features: Option<String>,
+    },
+    /// One version of `crate_name` in a workspace's `Cargo.lock`.
+    Single {
+        crate_name: String,
+        manifest_path: Option<String>,
+    },
+}
+
+/// Parses the arguments of `cargo xtask tizen-deps`.
+pub fn parse_check(args: &[String]) -> Result<Check, String> {
+    let usage = || USAGE.to_owned();
+    let mut target = None;
+    let mut manifest_path = None;
+    let mut package = None;
+    let mut no_default_features = false;
+    let mut features = None;
+    let mut single = None;
+    let mut rest = args.iter();
+    while let Some(arg) = rest.next() {
+        let mut value = || match rest.next() {
+            Some(v) if !v.starts_with('-') => Ok(v.clone()),
+            _ => Err(usage()),
+        };
+        match arg.as_str() {
+            "--target" => target = Some(value()?),
+            "--manifest-path" => manifest_path = Some(value()?),
+            "-p" | "--package" => package = Some(value()?),
+            "--features" => features = Some(value()?),
+            "--single" => single = Some(value()?),
+            "--no-default-features" => no_default_features = true,
+            _ => return Err(usage()),
+        }
+    }
+    match (single, target) {
+        (Some(crate_name), None)
+            if package.is_none() && !no_default_features && features.is_none() =>
+        {
+            Ok(Check::Single {
+                crate_name,
+                manifest_path,
+            })
+        }
+        (None, Some(target)) => {
+            let narrows = package.is_some() || no_default_features || features.is_some();
+            if narrows && manifest_path.is_none() {
+                return Err(usage());
+            }
+            Ok(Check::Graph {
+                target,
+                manifest_path,
+                package,
+                no_default_features,
+                features,
+            })
+        }
+        _ => Err(usage()),
+    }
+}
+
+/// The versions of `crate_name` a `Cargo.lock` holds, sorted.
+pub fn lock_versions(lock: &str, crate_name: &str) -> Result<Vec<String>, String> {
+    let value: toml::Value = lock
+        .parse()
+        .map_err(|e| format!("the lockfile does not parse: {e}"))?;
+    let mut versions: Vec<String> = value
+        .get("package")
+        .and_then(toml::Value::as_array)
+        .map(|packages| {
+            packages
+                .iter()
+                .filter(|p| p.get("name").and_then(toml::Value::as_str) == Some(crate_name))
+                .filter_map(|p| p.get("version").and_then(toml::Value::as_str))
+                .map(str::to_owned)
+                .collect()
+        })
+        .unwrap_or_default();
+    versions.sort();
+    versions.dedup();
+    Ok(versions)
+}
+
+/// Exactly one version of `crate_name` in a lockfile; returns it, or the violation.
+pub fn single_in_lock(lock: &str, crate_name: &str) -> Result<String, String> {
+    match lock_versions(lock, crate_name)?.as_slice() {
+        [version] => Ok(version.clone()),
+        [] => Err(format!("no {crate_name} in the lockfile")),
+        many => Err(format!(
+            "{} {crate_name} versions in the lockfile: {}",
+            many.len(),
+            many.join(", ")
+        )),
+    }
+}
+
+/// The violations of another workspace's Tizen graph: desktop platform crates, and not exactly
+/// one wgpu (a graph with no wgpu passes: not every package renders).
+pub fn foreign_violations(packages: &BTreeSet<(String, String)>) -> Vec<String> {
+    let mut violations = desktop_crates(packages);
+    let versions = wgpu_versions(packages);
+    if versions.len() > 1 {
+        violations.push(format!(
+            "{} wgpu versions in the Tizen graph: {}",
+            versions.len(),
+            versions.join(", ")
+        ));
     }
     violations
 }
