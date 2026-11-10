@@ -1,12 +1,12 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 295,
-  "planRevision": 45,
+  "revision": 307,
+  "planRevision": 46,
   "specHashes": {
     "requirements": "068b40fba8f3eeb831a46d913cc2bbd60e3e470cfbbed6933dc6aede91ac4a6e",
     "design": "a3e9ab1641d598bff3fdd015bd4af4393cd6025f28b84ab7dab193dcb9794dcc",
-    "plan": "8a184cc0e5cd5c81d5c3e6f21c40974470ce945d8375eaf138956969ca2d5d80"
+    "plan": "4bbebfd0658d9506a45fe64b012b8f4100b989233ff24c59b8a29d067a38eb74"
   },
   "tasks": {
     "t1-workspace": {
@@ -439,19 +439,34 @@
       ]
     },
     "t18-platform": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t18-dev": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t18-video": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t18-module": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t18-link": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t19-config-targets": {
       "status": "pending"
@@ -902,6 +917,18 @@
         }
       },
       "recordedAt": "2026-11-10T14:42:22Z"
+    },
+    "d90aea976d7d3a86071572eae9009c1c6c677df110159fde66e8eb4d8124ec58": {
+      "snapshot": {
+        "specHash": "a7da65eb5aba336e7c419980d4027d2615e2dd03d417595137c2a62f1a55e852",
+        "repositories": {
+          "gpuitizen": "47ce5358b88d417446a7d362faab81d05b794f2edcd0c26283542b78a52f05ec",
+          "gpui-fast": "c318780179e3efe79b3549e66b723ee445ed7dd36b3d54e1db560726aee9a019",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "64f2c55e46db0b7f0645ecf435625fd0d9e1edc7ccd8bf59d05394296a1430ed"
+        }
+      },
+      "recordedAt": "2026-11-10T16:09:38Z"
     }
   },
   "checkResults": {
@@ -3114,6 +3141,176 @@
       "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-4d0ceb77b8d8.log",
       "logSha256": "208a7f8886057e19e5ec1b6ca294b6c341b3aac47840bdc9ba100474958b8782",
       "inputsHash": "f215435764b054b94ef92126cfc16d4df56ddaf92ff2e0fec39346d35c091ce3"
+    },
+    "s18-nsh-platform-tizen/chk-nsh-platform-tizen/final": {
+      "checkId": "chk-nsh-platform-tizen",
+      "boundaryId": "s18-nsh-platform-tizen",
+      "phase": "final",
+      "batchId": "d90aea976d7d3a86071572eae9009c1c6c677df110159fde66e8eb4d8124ec58",
+      "definitionHash": "f6918621f978698b0811d2b54879672b8f1643bc69e649d176cb802775a6b47a",
+      "basisHash": "c8b7076a8736d9ccecbb7d82578a4baeddd08707fe6f5ad34ae64e16aab4533c",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 27,
+      "durationSeconds": 3.332,
+      "recordedAt": "2026-11-10T15:49:10Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s18-nsh-platform-tizen-final-867b055c5e88.log",
+      "logSha256": "0b1512225d7e7afb2aeb46aad389ac978d43256fbdcf9281fe582aa9aefc2747",
+      "inputsHash": "a2f7560ab08c54d290e77525837124da547f5e60c2a0e51443f24320cd3132f7"
+    },
+    "s18-nsh-platform-tizen/chk-nsh-video-tizen/final": {
+      "checkId": "chk-nsh-video-tizen",
+      "boundaryId": "s18-nsh-platform-tizen",
+      "phase": "final",
+      "batchId": "d90aea976d7d3a86071572eae9009c1c6c677df110159fde66e8eb4d8124ec58",
+      "definitionHash": "d418efd26706be3576d5a92e941f0027b14efa8915c46b976ca1fbc6efa8c77d",
+      "basisHash": "2f767f821d116e39057bb52e9fb80f45f750a1370194c7f8523ab515f7595849",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 15,
+      "durationSeconds": 8.1879,
+      "recordedAt": "2026-11-10T15:49:19Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s18-nsh-platform-tizen-final-8faa562a9c3e.log",
+      "logSha256": "f7424555c233a805c34e996cc1bea1227c961a3824a2e9ad17d5468453a1345a",
+      "inputsHash": "3205a76e7f8346c8692c76a65986d137681905bf611f4fc068a2820c0ee1b66b"
+    },
+    "s18-nsh-platform-tizen/chk-nsh-tizen-link-armv7/final": {
+      "checkId": "chk-nsh-tizen-link-armv7",
+      "boundaryId": "s18-nsh-platform-tizen",
+      "phase": "final",
+      "batchId": "d90aea976d7d3a86071572eae9009c1c6c677df110159fde66e8eb4d8124ec58",
+      "definitionHash": "5a1fc9a2c3bbc6cdb95630fba0f0904af8b862d540844edfe970a3601401d215",
+      "basisHash": "d3fad2f6ce9f23dbb26648f4c718c33fc299c8d2f06277cdf41817456020597c",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 429.004,
+      "recordedAt": "2026-11-10T15:56:28Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s18-nsh-platform-tizen-final-505cc9e3940e.log",
+      "logSha256": "914ffcc155c6f8cc0eaf2c216a89d76ed31839e36e5fa79b246ea66e768251f2",
+      "inputsHash": "04420c25eb961bad4fa1bbe84010a71caf4f1492cf37b52bff2194e429b20d73"
+    },
+    "s18-nsh-platform-tizen/chk-nsh-tizen-link-x86_64/final": {
+      "checkId": "chk-nsh-tizen-link-x86_64",
+      "boundaryId": "s18-nsh-platform-tizen",
+      "phase": "final",
+      "batchId": "d90aea976d7d3a86071572eae9009c1c6c677df110159fde66e8eb4d8124ec58",
+      "definitionHash": "4d7014934038c429ab90026e3b6b7326b6c571ad850a5ceef6a7ffec5474e462",
+      "basisHash": "168cb5976327ebd84ac0d1a64335f9129d6d5cb271e5f7b0da902b9622e59b36",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 385.0923,
+      "recordedAt": "2026-11-10T16:02:53Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s18-nsh-platform-tizen-final-7ffe2f68f995.log",
+      "logSha256": "de2744c14552b1c5a72c61de74f429ef483554bd9aa5adac26c907f771c7c014",
+      "inputsHash": "04420c25eb961bad4fa1bbe84010a71caf4f1492cf37b52bff2194e429b20d73"
+    },
+    "s18-nsh-platform-tizen/chk-nsh-tizen-link-aarch64/final": {
+      "checkId": "chk-nsh-tizen-link-aarch64",
+      "boundaryId": "s18-nsh-platform-tizen",
+      "phase": "final",
+      "batchId": "d90aea976d7d3a86071572eae9009c1c6c677df110159fde66e8eb4d8124ec58",
+      "definitionHash": "c3bad467288746d0b7c0a030cd0da1393916315de35893892a5f83997a45a9b6",
+      "basisHash": "85ceb71458b419e2340893de6954ceeae7a08019dd9bc4fff2e26e7cf6806b73",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 398.8221,
+      "recordedAt": "2026-11-10T16:09:32Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s18-nsh-platform-tizen-final-963d56d2e2bb.log",
+      "logSha256": "c80a72fa2e24559d211c3808800ae4fe6c6fe0c0f68dba561dcf2372da11e31d",
+      "inputsHash": "04420c25eb961bad4fa1bbe84010a71caf4f1492cf37b52bff2194e429b20d73"
+    },
+    "s18-nsh-platform-tizen/chk-nsh-platform-tizen-dev/final": {
+      "checkId": "chk-nsh-platform-tizen-dev",
+      "boundaryId": "s18-nsh-platform-tizen",
+      "phase": "final",
+      "batchId": "d90aea976d7d3a86071572eae9009c1c6c677df110159fde66e8eb4d8124ec58",
+      "definitionHash": "a386dfd47a3b3ef87ef78550d9e99a788f3833726f4375ffb2317f5ad2804fb9",
+      "basisHash": "b336f2d0405ce0d9cdac7f3ed031cbdb83e9559643cb3552c45a0cecf7c74229",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 5,
+      "durationSeconds": 3.8803,
+      "recordedAt": "2026-11-10T16:09:36Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s18-nsh-platform-tizen-final-1cb074a9cbe4.log",
+      "logSha256": "084572f7147eba6bd4df82b319b7e091b621286549dd00d0e763ec6b4be85ad7",
+      "inputsHash": "a2ce04c4ce7317de3e9afdfaa13ed9b8f73b467b4512672f2aabba341a0a59ab"
+    },
+    "s18-nsh-platform-tizen/chk-nsh-dev-transport/final": {
+      "checkId": "chk-nsh-dev-transport",
+      "boundaryId": "s18-nsh-platform-tizen",
+      "phase": "final",
+      "batchId": "d90aea976d7d3a86071572eae9009c1c6c677df110159fde66e8eb4d8124ec58",
+      "definitionHash": "fd13c3a4a82dd0f372e11bcfc7d7ddb759d8b346cf5cb8fc0ca47954cefe8e62",
+      "basisHash": "a3defc9c7a5b801d574a7a66b791bd6b1046bf6b2d0e85f1533a31dcd706d6d1",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 12,
+      "durationSeconds": 0.5214,
+      "recordedAt": "2026-11-10T16:09:36Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s18-nsh-platform-tizen-final-83ab38163bec.log",
+      "logSha256": "501c80cfa8c24e8314234ae32eb0b50629652234ddb8b820e24c4940894f92dd",
+      "inputsHash": "a2ce04c4ce7317de3e9afdfaa13ed9b8f73b467b4512672f2aabba341a0a59ab"
+    },
+    "s18-nsh-platform-tizen/chk-nsh-gpui-embedding-tv/final": {
+      "checkId": "chk-nsh-gpui-embedding-tv",
+      "boundaryId": "s18-nsh-platform-tizen",
+      "phase": "final",
+      "batchId": "d90aea976d7d3a86071572eae9009c1c6c677df110159fde66e8eb4d8124ec58",
+      "definitionHash": "26de4d443d086d329cd241bad48d932ba89fb4bbd3ae2a3c51594fe82ad3d8a0",
+      "basisHash": "f40c84c378a5270d1f6618a8f0d135f97bcb9526c8a3c8b2cc5d71e2600072b9",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 5,
+      "durationSeconds": 0.5291,
+      "recordedAt": "2026-11-10T16:09:37Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s18-nsh-platform-tizen-final-a8c88154ab7c.log",
+      "logSha256": "4ad86709fc42c286e2b5f397359918a0728263c45e35b7e77070079fad4cf4fc",
+      "inputsHash": "a2ce04c4ce7317de3e9afdfaa13ed9b8f73b467b4512672f2aabba341a0a59ab"
+    },
+    "s18-nsh-platform-tizen/chk-nsh-tizen-module/final": {
+      "checkId": "chk-nsh-tizen-module",
+      "boundaryId": "s18-nsh-platform-tizen",
+      "phase": "final",
+      "batchId": "d90aea976d7d3a86071572eae9009c1c6c677df110159fde66e8eb4d8124ec58",
+      "definitionHash": "63d7b64aa15ce3ba2312d56e26c5d3ab02f3e7617faf505891f482054fd98db8",
+      "basisHash": "81c85125f18c82ec80807c36c247b29a67fea47e9472854571ea05c7b07e9d11",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 5,
+      "durationSeconds": 0.1852,
+      "recordedAt": "2026-11-10T16:09:37Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s18-nsh-platform-tizen-final-bb54a5b2868c.log",
+      "logSha256": "b084cb54ae3f4e292d587d1a1226b7b86781cf783ee0a90d9c7c684b20d6ffde",
+      "inputsHash": "a2ce04c4ce7317de3e9afdfaa13ed9b8f73b467b4512672f2aabba341a0a59ab"
+    },
+    "s18-nsh-platform-tizen/chk-nsh-tizen-module-decl/final": {
+      "checkId": "chk-nsh-tizen-module-decl",
+      "boundaryId": "s18-nsh-platform-tizen",
+      "phase": "final",
+      "batchId": "d90aea976d7d3a86071572eae9009c1c6c677df110159fde66e8eb4d8124ec58",
+      "definitionHash": "9bfd8c212746dad0492fd307c8bdbdf6e3ac81e4bb70c4330cfd077d5c86975e",
+      "basisHash": "3494079d822326439390843e36bd8d63e99adfda31c16e7ee1aa5565e79413cb",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 1,
+      "durationSeconds": 0.3443,
+      "recordedAt": "2026-11-10T16:09:37Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s18-nsh-platform-tizen-final-060e86fcc8bf.log",
+      "logSha256": "5f3e767ede049cc9d4fa776324beb12ae46c3aebd94f79709ab4f69c12c96ed5",
+      "inputsHash": "a2ce04c4ce7317de3e9afdfaa13ed9b8f73b467b4512672f2aabba341a0a59ab"
     }
   },
   "reviews": {
@@ -7847,6 +8044,396 @@
         "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "gpuitizen:docs/pr/**": "954cd9e92ba3838651abc431be0fd4aab6c6e2c3e40ee630588fd6bdc639b38d"
       }
+    },
+    "s18-nsh-platform-tizen": {
+      "reviewerId": "reviewer-s18-independent",
+      "snapshotId": "d90aea976d7d3a86071572eae9009c1c6c677df110159fde66e8eb4d8124ec58",
+      "criterionIds": [
+        "NTZ-5",
+        "NTZ-6",
+        "NTZ-7",
+        "NTZ-8",
+        "NTZ-9"
+      ],
+      "verdict": "passed",
+      "anchors": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/src/lib.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-5",
+            "NTZ-9"
+          ],
+          "sha256": "9e5a3f20ab3b08f981ae0ee8d4593d561db666add62ada9da65ff6d5d3f491b1"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/src/tizen.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-5",
+            "NTZ-8"
+          ],
+          "sha256": "913e2ee56ae58eed76f72930fc4d4c9d53543230340cf31bc87f9c27d5a1ace6"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/src/app.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-5"
+          ],
+          "sha256": "68ae76e1bc24f25c53f92459c7fb74c18d8820e313a1d48dd8dec0ca812c2bed"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/src/back.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-5"
+          ],
+          "sha256": "19a67fc945f9b9c612082058b0fdc97fae8d2b24de4234a156ffaa806ba6cde1"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/src/keys.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-5",
+            "NTZ-8"
+          ],
+          "sha256": "72bccf8bdfdf91b8c0401ddf63ff257bab4acd0f0c453b160adc5ba093b1bb98"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/src/settings.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-5"
+          ],
+          "sha256": "64de869cc9fdb10a34ab27502a0e8fb46f34b7ff312400149388e8e593baaa4d"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/src/lifecycle.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-5"
+          ],
+          "sha256": "73a793aa04619e1bf41d05b6705a66af6e2e0a75d07f72ba47f602a85cf09389"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/src/package.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-5"
+          ],
+          "sha256": "7c7293451b9093af4c5ebc41cd329fd50d5bd0057a761788a1bc43c9b019bc7a"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/host/Nsh.Tizen.Host.csproj",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-5"
+          ],
+          "sha256": "6aa98d6b3041bc4fcbfa621c83cabb2de5707d9b4e993a88e271560bd53e0967"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/host/Program.cs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-5"
+          ],
+          "sha256": "7549718dda8cf015d37fc1e794ae8b326bbcd9cefb2255baf63b0ab9d6f10962"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/Cargo.toml",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-5",
+            "NTZ-6",
+            "NTZ-9"
+          ],
+          "sha256": "f74cff88bbc4b02bc2ecae12b1549a2ae3de84dc0791ba678dc8e760c3bd662f"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/Cargo.toml",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-5"
+          ],
+          "sha256": "9e7e8f8698d367899a75da622f443369732eac270ea21c1c3901456344482bbd"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/Cargo.lock",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-5"
+          ],
+          "sha256": "cfa8db9abf3ea5e5c00fd6affa070abf82796026b9b1c19f5ded9db1bc608906"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/navigation.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-5"
+          ],
+          "sha256": "aedfd5a686c7c8702572581d01fee6c1633e4c929b2d32f909d4b0fa202d9d63"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/host_settings.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-5"
+          ],
+          "sha256": "92a783f4a450c8218d3ee6cb92f97e6ba0c07bf19a17011f20c4b526a3a19401"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/app.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-5",
+            "NTZ-6"
+          ],
+          "sha256": "8ad1a2c1513cfa38875e3fa6ba2bd19f2174e288d65cf5866c668a142d981be9"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/src/dev.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-6"
+          ],
+          "sha256": "3949421b8ef36df7ef914709ab63067d9a3b679f2d7a43b6d0d0615530a46c36"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/dev.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-6"
+          ],
+          "sha256": "7691c9cedee1bec8609430cfe193aa68cd058ba489db80fc190c00f91b621137"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-dev/src/client.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-6"
+          ],
+          "sha256": "4dfa95527a019e05b3da765fa6012cdad8a0b363b0030893791852c5f4d0c19f"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-dev/tests/roundtrip.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-6"
+          ],
+          "sha256": "cc10d2adbdb9c8a5367f7d3d2516185ea4947ca8f681891bed0f8546ec76293c"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/native/video/tizen.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-7"
+          ],
+          "sha256": "148eebf0befa511f3d520aa53e0ef595af5de11203b77aabeeecc570dfcdd3e1"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/native/video.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-7"
+          ],
+          "sha256": "653da6bc3d21857a124b471916bdd37be6dfe7990c0b99137b9df398fc11a49c"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/Cargo.toml",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-7"
+          ],
+          "sha256": "5c065653811d8ac072e47b56b5dffb22629a0228cebd3b357b01f250dca69def"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/runtime/tizen.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-8"
+          ],
+          "sha256": "62762b0cff80975fa0e69d8895f4e37e16da2ff7a3d4d79aff85d80ef9ef5429"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/runtime/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-8"
+          ],
+          "sha256": "2e2cb79716a93c26abf751d5847a45bab0cc27a215187c102f2b1cce5b2bc944"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/src/tv.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-8"
+          ],
+          "sha256": "fe924dfd2004891c753867b70e0eafc7ed1612339c293d450eae8ab8d851bd1e"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-js/src/declarations.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-8"
+          ],
+          "sha256": "b8cfeac3d79135ce1388e7cc2ef57130add868f7650585e669e412af2aaabf0d"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "docs/dev/tizen.md",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-5",
+            "NTZ-6",
+            "NTZ-7",
+            "NTZ-8",
+            "NTZ-9"
+          ],
+          "sha256": "a7242ed6c6d70d4435294da5881276adf84164940c2f8fce8dcd1f084e75a7df"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/activation/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-5"
+          ],
+          "sha256": "5a174dc65c82c99442b57c46298a0e58286d2e349adb7d53a949cd351a4c84b9"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/keygrab/runtime/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-8"
+          ],
+          "sha256": "61a126c4a7c8f255969274ff6fd9577112344e36c3774a1c43a6d034298c0a03"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/system_info/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-8"
+          ],
+          "sha256": "e59d868e40386c056ff0441504412d49e8d1d61a8b449b956037e67c0413489c"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/video/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-7"
+          ],
+          "sha256": "f2cc311af6503db617e32ebfad57feb6a0aa58cb2170ea86a90f78742d8e8127"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen/src/tizen/video.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-7"
+          ],
+          "sha256": "b841bcf48f4f8ec0942b63773382fe2f54a082366f70d42553aa30b211f7b9ee"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "crates/dxn_gpui_tizen_sys/symbols.allow",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-9"
+          ],
+          "sha256": "25d22a4f0b52d7b91a7e9393fcc2cd0ac63da0cdb6afca7af19c367eca0d5f6c"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/symcheck/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-9"
+          ],
+          "sha256": "d665da5b3df9893b905ae22a6bcd3c817017ef956fe5f6354f94979e4ed03c7f"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/symcheck/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-9"
+          ],
+          "sha256": "fed680696d56ac1a1c885d1e84c1364972ec65ae6a656e1358c2db44b9e0d2c7"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/cross/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-9"
+          ],
+          "sha256": "89db164e93f7d1f2f1b1c76cd290ee5903382d7be6026f7e4b7a05033397fd99"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/src/host.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-5"
+          ],
+          "sha256": "1cb7b84bac154bfb3061a406d50fb5834bc2e531c0430fc6a89ade1965bb36a0"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/src/prompt.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-5"
+          ],
+          "sha256": "7f0d30235b678f5e6ca5c7615468f4cb7eb02ebc8740a5c4517e548735891f90"
+        }
+      ],
+      "summaryMarkdown": "Full re-review at `feat/tizen` c82c6bbf4, snapshot d90aea97. All seven s18 findings are resolved by the repair commits on `pr/tizen/04-platform` (384758c3c, a1225fec5, ce04c6d13, 6310504d6, cb6aa2573, e752c035f) and `pr/tizen/05-video` (1b7a46646, acd5d258f). All of them are merged into `feat/tizen`, each has a selectable test group, and none carries AI attribution. The newest final logs pass all 10 checks: `nsh-platform-tizen` --lib with 27 tests (host, app, prompt), dev with 5 (loopback), video with 15 (`seek_before_ready`, `interruption`), and the release and dev links for armv7, x86_64 and aarch64, which export only `nsh_tizen_main` and import only allowlisted symbols. What the first review found correct still holds: the lifecycle mapping, the Back policy, the key mapping, the output choice, the `nsh/tizen` argument and availability checks with key grabs on the main thread, a committed lockfile without paths, and matching website en/zh-CN. One note, not a defect: an interrupted video polls the lifecycle every 500 ms while the app is in the background, until it is Active again.",
+      "findingIds": [
+        "f-s18-host-csproj-xml",
+        "f-s18-video-seek-before-ready",
+        "f-s18-video-interruption-unrecovered",
+        "f-s18-dev-listen-all-interfaces",
+        "f-s18-publish-git-dependency",
+        "f-s18-settings-after-load",
+        "f-s18-exit-prompt-locale-a11y"
+      ],
+      "recordedAt": "2026-11-10T16:11:48Z",
+      "recordHashes": {
+        "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "gpuitizen:docs/pr/**": "b5d40005f237a2602c368bbafd0b4edcbfdfb44db7e8929b8b8836dc6f7a6372"
+      }
     }
   },
   "checkpoints": {
@@ -8053,6 +8640,17 @@
       },
       "reviewHash": "9ef88ee27029ec76927442b9d7bab5ed938f53054783cd826f22c989d2d1978e",
       "recordedAt": "2026-11-10T14:44:39Z"
+    },
+    "s18-nsh-platform-tizen": {
+      "snapshotId": "d90aea976d7d3a86071572eae9009c1c6c677df110159fde66e8eb4d8124ec58",
+      "commits": {
+        "gpuitizen": "886e045b9cda81c225d1e3c0ec288612b3863e0a",
+        "gpui-fast": "e6ae34b9484cb050831aa9ab974fdd685e8800e3",
+        "wgpu": "4e3d80d5de97d1e66860f0f74fca92d50be70d4a",
+        "nsh": "c82c6bbf4ec7722f15e91feceaf78f6ce9f06aef"
+      },
+      "reviewHash": "c1bafc682ae011d47e2d77fe84ed51b7c2605c3b152b8f3c6151dfdd3086894f",
+      "recordedAt": "2026-11-10T16:11:49Z"
     }
   },
   "findings": [
@@ -10174,9 +10772,171 @@
           "path": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-d67fae080e84.log"
         }
       ]
+    },
+    {
+      "id": "f-s18-host-csproj-xml",
+      "boundaryId": "s18-nsh-platform-tizen",
+      "criterionIds": [
+        "NTZ-5"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** NTZ-5's C# host (`crates/gpui/nsh-platform-tizen/host/`) is the same buildable one-P/Invoke program as dXn.GpuiTizen's (`dotnet build -c Release`, as its comment and `docs/dev/tizen.md` say).\n\n**Observed:** `Nsh.Tizen.Host.csproj` (added in 83a99e7c9, on `feat/tizen`) is not well-formed XML: the top comment contains `nsh package --target tizen`, and `--` is illegal inside an XML comment (line 5, col 55; Python's XML parser rejects it, MSBuild fails with MSB4025). The project cannot load, so no TPK can be built from it. s18 never built or parsed the host, so no check caught it; the s19 branch only found it later. dXn.GpuiTizen's own csproj comment has no `--`.\n\n**Repair:** reword the comment without `--` (for example `nsh package` with target tizen, or drop the flag) on `pr/tizen/04-platform` and merge it into `feat/tizen`. Add a check to the sprint that proves the host loads: at least an XML well-formedness test of the csproj, or `dotnet build -c Release` of `host/` where NuGet is available (s2's prerequisite).\n\n**Resolved:** 384758c3c rewords the comment without `--`. The csproj now parses as XML, which I checked independently. a1225fec5 adds `host::tests`: roxmltree parses the project, checks `Tizen.NET.Sdk/`, `tizen80`, `Exe`, `Nsh.Tizen.Host` and `TizenCreateTpkOnBuild=false`, asserts that a `--` comment is rejected, and checks the single `DllImport` of `nsh_tizen_main`. The group runs in `chk-nsh-platform-tizen`; the newest log shows 27 passing.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/host/Nsh.Tizen.Host.csproj"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/src/host.rs",
+          "symbol": "tests::the_project_is_well_formed_xml_on_tizens_sdk"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/src/host.rs",
+          "symbol": "tests::a_double_hyphen_in_a_comment_is_refused"
+        }
+      ]
+    },
+    {
+      "id": "f-s18-video-seek-before-ready",
+      "boundaryId": "s18-nsh-platform-tizen",
+      "criterionIds": [
+        "NTZ-7"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** NSH's `seek(seconds)` command reaches the TV's player whenever it is given. When a plane video is reopened as a texture, it continues \"at the time it was at\" (the module doc and the commit message promise this).\n\n**Observed:** `native/video/tizen.rs` `VideoItem::start` calls `p.seek(..)` right after `VideoPlayer::new`, and `VideoItem::seek` calls it on an open player at any time. dXn.GpuiTizen's `Player::seek` requires `Ready | Playing | Paused` (`video/mod.rs`, `require(Call::Seek, ..)`). A freshly created player is `Preparing`, so the call fails with `WrongState`, which is only logged at `debug`. Three cases are lost: the reopened texture video restarts from 0, a `seek` an app issues before the first draw (`seek_to`) is dropped, and a `seek` while preparing (say a resume position set right after `onLoadStart`) is dropped. The `native::video::tizen` tests cover only the pure `ops`/`Events` mapping, so nothing exercises the pending-seek path.\n\n**Repair:** keep the pending seek until the player reports `Notice::Ready`, then issue it, either in `VideoItem::notice` or as a pure `Events`/queue step so it is host-testable. Add a test that a seek given before Ready, including the reopen case, is issued once on Ready.\n\n**Resolved:** 1b7a46646 adds `Gate`. While the player is not prepared, it keeps the latest seek and the play/pause intent and issues them, in that order, on `Notice::Ready`. The reopen path goes through `seek_to`, then `Gate::seek`, then `ready`, so a texture reopened from the plane continues at its time. `seek_before_ready` (3 tests) covers this; the newest log shows `chk-nsh-video-tizen` with 15 passing.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/native/video/tizen.rs",
+          "symbol": "Gate"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/native/video/tizen.rs",
+          "symbol": "tests::seek_before_ready"
+        }
+      ]
+    },
+    {
+      "id": "f-s18-video-interruption-unrecovered",
+      "boundaryId": "s18-nsh-platform-tizen",
+      "criterionIds": [
+        "NTZ-7",
+        "NTZ-5"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** after the system interrupts a player (another app or the TV takes the decoder, typically around pause and resume), the video keeps following NSH's props: `paused: false` plays again once the app is back, or the app is told the video stopped.\n\n**Observed:** the platform reports `Notice::Interrupted(state)`, and `state` is often `Idle` (unprepared; dXn.GpuiTizen's tests show `Interrupted(State::Idle)`). For that case `VideoPlayer::prepare` is documented as the way back. `VideoItem` maps the notice to `Notice::Interrupted { playing }`, sets `events.playing`, and does nothing else: it never calls `prepare`, never re-applies props or the position, and emits no event. Every later `play` then fails with `WrongState` (logged at debug), so the video stays dead until its source changes. With `Interrupted(Paused)` and `paused: false`, nothing restarts playback on resume.\n\n**Repair:** on `Interrupted(Idle)`, call `prepare`, then re-apply muted, volume, looping, the position and `paused` once Ready. On `Interrupted(Paused)` with `paused: false`, play again when the app is active. Report the stop otherwise. Cover the decision in the `native::video::tizen` group.\n\n**Resolved:** `of_platform` now maps the platform's interrupted state to `Left::Lost`, `Paused` or `Kept`. `Gate::interrupted` records a recovery and emits `onBuffer(true)` when playback was lost: always when the player is unprepared, and when paused while the props say play. Once the lifecycle is Active (immediately, or by polling every 500 ms), `Gate::resume` re-prepares, re-applies muted, volume and looping, seeks to the saved time and plays according to `paused`, then emits `onBuffer(false)` on Ready. A failed `prepare` emits `onError`. The `interruption` group has 7 tests.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/native/video/tizen.rs",
+          "symbol": "Gate::resume"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/native/video/tizen.rs",
+          "symbol": "tests::interruption"
+        }
+      ]
+    },
+    {
+      "id": "f-s18-dev-listen-all-interfaces",
+      "boundaryId": "s18-nsh-platform-tizen",
+      "criterionIds": [
+        "NTZ-6"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** the dev variant's `sdb forward` fallback is reachable only through `sdb`.\n\n**Observed:** `dev::Connector::tv()` binds the fallback listener to `0.0.0.0:8791` (\"on every interface `sdb forward` may come through\"). `sdbd` delivers forwarded connections over the TV's loopback, so binding all interfaces adds no route for `sdb`. It does let any host on the TV's LAN connect after three refused reverse tries. The dev client then treats that peer as the dev server: it takes its bundles and hot updates and so runs code the peer sends.\n\n**Repair:** bind `127.0.0.1:8791`, and assert the TV connector's listen address is loopback in `dev::tests`.\n\n**Resolved:** ce04c6d13 binds the forward listener to `127.0.0.1:8791`, and `dev::tests::the_tv_listens_on_its_loopback_only` asserts both ports are on loopback. The docs are updated.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/src/dev.rs",
+          "symbol": "Connector::tv"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/src/dev.rs",
+          "symbol": "tests::the_tv_listens_on_its_loopback_only"
+        }
+      ]
+    },
+    {
+      "id": "f-s18-publish-git-dependency",
+      "boundaryId": "s18-nsh-platform-tizen",
+      "criterionIds": [
+        "NTZ-5",
+        "NTZ-7"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** branches meant for upstream keep NSH's crates.io release working (`release-crate.yml` publishes every GPUI-workspace member whose `publish` is not `[]`).\n\n**Observed:** `crates/gpui/Cargo.toml` declares `dxn_gpui_tizen` and `dxn_gpui_tizen_sys` as `git` + `rev` with no `version`. Two published crates now depend on them: `nsh-platform-gpui` (05-video: `cfg(target_vendor = \"tizen\")` dependency) and `nsh-platform-tizen`, which does not set `publish.workspace = true` and so is selected for publishing. `cargo publish` rejects dependencies without a version, target-specific ones included, so the GPUI workspace's release step fails once these branches land. Nothing in `docs/dev/tizen.md` or the PR texts records this ordering constraint.\n\n**Repair:** give the workspace entries a `version` beside `git`/`rev` (publishable once dXn.GpuiTizen is on crates.io). Until then, mark `nsh-platform-tizen` `publish.workspace = true`, and state in `docs/dev/tizen.md` (and the 04/05 PR text) that dXn.GpuiTizen must be on crates.io before an NSH release that includes them.\n\n**Resolved:** 6310504d6 sets `publish = false` on `nsh-platform-tizen` and adds `version = \"0.1.0\"` (dXn.GpuiTizen's version) next to `git` + `rev` on both workspace entries. `docs/dev/tizen.md` (also acd5d258f for video) states that dXn.GpuiTizen must be on crates.io before an NSH release that includes `nsh-platform-gpui` with the Tizen dependency. The committed lockfile still has no path sources.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/Cargo.toml",
+          "symbol": "dxn_gpui_tizen"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/Cargo.toml"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "docs/dev/tizen.md"
+        }
+      ]
+    },
+    {
+      "id": "f-s18-settings-after-load",
+      "boundaryId": "s18-nsh-platform-tizen",
+      "criterionIds": [
+        "NTZ-5"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** the app starts with the TV's settings (locale, time zone, font scale, screen reader, reduce motion, appearance).\n\n**Observed:** `TizenApp::new` sends `tv_settings::current()` into a channel that a spawned task drains. It then calls `view.load(app)` synchronously, and `AppView::load` snapshots `surface.environment` into the engine config. The engine therefore starts, and evaluates the app's top-level code, with the process defaults. The TV values only arrive a tick later as changes, so values read once at startup are wrong and the first frames are laid out at font scale 1.0. Lifecycle is already set synchronously before load; settings are not.\n\n**Repair:** apply `HostValues::of(&tv_settings::current())` through `settings::apply` before `load`, and set `applied` accordingly. Keep the subscription for later changes.\n\n**Resolved:** cb6aa2573 subscribes first, then applies every setter for `tv_settings::current()` before `load` / `connect`, and seeds `applied` from those values. `AppView`'s setters update `surface.environment` synchronously (`system::update`), and `load` snapshots it, so the engine starts with the TV's values. Covered by `app::tests` (2).",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/src/app.rs",
+          "symbol": "opening"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/src/app.rs",
+          "symbol": "tests::the_tvs_settings_are_set_before_the_app_loads"
+        }
+      ]
+    },
+    {
+      "id": "f-s18-exit-prompt-locale-a11y",
+      "boundaryId": "s18-nsh-platform-tizen",
+      "criterionIds": [
+        "NTZ-5"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** the Back-policy question (Samsung's exit confirmation) is usable by every TV user the app serves.\n\n**Observed:** `app.rs` `render_prompt` draws fixed English strings (`Exit {name}?`, `Stay`, `Exit`) at fixed pixel sizes. It ignores the TV locale the crate itself feeds to `AppView`, the font scale, and the screen reader: no accessible role or name, so Voice Guide does not announce the question, although the epic assumes Voice Guide follows AT-SPI focus.\n\n**Repair:** localize the three strings by `HostValues.locale` (at least en and the TV's major locales, falling back to en), scale with the font scale, and expose the card and buttons as an accessible dialog with buttons (or announce the question). Add the string choice to `back::tests` or a new group.\n\n**Resolved:** e752c035f adds `prompt.rs`. The prompt's words follow the applied locale (en, zh-Hans/Hant by script or region, ko, ja, es, fr, de, pt, ru; English otherwise), its sizes are scaled by the applied font scale, and it is exposed as an alert dialog named by the question with two buttons, the chosen one as the active descendant. Covered by `prompt::tests` (5).",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/src/prompt.rs"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/src/app.rs",
+          "symbol": "TizenApp::render_prompt"
+        }
+      ]
     }
   ],
-  "handoffMarkdown": "pr/tizen/03-gpui-tizen-cfg 3411a7710 (on 02): under target_vendor tizen no zbus/x11rb/raw-window-handle/gtk/webkit2gtk/wry/gstreamer; settings via AppView setters (set_reduce_motion, set_screen_reader, set_time_zone), TV font families, web views report unsupported, video placeholder seam, screenshots unsupported; groups host_settings, system::tv, text::tv, native::web::placeholder.",
+  "handoffMarkdown": "NTZ-9: release and dev cdylibs for armv7, x86_64, aarch64 export only nsh_tizen_main (xtask cross --with-dev-variant --check-symbols; xtask finds libnsh.so by package, TV C with -DZSTD_TRACE=0).",
   "protectedPaths": {
     "gpuitizen": {
       "gpuitizen:.agentx/memory/**": "94784ab15131a5a4ff6827a67fa677677a923e04a068e1e4335659b7b6e5c11e"

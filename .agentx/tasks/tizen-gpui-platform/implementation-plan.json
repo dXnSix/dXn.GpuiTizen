@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 45,
+  "revision": 46,
   "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
   "repositories": [
     {
@@ -2280,13 +2280,9 @@
         "NTZ-8"
       ],
       "argv": [
-        "cargo",
-        "test",
-        "--manifest-path",
-        "crates/gpui/Cargo.toml",
-        "-p",
-        "nsh-platform-tizen",
-        "--lib"
+        "bash",
+        "-c",
+        "export CARGO_NET_GIT_FETCH_WITH_CLI=true GIT_CONFIG_COUNT=3 GIT_CONFIG_KEY_0=url./Users/dinko/work-private/projects/dXn/dXn.GpuiTizen.insteadOf GIT_CONFIG_VALUE_0=https://github.com/dXnSix/dXn.GpuiTizen GIT_CONFIG_KEY_1=url./Users/dinko/work-private/projects/dXn/gpui-fast.insteadOf GIT_CONFIG_VALUE_1=https://github.com/dXnSix/gpui-fast GIT_CONFIG_KEY_2=url./Users/dinko/work-private/projects/dXn/wgpu.insteadOf GIT_CONFIG_VALUE_2=https://github.com/dXnSix/wgpu; mkdir -p /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/artifacts-temp/locks/nsh-tizen-feat && cp crates/gpui/Cargo.lock /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/artifacts-temp/locks/nsh-tizen-feat/Cargo.lock && cargo test --manifest-path crates/gpui/Cargo.toml -p nsh-platform-tizen --lib --config /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/artifacts-temp/gpui-fast-patch.toml --config \"resolver.lockfile-path='/Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/artifacts-temp/locks/nsh-tizen-feat/Cargo.lock'\""
       ],
       "expected": {
         "exitCode": 0,
@@ -2297,7 +2293,7 @@
         "crates/gpui/Cargo.toml",
         "crates/gpui/Cargo.lock"
       ],
-      "descriptionMarkdown": "All of the new crate's unit groups (key mapping, settings, Back policy, dev connection, `nsh/tizen`); the crate is new, so this is not a regression suite.",
+      "descriptionMarkdown": "All of the new crate's unit groups (key mapping, settings, Back policy, dev connection, `nsh/tizen`); the crate is new, so this is not a regression suite. Run with the git URLs of the unpushed forks and dXn.GpuiTizen redirected to the local checkouts (`url.<dir>.insteadOf`, `CARGO_NET_GIT_FETCH_WITH_CLI`) and dXn.GpuiTizen's gpui-fast patch config, resolving into a lockfile kept under dXn.GpuiTizen's `artifacts-temp/locks/` (NSH's `docs/dev/tizen.md`).",
       "timeoutSeconds": 3600
     },
     {
@@ -2308,14 +2304,9 @@
         "NTZ-7"
       ],
       "argv": [
-        "cargo",
-        "test",
-        "--manifest-path",
-        "crates/gpui/Cargo.toml",
-        "-p",
-        "nsh-platform-gpui",
-        "--lib",
-        "native::video::tizen"
+        "bash",
+        "-c",
+        "export CARGO_NET_GIT_FETCH_WITH_CLI=true GIT_CONFIG_COUNT=3 GIT_CONFIG_KEY_0=url./Users/dinko/work-private/projects/dXn/dXn.GpuiTizen.insteadOf GIT_CONFIG_VALUE_0=https://github.com/dXnSix/dXn.GpuiTizen GIT_CONFIG_KEY_1=url./Users/dinko/work-private/projects/dXn/gpui-fast.insteadOf GIT_CONFIG_VALUE_1=https://github.com/dXnSix/gpui-fast GIT_CONFIG_KEY_2=url./Users/dinko/work-private/projects/dXn/wgpu.insteadOf GIT_CONFIG_VALUE_2=https://github.com/dXnSix/wgpu; mkdir -p /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/artifacts-temp/locks/nsh-tizen-feat && cp crates/gpui/Cargo.lock /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/artifacts-temp/locks/nsh-tizen-feat/Cargo.lock && cargo test --manifest-path crates/gpui/Cargo.toml -p nsh-platform-gpui --lib --config /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/artifacts-temp/gpui-fast-patch.toml --config \"resolver.lockfile-path='/Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/artifacts-temp/locks/nsh-tizen-feat/Cargo.lock'\" native::video::tizen"
       ],
       "expected": {
         "exitCode": 0,
@@ -2325,7 +2316,7 @@
         "crates/gpui/nsh-platform-gpui/**",
         "crates/gpui/Cargo.lock"
       ],
-      "descriptionMarkdown": "Resolve the exact selector and test-count pattern from the NSH checkout at sprint start (`amend` the check if it differs).",
+      "descriptionMarkdown": "Resolve the exact selector and test-count pattern from the NSH checkout at sprint start (`amend` the check if it differs). Run with the git URLs of the unpushed forks and dXn.GpuiTizen redirected to the local checkouts (`url.<dir>.insteadOf`, `CARGO_NET_GIT_FETCH_WITH_CLI`) and dXn.GpuiTizen's gpui-fast patch config, resolving into a lockfile kept under dXn.GpuiTizen's `artifacts-temp/locks/` (NSH's `docs/dev/tizen.md`).",
       "timeoutSeconds": 3600
     },
     {
@@ -2335,22 +2326,11 @@
       "criterionIds": [
         "NTZ-9"
       ],
-      "descriptionMarkdown": "Release and dev `nsh-platform-tizen` libraries with the symbol check (entry `nsh_tizen_main`). `reuse: false`: the rootstrap is outside the repository.",
+      "descriptionMarkdown": "Release and dev `nsh-platform-tizen` libraries with the symbol check (entry `nsh_tizen_main`). `reuse: false`: the rootstrap is outside the repository. Run with the git URLs of the unpushed forks and dXn.GpuiTizen redirected to the local checkouts (`url.<dir>.insteadOf`, `CARGO_NET_GIT_FETCH_WITH_CLI`) and dXn.GpuiTizen's gpui-fast patch config, resolving into a lockfile kept under dXn.GpuiTizen's `artifacts-temp/locks/` (NSH's `docs/dev/tizen.md`).",
       "argv": [
-        "cargo",
-        "xtask",
-        "cross",
-        "--target",
-        "armv7",
-        "--release",
-        "--manifest-path",
-        "../nsh/nsh-wt/tizen/crates/gpui/Cargo.toml",
-        "-p",
-        "nsh-platform-tizen",
-        "--with-dev-variant",
-        "--check-symbols",
-        "--entry",
-        "nsh_tizen_main"
+        "bash",
+        "-c",
+        "export CARGO_NET_GIT_FETCH_WITH_CLI=true GIT_CONFIG_COUNT=3 GIT_CONFIG_KEY_0=url./Users/dinko/work-private/projects/dXn/dXn.GpuiTizen.insteadOf GIT_CONFIG_VALUE_0=https://github.com/dXnSix/dXn.GpuiTizen GIT_CONFIG_KEY_1=url./Users/dinko/work-private/projects/dXn/gpui-fast.insteadOf GIT_CONFIG_VALUE_1=https://github.com/dXnSix/gpui-fast GIT_CONFIG_KEY_2=url./Users/dinko/work-private/projects/dXn/wgpu.insteadOf GIT_CONFIG_VALUE_2=https://github.com/dXnSix/wgpu; cargo xtask cross --target armv7 --release --manifest-path ../nsh/nsh-wt/tizen/crates/gpui/Cargo.toml -p nsh-platform-tizen --with-dev-variant --check-symbols --entry nsh_tizen_main --config /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/artifacts-temp/gpui-fast-patch.toml"
       ],
       "expected": {
         "exitCode": 0
@@ -2374,22 +2354,11 @@
       "criterionIds": [
         "NTZ-9"
       ],
-      "descriptionMarkdown": "Release and dev `nsh-platform-tizen` libraries with the symbol check (entry `nsh_tizen_main`). `reuse: false`: the rootstrap is outside the repository.",
+      "descriptionMarkdown": "Release and dev `nsh-platform-tizen` libraries with the symbol check (entry `nsh_tizen_main`). `reuse: false`: the rootstrap is outside the repository. Run with the git URLs of the unpushed forks and dXn.GpuiTizen redirected to the local checkouts (`url.<dir>.insteadOf`, `CARGO_NET_GIT_FETCH_WITH_CLI`) and dXn.GpuiTizen's gpui-fast patch config, resolving into a lockfile kept under dXn.GpuiTizen's `artifacts-temp/locks/` (NSH's `docs/dev/tizen.md`).",
       "argv": [
-        "cargo",
-        "xtask",
-        "cross",
-        "--target",
-        "x86_64",
-        "--release",
-        "--manifest-path",
-        "../nsh/nsh-wt/tizen/crates/gpui/Cargo.toml",
-        "-p",
-        "nsh-platform-tizen",
-        "--with-dev-variant",
-        "--check-symbols",
-        "--entry",
-        "nsh_tizen_main"
+        "bash",
+        "-c",
+        "export CARGO_NET_GIT_FETCH_WITH_CLI=true GIT_CONFIG_COUNT=3 GIT_CONFIG_KEY_0=url./Users/dinko/work-private/projects/dXn/dXn.GpuiTizen.insteadOf GIT_CONFIG_VALUE_0=https://github.com/dXnSix/dXn.GpuiTizen GIT_CONFIG_KEY_1=url./Users/dinko/work-private/projects/dXn/gpui-fast.insteadOf GIT_CONFIG_VALUE_1=https://github.com/dXnSix/gpui-fast GIT_CONFIG_KEY_2=url./Users/dinko/work-private/projects/dXn/wgpu.insteadOf GIT_CONFIG_VALUE_2=https://github.com/dXnSix/wgpu; cargo xtask cross --target x86_64 --release --manifest-path ../nsh/nsh-wt/tizen/crates/gpui/Cargo.toml -p nsh-platform-tizen --with-dev-variant --check-symbols --entry nsh_tizen_main --config /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/artifacts-temp/gpui-fast-patch.toml"
       ],
       "expected": {
         "exitCode": 0
@@ -2413,22 +2382,11 @@
       "criterionIds": [
         "NTZ-9"
       ],
-      "descriptionMarkdown": "Release and dev `nsh-platform-tizen` libraries with the symbol check (entry `nsh_tizen_main`). `reuse: false`: the rootstrap is outside the repository.",
+      "descriptionMarkdown": "Release and dev `nsh-platform-tizen` libraries with the symbol check (entry `nsh_tizen_main`). `reuse: false`: the rootstrap is outside the repository. Run with the git URLs of the unpushed forks and dXn.GpuiTizen redirected to the local checkouts (`url.<dir>.insteadOf`, `CARGO_NET_GIT_FETCH_WITH_CLI`) and dXn.GpuiTizen's gpui-fast patch config, resolving into a lockfile kept under dXn.GpuiTizen's `artifacts-temp/locks/` (NSH's `docs/dev/tizen.md`).",
       "argv": [
-        "cargo",
-        "xtask",
-        "cross",
-        "--target",
-        "aarch64",
-        "--release",
-        "--manifest-path",
-        "../nsh/nsh-wt/tizen/crates/gpui/Cargo.toml",
-        "-p",
-        "nsh-platform-tizen",
-        "--with-dev-variant",
-        "--check-symbols",
-        "--entry",
-        "nsh_tizen_main"
+        "bash",
+        "-c",
+        "export CARGO_NET_GIT_FETCH_WITH_CLI=true GIT_CONFIG_COUNT=3 GIT_CONFIG_KEY_0=url./Users/dinko/work-private/projects/dXn/dXn.GpuiTizen.insteadOf GIT_CONFIG_VALUE_0=https://github.com/dXnSix/dXn.GpuiTizen GIT_CONFIG_KEY_1=url./Users/dinko/work-private/projects/dXn/gpui-fast.insteadOf GIT_CONFIG_VALUE_1=https://github.com/dXnSix/gpui-fast GIT_CONFIG_KEY_2=url./Users/dinko/work-private/projects/dXn/wgpu.insteadOf GIT_CONFIG_VALUE_2=https://github.com/dXnSix/wgpu; cargo xtask cross --target aarch64 --release --manifest-path ../nsh/nsh-wt/tizen/crates/gpui/Cargo.toml -p nsh-platform-tizen --with-dev-variant --check-symbols --entry nsh_tizen_main --config /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/artifacts-temp/gpui-fast-patch.toml"
       ],
       "expected": {
         "exitCode": 0
@@ -3517,6 +3475,132 @@
         "Cargo.lock"
       ],
       "descriptionMarkdown": "`\"tizen\"` in the JS `OS` type and `platform.select({ tizen })` (finding `f-s17-js-tizen-tests-unchecked`: `chk-nsh-tv-env` selects `env::tests::tv` only).",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-platform-tizen-dev",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "NTZ-6"
+      ],
+      "argv": [
+        "bash",
+        "-c",
+        "export CARGO_NET_GIT_FETCH_WITH_CLI=true GIT_CONFIG_COUNT=3 GIT_CONFIG_KEY_0=url./Users/dinko/work-private/projects/dXn/dXn.GpuiTizen.insteadOf GIT_CONFIG_VALUE_0=https://github.com/dXnSix/dXn.GpuiTizen GIT_CONFIG_KEY_1=url./Users/dinko/work-private/projects/dXn/gpui-fast.insteadOf GIT_CONFIG_VALUE_1=https://github.com/dXnSix/gpui-fast GIT_CONFIG_KEY_2=url./Users/dinko/work-private/projects/dXn/wgpu.insteadOf GIT_CONFIG_VALUE_2=https://github.com/dXnSix/wgpu; mkdir -p /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/artifacts-temp/locks/nsh-tizen-feat && cp crates/gpui/Cargo.lock /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/artifacts-temp/locks/nsh-tizen-feat/Cargo.lock && cargo test --manifest-path crates/gpui/Cargo.toml -p nsh-platform-tizen --features dev --lib --config /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/artifacts-temp/gpui-fast-patch.toml --config \"resolver.lockfile-path='/Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/artifacts-temp/locks/nsh-tizen-feat/Cargo.lock'\" dev::"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "The dev variant's connection policy (`sdb reverse`, then listening for `sdb forward`). Run with the git URLs of the unpushed forks and dXn.GpuiTizen redirected to the local checkouts (`url.<dir>.insteadOf`, `CARGO_NET_GIT_FETCH_WITH_CLI`) and dXn.GpuiTizen's gpui-fast patch config, resolving into a lockfile kept under dXn.GpuiTizen's `artifacts-temp/locks/` (NSH's `docs/dev/tizen.md`).",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-dev-transport",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "NTZ-6"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-dev",
+        "--features",
+        "client,server",
+        "--test",
+        "roundtrip"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "The dev client over connections of its own (`DevTransport`, `DevClient::start_with`).",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-gpui-embedding-tv",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "NTZ-5"
+      ],
+      "argv": [
+        "bash",
+        "-c",
+        "export CARGO_NET_GIT_FETCH_WITH_CLI=true GIT_CONFIG_COUNT=3 GIT_CONFIG_KEY_0=url./Users/dinko/work-private/projects/dXn/dXn.GpuiTizen.insteadOf GIT_CONFIG_VALUE_0=https://github.com/dXnSix/dXn.GpuiTizen GIT_CONFIG_KEY_1=url./Users/dinko/work-private/projects/dXn/gpui-fast.insteadOf GIT_CONFIG_VALUE_1=https://github.com/dXnSix/gpui-fast GIT_CONFIG_KEY_2=url./Users/dinko/work-private/projects/dXn/wgpu.insteadOf GIT_CONFIG_VALUE_2=https://github.com/dXnSix/wgpu; mkdir -p /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/artifacts-temp/locks/nsh-tizen-feat && cp crates/gpui/Cargo.lock /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/artifacts-temp/locks/nsh-tizen-feat/Cargo.lock && cargo test --manifest-path crates/gpui/Cargo.toml -p nsh-platform-gpui --lib --config /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/artifacts-temp/gpui-fast-patch.toml --config \"resolver.lockfile-path='/Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/artifacts-temp/locks/nsh-tizen-feat/Cargo.lock'\" -- host_settings::tests::lifecycle navigation::tests::unhandled_back keys::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "`AppView::set_lifecycle`, `AppView::on_unhandled_back` and the TV key names for an embedding host.",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-tizen-module",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "NTZ-8"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-core",
+        "--lib",
+        "runtime::tizen"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "`nsh/tizen`: availability and argument checks.",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-tizen-module-decl",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "NTZ-8"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-js",
+        "--lib",
+        "declarations::tests::tizen"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "`nsh/tizen`'s TypeScript declarations.",
       "timeoutSeconds": 3600
     }
   ],
@@ -5294,7 +5378,12 @@
         "chk-nsh-video-tizen",
         "chk-nsh-tizen-link-armv7",
         "chk-nsh-tizen-link-x86_64",
-        "chk-nsh-tizen-link-aarch64"
+        "chk-nsh-tizen-link-aarch64",
+        "chk-nsh-platform-tizen-dev",
+        "chk-nsh-dev-transport",
+        "chk-nsh-gpui-embedding-tv",
+        "chk-nsh-tizen-module",
+        "chk-nsh-tizen-module-decl"
       ],
       "tasks": [
         {
@@ -5311,7 +5400,8 @@
           ],
           "dependsOn": [],
           "checkIds": [
-            "chk-nsh-platform-tizen"
+            "chk-nsh-platform-tizen",
+            "chk-nsh-gpui-embedding-tv"
           ]
         },
         {
@@ -5328,7 +5418,9 @@
             "t18-platform"
           ],
           "checkIds": [
-            "chk-nsh-platform-tizen"
+            "chk-nsh-platform-tizen",
+            "chk-nsh-platform-tizen-dev",
+            "chk-nsh-dev-transport"
           ]
         },
         {
@@ -5364,7 +5456,9 @@
             "t18-platform"
           ],
           "checkIds": [
-            "chk-nsh-platform-tizen"
+            "chk-nsh-platform-tizen",
+            "chk-nsh-tizen-module",
+            "chk-nsh-tizen-module-decl"
           ]
         },
         {
