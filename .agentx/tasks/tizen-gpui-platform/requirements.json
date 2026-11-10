@@ -757,7 +757,12 @@
         },
         {
           "id": "UP-4",
-          "descriptionMarkdown": "**Owner-run.** In order and on the owner's go for each: the NSH focus issue and PR(s); the TV keys and TV category\nissue and PR(s), with nsh-compat PRs where needed; the one-wgpu PR; the gpui-fast issue and PRs; the wgpu PRs; and,\nonce gpui-fast has released the changes and `dXn.GpuiTizen` is on crates.io, the NSH `Os::Tizen` and Tizen targets\nissue and PRs, and the `tizen-web` PR after the TV loader check. Each link and state goes into its PR folder or the\nverification log; items blocked on maintainers get the owner's disposition. Before each PR is opened, its branch is rebased onto the latest `upstream/main` (resolving the conflicts its README lists) and passes the checks its README lists on its own tip; the PR folder records the run.",
+          "descriptionMarkdown": "**Owner-run, no TV needed.** In order and on the owner's go for each: the NSH focus issue and PR(s); the TV keys and TV category issue and PR(s), with nsh-compat PRs where needed; the one-wgpu PR; the wgpu PRs. Each link and state goes into its PR folder or the verification log; items blocked on maintainers get the owner's disposition. Before each PR is opened, its branch is rebased onto the latest `upstream/main` (resolving the conflicts its README lists) and passes the checks its README lists on its own tip; the PR folder records the run.",
+          "verification": "manual"
+        },
+        {
+          "id": "UP-5",
+          "descriptionMarkdown": "**Owner-run, after the devices.** The same way as `UP-4`: the gpui-fast issue and PRs, with the `DEV-3` numbers filled in; once gpui-fast has released the changes and `dXn.GpuiTizen` is on crates.io, the NSH `Os::Tizen` and Tizen targets issue and PRs; and the `tizen-web` PR after the TV loader check (`DEV-6`).",
           "verification": "manual"
         }
       ]

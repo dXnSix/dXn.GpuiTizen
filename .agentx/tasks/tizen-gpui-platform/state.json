@@ -1,12 +1,12 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 362,
-  "planRevision": 56,
+  "revision": 364,
+  "planRevision": 57,
   "specHashes": {
-    "requirements": "1707bfe1e00c4cd360f31166ad1f3815f99b57b23a6301deaa694af0d35b088d",
+    "requirements": "60413f195bcf549f5b389e6c8f2dba0fa898f72a83e7e70c517f89432e4fe923",
     "design": "a3e9ab1641d598bff3fdd015bd4af4393cd6025f28b84ab7dab193dcb9794dcc",
-    "plan": "5fcd9e62ca721917c773587a5f53e8f2e75c2eb4a62fcf8aa93ebb5826fe6045"
+    "plan": "52097f677ee8d65027aed6bf2197c316a49d18291fedd7d730d26892bf563217"
   },
   "tasks": {
     "t1-workspace": {
@@ -202,7 +202,10 @@
       ]
     },
     "t9-publish": {
-      "status": "pending"
+      "status": "in_progress",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t9-install": {
       "status": "pending"
@@ -575,6 +578,9 @@
       "workerIds": [
         "eec00bdf-648f-4be5-813b-008fb1a323d7"
       ]
+    },
+    "t26-upstream-after-devices": {
+      "status": "pending"
     }
   },
   "validationBatches": {
