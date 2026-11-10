@@ -21,8 +21,9 @@ pub const DEFAULT_REFRESH_HZ: f32 = 60.0;
 pub struct RunOptions {
     /// Overrides [`DEFAULT_SCALE`]; `DXN_GPUI_TIZEN_SCALE` overrides this.
     pub scale_factor: Option<f32>,
-    /// Narrows the grabbed TV keys (`crate::keygrab`), by Tizen or GPUI key name; `None` grabs
-    /// the color, media and channel keys.
+    /// The grabbed TV keys (`crate::keygrab`), by Tizen or GPUI key name: a subset of the color,
+    /// media and channel keys, plus the on-request Info key; `None` grabs the color, media and
+    /// channel keys. `crate::keygrab::{grab, release, set}` change them while the app runs.
     pub grab_keys: Option<Vec<String>>,
     /// The font families loaded into the text system (`crate::fonts`); `None` loads the TV's
     /// UI family and its fallbacks.

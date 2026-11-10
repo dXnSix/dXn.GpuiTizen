@@ -65,12 +65,12 @@ fn return_exit_and_home_are_refused() {
 
 #[test]
 fn keys_outside_the_set_are_refused() {
-    let plan = plan(Some(&names(&["XF86Info", "up", "XF86Back", "green"])));
+    let plan = plan(Some(&names(&["XF86Menu", "up", "XF86Back", "green"])));
     assert_eq!(plan.keys, ["XF86Green"]);
     assert_eq!(
         plan.refused,
         [
-            ("XF86Info".to_owned(), Refusal::NotGrabbable),
+            ("XF86Menu".to_owned(), Refusal::NotGrabbable),
             ("up".to_owned(), Refusal::NotGrabbable),
             ("XF86Back".to_owned(), Refusal::NotGrabbable),
         ]

@@ -14,3 +14,4 @@ pub(crate) mod video;
 mod window;
 
 pub use app::{launch_extras, resource_path, run};
+pub(crate) use platform::perform_grabs;

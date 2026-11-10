@@ -27,7 +27,7 @@ use crate::activation::{Report, WindowStatus};
 use crate::dispatcher::{MainLoop, TizenDispatcher};
 use crate::display::{self, RefreshMeter, RunOptions};
 use crate::frame::{FrameEffect, FrameScheduler};
-use crate::keygrab::{self, GrabCall, KeyGrabs};
+use crate::keygrab::{self, GrabCall, GrabCalls, GrabSet};
 use crate::keys::{self, HeldKeys, KeyEvent};
 use crate::lifecycle::Lifecycle;
 
@@ -49,13 +49,10 @@ pub(crate) struct Shared {
     /// Whether the last frame was drawn straight from a frame callback (for the refresh meter).
     pub(crate) chained: Cell<bool>,
     pub(crate) held: RefCell<HeldKeys>,
-    /// The TV keys grabbed while the window is shown, and whether they are grabbed now.
-    grab_keys: Vec<&'static str>,
     /// The renderer the app asked for, the app's cache directory, and the fallback logged once.
     pub(crate) renderer: crate::renderer_select::Renderer,
     pub(crate) cache_dir: Option<std::path::PathBuf>,
     pub(crate) renderer_fallback: RefCell<crate::renderer_select::FallbackLog>,
-    grabs: RefCell<KeyGrabs>,
     pub(crate) gpu: gpui_wgpu::GpuContext,
     pub(crate) display: Cell<*mut sys::Ecore_Wl2_Display>,
     pub(crate) display_size: Cell<(u32, u32)>,
@@ -137,26 +134,20 @@ impl Shared {
         if self.window.borrow().is_none() {
             return;
         }
-        let call = self.grabs.borrow_mut().shown();
-        self.perform_grab(call);
+        let calls = keygrab::with_grabs(GrabSet::shown);
+        perform_grabs(&calls);
     }
 
     /// The window is hidden (paused): release them.
     pub(crate) fn keys_hidden(&self) {
-        let call = self.grabs.borrow_mut().hidden();
-        self.perform_grab(call);
+        let calls = keygrab::with_grabs(GrabSet::hidden);
+        perform_grabs(&calls);
     }
 
     /// The app terminates: release them for good.
     pub(crate) fn keys_terminated(&self) {
-        let call = self.grabs.borrow_mut().terminated();
-        self.perform_grab(call);
-    }
-
-    fn perform_grab(&self, call: Option<GrabCall>) {
-        if let (Some(call), Some(window)) = (call, self.window.borrow().clone()) {
-            window.keygrab(call, &self.grab_keys);
-        }
+        let calls = keygrab::with_grabs(GrabSet::terminated);
+        perform_grabs(&calls);
     }
 
     pub(crate) fn release_gpu(&self) {
@@ -331,6 +322,19 @@ impl Shared {
     }
 }
 
+/// Makes the key grab calls `crate::keygrab` decided, on the window (main thread).
+pub(crate) fn perform_grabs(calls: &GrabCalls) {
+    if calls.is_empty() {
+        return;
+    }
+    let Some(window) = super::app::shared().and_then(|shared| shared.window.borrow().clone())
+    else {
+        return;
+    };
+    window.keygrab(GrabCall::Release, &calls.release);
+    window.keygrab(GrabCall::Grab, &calls.grab);
+}
+
 unsafe extern "C" fn on_key_down(
     _data: *mut c_void,
     _kind: c_int,
@@ -390,6 +394,9 @@ impl TizenPlatform {
         for (key, refusal) in &grab_plan.refused {
             log::warn!("not grabbing {key:?}: {refusal:?}");
         }
+        // The TV keys grabbed while the window is shown live with `crate::keygrab`, where the
+        // app may change them while it runs.
+        keygrab::with_grabs(|grabs| *grabs = GrabSet::new(grab_plan.keys));
         let main_loop = Arc::new(EcoreLoop::new());
         let dispatcher = Arc::new(TizenDispatcher::new(Arc::clone(&main_loop)));
         let shared = Rc::new(Shared {
@@ -405,11 +412,9 @@ impl TizenPlatform {
             refresh: RefCell::new(RefreshMeter::default()),
             chained: Cell::new(false),
             held: RefCell::new(HeldKeys::default()),
-            grab_keys: grab_plan.keys,
             renderer: options.renderer,
             cache_dir,
             renderer_fallback: RefCell::default(),
-            grabs: RefCell::new(KeyGrabs::default()),
             gpu: gpui_wgpu::GpuContext::default(),
             display: Cell::new(ptr::null_mut()),
             display_size: Cell::new(display::DEFAULT_SIZE),
