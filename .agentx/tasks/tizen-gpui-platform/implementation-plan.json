@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 55,
+  "revision": 56,
   "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
   "repositories": [
     {
@@ -6274,7 +6274,7 @@
         {
           "id": "t25-upstream",
           "title": "Open the upstream issues and PRs, in order (owner)",
-          "descriptionMarkdown": "`UP-4`, each on the owner's explicit go, updating the PR folders under `docs/pr/` with links and states.",
+          "descriptionMarkdown": "`UP-4`, each on the owner's explicit go, updating the PR folders under `docs/pr/` with links and states. Before opening each PR: rebase its branch onto the latest `upstream/main` (the README lists the conflicts) and run the checks its README lists on that branch alone; record the run in its folder.",
           "criterionIds": [
             "UP-4"
           ],

@@ -742,7 +742,7 @@
       "criteria": [
         {
           "id": "UP-1",
-          "descriptionMarkdown": "For every NSH branch of this epic, `docs/pr/nsh/<area>/<topic>/` in this repository (in the format of\n`nsh-root/upstream-pr/`, which the epic never writes to) holds `README.md` (status, base,\ncommits, checks, how to update and open it) and `PR.md` (title and body), each area has its `README.md` with the\norder, and the issues that must come first (focus navigation; TV keys and the TV category; `Os::Tizen` and the Tizen\ntargets, raising that GPUI would be the native backend of packaged apps) are drafted there. Each branch is cut from a\nfresh `upstream/main` (or the previous branch of its area's stack), holds only its topic's commits, and passes the\nchecks its README lists. A reviewer confirms it.",
+          "descriptionMarkdown": "For every NSH branch of this epic, `docs/pr/nsh/<area>/<topic>/` in this repository (in the format of `nsh-root/upstream-pr/`, which the epic never writes to) holds `README.md` (status, base, commits, checks, how to update and open it) and `PR.md` (title and body), each area has its `README.md` with the order, and the issues that must come first (focus navigation; TV keys and the TV category; `Os::Tizen` and the Tizen targets, raising that GPUI would be the native backend of packaged apps) are drafted there. Each branch is cut from `upstream/main` (or the previous branch of its area's stack) and holds only its topic's commits; its README lists the checks it must pass and the conflicts with the latest `upstream/main`, and says which checks have run, where (the integration branch `feat/tizen`, with every branch merged) and with what result. Rebasing a branch onto the latest `upstream/main` and running its checks on its own tip is the pre-open step of `UP-4`. A reviewer confirms it.",
           "verification": "manual"
         },
         {
@@ -757,7 +757,7 @@
         },
         {
           "id": "UP-4",
-          "descriptionMarkdown": "**Owner-run.** In order and on the owner's go for each: the NSH focus issue and PR(s); the TV keys and TV category\nissue and PR(s), with nsh-compat PRs where needed; the one-wgpu PR; the gpui-fast issue and PRs; the wgpu PRs; and,\nonce gpui-fast has released the changes and `dXn.GpuiTizen` is on crates.io, the NSH `Os::Tizen` and Tizen targets\nissue and PRs, and the `tizen-web` PR after the TV loader check. Each link and state goes into its PR folder or the\nverification log; items blocked on maintainers get the owner's disposition.",
+          "descriptionMarkdown": "**Owner-run.** In order and on the owner's go for each: the NSH focus issue and PR(s); the TV keys and TV category\nissue and PR(s), with nsh-compat PRs where needed; the one-wgpu PR; the gpui-fast issue and PRs; the wgpu PRs; and,\nonce gpui-fast has released the changes and `dXn.GpuiTizen` is on crates.io, the NSH `Os::Tizen` and Tizen targets\nissue and PRs, and the `tizen-web` PR after the TV loader check. Each link and state goes into its PR folder or the\nverification log; items blocked on maintainers get the owner's disposition. Before each PR is opened, its branch is rebased onto the latest `upstream/main` (resolving the conflicts its README lists) and passes the checks its README lists on its own tip; the PR folder records the run.",
           "verification": "manual"
         }
       ]

@@ -1,12 +1,12 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 353,
-  "planRevision": 55,
+  "revision": 362,
+  "planRevision": 56,
   "specHashes": {
-    "requirements": "b8ed72cdec64e6a715ed9ce70411c1d2aa03153d3ee24aaa48bf22abae64d675",
+    "requirements": "1707bfe1e00c4cd360f31166ad1f3815f99b57b23a6301deaa694af0d35b088d",
     "design": "a3e9ab1641d598bff3fdd015bd4af4393cd6025f28b84ab7dab193dcb9794dcc",
-    "plan": "ccc22da281286d50bbee8fe6e64caf6a90f3a0248e640538f93b6d28ecf38574"
+    "plan": "5fcd9e62ca721917c773587a5f53e8f2e75c2eb4a62fcf8aa93ebb5826fe6045"
   },
   "tasks": {
     "t1-workspace": {
@@ -535,13 +535,22 @@
       ]
     },
     "t22-nsh-prs": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t22-gpui-fast-texts": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t22-wgpu-trunk": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t23-video": {
       "status": "pending"
@@ -1048,7 +1057,7 @@
           "nsh": "7e685371f7726c0e3a1b46dd2ae3222a039b63e4e638a2cb7589c14c7184405b"
         }
       },
-      "recordedAt": "2026-11-10T18:30:03Z"
+      "recordedAt": "2026-11-10T18:47:59Z"
     }
   },
   "checkResults": {
@@ -9771,6 +9780,419 @@
         "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "gpuitizen:docs/pr/**": "b5d40005f237a2602c368bbafd0b4edcbfdfb44db7e8929b8b8836dc6f7a6372"
       }
+    },
+    "s22-upstream-prep": {
+      "reviewerId": "reviewer-s22-independent",
+      "snapshotId": "029207136d689af4c2fd3606bd0caeae9ddd1bcec4ab69fcca38cdf02fb4e7cc",
+      "criterionIds": [
+        "UP-1",
+        "UP-2",
+        "UP-3"
+      ],
+      "verdict": "passed",
+      "anchors": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1",
+            "UP-2",
+            "UP-3"
+          ],
+          "sha256": "395ef3499a33b34807ff5497a2ff924fac1b68ae4c1dd7badd35c7ed9b1fbe45"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "fed9ecec59e88e3b23aad1326ba8947daa606c572f277b63dcbf55e0debcd12e"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/focus/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "33e466c23fcaa16fde873a1a498cd737b1bca690945f00dc200cbf897a60c8c1"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/focus/issue.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "a82c6b3ff5bc645db346eeee2acb897344a960f73f4d94d8f559f497efa42339"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/focus/issue-desktop-tab.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "891b4198e6c524e6fdca9c3c41c98ebd0fb752f77ab22adbb05eb8aed5dbb30f"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/focus/01-core/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "a7b8cbf6105a3ae909910d6404066fbad0c0f818f51f742a6e40228e9ffec0fc"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/focus/02-gpui/PR.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "46ab4fb0d0f2c160385fea2742885afc0f98b94ec3f5e208c5b557b8786676f7"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/focus/05-web/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "1bf6e12228100a947a864a7ee72e756e7bb6c63cf951af504b482ca9b2119a93"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/tv/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "8a3b0fcae1d668726d327ad0cb1e56c4678917772190014b5d57a774ea9b0763"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/tv/issue.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "b52f93e73c2f6ed3f10122c119d4da0f5cdae8cc6319673d9b545722557afb80"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/engine/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "abf77ec507494645388b5feac303bfd5e72834915111ff776e7953a213a17daf"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/tizen/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "fed64447d87d0e78a029111c46a96662f430396ad97cb1a1d4231d4f81c1fd7e"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/tizen/issue.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "e14c684589b5c0199b045a8e0da09b2fce9c04fabe4ed8d64de2814752f68ad1"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/tizen/04-platform/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "5b60de0414b7155784fa66a69d6ab67391f3ccbc74a920d9e09cf47f1108d686"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/tizen-web/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "e62e34e2fde70d306176db3e931e7c239cab7f1922226f1ced0c81cc7402974d"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/tizen-web/01-package/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "bc5aae9a39eee3089541102a0cb47072282de65aea067ef736ad63a379096ebe"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/compat/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "b54e56fce2c6a2f8d42cbc5a54a3131afdafae3ae40362961b61524ca9ee0bff"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/fork/tizen-ci/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "148d605a2777642ad70925e3d17692ef1c03a72d3de7e9b955205bcf64f6480c"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/focus.rs",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "afb1e4b23e33d6933667c98a695b305c9b47ec8e0895030de24610a4e989a7bb"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/src/lib.rs",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "e1d12408727b6ceb05441cd74953dc605b323611ea12ede261a88e2643943a86"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": ".github/workflows/fork-tizen.yml",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "e23c6fb70ad7493132e58ddacc0ded4c340722fd728f166b4ee8730df90855a7"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/gpui-fast/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-2"
+          ],
+          "sha256": "4ff2915a7fa8b06e65ef90fd7d1fd27cc76950d79a4ca1f7715fbec439487bb9"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/gpui-fast/issue.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-2"
+          ],
+          "sha256": "ec99202b7a2eab4e63aca94fd14a66eeea0ba84f1c3f5a92cc0eeff320096e47"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/gpui-fast/external-target/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-2"
+          ],
+          "sha256": "3c161478bdfdda2fff2c435588a25238353729fee162b4b5e3d67b6d9c213b76"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/gpui-fast/external-target/PR.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-2"
+          ],
+          "sha256": "b6409f4e26f2d146dd2ef8918fa19d66db6365162467c6ee25546a27bac89f81"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/gpui-fast/video-hole/PR.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-2"
+          ],
+          "sha256": "8e9bfd11696ca8270d692471d6c767bdebc9c37385dd23a33a2843173d89bb97"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/gpui-fast/pipeline-cache/PR.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-2"
+          ],
+          "sha256": "766a2d8a2caaee5e80233901e381f7110f9d3b688dfe94a5aa417087dbccfed0"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui_wgpu/src/fast/external_target.rs",
+          "kind": "source",
+          "criterionIds": [
+            "UP-2"
+          ],
+          "sha256": "a450ddd4f4d0387ebdd7e84f7f00c98532bce8cb9b0f5591ea10696235e77cc3"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "crates/gpui/src/fast/hole.rs",
+          "kind": "source",
+          "criterionIds": [
+            "UP-2"
+          ],
+          "sha256": "ab14a194986544efcf16abc00ea5b10d47682ff20c057ec4478b01143a09620a"
+        },
+        {
+          "repositoryId": "gpui-fast",
+          "path": "docs/upstream-sync.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-2"
+          ],
+          "sha256": "49441d3e5bf87eabd2980e2b7cac0597fdeb5c6a2e4c48a98163e27b056e9c2e"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/wgpu/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-3"
+          ],
+          "sha256": "71eb6cc7ef3a914656efefaf6e50fbc56cb38193c9d9962554db07a31d262264"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/wgpu/egl14-wayland/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-3"
+          ],
+          "sha256": "7e28f6ffc7b92c257b90e5d5fd3f3566292faedc4c5fef7f44ccfa4568081a8e"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/wgpu/egl14-wayland/PR.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-3"
+          ],
+          "sha256": "64ccc600a14221cfbca3e897b57cf97b218c5640670ea657da5b951154ead52d"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/wgpu/gles-program-binaries/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-3"
+          ],
+          "sha256": "59114d2ee64914100e9324629157456868dc6dc8637c0313613f0cb2da7d3386"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/wgpu/gles-program-binaries/PR.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-3"
+          ],
+          "sha256": "fd26fb0922ba40d4c39cccd67fb3d7be461f6c0a57086dbb98e46492d87f3221"
+        },
+        {
+          "repositoryId": "wgpu",
+          "path": "wgpu-hal/src/gles/egl.rs",
+          "kind": "source",
+          "criterionIds": [
+            "UP-3"
+          ],
+          "sha256": "b5361abdf77f1d93422f9f971704c85de44ee34a3fc57ac6501ed5d7d14a1c81"
+        },
+        {
+          "repositoryId": "wgpu",
+          "path": "wgpu-hal/src/gles/pipeline_cache.rs",
+          "kind": "source",
+          "criterionIds": [
+            "UP-3"
+          ],
+          "sha256": "dc57334349280a20d0e335b6128294aab43c58eb089d4588f8b03fea43767a46"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/focus/04-tv/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "5349b742dd8f8c870a2e5ec76647b3d66466d121bef7acf8a8c55fdb449d9523"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/tv/01-keys/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "c1649b36f12f7c3cf3a06e0049a1c539f743fbbc09f8b80b812eac0589488c01"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/tv/03-dev-idiom/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "531b9d14dafe1e4e36cbcbaa16afa7e3e01b3e0e363de3da93ec259152b95971"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/tizen/07-cli/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "44adf1feda35fc4e900750e533ab109ded8b61cceefd387b5b88c9d7771efe6a"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/tizen/03-gpui-tizen-cfg/PR.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "b9b2caed225a6a8e52050390d3ac44aa1c0308829eada7329a1e4e5b0f42b2da"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/focus/02-gpui/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-1"
+          ],
+          "sha256": "b5c423019a6856f626392ea5b5d7f28d5ddae80c5861c1ffd3da04ded732ec32"
+        }
+      ],
+      "summaryMarkdown": "**Verdict: passed.** All four s22 findings are resolved; no new findings.\n\n**UP-1 (amended, revision 360):** every NSH branch has its folder with `README.md` and `PR.md`, the area READMEs give the order, and the four issue drafts are in place. Each branch is cut from `upstream/main` (or its stack parent) and holds only its own commits, re-verified per branch with `git rev-list <branch> ^<parents>`. The heads are unchanged. Each README lists its checks, its conflicts with the latest `upstream/main`, and which checks ran on `feat/tizen` with what result. The new \"On this branch alone\" paragraphs say what runs alone and give replacement commands; sampled test counts match git. Rebasing and running the checks on each tip is now UP-4's pre-open step (`t25-upstream`).\n\n**Upstream moved to `6a4f1de19`.** It is one commit past the `c16a70096` the READMEs cite: #1607, touching only `nsh-core/src/core/tests.rs` and `nsh-engine/tests/engine/hover.rs`. `git merge-tree` gives every branch the same conflict list against `6a4f1de19` as against `c16a70096`. The READMEs date their figures (2026-11-10 19:30 CET), and the pre-open step recomputes them, so no change is needed now.\n\n**UP-2 and UP-3:** unchanged since the first review, apart from the placeholder repair, and still met. The gpui-fast branches are cut from upstream `main` and the issue holds every required part. The wgpu `egl14-wayland` and `gles-program-binaries` branches are cut from trunk `b672a5400`, and their PR texts record the commands and results the `t22-wgpu-*.log` files show. `../wgpu` is on `v30-tizen`.",
+      "findingIds": [
+        "f-s22-branch-checks-integration-only",
+        "f-s22-review-records-inaccurate",
+        "f-s22-focus-02-text-ahead-of-branch",
+        "f-s22-gpui-fast-placeholder-form"
+      ],
+      "recordedAt": "2026-11-10T19:10:24Z",
+      "recordHashes": {
+        "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "gpuitizen:docs/pr/**": "a4eca72485a4d3fe53235ff2ef2c01749901d8485aecdd24fc92482754c3899f"
+      }
     }
   },
   "checkpoints": {
@@ -10021,6 +10443,17 @@
       },
       "reviewHash": "abb024f1510dc6c798a208e7b74bb738d5964ddf2740a3df02bf11c1e79ea9bb",
       "recordedAt": "2026-11-10T18:30:48Z"
+    },
+    "s22-upstream-prep": {
+      "snapshotId": "029207136d689af4c2fd3606bd0caeae9ddd1bcec4ab69fcca38cdf02fb4e7cc",
+      "commits": {
+        "gpuitizen": "64c519a23f7a5f28acb209c7c90a5219f5cee85c",
+        "gpui-fast": "7047b05fdb67e4cdc0f3e5b4a420221e5bd1518a",
+        "wgpu": "4e3d80d5de97d1e66860f0f74fca92d50be70d4a",
+        "nsh": "7c5cd1c130d7a2e5aa255c7104afb425acab8079"
+      },
+      "reviewHash": "26e56437a0943a8545db116252c6077e13fb80d0719672717724a03282f7762d",
+      "recordedAt": "2026-11-10T19:10:25Z"
     }
   },
   "findings": [
@@ -12879,9 +13312,121 @@
           "path": ".github/workflows/fork-tizen.yml"
         }
       ]
+    },
+    {
+      "id": "f-s22-branch-checks-integration-only",
+      "boundaryId": "s22-upstream-prep",
+      "criterionIds": [
+        "UP-1"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected (UP-1):** each NSH branch \"is cut from a fresh `upstream/main` (or the previous branch of its stack), holds only its topic's commits, and passes the checks its README lists. A reviewer confirms it.\" The nsh-root format it follows says the same: the shaders series records that \"each branch passes on its own (results in its README)\".\n\n**Observed:** the commit-only half holds. Each branch's own non-merge commits match its README exactly (all 23 checked with `git rev-list <branch> ^<parents>`). Own sizes match too, with `git merge-tree --write-tree` standing in for the parents of the multi-parent branches. The other two clauses are not met, and the READMEs say so themselves:\n- **Bases are not fresh.** `pr/focus/*` sits on `41100f2bf` and everything else on `8c733731f`. `upstream/main` is `c16a70096`, 162 and 161 commits further on. Against it, 20 of the 23 branches conflict (`git merge-tree`; the conflict lists in the READMEs match). Upstream also merged overlapping work: #1545 GPUI view focus, #1519, #1439, #1475, #1550.\n- **No branch's checks ran on that branch.** Every README's check table is \"Recorded on `feat/tizen`\" and ends \"Not run on this branch alone\". `nsh/README.md` says the checks \"prove the branches together, not each one alone\". For several branches the recorded run did not test the branch's own code. `pr/focus/05-web`'s `chk-nsh-focus-web` (14 tests) ran with `pr/focus/07-web-tv`'s versions of `focus.test.mjs` and `src/focus.rs`, which 07 rewrites (+181, +318/−62). `pr/tizen/04-platform`'s `chk-nsh-platform-tizen` (27 tests) includes 06's `tv::tests`. `pr/tizen-web/01-package` lists `chk-nsh-tv-idiom-tizen-web`, whose app (`tests/apps/tv-idiom`) is not on that branch at all.\n\nThe docs are honest, so nothing here misleads a maintainer. The gap is in the criterion: UP-1, as written, cannot be confirmed at this boundary.\n\n**Proportionate repair (no 23 builds now):** running the checks on today's tips proves little. Twenty of the branches must be rebased, with real conflict resolution (02/04/06/07 onto #1545's `key_focus.rs`), before they can be opened. The documented pre-open step already reruns each branch's checks on the rebased tip. So:\n1. Record an owner decision that amends UP-1, or moves the clauses to UP-4 / `t25-upstream`. Suggested wording: the branches pass their listed checks on the integration branch `feat/tizen` at s22. Each branch is rebased onto the then-current `upstream/main` (old head tagged `epic/<area>/<topic>`), and must pass its README's checks on its own tip before it is opened. This matches d28's no-rebase invariant and nsh-root's \"before opening: rebase … run the checks\".\n2. In the branch READMEs, mark the checks that cannot run on the branch alone as feat/tizen-only or replace them: 01-package's `chk-nsh-tv-idiom-tizen-web`, and `fork/tizen-ci`'s `chk-nsh-ci-paths`, which needs 04's `paths.py`. Also reword `nsh/README.md`'s \"its checks run again there\": they have never run on a branch alone, so \"again\" is wrong.\n\nOptional, cheap: the three branches that merge cleanly onto `c16a70096` (`pr/focus/01-core`, `pr/engine/01-wgpu-30`, `fork/tizen-ci`) could have their few listed groups run on their own tips now.\n\n**Re-review (snapshot 02920713):** Resolved by amendment and docs (revision 360, `64c519a`). UP-1 now asks for the checks, the conflicts with the latest `upstream/main`, and which checks ran where (`feat/tizen`) with what result. Rebasing and passing the checks on each branch's own tip moved to UP-4's pre-open step; `requirements.json` UP-4 and `t25-upstream` now say so, so the obligation is carried to the owner sprint rather than dropped.\n\nVerified:\n- `docs/pr/README.md` and `nsh/README.md` state that every recorded result is from `feat/tizen` and list the three before-opening steps. The wrong \"run again\" wording is gone.\n- All 23 NSH branch READMEs have an \"On this branch alone\" paragraph. Spot-checks against git hold: `05-web` runs 8 tests in `focus.test.mjs` (14 on `feat/tizen`); `01-package` runs 10 shim tests (14 on `feat/tizen`), and its `chk-nsh-tv-idiom-tizen-web` is marked as unable to run; 04's `nsh-platform-tizen` test count drops by 06's tests; `fork/tizen-ci` says only the yaml check runs alone; `tv/03`'s `pressable-focus` part is split off with a replacement command; 01-keys and 04-tv name the nsh-compat companion to clone in place of `nsh-tizen`.\n- The branch heads are unchanged since the first review.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/README.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/README.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/focus/05-web/README.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/tizen-web/01-package/README.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/fork/tizen-ci/README.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/tv/03-dev-idiom/README.md"
+        }
+      ]
+    },
+    {
+      "id": "f-s22-review-records-inaccurate",
+      "boundaryId": "s22-upstream-prep",
+      "criterionIds": [
+        "UP-1"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** the branch and area READMEs state review history accurately (UP-1: README with status and checks; \"nothing that would mislead\").\n\n**Observed:**\n- `docs/pr/nsh/tv/README.md` (lines 56–57) says s21 \"has no passing re-review yet\". `review-s21-3.json` passed with all 13 findings resolved, and `docs/pr/README.md`, `nsh/README.md` and `fork/tizen-ci/README.md` all say so.\n- `docs/pr/nsh/focus/01-core/README.md` gives \"Review findings: none: the s15 review … raised nothing in `nsh_core::focus` itself\". `nsh/README.md`'s sprint table gives s14's review as \"–\". In fact s14 had its own review of this branch. `review-s14.json` failed with the major `f-s14-cell-points-inexact`, `review-s14-2.json` added the minor `f-s14-frame-unit-contract`, and `review-s14-3.json` passed. `ad514bb85` and `ce993fd21` are those repairs.\n\n**Repair:** fix the tv README sentence. In 01-core's README and the s14 row of the `nsh/README.md` table, list the two s14 findings, their commits and the passing `review-s14-3.json`.\n\n**Re-review (snapshot 02920713):** Resolved in `64c519a`. `tv/README.md` now says `review-s21-3.json` passed with all 13 findings resolved. `focus/01-core/README.md` lists s14's `f-s14-cell-points-inexact` and `f-s14-frame-unit-contract`, their fixes `ad514bb85` and `ce993fd21`, and the pass in `review-s14-3.json`. The s14 row of `nsh/README.md` cites `s14-check-3.json`, which exists (passed, 2 run, revision 236). `compat/README.md` credits the `tizen-platform` gate to s16's re-review, which `review-s16-2.json` confirms (`57754c4`).",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/tv/README.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/focus/01-core/README.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/README.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/compat/README.md"
+        }
+      ]
+    },
+    {
+      "id": "f-s22-focus-02-text-ahead-of-branch",
+      "boundaryId": "s22-upstream-prep",
+      "criterionIds": [
+        "UP-1"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** a `PR.md` describes what its branch does, or carries a placeholder for what must still be done before it is pasted.\n\n**Observed:** `docs/pr/nsh/focus/02-gpui/PR.md` says \"Builds on #1545's view focus\" and describes the view focus, `blur()` and Enter/Space pressing as this PR's work. The branch is cut from `41100f2bf`, which predates #1545 (`7b3e845af`), and adds its own view focus in `nsh-platform-gpui/src/focus.rs`. Its README's \"Before opening\" asks for that rework, then \"say so in `PR.md`\", but `PR.md` already says it. The parts #1545 now provides (focus/blur on focusable views, Return/Space) are still described as new. If the owner resolves the conflicts without the restructuring, the pasted text would be false.\n\n**Repair:** replace the claim with an `[OWNER: …]` marker, for example `[OWNER: after folding onto #1545's key_focus.rs, say what this PR adds on top]`, and trim the description to what 02 adds beyond #1545 once rebased. Do the same for the matching lines in 04's and 06's texts, if they describe `ref.focus()` on views as new.\n\n**Re-review (snapshot 02920713):** Resolved in `64c519a`. `focus/02-gpui/PR.md` no longer claims it builds on #1545. Two `[OWNER: …]` markers say the text assumes the rework onto `key_focus.rs` and name what #1545 already provides. The README's \"Before opening\" points at those markers. `tizen/03-gpui-tizen-cfg/PR.md` got the same treatment for #1439's `web_views`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/focus/02-gpui/PR.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/focus/02-gpui/README.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/tizen/03-gpui-tizen-cfg/PR.md"
+        }
+      ]
+    },
+    {
+      "id": "f-s22-gpui-fast-placeholder-form",
+      "boundaryId": "s22-upstream-prep",
+      "criterionIds": [
+        "UP-2"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** `docs/pr/README.md` defines the owner placeholder form as `[OWNER: …]` (and `#(…)` for numbers), to be replaced before opening. The pasted texts carry no internal IDs once filled.\n\n**Observed:** the gpui-fast texts use a different form, `[DEV-3: … on <device>]` (`issue.md`'s numbers table, `external-target/PR.md`'s table). A search for `[OWNER:` before opening misses them. `external-target/PR.md`'s checklist line \"The `DEV-3` numbers above are filled in\" would go upstream naming an epic-internal criterion ID that means nothing to gpui-fast's maintainers.\n\n**Repair:** write those placeholders as `[OWNER: DEV-3 …]`, matching `nsh/tizen/issue.md`. Reword the checklist item as \"The TV numbers above are filled in\", or drop it.\n\n**Re-review (snapshot 02920713):** Resolved in `64c519a`. The `issue.md` and `external-target/PR.md` placeholders now read `[OWNER: DEV-3: …]`, and the checklist item reads \"The TV numbers above are filled in\". A grep of every `PR.md` and `issue*.md` for epic-internal ids (`DEV-`, `UP-`, `chk-`, `f-s`, sprint ids, `feat/tizen`, `artifacts-temp`, `epic`) finds none outside `[OWNER: …]` markers.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/gpui-fast/issue.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/gpui-fast/external-target/PR.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/gpui-fast/README.md"
+        }
+      ]
     }
   ],
-  "handoffMarkdown": "NSH fork/tizen-ci 7f6f6e49e (on upstream 8c733731f, its own file): .github/workflows/fork-tizen.yml cross-builds nsh-platform-tizen release+dev for armv7/x86_64/aarch64 through dXn.GpuiTizen's cross driver with rootstraps in the job and the one-export check, TV-idiom specs on gpui and tizen-web, manual emulator job (nsh test --target tizen); paths.py lists nsh-platform-tizen (from pr/tizen/04-platform).",
+  "handoffMarkdown": "../wgpu egl14-wayland 01f93a569 and gles-program-binaries 2bc8346d8 + 03cab4b4b from upstream trunk b672a5400; wgpu-hal lib tests 6+6, wgpu-core pipeline_cache 13, GPU pipeline_cache 2 in the Lima VM; docs/pr/wgpu/ (owner fills LLM-use and rewrites descriptions per wgpu's AGENTS.md); ../wgpu back on v30-tizen.",
   "protectedPaths": {
     "gpuitizen": {
       "gpuitizen:.agentx/memory/**": "94784ab15131a5a4ff6827a67fa677677a923e04a068e1e4335659b7b6e5c11e"
