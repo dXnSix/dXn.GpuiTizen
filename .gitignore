@@ -4,6 +4,11 @@
 # Project Claude config is tracked; per-user settings are not
 /.claude/settings.local.json
 
+# Signing material: certificates, their password files and certificate profiles (docs/development_setup.md)
+*.p12
+*.pwd
+profiles.xml
+
 # Tizen rootstraps (installed by the Tizen SDK; never committed) and generated TPK staging trees
 /rootstraps
 /target/tpk

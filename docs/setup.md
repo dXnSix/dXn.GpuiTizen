@@ -205,7 +205,8 @@ libwayland (for example `wayland-backend` without `dlopen`) cannot link against 
 ## Rules
 
 - Never commit the SDK, rootstraps, toolchains, Samsung certificates, `profiles.xml` or `.p12` files (`.gitignore`
-  also excludes a local `/rootstraps`).
+  excludes them and a local `/rootstraps`). Certificates, the TV's developer mode and signing are in
+  [`development_setup.md`](development_setup.md).
 - Never install or use Tizen Studio.
 - Keep raw build output under `artifacts-temp/` (ignored), for example
   `cargo xtask cross ... > artifacts-temp/cross-armv7.log 2>&1`.

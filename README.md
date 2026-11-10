@@ -39,8 +39,9 @@ through `TIZEN_ROOTSTRAP_ARMV7` / `TIZEN_ROOTSTRAP_X86_64` / `TIZEN_ROOTSTRAP_AA
 location; C code is compiled with clang against it. Linking also needs the SDK's GCC 9.2 toolchain (`NativeToolchain-Gcc-9.2`,
 found under the SDK's `tools/` or through `TIZEN_GCC_TOOLCHAIN_ARMV7` / `_X86_64` / `_AARCH64`): it supplies the
 start files and `libgcc_s` the rootstrap leaves out, and its GNU `ld`, since lld rejects the rootstrap's libraries.
-[docs/setup.md](docs/setup.md) installs all of it on a clean macOS or Linux machine. Rootstraps and Samsung
-certificates are never committed.
+[docs/setup.md](docs/setup.md) installs all of it on a clean macOS or Linux machine;
+[docs/development_setup.md](docs/development_setup.md) covers the certificates, the TV's developer mode and the
+repository's secrets. Rootstraps and Samsung certificates are never committed.
 
 TV builds take gpui-fast and wgpu from the forks: `Cargo.toml`'s `[patch.crates-io]` takes all nine `gpui-fast-*`
 crates from `dXnSix/gpui-fast` at `tizen-release` and the wgpu stack from `dXnSix/wgpu` at `v30-tizen` (the lockfile
