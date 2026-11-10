@@ -9,8 +9,20 @@ use std::path::{Path, PathBuf};
 
 use serde_json::Value;
 
-/// The selected packages' `cdylib`s from Cargo's JSON messages: each unit's own `.so` when it
-/// `exists`, else the path Cargo reported. In message order, without duplicates.
+/// The package name in a Cargo package id: `path+file:///x/nsh#nsh-platform-tizen@0.4.0`,
+/// `registry+https://...#serde@1.0.0` (after `#`, before `@`), or `path+file:///x/nsh-core#0.4.0`
+/// (the last path segment when the fragment is only a version).
+pub fn package_name(id: &str) -> Option<&str> {
+    let (url, fragment) = id.rsplit_once('#')?;
+    match fragment.split_once('@') {
+        Some((name, _)) => Some(name),
+        None => url.trim_end_matches('/').rsplit('/').next(),
+    }
+}
+
+/// The selected packages' `cdylib`s from Cargo's JSON messages, matched by package (a library may
+/// be named apart from its package: `nsh-platform-tizen` builds `libnsh.so`): each unit's own
+/// `.so` when it `exists`, else the path Cargo reported. In message order, without duplicates.
 pub fn cdylibs(stdout: &str, packages: &[String], exists: impl Fn(&Path) -> bool) -> Vec<PathBuf> {
     let crates: Vec<String> = packages.iter().map(|p| p.replace('-', "_")).collect();
     let mut found = Vec::new();
@@ -25,9 +37,15 @@ pub fn cdylibs(stdout: &str, packages: &[String], exists: impl Fn(&Path) -> bool
         let is_cdylib = target["kind"]
             .as_array()
             .is_some_and(|kinds| kinds.iter().any(|k| k == "cdylib"));
-        let selected = target["name"]
+        let selected = message["package_id"]
             .as_str()
-            .is_some_and(|name| crates.iter().any(|c| c == name));
+            .and_then(package_name)
+            .map(|name| crates.iter().any(|c| *c == name.replace('-', "_")))
+            .unwrap_or_else(|| {
+                target["name"]
+                    .as_str()
+                    .is_some_and(|name| crates.iter().any(|c| c == name))
+            });
         if !is_cdylib || !selected {
             continue;
         }

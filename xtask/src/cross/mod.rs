@@ -101,6 +101,11 @@ impl Options {
     }
 }
 
+/// Defines for every C file of a TV build. `ZSTD_TRACE=0`: zstd (QuickJS's and nsh-base's
+/// compression) otherwise declares four weak, optional `ZSTD_trace_*` hooks, which a TV library
+/// would import, and no TV library may import a symbol outside the allowlist.
+pub const TV_C_DEFINES: &[&str] = &["-DZSTD_TRACE=0"];
+
 /// The Cargo arguments of the dev variant of a build: the same selection with `--features dev`
 /// added, into `<target_dir>/dev-variant` so the release library is not overwritten.
 pub fn dev_variant_args(cargo_args: &[String], target_dir: &Path) -> Vec<String> {
@@ -353,6 +358,7 @@ pub fn plan(options: &Options, ctx: &Context, tv_libs: &[String]) -> Result<Invo
     let mut c_flags = vec![format!("--target={triple}")];
     c_flags.extend(sysroot.clone());
     c_flags.extend(target.c_flags().iter().map(|f| (*f).to_owned()));
+    c_flags.extend(TV_C_DEFINES.iter().map(|f| (*f).to_owned()));
 
     let mut env = vec![
         ("RUSTUP_TOOLCHAIN".to_owned(), ctx.toolchain.clone()),
@@ -404,16 +410,37 @@ pub fn built_libraries(
     target_dir: &Path,
     target: Target,
     release: bool,
-    packages: &[String],
+    libraries: &[String],
 ) -> Vec<PathBuf> {
     let profile = if release { "release" } else { "debug" };
-    packages
+    libraries
         .iter()
-        .map(|package| {
+        .map(|library| {
             target_dir
                 .join(target.spec_name())
                 .join(profile)
-                .join(format!("lib{}.so", package.replace('-', "_")))
+                .join(format!("lib{}.so", library.replace('-', "_")))
+        })
+        .collect()
+}
+
+/// The `cdylib` target names of `packages` (a library is named apart from its package when its
+/// `[lib] name` says so: `nsh-platform-tizen` builds `nsh`), for [`built_libraries`].
+pub fn cdylib_names(metadata: &Value, names: &[String]) -> Vec<String> {
+    names
+        .iter()
+        .map(|package| {
+            packages(metadata)
+                .find(|p| p["name"].as_str() == Some(package.as_str()))
+                .and_then(|p| {
+                    p["targets"].as_array()?.iter().find_map(|t| {
+                        let cdylib = t["crate_types"].as_array()?.iter().any(|k| k == "cdylib");
+                        cdylib
+                            .then(|| t["name"].as_str().map(str::to_owned))
+                            .flatten()
+                    })
+                })
+                .unwrap_or_else(|| package.replace('-', "_"))
         })
         .collect()
 }

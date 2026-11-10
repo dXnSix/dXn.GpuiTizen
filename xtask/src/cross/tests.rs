@@ -63,7 +63,7 @@ fn armv7_build_command_and_environment() {
     assert_eq!(
         inv.env_value("CFLAGS_armv7_tizen_linux_gnueabi"),
         Some(
-            "--target=armv7l-tizen-linux-gnueabi --sysroot=/rs/armv7 -march=armv7-a -mfloat-abi=softfp -mfpu=neon"
+            "--target=armv7l-tizen-linux-gnueabi --sysroot=/rs/armv7 -march=armv7-a -mfloat-abi=softfp -mfpu=neon -DZSTD_TRACE=0"
         )
     );
     assert_eq!(
@@ -125,7 +125,7 @@ fn x86_64_release_command_and_environment() {
     );
     assert_eq!(
         inv.env_value("CFLAGS_x86_64_tizen_linux_gnu"),
-        Some("--target=x86_64-tizen-linux-gnu --sysroot=/rs/x86")
+        Some("--target=x86_64-tizen-linux-gnu --sysroot=/rs/x86 -DZSTD_TRACE=0")
     );
     assert_eq!(
         inv.env_value("CARGO_TARGET_X86_64_TIZEN_LINUX_GNU_LINKER"),
@@ -195,7 +195,9 @@ fn rlib_builds_and_clippy_need_no_rootstrap() {
     );
     assert_eq!(
         inv.env_value("CFLAGS_armv7_tizen_linux_gnueabi"),
-        Some("--target=armv7l-tizen-linux-gnueabi -march=armv7-a -mfloat-abi=softfp -mfpu=neon")
+        Some(
+            "--target=armv7l-tizen-linux-gnueabi -march=armv7-a -mfloat-abi=softfp -mfpu=neon -DZSTD_TRACE=0"
+        )
     );
     let inv = plan_for(
         &["--target", "armv7", "--clippy", "--all-tv-libs"],
@@ -462,7 +464,7 @@ fn aarch64_uses_its_own_rootstrap_and_no_arm32_flags() {
     );
     assert_eq!(
         inv.env_value("CFLAGS_aarch64_tizen_linux_gnu"),
-        Some("--target=aarch64-tizen-linux-gnu --sysroot=/rs/aarch64")
+        Some("--target=aarch64-tizen-linux-gnu --sysroot=/rs/aarch64 -DZSTD_TRACE=0")
     );
     assert_eq!(
         inv.env_value("CARGO_TARGET_AARCH64_TIZEN_LINUX_GNU_LINKER"),
@@ -619,5 +621,67 @@ mod dev_variant {
                 "warnings",
             ])
         );
+    }
+}
+
+/// `built_libraries` takes the libraries' names, which `cdylib_names` reads from the metadata.
+mod lib_names {
+    use super::*;
+
+    #[test]
+    fn a_package_s_cdylib_keeps_its_lib_name() {
+        let metadata = json!({
+            "packages": [
+                {"name": "nsh-platform-tizen", "id": "a", "targets": [
+                    {"name": "nsh", "crate_types": ["cdylib", "rlib"]}
+                ]},
+                {"name": "example_counter", "id": "b", "targets": [
+                    {"name": "example_counter", "crate_types": ["cdylib", "rlib"]}
+                ]}
+            ]
+        });
+        assert_eq!(
+            cdylib_names(
+                &metadata,
+                &[
+                    "nsh-platform-tizen".to_owned(),
+                    "example_counter".to_owned(),
+                    "absent-x".to_owned()
+                ]
+            ),
+            ["nsh", "example_counter", "absent_x"]
+        );
+        assert_eq!(
+            built_libraries(Path::new("/t"), Target::Armv7, true, &["nsh".to_owned()]),
+            [PathBuf::from(
+                "/t/armv7-tizen-linux-gnueabi/release/libnsh.so"
+            )]
+        );
+    }
+}
+
+/// zstd's weak, optional trace hooks stay out of TV libraries: every TV build's C files get
+/// `-DZSTD_TRACE=0`.
+mod zstd_trace {
+    use super::*;
+
+    #[test]
+    fn every_target_compiles_c_without_zstd_s_trace_hooks() {
+        assert_eq!(TV_C_DEFINES, ["-DZSTD_TRACE=0"]);
+        for (name, target) in [
+            ("armv7", Target::Armv7),
+            ("x86_64", Target::X86_64),
+            ("aarch64", Target::Aarch64),
+        ] {
+            let inv = plan_for(
+                &["--target", name, "-p", "dxn_gpui_tizen_diag"],
+                &ctx(Some("/rs"), true),
+            );
+            let flags = inv
+                .env_value(&format!("CFLAGS_{}", target.env_suffix()))
+                .unwrap_or_default()
+                .to_owned();
+            assert!(flags.ends_with(" -DZSTD_TRACE=0"), "{target:?}: {flags}");
+        }
     }
 }

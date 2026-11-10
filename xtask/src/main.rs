@@ -231,7 +231,12 @@ fn cross_build(options: &Options) -> Result<Option<Vec<PathBuf>>> {
             .as_str()
             .map(PathBuf::from)
             .context("cargo metadata has no target_directory")?;
-        cross::built_libraries(&target_dir, options.target, options.release, &selected)
+        cross::built_libraries(
+            &target_dir,
+            options.target,
+            options.release,
+            &cross::cdylib_names(&metadata, &selected),
+        )
     };
     if options.check_symbols {
         if libraries.is_empty() {

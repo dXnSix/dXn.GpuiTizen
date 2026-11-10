@@ -111,3 +111,44 @@ fn a_package_built_twice_is_listed_once() {
         1
     );
 }
+
+/// A library named apart from its package (`nsh-platform-tizen` builds `libnsh.so`) is found by
+/// its package.
+mod by_package {
+    use super::*;
+
+    #[test]
+    fn package_ids_name_their_package() {
+        assert_eq!(
+            package_name("path+file:///x/nsh/crates/gpui#nsh-platform-tizen@0.4.0"),
+            Some("nsh-platform-tizen")
+        );
+        assert_eq!(
+            package_name("path+file:///x/nsh-core#0.4.0"),
+            Some("nsh-core")
+        );
+        assert_eq!(
+            package_name("registry+https://github.com/rust-lang/crates.io-index#serde@1.0.228"),
+            Some("serde")
+        );
+        assert_eq!(package_name("no fragment"), None);
+    }
+
+    #[test]
+    fn a_library_named_apart_from_its_package_is_found() {
+        let line = serde_json::json!({
+            "reason": "compiler-artifact",
+            "package_id": "path+file:///nsh/crates/gpui/nsh-platform-tizen#0.4.0",
+            "target": { "name": "nsh", "kind": ["cdylib", "rlib"] },
+            "filenames": [
+                format!("{RELEASE}/libnsh.so"),
+                format!("{RELEASE}/deps/libnsh-1a2b.rlib"),
+            ],
+            "fresh": false,
+        })
+        .to_string();
+        let found = cdylibs(&line, &["nsh-platform-tizen".to_owned()], |_| false);
+        assert_eq!(found, [PathBuf::from(format!("{RELEASE}/libnsh.so"))]);
+        assert!(cdylibs(&line, &["nsh".to_owned()], |_| false).is_empty());
+    }
+}
