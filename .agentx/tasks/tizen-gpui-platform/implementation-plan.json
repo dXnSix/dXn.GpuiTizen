@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 28,
+  "revision": 35,
   "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
   "repositories": [
     {
@@ -1757,15 +1757,9 @@
         "FOC-4"
       ],
       "argv": [
-        "cargo",
-        "run",
-        "-p",
-        "nsh-cli",
-        "--",
-        "test",
-        "tests/apps/pressable-focus",
-        "--target",
-        "macos"
+        "bash",
+        "-c",
+        "cargo build -p nsh-macos-host && cargo run -p nsh-cli -- test tests/apps/pressable-focus --target macos"
       ],
       "expected": {
         "exitCode": 0,
@@ -1777,7 +1771,7 @@
         "tests/apps/pressable-focus/**",
         "Cargo.lock"
       ],
-      "descriptionMarkdown": "App spec on macOS for pressables as focus stops. Resolve the exact selector and test-count pattern from the NSH checkout at sprint start (`amend` the check if it differs).",
+      "descriptionMarkdown": "App spec on macOS for pressables as focus stops. Resolve the exact selector and test-count pattern from the NSH checkout at sprint start (`amend` the check if it differs). `nsh test --target macos` needs `nsh-macos-host` built first.",
       "reuse": false,
       "timeoutSeconds": 3600
     },
@@ -1789,16 +1783,10 @@
         "FOC-4"
       ],
       "argv": [
-        "../../dXn.GpuiTizen/scripts/lima-run.sh",
-        "cargo",
-        "run",
-        "-p",
-        "nsh-cli",
-        "--",
-        "test",
-        "tests/apps/pressable-focus",
-        "--target",
-        "linux"
+        "../../../dXn.GpuiTizen/scripts/lima-run.sh",
+        "bash",
+        "-c",
+        "cargo build -p nsh-linux-host && cargo run -p nsh-cli -- test tests/apps/pressable-focus --target linux"
       ],
       "expected": {
         "exitCode": 0,
@@ -1810,7 +1798,7 @@
         "tests/apps/pressable-focus/**",
         "Cargo.lock"
       ],
-      "descriptionMarkdown": "The same spec on Linux in the `gpuitizen` Lima VM. Resolve the exact selector and test-count pattern from the NSH checkout at sprint start (`amend` the check if it differs).",
+      "descriptionMarkdown": "The same spec on Linux in the `gpuitizen` Lima VM (GTK 4 development packages installed, `scripts/lima/gpuitizen.yaml`); `nsh test --target linux` needs the Linux host built first.",
       "reuse": false,
       "timeoutSeconds": 5400
     },
@@ -1822,12 +1810,11 @@
         "FOC-4"
       ],
       "argv": [
-        "cargo",
-        "clippy",
+        "../../../dXn.GpuiTizen/scripts/check-only-clippy.sh",
+        "x86_64-pc-windows-msvc",
         "-p",
         "nsh-platform-windows",
-        "--target",
-        "x86_64-pc-windows-msvc",
+        "--all-targets",
         "--",
         "-D",
         "warnings"
@@ -1840,7 +1827,8 @@
         "crates/nsh-platform-windows/**",
         "Cargo.lock"
       ],
-      "timeoutSeconds": 3600
+      "timeoutSeconds": 3600,
+      "descriptionMarkdown": "Clippy for `x86_64-pc-windows-msvc` from the Mac, which has no MSVC headers for `ring`'s C build: `scripts/check-only-clippy.sh` replaces the C toolchain with stand-ins that compile nothing, so this proves the Windows code type-checks and passes clippy; running it is the fork's Windows CI in the owner sprint."
     },
     {
       "id": "chk-nsh-focus-tv-core",
@@ -1900,21 +1888,20 @@
         "FOC-6"
       ],
       "argv": [
-        "node",
-        "--expose-gc",
-        "--test",
-        "crates/nsh-platform-web/web/browser/focus.test.mjs"
+        "bash",
+        "-c",
+        "CARGO_TARGET_DIR=target CC_wasm32_unknown_unknown=/opt/homebrew/opt/llvm/bin/clang AR_wasm32_unknown_unknown=/opt/homebrew/opt/llvm/bin/llvm-ar cargo build -p nsh-platform-web --target wasm32-unknown-unknown --no-default-features --features browser-tests --profile web && node --expose-gc --test crates/nsh-platform-web/web/browser/focus.test.mjs"
       ],
       "expected": {
         "exitCode": 0,
         "minimumTests": 1,
-        "testCountPattern": "# pass (\\d+)"
+        "testCountPattern": "(?:#|ℹ) pass (\\d+)"
       },
       "inputs": [
         "crates/nsh-core/**",
         "crates/nsh-platform-web/**"
       ],
-      "descriptionMarkdown": "Needs the browser-test Wasm built first (`docs/dev/web.md`). Resolve the exact selector and test-count pattern from the NSH checkout at sprint start (`amend` the check if it differs).",
+      "descriptionMarkdown": "Builds the browser-test Wasm (`docs/dev/web.md`, \"Browser-host regression checks\") into the worktree's own `target/` (NSH's worktrees otherwise share a target directory elsewhere), then runs the page's focus cases on it, so `nsh_core::focus` in the module decides. `zstd-sys` compiles C for wasm32, which Apple's clang cannot: the build uses Homebrew's LLVM clang (`/opt/homebrew/opt/llvm`).",
       "environment": {
         "NSH_BROWSER_WASM": "target/wasm32-unknown-unknown/web/nsh_platform_web.wasm"
       }
@@ -2013,7 +2000,7 @@
       "expected": {
         "exitCode": 0,
         "minimumTests": 1,
-        "testCountPattern": "# pass (\\d+)"
+        "testCountPattern": "(?:#|ℹ) pass (\\d+)"
       },
       "inputs": [
         "crates/nsh-platform-web/**"
@@ -2062,6 +2049,8 @@
         "test",
         "-p",
         "nsh-testing",
+        "--features",
+        "bundle",
         "--test",
         "testing",
         "remote_keys::"
@@ -2606,7 +2595,7 @@
       "expected": {
         "exitCode": 0,
         "minimumTests": 2,
-        "testCountPattern": "# pass (\\d+)"
+        "testCountPattern": "(?:#|ℹ) pass (\\d+)"
       },
       "inputs": [
         "crates/nsh-cli/src/tizen_web/**"
@@ -2628,7 +2617,7 @@
       "expected": {
         "exitCode": 0,
         "minimumTests": 1,
-        "testCountPattern": "# pass (\\d+)"
+        "testCountPattern": "(?:#|ℹ) pass (\\d+)"
       },
       "inputs": [
         "crates/nsh-platform-web/**"
@@ -2679,7 +2668,7 @@
       ],
       "argv": [
         "ruby",
-        "../../dXn.GpuiTizen/scripts/check_workflow_yaml.rb",
+        "../../../dXn.GpuiTizen/scripts/check_workflow_yaml.rb",
         ".github/workflows/fork-tizen.yml"
       ],
       "expected": {
@@ -2968,6 +2957,171 @@
       "inputs": [
         "xtask/**"
       ]
+    },
+    {
+      "id": "chk-nsh-focus-gpui-tab",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "FOC-4"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "crates/gpui/Cargo.toml",
+        "-p",
+        "nsh-platform-gpui",
+        "--lib",
+        "focus::tab_stops"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "crates/gpui/**"
+      ],
+      "descriptionMarkdown": "GPUI's Tab and Shift + Tab stop at pressables and `focusable` views in tree order (`pr/focus/06-gpui-tab-stops`, stacked on `pr/focus/02-gpui`).",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-focus-linux-tab",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "FOC-4"
+      ],
+      "argv": [
+        "../../../dXn.GpuiTizen/scripts/lima-run.sh",
+        "cargo",
+        "test",
+        "-p",
+        "nsh-platform-linux",
+        "--lib",
+        "key_focus::"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "crates/nsh-platform-linux/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "Linux's Tab order through `tab_stop` (`key_focus::tab_order`) and a field's blur reported before the next stop's focus (`key_focus::blur_first`), in the `gpuitizen` VM.",
+      "timeoutSeconds": 5400
+    },
+    {
+      "id": "chk-nsh-focus-gpui-tv",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "FOC-5"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "crates/gpui/Cargo.toml",
+        "-p",
+        "nsh-platform-gpui",
+        "--lib",
+        "tv_focus"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "crates/gpui/**"
+      ],
+      "descriptionMarkdown": "GPUI honors `autoFocus`, `preferredFocus`, `nextFocus*`, focus groups and list rows by index.",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-focus-tv-directional",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "FOC-5"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-core",
+        "--lib",
+        "core::tests::directional_focus"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "The core's side of the TV focus props: refs looked up every commit, a list scrolled to the row an arrow reached and that row's first stop focused.",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-focus-web-core",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "FOC-6"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-platform-web",
+        "--test",
+        "text",
+        "focus_moves"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "crates/nsh-platform-web/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "The web runtime's Wasm exports over `nsh_core::focus` (`nsh_focus_move`, `nsh_focus_reveal`); `focus.test.mjs` covers the page's side.",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-focus-macos-unit",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "FOC-4"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-platform-macos",
+        "--lib",
+        "focus::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "crates/nsh-platform-macos/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "macOS arrow focus over `nsh_core::focus` (`focus::Arrow`), the repair of `f-s15-desktop-arrows`.",
+      "timeoutSeconds": 3600
     }
   ],
   "finalCheckIds": [
@@ -4360,7 +4514,13 @@
         "chk-nsh-focus-windows-clippy",
         "chk-nsh-focus-tv-core",
         "chk-nsh-focus-group",
-        "chk-nsh-focus-web"
+        "chk-nsh-focus-web",
+        "chk-nsh-focus-gpui-tab",
+        "chk-nsh-focus-linux-tab",
+        "chk-nsh-focus-gpui-tv",
+        "chk-nsh-focus-tv-directional",
+        "chk-nsh-focus-web-core",
+        "chk-nsh-focus-macos-unit"
       ],
       "tasks": [
         {
@@ -4387,7 +4547,7 @@
         {
           "id": "t15-focus-desktops",
           "title": "Pressables as focus stops on the desktops",
-          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/focus/03-desktop-stops` (stacked on `pr/focus/01-core`).\n\nImplement `FOC-4` on macOS, Windows, Linux and GPUI through `nsh_core::input::tab_stop`, with the app spec\n`tests/apps/pressable-focus` (choose the location the NSH repo uses for app specs) run on macOS and in the Lima VM on\nLinux. This changes what Tab does on the desktops: draft its issue text (a recorded-meaning question for the\nmaintainers) in the area's PR folder in `t22-nsh-prs`.",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/focus/03-desktop-stops` (stacked on `pr/focus/01-core`).\n\nImplement `FOC-4` on macOS, Windows, Linux and GPUI through `nsh_core::input::tab_stop`, with the app spec\n`tests/apps/pressable-focus` (choose the location the NSH repo uses for app specs) run on macOS and in the Lima VM on\nLinux. This changes what Tab does on the desktops: draft its issue text (a recorded-meaning question for the\nmaintainers) in the area's PR folder in `t22-nsh-prs`.\n\nGPUI's Tab builds on the view focus of `pr/focus/02-gpui`, so it is its own branch `pr/focus/06-gpui-tab-stops`, stacked on `02` and, since Tab takes the arrows' stops (`stops_in`, widened by `04`), on `pr/focus/04-tv`.",
           "criterionIds": [
             "FOC-4"
           ],
@@ -4398,7 +4558,10 @@
           "checkIds": [
             "chk-nsh-focus-macos",
             "chk-nsh-focus-linux",
-            "chk-nsh-focus-windows-clippy"
+            "chk-nsh-focus-windows-clippy",
+            "chk-nsh-focus-gpui-tab",
+            "chk-nsh-focus-linux-tab",
+            "chk-nsh-focus-macos-unit"
           ]
         },
         {
@@ -4416,7 +4579,9 @@
           ],
           "checkIds": [
             "chk-nsh-focus-tv-core",
-            "chk-nsh-focus-group"
+            "chk-nsh-focus-group",
+            "chk-nsh-focus-gpui-tv",
+            "chk-nsh-focus-tv-directional"
           ],
           "sourceRefs": [
             {
@@ -4428,7 +4593,7 @@
         {
           "id": "t15-focus-web",
           "title": "D-pad focus in the web runtime",
-          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/focus/05-web` (stacked on `pr/focus/01-core`).\n\nImplement `FOC-6`: the browser runtime collects focus-stop rectangles from the DOM it renders, calls the core's\ndecisions in Wasm and applies focus and scroll; `crates/nsh-platform-web/web/browser/focus.test.mjs`. Update\n`docs/dev/web.md`.",
+          "descriptionMarkdown": "Work on the branch named below, cut from a fresh `upstream/main` (or the previous branch of its area), then merge it\ninto `feat/tizen` in `../nsh/nsh-wt/tizen` before the sprint's checks (design `d28-nsh-branches`). Branch `pr/focus/05-web` (stacked on `pr/focus/01-core`).\n\nImplement `FOC-6`: the browser runtime collects focus-stop rectangles from the DOM it renders, calls the core's\ndecisions in Wasm and applies focus and scroll; `crates/nsh-platform-web/web/browser/focus.test.mjs`. Update\n`docs/dev/web.md`.\n\nThe TV focus props on the web (finding `f-s15-web-tv-rules`, route A) are branch `pr/focus/07-web-tv`: `pr/focus/04-tv` with `pr/focus/05-web` merged in.",
           "criterionIds": [
             "FOC-6"
           ],
@@ -4437,7 +4602,8 @@
           ],
           "dependsOn": [],
           "checkIds": [
-            "chk-nsh-focus-web"
+            "chk-nsh-focus-web",
+            "chk-nsh-focus-web-core"
           ]
         },
         {

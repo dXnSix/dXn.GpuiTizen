@@ -1,12 +1,12 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 238,
-  "planRevision": 28,
+  "revision": 260,
+  "planRevision": 35,
   "specHashes": {
     "requirements": "75ca9179f88ef16908038516d574dbd0eedc9caddae5cc048c250aa046c42104",
     "design": "a3e9ab1641d598bff3fdd015bd4af4393cd6025f28b84ab7dab193dcb9794dcc",
-    "plan": "07cb99c4b07b57164c24bd1e48b4a4a2a76bac052a8fca78528486de549cec3c"
+    "plan": "16df909faf85cc3a3a0057146f0c53d522efb3d7cd1f72de0d437803be4694d3"
   },
   "tasks": {
     "t1-workspace": {
@@ -355,19 +355,34 @@
       ]
     },
     "t15-focus-gpui": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t15-focus-desktops": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t15-focus-tv": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t15-focus-web": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t15-focus-docs": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t16-keys": {
       "status": "pending"
@@ -764,6 +779,30 @@
         }
       },
       "recordedAt": "2026-11-09T13:15:25Z"
+    },
+    "0fc1d40fb9131e1370f174cd808050c580a7a0ad81a56ff10904e6a2199776f8": {
+      "snapshot": {
+        "specHash": "2d491669f56b4e598cbf928c35bbf598cb9aef24b0f3f802f56f5a3e2e075730",
+        "repositories": {
+          "gpuitizen": "4ba7dd7b0dd49086a16f8d5452558f359238a247c25aca837028ce6ae106db2c",
+          "gpui-fast": "c318780179e3efe79b3549e66b723ee445ed7dd36b3d54e1db560726aee9a019",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "122981c75385df00054800f130df25d496f69849b5dcc78a33629c83f424ba63"
+        }
+      },
+      "recordedAt": "2026-11-10T10:39:38Z"
+    },
+    "a5295e00adae3301d47e9e61be7bd21222e2d98cf9ce056c47623ce7404cc676": {
+      "snapshot": {
+        "specHash": "c13d19df51122f301e19df3624a88ae1cbd9a53eb71b182c7c135343f1048a59",
+        "repositories": {
+          "gpuitizen": "4ba7dd7b0dd49086a16f8d5452558f359238a247c25aca837028ce6ae106db2c",
+          "gpui-fast": "c318780179e3efe79b3549e66b723ee445ed7dd36b3d54e1db560726aee9a019",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "97cf22afde5e90c790ac2cf35d6c11b85c581dacb383fdd0c4258e2662fb7b45"
+        }
+      },
+      "recordedAt": "2026-11-10T10:41:37Z"
     }
   },
   "checkResults": {
@@ -2262,6 +2301,227 @@
       "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s14-nsh-focus-core-final-0732e3152bdf.log",
       "logSha256": "4d38d38f72bd6ae08101d0535b7d266cd25589246df9e7befbb961381cc4cbb9",
       "inputsHash": "9b1e389320780e655ffed2ef846c4e7b560c96aa9b5d1c1fb3005e1d5a62aa52"
+    },
+    "s15-nsh-focus-backends/chk-nsh-focus-gpui/final": {
+      "checkId": "chk-nsh-focus-gpui",
+      "boundaryId": "s15-nsh-focus-backends",
+      "phase": "final",
+      "batchId": "a5295e00adae3301d47e9e61be7bd21222e2d98cf9ce056c47623ce7404cc676",
+      "definitionHash": "2242a84cd5112eba647df761fd7f87ea19d3e3ea8499bc2f913f74f488a2d1ba",
+      "basisHash": "ff60692eb32bd001c0b2cc344008fe262759e39da8ebdaa6f115037e08c4d7fb",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 11,
+      "durationSeconds": 10.5678,
+      "recordedAt": "2026-11-10T10:41:04Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-907b8b5ef41f.log",
+      "logSha256": "029209c174659dd927841cca9f261be4350cf3b1572b7e30ca8c5502c312dfd3",
+      "inputsHash": "a0660e4716f8c72f6b773d8fe1117149d81773764f555903f93140f30afcde22"
+    },
+    "s15-nsh-focus-backends/chk-nsh-focus-macos/final": {
+      "checkId": "chk-nsh-focus-macos",
+      "boundaryId": "s15-nsh-focus-backends",
+      "phase": "final",
+      "batchId": "a5295e00adae3301d47e9e61be7bd21222e2d98cf9ce056c47623ce7404cc676",
+      "definitionHash": "b6d844d3cf2416f7ca5f3c8af06d695135921752b6d2a504543ba1a41bebeea6",
+      "basisHash": "d6bd86b3c1b35aaef7b9988abab6e1d072e46e9540863d29b0c39be33b4879a3",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 4,
+      "durationSeconds": 18.2702,
+      "recordedAt": "2026-11-10T10:41:23Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-60b98d2e827a.log",
+      "logSha256": "b95bde61bfabc1f6d5c0f1084e3f81555ad65e8d630e6df9d28bbb0862569ae8",
+      "inputsHash": "38ae3d97834757cfd62f999ef9bb909c2d36a8ea098d4cbcbbaae22c439ed0da"
+    },
+    "s15-nsh-focus-backends/chk-nsh-focus-linux/final": {
+      "checkId": "chk-nsh-focus-linux",
+      "boundaryId": "s15-nsh-focus-backends",
+      "phase": "final",
+      "batchId": "a5295e00adae3301d47e9e61be7bd21222e2d98cf9ce056c47623ce7404cc676",
+      "definitionHash": "cd3c948d142726fb2b15b298bcb3a628227b4e3ebe5bf8a9765078694481497f",
+      "basisHash": "7cf02afef5e45d0c39494f0c537508f30137540e33544a0d3b57b82c57914d6c",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 4,
+      "durationSeconds": 12.7511,
+      "recordedAt": "2026-11-10T10:41:35Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-76ff248fe687.log",
+      "logSha256": "328b56ee7c167fb33b16185e404606e1ccf8384fe05cdb9a5c1614ebd5ff1536",
+      "inputsHash": "38ae3d97834757cfd62f999ef9bb909c2d36a8ea098d4cbcbbaae22c439ed0da"
+    },
+    "s15-nsh-focus-backends/chk-nsh-focus-windows-clippy/final": {
+      "checkId": "chk-nsh-focus-windows-clippy",
+      "boundaryId": "s15-nsh-focus-backends",
+      "phase": "final",
+      "batchId": "0fc1d40fb9131e1370f174cd808050c580a7a0ad81a56ff10904e6a2199776f8",
+      "definitionHash": "00fa1f35ebc275a2b5673ae2c255ec1c9bd2c1856f556837d6f89d9875d66c7d",
+      "basisHash": "70d40e0f1eeab62ef9ef4b863bf52494edfe6853fab1c373a67f91f8181b63ee",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 9.4039,
+      "recordedAt": "2026-11-10T10:36:03Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-c8c782e7e4e4.log",
+      "logSha256": "a085ecd0d210eb5f270bd8294c3272ca32977b55dfdf67548eaa27c26798a3dc",
+      "inputsHash": "274cdfcb1f166c07181eadc3a57e5ec1ddc4993312eedfc4e1f9014aa69514c5"
+    },
+    "s15-nsh-focus-backends/chk-nsh-focus-tv-core/final": {
+      "checkId": "chk-nsh-focus-tv-core",
+      "boundaryId": "s15-nsh-focus-backends",
+      "phase": "final",
+      "batchId": "0fc1d40fb9131e1370f174cd808050c580a7a0ad81a56ff10904e6a2199776f8",
+      "definitionHash": "329d6c17a4bd91eba2da89df20880a8f0eb4a052f30cd0ba498500baa7cc7e9c",
+      "basisHash": "739c4bc22f6bb0b7ad829c2f534125a1b7663480936763872e4374cdd11c6043",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 11,
+      "durationSeconds": 42.5787,
+      "recordedAt": "2026-11-10T10:36:45Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-d51de5a85850.log",
+      "logSha256": "5dc190271896f46d5f5247fe0e3abcbfca0ead884465777a042c7daf59c9c284",
+      "inputsHash": "7e97329862687fcd6c4575f879890e1d7ba8675e319459398934b47325147541"
+    },
+    "s15-nsh-focus-backends/chk-nsh-focus-group/final": {
+      "checkId": "chk-nsh-focus-group",
+      "boundaryId": "s15-nsh-focus-backends",
+      "phase": "final",
+      "batchId": "0fc1d40fb9131e1370f174cd808050c580a7a0ad81a56ff10904e6a2199776f8",
+      "definitionHash": "3966a5ffb8fd75d878c94b6b3a9e80281194f7e5cc80481c4bcd2d698fe45727",
+      "basisHash": "f5e357eacc332567124d5b3d81cd4046f2b478c2f75221c877f362d4e9420dd1",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 3,
+      "durationSeconds": 43.6961,
+      "recordedAt": "2026-11-10T10:37:29Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-ed73d7a084cd.log",
+      "logSha256": "229f198cd4aa25798ba8a3df522c167a0359f5866d32c7b6dad9c5984bfefaa2",
+      "inputsHash": "2f3f2ff0da28910c6c174890ff7297f9270197b26c069ebf7588d6f9fd5affb7"
+    },
+    "s15-nsh-focus-backends/chk-nsh-focus-web/final": {
+      "checkId": "chk-nsh-focus-web",
+      "boundaryId": "s15-nsh-focus-backends",
+      "phase": "final",
+      "batchId": "0fc1d40fb9131e1370f174cd808050c580a7a0ad81a56ff10904e6a2199776f8",
+      "definitionHash": "c4147773abd351bc14f583952622c881ec2a6fb58b6a1570bae39f2d2e4272ae",
+      "basisHash": "31f362809174d92252c3132cf5ccaee4e55d6f68a922bb4c94f0c6758dd952a3",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 14,
+      "durationSeconds": 79.121,
+      "recordedAt": "2026-11-10T10:38:48Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-341c69eec405.log",
+      "logSha256": "a03908d4036636acfcd96bdf9e5eb2c6915af6166bc8cfaa28acd4355a41b8a5",
+      "inputsHash": "2f970f0c5c500ca43ed018bcbd08635fc498aeea75744e73968ad29907fbad8c"
+    },
+    "s15-nsh-focus-backends/chk-nsh-focus-gpui-tab/final": {
+      "checkId": "chk-nsh-focus-gpui-tab",
+      "boundaryId": "s15-nsh-focus-backends",
+      "phase": "final",
+      "batchId": "a5295e00adae3301d47e9e61be7bd21222e2d98cf9ce056c47623ce7404cc676",
+      "definitionHash": "b929ff0ff99c2e2703d56af4509c9bf9228a5430da5626e223a7790f23cddcc5",
+      "basisHash": "726b5246152c1f549a4a544112cd4237c1ea04586868f3b0f2e76d955809ee78",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 6,
+      "durationSeconds": 0.7366,
+      "recordedAt": "2026-11-10T10:41:36Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-cc55cbe53d37.log",
+      "logSha256": "eca70f6f6da4e604e134c20bf31c6999864d2635584b6eac63a2024656004e11",
+      "inputsHash": "a0660e4716f8c72f6b773d8fe1117149d81773764f555903f93140f30afcde22"
+    },
+    "s15-nsh-focus-backends/chk-nsh-focus-linux-tab/final": {
+      "checkId": "chk-nsh-focus-linux-tab",
+      "boundaryId": "s15-nsh-focus-backends",
+      "phase": "final",
+      "batchId": "0fc1d40fb9131e1370f174cd808050c580a7a0ad81a56ff10904e6a2199776f8",
+      "definitionHash": "2b2216d5a1112cd937a61e79dc558314d6dfc01d298c7979edc9927dd1d5b4a2",
+      "basisHash": "72fd917a3f7a5c24eebe13e589deb99b6728ae3826e562d81c22f1b33edfebaa",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 7,
+      "durationSeconds": 9.7443,
+      "recordedAt": "2026-11-10T10:39:01Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-927bdb017d60.log",
+      "logSha256": "aac3fb37074a5f998f750f3528cd48642f25dd2af2d0f0b5fafaa587246f7a19",
+      "inputsHash": "03d7a2ff08c4eb5e540ccbf9dc90d4cd09970979e27a93c329f43a541cad6de7"
+    },
+    "s15-nsh-focus-backends/chk-nsh-focus-gpui-tv/final": {
+      "checkId": "chk-nsh-focus-gpui-tv",
+      "boundaryId": "s15-nsh-focus-backends",
+      "phase": "final",
+      "batchId": "a5295e00adae3301d47e9e61be7bd21222e2d98cf9ce056c47623ce7404cc676",
+      "definitionHash": "c403387944ed7d2e1a3e4a375d56edaeb9c65fd8e668dd78c08e3420fa7665e3",
+      "basisHash": "1fa33399f505314ef8447810a25e8f4cbab4e7ff2dcbef32eb5b2e98680a9955",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 8,
+      "durationSeconds": 0.6879,
+      "recordedAt": "2026-11-10T10:41:37Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-ec6ba92b4642.log",
+      "logSha256": "947955f21a7f1bb5e58c7917050b5b9e3952969831f196a50d43bd0d1f82f51e",
+      "inputsHash": "a0660e4716f8c72f6b773d8fe1117149d81773764f555903f93140f30afcde22"
+    },
+    "s15-nsh-focus-backends/chk-nsh-focus-tv-directional/final": {
+      "checkId": "chk-nsh-focus-tv-directional",
+      "boundaryId": "s15-nsh-focus-backends",
+      "phase": "final",
+      "batchId": "0fc1d40fb9131e1370f174cd808050c580a7a0ad81a56ff10904e6a2199776f8",
+      "definitionHash": "62e898df833a643f4207207211100dd1d5bcbc68d4fe9d757bb130fe50c602ea",
+      "basisHash": "aa60f6a624a8ea372705018d78291327ed3d9a609246b31ead23921a91522632",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 11,
+      "durationSeconds": 0.2492,
+      "recordedAt": "2026-11-10T10:39:05Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-1c955abf2b6b.log",
+      "logSha256": "240aca403fd155a182aa783cad5788c2bf329fb185c7fdef6417dadfb142d5e9",
+      "inputsHash": "7e97329862687fcd6c4575f879890e1d7ba8675e319459398934b47325147541"
+    },
+    "s15-nsh-focus-backends/chk-nsh-focus-web-core/final": {
+      "checkId": "chk-nsh-focus-web-core",
+      "boundaryId": "s15-nsh-focus-backends",
+      "phase": "final",
+      "batchId": "0fc1d40fb9131e1370f174cd808050c580a7a0ad81a56ff10904e6a2199776f8",
+      "definitionHash": "e23b53edffa4bb0fa6a46f1a3730b03b87fbd17e3d3731e51430ca5aa7d7f14b",
+      "basisHash": "678cfffbd75ab3bea530ec180a4df70c721c1a97952861b9745b7061b588c4fa",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 14,
+      "durationSeconds": 16.9808,
+      "recordedAt": "2026-11-10T10:39:22Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-2945369baaff.log",
+      "logSha256": "3e978606f82da416613658ce00203b2b3e581f7b16d52d05e5f324facbcfd513",
+      "inputsHash": "781c319c529460e8e0471179c8909ce21c139125cd38158a59ff35751e5a09b2"
+    },
+    "s15-nsh-focus-backends/chk-nsh-focus-macos-unit/final": {
+      "checkId": "chk-nsh-focus-macos-unit",
+      "boundaryId": "s15-nsh-focus-backends",
+      "phase": "final",
+      "batchId": "0fc1d40fb9131e1370f174cd808050c580a7a0ad81a56ff10904e6a2199776f8",
+      "definitionHash": "f2e109395518bf5b7574f511de2392580c6df6b3a0fffb9441f9ef13da39e1a8",
+      "basisHash": "7a2975ad3a1e12126bd93a0e5576cdf8c502d52f56bd3360967011e7892782ea",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 2,
+      "durationSeconds": 14.7138,
+      "recordedAt": "2026-11-10T10:39:37Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-80a2163883a5.log",
+      "logSha256": "ebcfc32993051befe0adcd9d526678e7361434ba1c3b1acb0ab226f8a539768f",
+      "inputsHash": "0bd4523aa49e36b938200e16ed437a689ea5301c2130d4c9af0aee8d12d535ac"
     }
   },
   "reviews": {
@@ -5487,6 +5747,450 @@
         "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "gpuitizen:docs/pr/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
       }
+    },
+    "s15-nsh-focus-backends": {
+      "reviewerId": "reviewer-s15-independent",
+      "criterionIds": [
+        "FOC-3",
+        "FOC-4",
+        "FOC-5",
+        "FOC-6",
+        "FOC-8"
+      ],
+      "anchors": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/focus.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-3",
+            "FOC-5",
+            "FOC-6"
+          ],
+          "sha256": "afb1e4b23e33d6933667c98a695b305c9b47ec8e0895030de24610a4e989a7bb"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/focus.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-3",
+            "FOC-4",
+            "FOC-5"
+          ],
+          "sha256": "2af91032b10108759c426dde97d8d119874f7032411f4dac639e3acff02f8c16"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/input.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-3",
+            "FOC-4"
+          ],
+          "sha256": "c83bd47cca001bcd1e46a560e16a30f71251fa5a07d0e79f6dfeabc9534484c3"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/mount.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-3",
+            "FOC-5"
+          ],
+          "sha256": "91a0d72456f13ad413502f38279c8c2d123a92d67eec6bddb1bf911b08eba250"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/navigation.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-3"
+          ],
+          "sha256": "9aafecb33cd343a031404790c14c450ff716c4121ddd1a6573f292e75940c162"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/app.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-4"
+          ],
+          "sha256": "d34ec57dbe4d313f9c6c74e8c3435c3c687c1a432a087e388ba6432c0f8faa8c"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-macos/src/text_input.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-4"
+          ],
+          "sha256": "025a90e8929fcd4727cf92d6cbd7cc7cc30b1fce6c060b6c42ac426e743622ec"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-macos/src/input.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-4"
+          ],
+          "sha256": "26e603a8f4647c82c890ab1238f56c561236722c251ca58f55acdf2daec372c2"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-linux/src/key_focus.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-4"
+          ],
+          "sha256": "e19935e6052eea1ad871a42e0c8c4c1bfb29b8e141d11f64b4bb700823d69283"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-windows/src/focus.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-4"
+          ],
+          "sha256": "81bc479125ff333f99f8aa5b4ae73e74c063491c0335b9807b39d688f22238f3"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/core/directional.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-5"
+          ],
+          "sha256": "4b42e20c8bbdbd92e664e3f49d057cb77f67216ba3b1c43aa9d168d0afd81985"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/ops.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-5"
+          ],
+          "sha256": "b96d604f6f02c98039a37cf137ed19fa213a4679a7c549b252c4b64e10ef335f"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-base/src/focus_group.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-5"
+          ],
+          "sha256": "dd980f7efb448fd9377259a1c70f738a55cdef1a7669a37c138feccc5229d377"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/src/focus.rs",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-6"
+          ],
+          "sha256": "fbdf562cc05b724ff1e71b6c8daf4bc65a19b2b0cba937904f5f457172f9bb49"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/web/nsh.js",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-6"
+          ],
+          "sha256": "30046d5f68c0c40ded0623893152b656e4901efb58aa8d3d49d01344d318806a"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "website/elements/index.md",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-8"
+          ],
+          "sha256": "12bd0b239eaa9cdd8efe9c19caf34aba2c347c56094708abe9380348efd8c77e"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "website/elements/focus-group.md",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-8"
+          ],
+          "sha256": "4cf3810a20514ca017a63a4e7e8ce9edeaf12fd14531d23052c2fbcd3b1e7598"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "website/zh-CN/elements/focus-group.md",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-8"
+          ],
+          "sha256": "5609e69b411ddb64f73ce576c1619c6f8e96737d907ac9997fe685588396b0e2"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "docs/dev/gpui.md",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-8"
+          ],
+          "sha256": "11d217d6a83b817a3a7daf477277671e991ffc6d46e21c15dec7f02b3c851351"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "docs/dev/web.md",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-8"
+          ],
+          "sha256": "1ecd8bf38cfc2222bed825663bb91658e9617840e0feedacf765438b6a5f97e8"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "docs/dev/elements.md",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-8"
+          ],
+          "sha256": "048f5913b6540deec76964d8f13c58b3f5f17e075884d3cd6bdfd4b5d67d5350"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "tests/compat/cases/props/props-view-focus.tsx",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-8"
+          ],
+          "sha256": "4dadd234eeec0b0025e504ba25da88f5ae45f0ed9b4361752aa5436c3298c2a0"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "tests/compat/cases/base/base-focus-group.tsx",
+          "kind": "source",
+          "criterionIds": [
+            "FOC-8"
+          ],
+          "sha256": "aabf02e331df70b93a52c34517ecb4dc3fb9fc5dacc26a27c2b03c2e7055aa93"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/focus/directional_focus.rs",
+          "kind": "test",
+          "criterionIds": [
+            "FOC-3"
+          ],
+          "sha256": "9755bd7618004931bb3a148a718c4a269efb71d3db9cf28c39f5573f6bad7bcb"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/focus/tab_stops.rs",
+          "kind": "test",
+          "criterionIds": [
+            "FOC-4"
+          ],
+          "sha256": "a9a641970acdaa231e843254790a1c809404a58a4fbfc6925572dd4297d662cb"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "tests/apps/pressable-focus/App.test.tsx",
+          "kind": "test",
+          "criterionIds": [
+            "FOC-4"
+          ],
+          "sha256": "eb81408896539bc737a9c699a666c4bf4e83965a0205f6a491c100c7bfb3b922"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/focus/tv_focus.rs",
+          "kind": "test",
+          "criterionIds": [
+            "FOC-5"
+          ],
+          "sha256": "2233cc4237d6385621b9034b287d5943ad7bf99898831c1702eb3fe18be03c8d"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/focus/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "FOC-5"
+          ],
+          "sha256": "0acd999aef097c497c39f8876466259eaebbccae0c8add696aa403fa09bfe313"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/core/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "FOC-5"
+          ],
+          "sha256": "5a4a4759125ade49e038b5de84f8eb7e10fcf7ef50b743c72da23977da8e2d6c"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-base/tests/base/focus_group.rs",
+          "kind": "test",
+          "criterionIds": [
+            "FOC-5"
+          ],
+          "sha256": "72fc1c4d6aa686ef1c573d51eb1e406cc229f543d00c3e8b79e7181883d9f2fc"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/web/browser/focus.test.mjs",
+          "kind": "test",
+          "criterionIds": [
+            "FOC-6"
+          ],
+          "sha256": "f8b497bcb86491956b8b3857efa815f2c30d0deb53e3418e0100392bf0155eaa"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/tests/text/focus_moves.rs",
+          "kind": "test",
+          "criterionIds": [
+            "FOC-6"
+          ],
+          "sha256": "5d565f6a36a8e1c200b4803c0dff666e3ff87ae2150ef9c654b3b5eacf5d8949"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-36fc5e5a40fa.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "FOC-3"
+          ],
+          "sha256": "3418f1ffc521e76695197ac9b18a3858a05fa0ce157165165ae72b69fe66e446"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-9acc50b6fc35.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "FOC-4"
+          ],
+          "sha256": "212d0926497befa17f6d5ae91204b26425d2acaf450737d5fff90c9e141ef12b"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-ac7da10ae518.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "FOC-4"
+          ],
+          "sha256": "d19392315ec7b21f51da4e714448c1697ad776eca95f7b2049a144df96821b3c"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-71fc7744e421.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "FOC-4"
+          ],
+          "sha256": "27d44d7b3af09f3cfac55b7a1f6a64937e5cf3492e3c99018a0f309ffb3f8f2a"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-b4881f9df7b7.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "FOC-4"
+          ],
+          "sha256": "42e1ec4d5c96a7cc33ca3df4dfe5d4ffe4eb9fe822f886951ba95b19307d58ce"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-9fedabb49d9c.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "FOC-4"
+          ],
+          "sha256": "903584c11f1763d8fba5d4bf3cdba0d4425cf854c3086f57ad1b5bf530c5b44e"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-99c45a7a2e44.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "FOC-5"
+          ],
+          "sha256": "ce3f7e9d86f46f93605904da458e5b5387865f7c56ff0ed88d77b29cdf62ba57"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-fdbb08baecc1.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "FOC-5"
+          ],
+          "sha256": "6e01123f7ebbe22f9a547a520a5d1f62e021d74fc4bffb702dec9750430164f4"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-874a0d4b32ac.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "FOC-5"
+          ],
+          "sha256": "77d80014d3a93a058a1a87fb0d1ce914479e8525ee8a0a47bfce011447b6dc1a"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-cca92801a2ef.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "FOC-5"
+          ],
+          "sha256": "852072d0581dfec9c5439469e74d1d44d298c593c727909c4f9b101d3400be38"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-0a8466acbc23.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "FOC-6"
+          ],
+          "sha256": "a1576ab729e0563c4eeeb54d4e1d20a798e590d8f790851b13130c3c1c813bfa"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s15-nsh-focus-backends-final-b3cec8abccd9.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "FOC-6"
+          ],
+          "sha256": "3af4805d34d58e7428b0939e04b52e37d6861f3d69f4c9550d1867265d5fbbb7"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/check-s15.json",
+          "kind": "runtime",
+          "criterionIds": [
+            "FOC-3",
+            "FOC-4",
+            "FOC-5",
+            "FOC-6"
+          ],
+          "sha256": "8201928a306a3f3f5fcdd890494e1dd13ee623a430efbb3402a001ace4d6d04b"
+        }
+      ],
+      "snapshotId": "a5295e00adae3301d47e9e61be7bd21222e2d98cf9ce056c47623ce7404cc676",
+      "verdict": "passed",
+      "summaryMarkdown": "I read every repair commit (a44434c87, 7382ccca5, def3cb5d5, b4a0181c9, 07eec85a1, 48fed3f34, 8d563c338, 8b3d335d3, b3a7934f0, a662232f0, 6f396c490) and the feat/tizen merge resolutions (tip 28e7c5e3c):\n- `mount.rs` keeps `Command::Focus` -> `focus::asked` next to `Command::Blur` -> `focus::blur_command`.\n- `docs/dev/gpui.md` no longer says Tab is fields-only.\n- `website/elements/index.md` (en and zh-CN) lists the arrow platforms.\n\nAll 13 checks pass on the new snapshot (`check-s15.json`; the newest logs: GPUI `directional_focus` 11, `tab_stops` 6, `tv_focus` 8, core TV 11 and 11, web 14 and 14, macOS and Linux specs 4/4 each, plus the new macOS unit check). The two compile-error logs are older runs, from before `stops_in` was adapted in def3cb5d5.\n\nAll 8 findings are resolved.\n\nAccepted, not findings:\n- The kept double scroll in GPUI, for the documented reason.\n- A read-only input on GPUI is a Tab stop only when `focusable` (the core's rule, as on the TUI and Windows).\n- On macOS, Ctrl+P / Ctrl+N in a single-line field also move the focus, since AppKit sends them as `moveUp:` / `moveDown:`. This is deliberate and in `docs/dev/macos.md`. It is the only modifier path that moves the focus on any backend, so the website could say so too.\n\nNotes for t22:\n- `pr/focus/06-gpui-tab-stops` now merges `pr/focus/04-tv`, and `pr/focus/07-web-tv` stacks 04 and 05. Their `PR.md` must say **Depends on:**.\n- The issue draft needs two updates: it says only GPUI scrolls first (since 07 the web does too), and it calls Linux pending (it now passes in the VM).",
+      "findingIds": [
+        "f-s15-desktop-arrows",
+        "f-s15-gpui-blur-command",
+        "f-s15-gpui-tab-out-keeps-focus",
+        "f-s15-gpui-tab-stop-set",
+        "f-s15-arrow-default-change",
+        "f-s15-docs-platform-claims",
+        "f-s15-web-tv-rules",
+        "f-s15-list-index-coverage"
+      ],
+      "recordedAt": "2026-11-10T10:45:06Z",
+      "recordHashes": {
+        "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "gpuitizen:docs/pr/**": "954cd9e92ba3838651abc431be0fd4aab6c6e2c3e40ee630588fd6bdc639b38d"
+      }
     }
   },
   "checkpoints": {
@@ -5660,6 +6364,17 @@
       },
       "reviewHash": "22278cc7308829e2ea955614228ba193cbeff8c469cd60737bc649c361b6d27d",
       "recordedAt": "2026-11-09T13:16:14Z"
+    },
+    "s15-nsh-focus-backends": {
+      "snapshotId": "a5295e00adae3301d47e9e61be7bd21222e2d98cf9ce056c47623ce7404cc676",
+      "commits": {
+        "gpuitizen": "f3c0d728af3d2b2449abe4954be25e84cf982687",
+        "gpui-fast": "e6ae34b9484cb050831aa9ab974fdd685e8800e3",
+        "wgpu": "4e3d80d5de97d1e66860f0f74fca92d50be70d4a",
+        "nsh": "28e7c5e3c78927507b8677602b9e8098b7c61ad7"
+      },
+      "reviewHash": "3378d647aeb76349ce843b8c3c80a0b04f0b8e13cbb9c24eb22725f0690be90c",
+      "recordedAt": "2026-11-10T10:45:22Z"
     }
   },
   "findings": [
@@ -7272,9 +7987,234 @@
           "symbol": "Candidate"
         }
       ]
+    },
+    {
+      "id": "f-s15-desktop-arrows",
+      "boundaryId": "s15-nsh-focus-backends",
+      "criterionIds": [
+        "FOC-4"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected (FOC-4):** on macOS, Windows, Linux and GPUI, \"arrows move directionally as on GPUI\", proved by the app spec (`nsh test --target macos`, `--target linux` in the Lima VM) and, for Windows, clippy.\n\n**Observed:** only GPUI (`focus.rs` `arrow`) and Windows (`nsh-platform-windows/src/focus.rs` `arrow`, commit 0c6f760ad) move the focus with the arrows. On macOS and Linux the arrows still only scroll: `website/docs/macos.md` and `website/docs/linux.md` keyboard tables say \"Arrows ... Scroll the scroll view around the focused view\", and neither `crates/nsh-platform-macos` nor `crates/nsh-platform-linux` calls `nsh_core::focus::horizontal`/`vertical`/`directional`. `tests/apps/pressable-focus/App.test.tsx` checks Tab, Shift+Tab, Return and Space only, so no check of the sprint exercises an arrow on any desktop host. No disposition records the owner accepting this narrowing.\n\n**Repair:** either (a) implement arrow focus on macOS (`input.rs`/`text_input.rs`, over `tab_stops` with frames in window points) and Linux (`key_focus.rs`, over `tab_stops`) through `nsh_core::focus` as Windows does (fields and selectable text keep their arrows, none-that-way falls back to scrolling, docs and website en and zh-CN in the same commits), and add arrow steps (Right/Left across the reversed row, Down/Up between rows, Return on the focused stop) to `tests/apps/pressable-focus/App.test.tsx` so `chk-nsh-focus-macos` and `chk-nsh-focus-linux` prove it; or (b) get an owner disposition that amends FOC-4 to Tab-only on macOS/Linux and moves desktop arrows to a named follow-up.\n\n**Resolution (reattest):** Repaired in 07eec85a1 (macOS `focus::arrow` over `nsh_core::focus`, wired in `input::key` and a single line's `moveUp:`/`moveDown:`; unit `focus::tests`), 48fed3f34 (Linux `key_focus::arrow`, `key_focus::arrows`) and 8d563c338 (the Windows docs name the spec). `tests/apps/pressable-focus` now drives the arrows: across the reversed row, between rows, out of a single-line field, Return on the stop reached, Down with nothing focused, and a field keeping Left/Right. It passes 4/4 on macOS and on Linux in the VM.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-macos/src/focus.rs",
+          "symbol": "arrow"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-linux/src/key_focus.rs",
+          "symbol": "arrow"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "tests/apps/pressable-focus/App.test.tsx"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "docs/dev/windows.md"
+        }
+      ]
+    },
+    {
+      "id": "f-s15-gpui-blur-command",
+      "boundaryId": "s15-nsh-focus-backends",
+      "criterionIds": [
+        "FOC-3",
+        "FOC-5"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** the existing focus API keeps its meaning (FOC-5, d29 invariant) and the website says \"A ref's `focus()` moves the keyboard focus to a stop as Tab does ..., and `blur()` takes it off\" (`website/elements/index.md`, Keyboard focus). Windows does this (`focus::blur_command`).\n\n**Observed:** in `crates/gpui/nsh-platform-gpui/src/mount.rs` `Mounter::command`, `Command::Blur` on a view that is not an input runs `crate::text_input::blur_all(surface)` only. `text_input::set_focus(None)` does not touch `crate::focus` (only the `Some` branch calls `focus::field_focused`). So `blur()` on a pressable or `focusable` view that has the GPUI focus (reached by an arrow, by Tab, or by `focus()`) leaves `FOCUSED` set, sends no `onBlur`, and Enter/Space still press it.\n\n**Repair:** in `Command::Blur`, for a non-input view, call `crate::focus::blur(surface, view)` when it holds the module focus (else keep `blur_all`, as Windows' `blur_command` does), and add a case to `focus::tv_focus` (or `directional_focus`) that focuses a stop with `Command::Focus` or an arrow, then sends `Command::Blur`, and asserts `focused == None`, `FOCUSED` cleared and `(id, Blur)` heard.\n\n**Resolution (reattest):** Repaired in a44434c87: `Command::Blur` goes to `focus::blur_command`, as on Windows. `directional_focus::blur_takes_the_focus_off_the_focused_view` checks that `blur()` on another view leaves the focus, and that on the focused one it clears `FOCUSED`, sends `Blur` and leaves Enter pressing nothing. feat/tizen's `mount.rs` keeps the TV branch's `Command::Focus` -> `focus::asked` alongside it.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/focus.rs",
+          "symbol": "blur_command"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/mount.rs",
+          "symbol": "Mounter::command"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/focus/directional_focus.rs",
+          "symbol": "blur_takes_the_focus_off_the_focused_view"
+        }
+      ]
+    },
+    {
+      "id": "f-s15-gpui-tab-out-keeps-focus",
+      "boundaryId": "s15-nsh-focus-backends",
+      "criterionIds": [
+        "FOC-4",
+        "FOC-3"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** when Tab moves the keyboard focus out of an embedded GPUI view past its last stop (the first with Shift), the stop that had it lets go: `FOCUSED` off and `onBlur`, as a field does today.\n\n**Observed:** `crates/gpui/nsh-platform-gpui/src/app.rs` `AppView::tab`: when `input::key` does not take Tab and `self.leave(..)` moves the window's focus to the embedding app's next widget, only `crate::text_input::blur_all(&self.surface)` runs. Since `pr/focus/06-gpui-tab-stops` the last stop is usually a pressable holding `crate::focus`'s focus, and `blur_all` leaves it: the pressable keeps its focus style and never hears `onBlur` while the host's widget has the keyboard. The same happens for the wrap-around branch when `tab_to_edge` finds nothing. `focus::tab_stops` only asserts that `tab()` returns false at the ends, not what happens to the focus after the view leaves.\n\n**Repair:** in that branch also take the module focus off (`crate::focus::set(&self.surface, None)`, or a `focus::blur_all` that clears both a field and a view), and add a `tab_stops` case that drives `AppView::tab` (or the same helper it calls) past the last pressable and asserts the pressable's `FOCUSED` is off and `(id, Blur)` is heard. Also refresh the stale doc comments on `focus_next` and `tab_entered`, which still say \"text field\".\n\n**Resolution (reattest):** Repaired in 7382ccca5: `AppView::tab` goes through `input::tab_past_ends`, whose `focus::blur_all` lets go of the field and the view when the focus leaves the view (or has no stop to wrap to). The `tab_stops` case checks the blur on leave, the wrap's Blur then Focus, and Shift+Tab out from the first stop. The stale \"text field\" doc comments are fixed.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/input.rs",
+          "symbol": "tab_past_ends"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/app.rs",
+          "symbol": "AppView::tab"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/focus/tab_stops.rs",
+          "symbol": "the_stop_tab_leaves_the_view_from_lets_go"
+        }
+      ]
+    },
+    {
+      "id": "f-s15-gpui-tab-stop-set",
+      "boundaryId": "s15-nsh-focus-backends",
+      "criterionIds": [
+        "FOC-4"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** Tab and the arrows on GPUI go through the same stops of the scope, decided in `nsh_core::focus` (d29), as Windows does (`focus::tab` over `stops_in` -> `focus::candidates`).\n\n**Observed:** GPUI's Tab (`input.rs` `tab`/`tab_to_edge`/`collect_stops`) builds its own list: it does not leave out stops under a covering backdrop (`focus::covering_layer`), does not require an area (`Candidate::takes_focus`), and treats every enabled input as a stop regardless of `focusable` or editability, while the arrows (`focus::stops_in`) do all three. Tab can therefore focus a pressable under a sheet's backdrop that the arrows say is out of reach, which `focus::end_batch` only drops on the next batch (after `onFocus` has fired).\n\n**Repair:** make `collect_stops` reuse `focus::stops_in(surface, scope, None)` (native components included as they are now) and keep `input::tab_stop(.., false)` for the embedding edges, or apply `focus::candidates` to its result; add a `tab_stops` case with a backdrop layer over the page asserting Tab skips the covered pressable.\n\n**Resolution (reattest):** Repaired in 7382ccca5 (and adapted to the TV branch's `stops_in` in def3cb5d5): Tab and `tab_to_edge` use `focus::tab_stops`, i.e. the arrows' `stops_in` through `focus::candidates`. New cases: `tab_skips_the_stops_under_a_backdrop` and `tab_skips_views_with_no_area`. Side effect, accepted: a read-only input is now a Tab stop on GPUI only when `focusable`, which is the core's rule (inputs that edit) that the TUI and Windows already follow.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/focus.rs",
+          "symbol": "tab_stops"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/focus/tab_stops.rs",
+          "symbol": "tab_skips_the_stops_under_a_backdrop"
+        }
+      ]
+    },
+    {
+      "id": "f-s15-arrow-default-change",
+      "boundaryId": "s15-nsh-focus-backends",
+      "criterionIds": [
+        "FOC-4",
+        "FOC-6"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** NSH's upstream rule: an issue before anything that changes a recorded meaning; `t15-focus-desktops` asks for issue text on the Tab change.\n\n**Observed:** besides Tab, this sprint changes what the arrows do by default on GPUI, Windows and the web: they move the focus between stops, and with nothing focused an arrow now focuses a stop (the preferred one, or the first in sight) where it used to scroll the page (`focus::key` before `scroll::key` in GPUI's and Windows' `key_now`, `arrowFocus` before `scrollKey` in `nsh.js`). A reading app that scrolled with the arrows now moves between its links. This is not opt-in, and the compatibility rules (`docs/dev/compatibility.md` rule 4) would ask for that once a release is recorded.\n\n**Repair:** record the arrow change, including the nothing-focused case and the scroll-first rule inside scroll views (GPUI), next to the Tab question in the focus area's issue and `PR.md` texts (`t22-nsh-prs`), and say it in each backend's `PR.md` under behavior changes; or, if the owner prefers, gate the nothing-focused arrow (and arrow focus on desktops generally) behind the TV idiom or an opt-in until the maintainers answer.\n\n**Resolution (reattest):** Resolved for this boundary: the issue draft now has \"The arrows by default\", covering the nothing-focused case, scroll-first, the compatibility rule and options for the maintainers. It goes into t22.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/issue-desktop-tab.md"
+        }
+      ]
+    },
+    {
+      "id": "f-s15-docs-platform-claims",
+      "boundaryId": "s15-nsh-focus-backends",
+      "criterionIds": [
+        "FOC-8"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected (FOC-8):** docs change with the code and say where each behavior applies.\n\n**Observed:**\n- `website/elements/index.md` (and zh-CN) \"Arrow keys and TVs\" says the arrows move the focus \"On a TV, and in the GPUI backend\", but Windows and the web now do too (their platform pages say so).\n- The `autoFocus` row says any view \"takes the keyboard focus when it appears\", without naming where; only the GPUI backend implements `autoFocus` on views that are not inputs (macOS, Linux, Windows, the web and the TUI read only the input's config). `ops.rs` does qualify it (\"GPUI, TVs\").\n- `crates/gpui/nsh-platform-gpui/src/focus.rs` module docs say a stop takes the `nextFocus*` route \"of a view around it that is no stop\", but `Walk::view` inherits the routes (and `preferredFocus`, `autoFocus`) from every ancestor, stops included (a button inside a pressable card takes the card's routes).\n- The new `tests/apps/` app spec is named only in `AGENTS.md`; `docs/dev/macos.md`, `linux.md` and `windows.md` do not say how Tab is tested (`nsh test tests/apps/pressable-focus --target ..`).\n\n**Repair:** list the platforms in the website's arrow section and the `autoFocus`/`preferredFocus`/`nextFocus*` rows (en and zh-CN); either stop inheritance at the nearest stop in `Walk::view` or reword the module doc to what it does; name the spec and its command in the three desktop `docs/dev` pages.\n\n**Resolution (reattest):** Repaired in a662232f0 plus the 03 and 07 docs commits, as merged on feat/tizen. The website's arrow section lists macOS, Windows, Linux, the web, GPUI and TVs, and says where the TV props apply (GPUI and the web). The `autoFocus` and `preferredFocus` rows say where views take them (en and zh-CN). The GPUI module docs now describe inheritance as it is (a stop or not). macOS, Linux and Windows `docs/dev` name `tests/apps/pressable-focus` and its command.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "website/elements/index.md"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "website/zh-CN/elements/index.md"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/focus.rs",
+          "symbol": "Walk::view"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "docs/dev/macos.md"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "docs/dev/linux.md"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "docs/dev/windows.md"
+        }
+      ]
+    },
+    {
+      "id": "f-s15-web-tv-rules",
+      "boundaryId": "s15-nsh-focus-backends",
+      "criterionIds": [
+        "FOC-5",
+        "FOC-6"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** the website's FocusGroup page says its rules apply \"where the arrow keys move the focus between views: the GPUI backend, and TVs\"; design `d32-tizen-web` puts route A's focus in the web runtime.\n\n**Observed:** the web runtime decides with `focus::horizontal`/`vertical` only (`crates/nsh-platform-web/src/focus.rs` `decide`); `encode.rs` `props_json` sends none of `preferred_focus`, `next_focus`, `focus_group` or view `auto_focus`, and `arrowFocus` has no scroll-first or list-by-index path (`focus_past`). On a `tizen-web` TV (route A) `preferredFocus`, `nextFocus*`, `FocusGroup` and lists past their mounted rows therefore do nothing, contrary to the docs.\n\n**Repair:** either extend the web runtime (send the four props in `props_json`, describe groups and routes in `focusStops`, decide with `focus::directional`, add `nsh_focus_move` cases and a `focus.test.mjs` case for each) under an amended FOC-6 or a named `tizen-web` criterion, or narrow the docs to the GPUI backend (route B) and record the route A gap as an explicit follow-up in the plan.\n\n**Resolution (reattest):** Repaired on the new branch `pr/focus/07-web-tv` (04 + 05), commit 6f396c490:\n- `props_json` sends `autoFocus`, `preferredFocus`, `nextFocus` and `focusGroup` (`focus::write_props`).\n- `focusStops` describes groups, routes' named views and scroll views with room toward each end.\n- `nsh_focus_move` decides with `focus::directional` and returns a scroll target, on which the page scrolls a key step and calls `nsh_focus_past`.\n- `nsh_focus_auto` covers `autoFocus` once per stop after a batch or a scope change.\n- Coverage: `focus_moves::tv` (7 cases) and 6 new `focus.test.mjs` cases, 14/14 on the real Wasm. The FocusGroup page now names the web.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/src/focus.rs",
+          "symbol": "decide"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/web/nsh.js",
+          "symbol": "arrowFocus"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/tests/text/focus_moves/tv.rs"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/web/browser/focus.test.mjs"
+        }
+      ]
+    },
+    {
+      "id": "f-s15-list-index-coverage",
+      "boundaryId": "s15-nsh-focus-backends",
+      "criterionIds": [
+        "FOC-5"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected (FOC-5):** lists scrolled by index when the next row is not mounted, tested.\n\n**Observed:** `core::tests::directional_focus` covers `Core::focus_past` on a plain vertical list, and `tv_focus::a_scroll_view_that_can_scroll_on_keeps_the_focus` covers a plain `ScrollView` with no engine. Untested: (1) that GPUI's `Target::Scroll` reaches the engine (`surface.control(|c| c.focus_past(..))` runs only with an engine, so no test sees it); (2) the inverted and right-to-left branches of `focus_past` (`toward = direction.opposite()`, `view_position` 1.0 vs 0.0), whose correctness depends on how `ScrollToIndex` treats `viewPosition` in an inverted list; (3) a grid (`numColumns > 1`) row step through `focus_past`. Also, GPUI scrolls the view one key step (`scroll::key_view`) while the core starts an animated `ScrollToIndex`: two scrolls for one arrow.\n\n**Repair:** add `core::tests::directional_focus` cases for an inverted list and a mirrored horizontal list (asserting the `ScrollTo` offset puts the next row at the edge the arrow goes toward) and a grid; add a GPUI test (an engine-backed `Headless` run or a recorded `EngineControl`) that an arrow at a list's last mounted row asks `focus_past` and the row's first stop takes the focus; for a list, skip `key_view` when `focus_past` was asked, or say why both are wanted.\n\n**Resolution (reattest):** Repaired in 8b3d335d3 and b3a7934f0.\n- The real bug: the inverted list's double flip, and the inverted right-to-left direction. Inverted xor mirrored now flips once, and `viewPosition` follows the arrow.\n- Four new core cases (inverted, right-to-left, inverted right-to-left, a grid), each followed until the list rests.\n- `Surface::focus_past` is recorded for tests; a GPUI case checks that the engine is asked from the stop that keeps the focus, and that the core's `Command::Focus` lands on the row.\n- The double scroll is kept, with a reason in the `Target::Scroll` comment and `docs/dev/gpui.md`. I accept it: GPUI sees lists and scroll views as one `ViewKind::Scroll`, the core's answer comes a frame later, and the core's absolute animated `ScrollTo` supersedes the key step.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/core/directional.rs",
+          "symbol": "Core::focus_past"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/core/tests.rs",
+          "symbol": "directional_focus"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/surface.rs",
+          "symbol": "Surface::focus_past"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/focus/tv_focus.rs",
+          "symbol": "an_arrow_past_a_list_s_mounted_rows_asks_the_engine_for_the_next"
+        }
+      ]
     }
   ],
-  "handoffMarkdown": "pr/focus/01-core b34fd610e (tui: Take focus moves from nsh_core::focus); keyboard.rs/navigation.rs/app.rs on the core, cells->points exact; docs/dev/tui.md; TUI focus modules 86 tests unchanged.",
+  "handoffMarkdown": "FOC-8 in each behavior commit: docs/dev elements, gpui, web, macos, linux, windows, components, api-naming; website en+zh-CN (gpui, web, elements/index, view, focus-group, forms-and-keyboard, macos/linux/windows, nsh-base); compat cases props-view-focus, base-focus-group; AGENTS.md FocusGroup (6fcc13829).",
   "protectedPaths": {
     "gpuitizen": {
       "gpuitizen:.agentx/memory/**": "94784ab15131a5a4ff6827a67fa677677a923e04a068e1e4335659b7b6e5c11e"
