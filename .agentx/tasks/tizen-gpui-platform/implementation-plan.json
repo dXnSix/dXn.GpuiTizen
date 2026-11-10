@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 52,
+  "revision": 55,
   "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
   "repositories": [
     {
@@ -2640,7 +2640,7 @@
         "CI-4"
       ],
       "argv": [
-        "python3",
+        "/Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/artifacts-temp/venv/bin/python",
         ".github/ci/paths.py",
         "--print"
       ],
@@ -2650,7 +2650,8 @@
       },
       "inputs": [
         ".github/**"
-      ]
+      ],
+      "descriptionMarkdown": " Run with a Python that has PyYAML (a venv under dXn.GpuiTizen's `artifacts-temp/`; this machine's Python has none)."
     },
     {
       "id": "fin-fmt",
@@ -3786,6 +3787,83 @@
         "Cargo.lock"
       ],
       "descriptionMarkdown": "`nsh/tizen` in a `.wgt` through the TV's `tizen.*` / `webapis.*` (fakes), and unavailable elsewhere.",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-ci-patch-from",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "CI-1"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "xtask",
+        "--lib",
+        "release::tests::from_checkout"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "xtask/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "`cargo xtask gpui-fast-release --from`, which CI uses to patch builds with the checked-out forks.",
+      "timeoutSeconds": 1800
+    },
+    {
+      "id": "chk-nsh-tv-idiom-gpui",
+      "repositoryId": "nsh",
+      "kind": "runtime",
+      "criterionIds": [
+        "CI-4"
+      ],
+      "argv": [
+        "bash",
+        "-c",
+        "cargo build --manifest-path crates/gpui/Cargo.toml -p nsh-gpui-host && cargo run -p nsh-cli -- test tests/apps/tv-idiom --target gpui --idiom tv && cargo run -p nsh-cli -- test tests/apps/pressable-focus --target gpui --idiom tv --filter arrows"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1,
+        "testCountPattern": "(\\d+) passed"
+      },
+      "inputs": [
+        "crates/**",
+        "tests/apps/tv-idiom/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "The TV idiom's spec that fork CI's `tv-specs` runs, on this machine's GPUI host (`nsh test --idiom tv`, finding `f-s21-gpui-spec-not-tv-idiom`); the host is built first, since NSH's shared target directory is outside the checkout. Then `pressable-focus`'s arrows spec in the TV idiom, as `tv-specs` runs it.",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-tv-idiom-tizen-web",
+      "repositoryId": "nsh",
+      "kind": "runtime",
+      "criterionIds": [
+        "CI-4"
+      ],
+      "argv": [
+        "bash",
+        "-c",
+        "CARGO_TARGET_DIR=target CC_wasm32_unknown_unknown=/opt/homebrew/opt/llvm/bin/clang AR_wasm32_unknown_unknown=/opt/homebrew/opt/llvm/bin/llvm-ar cargo build -p nsh-platform-web --profile web --no-default-features --features dev --target wasm32-unknown-unknown && mkdir -p target/nsh-runtime/web && cp target/wasm32-unknown-unknown/web/nsh_platform_web.wasm target/nsh-runtime/web/nsh-dev.wasm && cp crates/nsh-platform-web/web/nsh.js target/nsh-runtime/web/nsh.js && rm -rf target/nsh-runtime/web/browser && cp -R crates/nsh-platform-web/web/browser target/nsh-runtime/web/browser && NSH_RUNTIME=\"$PWD/target/nsh-runtime\" cargo run -p nsh-cli -- test tests/apps/tv-idiom --target tizen-web"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1,
+        "testCountPattern": "(\\d+) passed"
+      },
+      "inputs": [
+        "crates/**",
+        "examples/counter/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "`tests/apps/tv-idiom` as a Tizen web app (TV shim, TV idiom), as fork CI's `tv-specs` runs it. Resolve the exact selector and test-count pattern from the NSH checkout at sprint start (`amend` the check if it differs). The CLI finds or builds the dev web runtime next to its own binary only in a checkout's target directory, and NSH builds into a shared target directory outside the checkout, so the check lays out `runtime/web` as `cargo xtask dist` does (`nsh-dev.wasm`, `nsh.js`, `browser/`) in the worktree's `target/` and names it with `NSH_RUNTIME`.",
+      "reuse": false,
       "timeoutSeconds": 3600
     }
   ],
@@ -5904,7 +5982,10 @@
         "chk-ci-yaml",
         "chk-ci-plan",
         "chk-nsh-ci-yaml",
-        "chk-nsh-ci-paths"
+        "chk-nsh-ci-paths",
+        "chk-ci-patch-from",
+        "chk-nsh-tv-idiom-gpui",
+        "chk-nsh-tv-idiom-tizen-web"
       ],
       "tasks": [
         {
@@ -5921,7 +6002,8 @@
           "dependsOn": [],
           "checkIds": [
             "chk-ci-yaml",
-            "chk-ci-plan"
+            "chk-ci-plan",
+            "chk-ci-patch-from"
           ]
         },
         {
@@ -5956,7 +6038,9 @@
           "dependsOn": [],
           "checkIds": [
             "chk-nsh-ci-yaml",
-            "chk-nsh-ci-paths"
+            "chk-nsh-ci-paths",
+            "chk-nsh-tv-idiom-gpui",
+            "chk-nsh-tv-idiom-tizen-web"
           ]
         }
       ]

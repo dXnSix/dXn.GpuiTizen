@@ -1,12 +1,12 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 338,
-  "planRevision": 52,
+  "revision": 353,
+  "planRevision": 55,
   "specHashes": {
-    "requirements": "068b40fba8f3eeb831a46d913cc2bbd60e3e470cfbbed6933dc6aede91ac4a6e",
+    "requirements": "b8ed72cdec64e6a715ed9ce70411c1d2aa03153d3ee24aaa48bf22abae64d675",
     "design": "a3e9ab1641d598bff3fdd015bd4af4393cd6025f28b84ab7dab193dcb9794dcc",
-    "plan": "8db04d11c6583609c2459e97934e89500f9c11fa666edbd1baeff1ab30d4c8a3"
+    "plan": "ccc22da281286d50bbee8fe6e64caf6a90f3a0248e640538f93b6d28ecf38574"
   },
   "tasks": {
     "t1-workspace": {
@@ -190,10 +190,16 @@
       ]
     },
     "t8-ci": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t8-emulator": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t9-publish": {
       "status": "pending"
@@ -523,7 +529,10 @@
       ]
     },
     "t21-nsh-ci": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t22-nsh-prs": {
       "status": "pending"
@@ -1004,6 +1013,42 @@
         }
       },
       "recordedAt": "2026-11-10T17:46:48Z"
+    },
+    "f2ade5c2dac3890bd7b687d3eac083edfe1ace9aba991226db4929ec2d67da6e": {
+      "snapshot": {
+        "specHash": "0a5727e84c4ba80822ae437fffeaf5c4ab878d38899311df0fa61713ceb61260",
+        "repositories": {
+          "gpuitizen": "47ce5358b88d417446a7d362faab81d05b794f2edcd0c26283542b78a52f05ec",
+          "gpui-fast": "c318780179e3efe79b3549e66b723ee445ed7dd36b3d54e1db560726aee9a019",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "85bc21c197fb4b6e2a4632417067445069dee87e1490be5925900997772e321f"
+        }
+      },
+      "recordedAt": "2026-11-10T17:51:14Z"
+    },
+    "b2a6d15eeee9667ddedc727200bc1367a4c2c304edcbc43f4c46d42511645af0": {
+      "snapshot": {
+        "specHash": "79bf6d2080fb9125493ca9d59c22588b738ef73b7df96e615bdebe3ad5e6640b",
+        "repositories": {
+          "gpuitizen": "41a626a0bb90e24446dff82372d2a3b08bd0f7d1736e202c6e7d1b9f905c899b",
+          "gpui-fast": "4df66e23fd5563139eb53db98088a9714083e9bd80e925050c479a14347f048b",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "7e685371f7726c0e3a1b46dd2ae3222a039b63e4e638a2cb7589c14c7184405b"
+        }
+      },
+      "recordedAt": "2026-11-10T18:24:44Z"
+    },
+    "24e1a6dfd3e8ad38d292f15dfe88508156e604a79416f2b120a5fc00911983fc": {
+      "snapshot": {
+        "specHash": "fb28693292c14c6246d26a90e716278d6bad980aa98937a301bfbd9532611009",
+        "repositories": {
+          "gpuitizen": "452fe22e6c82110956cb46c855b06a4883fd4c3507b65f47ae3995bb36187383",
+          "gpui-fast": "4df66e23fd5563139eb53db98088a9714083e9bd80e925050c479a14347f048b",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "7e685371f7726c0e3a1b46dd2ae3222a039b63e4e638a2cb7589c14c7184405b"
+        }
+      },
+      "recordedAt": "2026-11-10T18:30:03Z"
     }
   },
   "checkResults": {
@@ -3641,6 +3686,125 @@
       "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s20-nsh-tizen-web-final-f48d4ca489e0.log",
       "logSha256": "fdbcd8a7caac1ecead8e042dac592fcac4207e13f9b8426caa4e7d4e90ec6450",
       "inputsHash": "19030332a42de3e6c3ee428e8430accdfe40a4a16f08b11d05373835f3a2d3ed"
+    },
+    "s21-ci/chk-ci-yaml/final": {
+      "checkId": "chk-ci-yaml",
+      "boundaryId": "s21-ci",
+      "phase": "final",
+      "batchId": "24e1a6dfd3e8ad38d292f15dfe88508156e604a79416f2b120a5fc00911983fc",
+      "definitionHash": "e15fb365e18bbfde21e8e3531125f4bcb5b255797dc2527acfee10998593591c",
+      "basisHash": "959dcf611a12193569377142a038be55d99216ef5a93fa3b2c41f45ddf9a7d0a",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 0.0323,
+      "recordedAt": "2026-11-10T18:28:18Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s21-ci-final-6558976ffdaa.log",
+      "logSha256": "b5ef34948d119b8c9a2a83ea3fa7be28686336c326ed4fa8cbd531bc51a84a27",
+      "inputsHash": "1c0541ee8c61f5feeda1df5ea86270ff522375100b6e5de01fbd4256998d7a3c"
+    },
+    "s21-ci/chk-ci-plan/final": {
+      "checkId": "chk-ci-plan",
+      "boundaryId": "s21-ci",
+      "phase": "final",
+      "batchId": "b2a6d15eeee9667ddedc727200bc1367a4c2c304edcbc43f4c46d42511645af0",
+      "definitionHash": "19fd000e93e6003c154935fc50d0898d098e38959281895263064023a68ea7e0",
+      "basisHash": "97e0f740f23d24944c8ccb398c73cdbae4989854c1b8938f6705ceb89f992d98",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 18,
+      "durationSeconds": 0.6317,
+      "recordedAt": "2026-11-10T18:23:24Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s21-ci-final-133829ef7749.log",
+      "logSha256": "78dfe30f5a3a242cbc6c7ee6b9af1e59b9163fd779f6c8eb99867cabc0d22039",
+      "inputsHash": "cbf9587a989720055b450375bcf8fc86cb46710408ee84f74991273a0655d0f5"
+    },
+    "s21-ci/chk-nsh-ci-yaml/final": {
+      "checkId": "chk-nsh-ci-yaml",
+      "boundaryId": "s21-ci",
+      "phase": "final",
+      "batchId": "b2a6d15eeee9667ddedc727200bc1367a4c2c304edcbc43f4c46d42511645af0",
+      "definitionHash": "a20aca1b51ab381e9655f5a5b18f140e94b0c749b8c859b5a2c5ce4812e8c66a",
+      "basisHash": "ee752bcc14076feacebe8810612442a86fe5ff8138b5143fedab8b4c8bf6cc1a",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 0.0318,
+      "recordedAt": "2026-11-10T18:23:24Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s21-ci-final-ee5247334464.log",
+      "logSha256": "b5ef34948d119b8c9a2a83ea3fa7be28686336c326ed4fa8cbd531bc51a84a27",
+      "inputsHash": "89eaa39eeee4fa619c655e56401880723d768c6611bb2c8da8689d94f017b09d"
+    },
+    "s21-ci/chk-nsh-ci-paths/final": {
+      "checkId": "chk-nsh-ci-paths",
+      "boundaryId": "s21-ci",
+      "phase": "final",
+      "batchId": "b2a6d15eeee9667ddedc727200bc1367a4c2c304edcbc43f4c46d42511645af0",
+      "definitionHash": "8050318834dc62d56111dcc2eaf05968a7ac79f64c4101d43295c8d3fa0f33c7",
+      "basisHash": "6e2184e201f86a681040515e2caed66ad19d148d44c083d84c08729c818ef25c",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 0.1211,
+      "recordedAt": "2026-11-10T18:23:25Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s21-ci-final-c99c0e607bc0.log",
+      "logSha256": "9d58281c87a11da7616313165deed5c323ab4794ca480c6fae1052702792409d",
+      "inputsHash": "89eaa39eeee4fa619c655e56401880723d768c6611bb2c8da8689d94f017b09d"
+    },
+    "s21-ci/chk-ci-patch-from/final": {
+      "checkId": "chk-ci-patch-from",
+      "boundaryId": "s21-ci",
+      "phase": "final",
+      "batchId": "f2ade5c2dac3890bd7b687d3eac083edfe1ace9aba991226db4929ec2d67da6e",
+      "definitionHash": "90d4cfe0aca133d0f76bc1d17468d18fd03fdda8f25b3ed4c923cd29c27fb925",
+      "basisHash": "53fd419499823eef2d12a2d4ef7ab8f7e5324e9074f3d643cba0f04aade7bedc",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 3,
+      "durationSeconds": 6.0314,
+      "recordedAt": "2026-11-10T17:51:13Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s21-ci-final-6394f0828fa1.log",
+      "logSha256": "6b53ff75c601c11ea4aea82b55059a5d7c6ad6626a722505145e885476ea3c0e",
+      "inputsHash": "de91eb99c7a5c6493e18e5b666b75439032e89f3764e6b4cc2da680d0496fcce"
+    },
+    "s21-ci/chk-nsh-tv-idiom-gpui/final": {
+      "checkId": "chk-nsh-tv-idiom-gpui",
+      "boundaryId": "s21-ci",
+      "phase": "final",
+      "batchId": "24e1a6dfd3e8ad38d292f15dfe88508156e604a79416f2b120a5fc00911983fc",
+      "definitionHash": "f6eb22e7fd2f604bcfe8a233de373c4ef8b363e404e24740ed3741264eff1438",
+      "basisHash": "dc01b930004bc8228a819c35e79564027658493398bf944b1890d6e0be1971c7",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 3,
+      "durationSeconds": 17.1088,
+      "recordedAt": "2026-11-10T18:28:35Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s21-ci-final-919a8b7c1708.log",
+      "logSha256": "8926f20b995a6e481647225c9f467340dd66e38ea4b310726936c2f578231d53",
+      "inputsHash": "5384ceef1caec409c843641b1f92e780eb322cbdcfe8aa7f2e8540829196ab02"
+    },
+    "s21-ci/chk-nsh-tv-idiom-tizen-web/final": {
+      "checkId": "chk-nsh-tv-idiom-tizen-web",
+      "boundaryId": "s21-ci",
+      "phase": "final",
+      "batchId": "24e1a6dfd3e8ad38d292f15dfe88508156e604a79416f2b120a5fc00911983fc",
+      "definitionHash": "f5c805f4f20061f07b1e21f74eef0fc4d6cfd31ed6762de6a7357df7bfa4d9b7",
+      "basisHash": "e37fb34a33800b983a77998e9a4bb9be8d5ae833e7349f9f57ef8fc2d41013fb",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 2,
+      "durationSeconds": 87.3075,
+      "recordedAt": "2026-11-10T18:30:03Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s21-ci-final-14f58170a9c0.log",
+      "logSha256": "f04aee567d672c714fb7ce63fdae6bdf20920dfa416d1b677a317376d2ad442c",
+      "inputsHash": "fbcb3454a5b235632f371cfc50a54be9b5b71b10ada1b1edbd1927439b2c0f6b"
     }
   },
   "reviews": {
@@ -9396,6 +9560,217 @@
         "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "gpuitizen:docs/pr/**": "b5d40005f237a2602c368bbafd0b4edcbfdfb44db7e8929b8b8836dc6f7a6372"
       }
+    },
+    "s21-ci": {
+      "reviewerId": "reviewer-s21-independent",
+      "snapshotId": "24e1a6dfd3e8ad38d292f15dfe88508156e604a79416f2b120a5fc00911983fc",
+      "criterionIds": [
+        "CI-1",
+        "CI-2",
+        "CI-4"
+      ],
+      "verdict": "passed",
+      "anchors": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": ".github/workflows/ci.yml",
+          "kind": "source",
+          "criterionIds": [
+            "CI-1"
+          ],
+          "sha256": "ccc48f32f56f585cc9b74660a1a1503037c3c3c8c3addd16a8009222986356b7"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": ".github/actions/plan/action.yml",
+          "kind": "source",
+          "criterionIds": [
+            "CI-1"
+          ],
+          "sha256": "40b7cddaa974b7b72fa1b470dff8e13b1268716e6887432c3f416e243dc5946e"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": ".github/actions/plan/plan.sh",
+          "kind": "source",
+          "criterionIds": [
+            "CI-1"
+          ],
+          "sha256": "33201b9c7c5223ea68f95f2818685f41217e21e313c0c7b2074430dab4bb842d"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": ".github/actions/setup/action.yml",
+          "kind": "source",
+          "criterionIds": [
+            "CI-1",
+            "CI-2"
+          ],
+          "sha256": "84b32490a981cf7900842fdb1e937e90d9333de1c686d3abccdab7f21ea611e6"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": ".github/actions/tizen-sdk/action.yml",
+          "kind": "source",
+          "criterionIds": [
+            "CI-1",
+            "CI-2",
+            "CI-4"
+          ],
+          "sha256": "b6c2843d6f421dd38d03b49a1c86f9993aae72ca1f0889bb365638fdc6d4f87d"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/main.rs",
+          "kind": "source",
+          "criterionIds": [
+            "CI-1",
+            "CI-2"
+          ],
+          "sha256": "ae300f2a61d3927c1c0364707e37ed30963ac9796aed6432a4456a648df4cae5"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/release/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "CI-1"
+          ],
+          "sha256": "93c2094c549d793504eea271676141be971e79cbbf68bd42803764b11c3523ef"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": ".github/workflows/tizen-emulator.yml",
+          "kind": "source",
+          "criterionIds": [
+            "CI-2"
+          ],
+          "sha256": "dff32b8b2fe41c32733dc10a3957ffeb9f94ece25e76caeba68fb8e5022b8cda"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "README.md",
+          "kind": "source",
+          "criterionIds": [
+            "CI-1",
+            "CI-2"
+          ],
+          "sha256": "cbfa84bbcc60b3a91cbd10173f33ecc25266c97adde044dbe4ac3d369cac7dea"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": ".github/actions/plan/plan_test.sh",
+          "kind": "test",
+          "criterionIds": [
+            "CI-1"
+          ],
+          "sha256": "49e90c7a41551beda707a7ea508737f6e78aa8e73c664c6c122cbac4ccc4d7d5"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/release/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "CI-1"
+          ],
+          "sha256": "040bd51da0ba4ad62fbeadad61ae9e9c856436b410ddc52cda70b1cfcd16ca3f"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "scripts/check_workflow_yaml.rb",
+          "kind": "test",
+          "criterionIds": [
+            "CI-1",
+            "CI-2",
+            "CI-4"
+          ],
+          "sha256": "95bdc0746c5b6f695f62ca55acb0d0cfe07e72b29abd1025e7d1dfe4ab587dda"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": ".github/workflows/fork-tizen.yml",
+          "kind": "source",
+          "criterionIds": [
+            "CI-4"
+          ],
+          "sha256": "e23c6fb70ad7493132e58ddacc0ded4c340722fd728f166b4ee8730df90855a7"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": ".github/ci/paths.py",
+          "kind": "source",
+          "criterionIds": [
+            "CI-4"
+          ],
+          "sha256": "e55e1356d97db8988030938b99f015773605e99fe6266b9ea7fcf6b1128633f7"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/test_host.rs",
+          "kind": "source",
+          "criterionIds": [
+            "CI-4"
+          ],
+          "sha256": "f736debf9eee85f134d451fd6eed298223cb8ab8b1eee49341fab63e545fffd4"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/runtime.rs",
+          "kind": "source",
+          "criterionIds": [
+            "CI-4"
+          ],
+          "sha256": "0c30888536ae696f509f80eeebc55cdffd32a6f8a74ed2aa2c37052af489e0b6"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/tests/cli/dev_idiom.rs",
+          "kind": "test",
+          "criterionIds": [
+            "CI-4"
+          ],
+          "sha256": "b6531b1e0f3d04528f7f10ab0ab5475159d221037ec0690603114308be3d6e0a"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "tests/apps/tv-idiom/App.test.tsx",
+          "kind": "test",
+          "criterionIds": [
+            "CI-4"
+          ],
+          "sha256": "86c2c65915593f276f51ff16c703eac9823f4e931ba11e8228bc7e979a960081"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "tests/apps/pressable-focus/App.test.tsx",
+          "kind": "test",
+          "criterionIds": [
+            "CI-4"
+          ],
+          "sha256": "eb81408896539bc737a9c699a666c4bf4e83965a0205f6a491c100c7bfb3b922"
+        }
+      ],
+      "summaryMarkdown": "Full review at snapshot 24e1a6df (dXn.GpuiTizen through d374b9a; NSH fork/tizen-ci 138e51e1e and pr/tv/03-dev-idiom, merged into feat/tizen at e1cda4852). CI-1: the plan-gated `ci.yml`, with fork checkouts and `gpui-fast-release --from` in every building job, a working SDK install, per-target caches, and a checker that catches duplicate keys; `plan_test.sh` passes. CI-2: the emulator workflow uses KVM, its own Xvfb, a readiness wait, signing secrets confined to one step and removed afterwards, `app_launcher` launch, `diag pull` over `sdb forward`, and uploaded artifacts; the README documents the secrets and certificate file names. CI-4: fork-only `fork-tizen.yml` runs the cross builds with symbol checks for three architectures, TV-idiom specs on gpui (`--idiom tv`) and tizen-web (each command proven by a local check), and a manual emulator job; `paths.py` lists the crate. All 13 findings are resolved. What no local check can prove (the first hosted run, the emulator booting on GitHub's KVM runners, `tz pack` with the CI profile) stays with the owner-run sprints s23-s25.",
+      "findingIds": [
+        "f-s21-yes-pipefail",
+        "f-s21-yaml-checker-no-duplicates",
+        "f-s21-tizen-web-toolchain",
+        "f-s21-gpui-spec-not-tv-idiom",
+        "f-s21-apt-masked",
+        "f-s21-emulator-launch",
+        "f-s21-emulator-boot",
+        "f-s21-tv-emulator-packages",
+        "f-s21-sdk-cache-key",
+        "f-s21-cross-cache-key",
+        "f-s21-plan-leftovers",
+        "f-s21-fork-ci-docs",
+        "f-s21-tv-specs-unchecked"
+      ],
+      "recordedAt": "2026-11-10T18:30:47Z",
+      "recordHashes": {
+        "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "gpuitizen:docs/pr/**": "b5d40005f237a2602c368bbafd0b4edcbfdfb44db7e8929b8b8836dc6f7a6372"
+      }
     }
   },
   "checkpoints": {
@@ -9635,6 +10010,17 @@
       },
       "reviewHash": "964a57d6258f771de38f68d323483ed02d11e0030d9c6af322009ebe14272b95",
       "recordedAt": "2026-11-10T17:50:34Z"
+    },
+    "s21-ci": {
+      "snapshotId": "24e1a6dfd3e8ad38d292f15dfe88508156e604a79416f2b120a5fc00911983fc",
+      "commits": {
+        "gpuitizen": "d374b9a40116d679c6b52fda4776ae59271adff7",
+        "gpui-fast": "7047b05fdb67e4cdc0f3e5b4a420221e5bd1518a",
+        "wgpu": "4e3d80d5de97d1e66860f0f74fca92d50be70d4a",
+        "nsh": "e1cda48522506771ace1899712a542c4d279a269"
+      },
+      "reviewHash": "abb024f1510dc6c798a208e7b74bb738d5964ddf2740a3df02bf11c1e79ea9bb",
+      "recordedAt": "2026-11-10T18:30:48Z"
     }
   },
   "findings": [
@@ -12241,9 +12627,261 @@
           "symbol": "a_smart_hub_preview_is_declared_as_samsung_asks"
         }
       ]
+    },
+    {
+      "id": "f-s21-yes-pipefail",
+      "boundaryId": "s21-ci",
+      "criterionIds": [
+        "CI-1",
+        "CI-2",
+        "CI-4"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** the `tizen-sdk` action installs the SDK on a cache miss, as `docs/setup.md` step 3 does. **Observed:** `.github/actions/tizen-sdk/action.yml` runs `yes | \"$dir/tizen-sdk-cli.bin\" --accept-license ...` under `set -euo pipefail` (and GitHub's `bash -eo pipefail`). `yes` never exits on its own: once the installer exits, `yes` dies of SIGPIPE (141), or with EPIPE (1) if SIGPIPE is ignored, and pipefail makes that the pipeline's status. Checked: `bash -c 'set -o pipefail; yes | head -c1 >/dev/null; echo $?'` prints 141. So every first, uncached run of `ci.yml` `cross`, `tizen-emulator.yml`, and the NSH `fork-tizen.yml` `cross` and `emulator` jobs fails at the install step. **Repair:** feed the answers without a failing pipeline, for example `\"$dir/tizen-sdk-cli.bin\" --accept-license \"$HOME/tizen-studio\" < <(yes)`, or check `${PIPESTATUS[1]}` instead of the pipeline status.\n\nResolved in 5415b4a: the installer reads its answers from `< <(yes)`, so no pipeline status depends on `yes`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": ".github/actions/tizen-sdk/action.yml"
+        }
+      ]
+    },
+    {
+      "id": "f-s21-yaml-checker-no-duplicates",
+      "boundaryId": "s21-ci",
+      "criterionIds": [
+        "CI-1",
+        "CI-2",
+        "CI-4"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** `scripts/check_workflow_yaml.rb` is AgentX's checker (task `t8-ci`: \"Copy AgentX's `check_workflow_yaml.rb`\"). Its whole job is to report duplicate mapping keys, which YAML loaders accept and GitHub rejects as a \"workflow file issue\" (`ci-workflows.md`). **Observed:** the repository's script (added in d755192) is a different checker. It loads with `YAML.safe_load`, where the last duplicate key wins silently, and checks only shape. A workflow with two `runs-on:` keys in one job prints `workflow yaml ok` (tried on a scratch file). So `chk-ci-yaml` and `chk-nsh-ci-yaml` do not prove what they are meant to. The current files have no duplicates: AgentX's own checker passes on all of them, including fork-tizen.yml. **Repair:** restore the duplicate-key walk over the `Psych.parse_file` node tree (keeping the shape checks if wanted), and add a small fixture test that a duplicate key fails.\n\nResolved in 5415b4a: `check_duplicates` walks the `Psych.parse_file` tree at every depth, and the shape checks remain. A scratch file with two `runs-on` keys now fails (`duplicate key \\`runs-on\\` at /jobs/a`, exit 1), and all dXn workflows and actions still pass.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "scripts/check_workflow_yaml.rb",
+          "symbol": "check_duplicates"
+        }
+      ]
+    },
+    {
+      "id": "f-s21-tizen-web-toolchain",
+      "boundaryId": "s21-ci",
+      "criterionIds": [
+        "CI-4"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** `tv-specs` can run `nsh test examples/counter --target tizen-web`. **Observed:** that path builds the web runtime: `test_web::starter` calls `runtime::test_web()`, then `runtime::web(.., build=true)`, which runs `cargo build --profile web -p nsh-platform-web --target wasm32-unknown-unknown` with `AR_wasm32_unknown_unknown=llvm-ar`. The job installs `dtolnay/rust-toolchain@stable` without `targets: wasm32-unknown-unknown`, and NSH's `rust-toolchain.toml` does not list wasm32. It also does not install `llvm` (llvm-ar). The fork's own `fork-ci.yml` `web` job installs both, for the same reason. The step would fail building the runtime. **Repair:** add `targets: wasm32-unknown-unknown` to the Rust step and `llvm` to the apt packages, as fork-ci.yml does.\n\nResolved in fork/tizen-ci 6c94f6c73: `tv-specs` adds `targets: wasm32-unknown-unknown`, the `llvm` package and `AR_wasm32_unknown_unknown=llvm-ar`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": ".github/workflows/fork-tizen.yml"
+        }
+      ]
+    },
+    {
+      "id": "f-s21-gpui-spec-not-tv-idiom",
+      "boundaryId": "s21-ci",
+      "criterionIds": [
+        "CI-4"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected (CI-4):** the TV-idiom specs run under `nsh test --target gpui`. **Observed:** the step \"The TV idiom on the GPUI host\" runs `nsh test tests/apps/pressable-focus --target gpui`. That runs in the desktop idiom: `nsh test` has no `--idiom` flag (`crates/nsh-cli/src/main.rs` `Test`); the test hosts never resolve an idiom (`DevIdiom::resolve` is used only by `nsh dev`/`nsh run`, `run.rs`/`main.rs`); `tests/apps/pressable-focus/nsh.json` has no `dev.idiom`; and the spec is the desktop Tab/arrow spec, whose header names `--target <macos|linux|windows>`. No `*.test.tsx` in the fork uses the TV idiom. **Repair:** make `nsh test --target gpui` take the TV idiom (honour `nsh.json` `dev.idiom` or add `--idiom`) in the right NSH area branch. Add a TV-idiom spec or app (`dev.idiom: \"tv\"`) and run that here. Otherwise get the owner's amendment of CI-4.\n\nResolved in pr/tv/03-dev-idiom (35ce21821, 2cb11014a; appended to the stack with no rebase, docs and both website languages in the same commit, merged into feat/tizen at e7325eb31). `nsh test --target gpui|web` takes `--idiom`, over `nsh.json` `dev.idiom`. `tests/apps/tv-idiom` checks `platform.tv` and `tv=` props. Check `chk-nsh-tv-idiom-gpui` ran it with `--target gpui --idiom tv`: 2 passed. fork/tizen-ci 138e51e1e runs it in `tv-specs`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/test_host.rs"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/tests/cli/dev_idiom.rs"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "tests/apps/tv-idiom/App.test.tsx"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": ".github/workflows/fork-tizen.yml"
+        }
+      ]
+    },
+    {
+      "id": "f-s21-apt-masked",
+      "boundaryId": "s21-ci",
+      "criterionIds": [
+        "CI-4"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** the `tv-specs` packages either install or fail the job. **Observed:** `apt-get install -y ... chromium-browser || true`. On Ubuntu 24.04, `chromium-browser` is a transitional package that installs a snap, and `|| true` hides any failure of the whole command. If apt cannot install one package, it installs none of them (clang, xvfb, the X11 dev packages), and the failure then shows up later as confusing build errors. A browser is already there: `nsh test` finds `google-chrome` on PATH (`cdp.rs` `LINUX_NAMES`), and fork-ci.yml's `web` job relies on the image's Chrome. **Repair:** drop `chromium-browser` and `|| true`. Also consider `save-if: main` on rust-cache, as fork-ci.yml does.\n\nResolved in 6c94f6c73: `chromium-browser` and `|| true` are gone, and the job relies on the image's Chrome.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": ".github/workflows/fork-tizen.yml"
+        }
+      ]
+    },
+    {
+      "id": "f-s21-emulator-launch",
+      "boundaryId": "s21-ci",
+      "criterionIds": [
+        "CI-2"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** `tizen-emulator.yml` starts the diagnostic app on the emulator. **Observed:** it runs `sdb shell 0 execute \"$APP_ID\"`. NSH's own sdb code in this epic (`crates/nsh-cli/src/tizen.rs`, `capabilities`/`Sdb::launch`) documents `0 execute` as the path for secure-protocol TVs, and says the emulator has a shell and `app_launcher -s`. On the emulator, `0 execute ...` would run as an ordinary shell command and start nothing. `sdb shell` may still exit 0, so the failure only shows after the six `diag pull` attempts. **Repair:** choose the command from `sdb capability` (`secure_protocol`), as NSH does, or use `sdb shell app_launcher -s \"$APP_ID\"` for the emulator.\n\nResolved in 5415b4a: the app is started with `sdb shell app_launcher -s \"$APP_ID\"`, the emulator's path in NSH's `Sdb::launch`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": ".github/workflows/tizen-emulator.yml"
+        }
+      ]
+    },
+    {
+      "id": "f-s21-emulator-boot",
+      "boundaryId": "s21-ci",
+      "criterionIds": [
+        "CI-2",
+        "CI-4"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** a headless emulator that stays up and is ready before install. **Observed:** both workflows run `nohup xvfb-run -a ... em-cli launch -n <vm> &`. This ties Xvfb's lifetime to `em-cli launch`. If `em-cli launch` returns after spawning the emulator (a launcher; not verified), `xvfb-run` tears the X server down under the running emulator. The boot wait only checks that `sdb devices` lists the emulator, which can happen before the app framework accepts `sdb install`; the install is not retried. The NSH job also prints nothing on a timeout. **Repair:** start one Xvfb for the job (`Xvfb :99 -screen 0 1920x1080x24 &`, `DISPLAY=:99` in `GITHUB_ENV`), or use the emulator's no-display option. Wait for boot completion (or retry `sdb install`), and print `sdb devices` and the launch log when the wait times out.\n\nResolved: both workflows start their own `Xvfb :99` (DISPLAY exported through GITHUB_ENV) and wait until `sdb shell echo ready` answers, then 30 s more. dXn retries `sdb install` three times and prints `sdb devices` on a timeout. NSH's `Emulator log` step (`if: always()`) prints the launch log.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": ".github/workflows/tizen-emulator.yml"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": ".github/workflows/fork-tizen.yml"
+        }
+      ]
+    },
+    {
+      "id": "f-s21-tv-emulator-packages",
+      "boundaryId": "s21-ci",
+      "criterionIds": [
+        "CI-2",
+        "CI-4"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** the emulator jobs install the TV emulator from a documented source, like `docs/setup.md` does for the native packages. **Observed:** both install `Emulator TV-SAMSUNG-Public-Emulator`, a name with no source in docs/setup.md, the README or the research. The research (`testing-without-a-tv.md`) puts the TV emulator in Samsung's TV Extension, which the package manager must have enabled as an extension repository. No step enables it or checks that the package is listed. **Repair:** document the package names and the extension activation in docs/setup.md (verified with `show-pkgs`). In the action, enable the extension and fail with a clear message when the TV emulator package is not listed, so the first owner run diagnoses itself.\n\nResolved: the action's `packages` description now records `Emulator` and `TV-SAMSUNG-Public-Emulator` as `show-pkgs --tree` lists them in the default repository. The local package manager's package list also lists `TV-SAMSUNG-Public-Emulator` 10.0.0 (`isExtension`, `extName` Samsung TV extension for Tizen-10.0 Emulator), so no separate extension activation is needed. Whether it installs on a runner stays the owner's first run (s23-s25).",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": ".github/actions/tizen-sdk/action.yml"
+        }
+      ]
+    },
+    {
+      "id": "f-s21-sdk-cache-key",
+      "boundaryId": "s21-ci",
+      "criterionIds": [
+        "CI-4"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** the SDK cache changes when the install recipe changes. **Observed:** the cache key's `hashFiles('.github/actions/tizen-sdk/action.yml')` is evaluated against the calling repository's workspace. From NSH's `fork-tizen.yml` (`uses: ./.tizen/dXn.GpuiTizen/.github/actions/tizen-sdk`) that path does not exist, so the hash is empty, and a changed recipe keeps restoring an old `~/tizen-studio`. **Repair:** key on an explicit recipe version (a constant or input bumped with the recipe), or on a path that is valid from both repositories.\n\nResolved in 5415b4a: the key carries an explicit `recipe2` version, to be bumped with the install steps, instead of `hashFiles`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": ".github/actions/tizen-sdk/action.yml"
+        }
+      ]
+    },
+    {
+      "id": "f-s21-cross-cache-key",
+      "boundaryId": "s21-ci",
+      "criterionIds": [
+        "CI-1"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Observed:** `.github/actions/setup` sets `cache-shared-key: ${{ runner.os }}-${{ github.job }}`, so the `armv7` and `x86_64` legs of `cross` share one rust-cache key. Only one leg's target tree is saved, and the other restores a cache for the wrong target. **Repair:** add a cache-key input (the matrix target) to the setup action.\n\nResolved in 5415b4a: the setup action takes a `cache-key` input, and `cross` passes `matrix.target`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": ".github/actions/setup/action.yml"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": ".github/workflows/ci.yml"
+        }
+      ]
+    },
+    {
+      "id": "f-s21-plan-leftovers",
+      "boundaryId": "s21-ci",
+      "criterionIds": [
+        "CI-1"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Observed:** the plan action keeps the template's `lane_c` output and `backend()` (llvmpipe/metal). `ci.yml` never uses them, and `plan_test.sh` tests them. **Repair:** remove them and their test case, or use them.\n\nResolved in 5415b4a: `lane_c` and `backend()` are removed, and the test case now checks the one-platform `os` output.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": ".github/actions/plan/plan.sh"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": ".github/actions/plan/plan_test.sh"
+        }
+      ]
+    },
+    {
+      "id": "f-s21-fork-ci-docs",
+      "boundaryId": "s21-ci",
+      "criterionIds": [
+        "CI-2",
+        "CI-4"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Observed:** (a) `fork-tizen.yml` says only \"signed with the profile in the repository's secrets\". It names neither the five `TIZEN_*` secrets, nor the `profiles.xml` placeholders, nor that the certificates are written as `author.p12`/`distributor.p12` under `@CERT_DIR@` (the dXn README omits the file names too). It also does not say that dXnSix/dXn.GpuiTizen and both forks must be readable by the fork's token, or that running it accepts Samsung's licence (only the action's description says that). (b) The NSH job writes `profiles.xml` without `chmod 600` (the dXn job does). (c) Its commit subjects use `fork:`, while the fork's earlier fork-only CI commits use `ci:`. (d) `cancel-in-progress: true` grouped by ref lets a push to `main` cancel a manual emulator run on `main`. **Repair:** document these in the workflow header and the dXn README, add the chmod, and give the emulator job its own concurrency group. For (c), follow the fork's prefix in future commits (no rebase).\n\n**Re-review:** the NSH half is repaired in 6c94f6c73: the header lists the secrets, the `author.p12`/`distributor.p12` names, readable repositories and licence acceptance; `profiles.xml` gets 0600; concurrency is grouped per event; the new commits use `ci:`. **Still open:** the dXn half. `README.md` (\"Continuous integration\" secrets table) and the `tizen-emulator.yml` header still do not say that `@CERT_DIR@` holds the files `author.p12` and `distributor.p12`, which the signing step writes (`$certs/author.p12`, `$certs/distributor.p12`). Whoever writes `TIZEN_PROFILES_XML` from the README would have to guess these paths, and the first signed run would fail. **Repair:** name both file names in the README's `TIZEN_PROFILES_XML` row and in the workflow header.\n\n**Resolved** in d374b9a: the README's `TIZEN_PROFILES_XML` row and the `tizen-emulator.yml` header say the job writes `@CERT_DIR@/author.p12` and `@CERT_DIR@/distributor.p12`, matching the signing step.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "README.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": ".github/workflows/tizen-emulator.yml"
+        }
+      ]
+    },
+    {
+      "id": "f-s21-tv-specs-unchecked",
+      "boundaryId": "s21-ci",
+      "criterionIds": [
+        "CI-4"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected:** each TV-idiom spec command in `tv-specs` is backed by local evidence, since no workflow has run (CI-4 is automated). **Observed:** `chk-nsh-tv-idiom-gpui` runs one of the job's four commands: `tests/apps/tv-idiom --target gpui --idiom tv`. The job's other new commands were never run locally: `nsh test tests/apps/pressable-focus --target gpui --idiom tv --filter arrows` (its arrows spec starts from Tab presses written for the desktop idiom) and `nsh test tests/apps/tv-idiom --target tizen-web` (the counter's tizen-web run has earlier evidence). **Repair:** extend the check, or add a second one, to run exactly those two commands. If the arrows spec does not pass in the TV idiom, fix the step or the spec.\n\n**Resolved:** `chk-nsh-tv-idiom-gpui` also runs `pressable-focus --target gpui --idiom tv --filter arrows` (1 passed), and the new `chk-nsh-tv-idiom-tizen-web` runs `tv-idiom --target tizen-web` (2 passed). Together with the existing gpui tv-idiom run and the counter's earlier tizen-web evidence, every `tv-specs` command now has a local run. All 7 s21 checks pass at this snapshot.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "tests/apps/pressable-focus/App.test.tsx"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "tests/apps/tv-idiom/App.test.tsx"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": ".github/workflows/fork-tizen.yml"
+        }
+      ]
     }
   ],
-  "handoffMarkdown": "01-package 12834794f: nsh run --target tizen-web (dev page with shim, dev .wgt NshDevHost opening the LAN dev page), nsh test --target tizen-web (headless Chromium 1920x1080 with the shim); counter spec passes.",
+  "handoffMarkdown": "NSH fork/tizen-ci 7f6f6e49e (on upstream 8c733731f, its own file): .github/workflows/fork-tizen.yml cross-builds nsh-platform-tizen release+dev for armv7/x86_64/aarch64 through dXn.GpuiTizen's cross driver with rootstraps in the job and the one-export check, TV-idiom specs on gpui and tizen-web, manual emulator job (nsh test --target tizen); paths.py lists nsh-platform-tizen (from pr/tizen/04-platform).",
   "protectedPaths": {
     "gpuitizen": {
       "gpuitizen:.agentx/memory/**": "94784ab15131a5a4ff6827a67fa677677a923e04a068e1e4335659b7b6e5c11e"
