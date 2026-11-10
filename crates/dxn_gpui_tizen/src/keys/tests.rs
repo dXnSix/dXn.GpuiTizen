@@ -35,6 +35,7 @@ fn the_whole_named_table() {
         ("XF86AudioPrev", "mediaprevious"),
         ("XF86RaiseChannel", "channelup"),
         ("XF86LowerChannel", "channeldown"),
+        ("XF86Info", "info"),
     ];
     assert_eq!(expected.len(), NAMED_KEYS.len());
     for (tizen, gpui) in expected {
@@ -102,7 +103,7 @@ fn digits_and_printable_keys_carry_their_character() {
 
 #[test]
 fn unknown_key_names_pass_through_lowercased() {
-    assert_eq!(key("XF86Info").key, "xf86info");
+    assert_eq!(key("XF86Search").key, "xf86search");
     assert_eq!(key("XF86Menu").key, "xf86menu");
     assert_eq!(key("Tab").key, "tab");
     // A control string is not a key_char.
@@ -172,4 +173,16 @@ fn unhandled_printable_keys_insert_their_text() {
     assert_eq!(fallback_text(&ctrl), None, "a shortcut, not text");
     assert_eq!(fallback_text(&key("Up")), None);
     assert_eq!(fallback_text(&key("XF86Back")), None);
+}
+
+/// The remote's Info key reaches GPUI as `info`, the name NSH's keymap gives it (not grabbed by
+/// default: PLAT-2 grabs colors, media and channels).
+mod info {
+    use super::*;
+
+    #[test]
+    fn info_is_named_info() {
+        assert_eq!(key("XF86Info").key, "info");
+        assert!(!crate::keygrab::DEFAULT_GRABS.contains(&"XF86Info"));
+    }
 }

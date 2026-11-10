@@ -39,6 +39,7 @@ pub const NAMED_KEYS: &[(&str, &str)] = &[
     ("XF86AudioPrev", "mediaprevious"),
     ("XF86RaiseChannel", "channelup"),
     ("XF86LowerChannel", "channeldown"),
+    ("XF86Info", "info"),
 ];
 
 /// A key event as Ecore delivers it (`Ecore_Event_Key`).
