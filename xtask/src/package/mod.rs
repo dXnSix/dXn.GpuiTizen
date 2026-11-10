@@ -352,8 +352,10 @@ pub fn host_files(output_dir: &Path) -> Vec<PathBuf> {
         .collect()
 }
 
-/// `tz pack` for a staged tree, run only with `--sign <profile>`.
-pub fn sign_command(staging: &Path, profile: &str) -> Vec<String> {
+/// `tz pack` re-signing an unsigned package (a zip of the staged tree), run only with
+/// `--sign <profile>`. `tz pack` signs only a `tz` project or, in its repack mode, an existing
+/// package (`-b`): given a plain directory it answers "is not a valid project".
+pub fn sign_command(unsigned: &Path, signed: &Path, profile: &str) -> Vec<String> {
     vec![
         "tz".to_owned(),
         "pack".to_owned(),
@@ -361,13 +363,27 @@ pub fn sign_command(staging: &Path, profile: &str) -> Vec<String> {
         "tpk".to_owned(),
         "-s".to_owned(),
         profile.to_owned(),
-        staging.display().to_string(),
+        "-b".to_owned(),
+        unsigned.display().to_string(),
+        "-o".to_owned(),
+        signed.display().to_string(),
     ]
+}
+
+/// The file name of a single-architecture package (`cargo xtask package --target <arch>`):
+/// `<package id>-<version>-<arch>.tpk`, with the version as `Cargo.toml` has it.
+pub fn single_tpk_file_name(app: &App, version: &str, target: Target) -> String {
+    format!("{}-{version}-{}.tpk", app.package_id, arch_name(target))
+}
+
+/// The unsigned package `--sign` zips the staged tree into, next to the signed one.
+pub fn unsigned_tpk_path(signed: &Path) -> PathBuf {
+    signed.with_extension("unsigned.tpk")
 }
 
 /// What `--sign` is for, when it is absent.
 pub const UNSIGNED_NOTE: &str = "staged only: signing a TPK needs the owner's Samsung certificate \
-     profile (`cargo xtask package ... --sign <profile>`, which runs `tz pack -t tpk -s <profile>`)";
+     profile (`cargo xtask package ... --sign <profile>`, which zips the tree and runs `tz pack -t tpk -s <profile> -b <unsigned> -o <signed>`)";
 
 #[cfg(test)]
 mod tests;
