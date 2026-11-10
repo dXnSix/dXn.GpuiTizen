@@ -1,12 +1,12 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 282,
-  "planRevision": 42,
+  "revision": 295,
+  "planRevision": 45,
   "specHashes": {
     "requirements": "068b40fba8f3eeb831a46d913cc2bbd60e3e470cfbbed6933dc6aede91ac4a6e",
     "design": "a3e9ab1641d598bff3fdd015bd4af4393cd6025f28b84ab7dab193dcb9794dcc",
-    "plan": "30c336edabd531dc306d9905ac3bfa557b476db37fdedbe6e80d3e8e49c558c0"
+    "plan": "8a184cc0e5cd5c81d5c3e6f21c40974470ce945d8375eaf138956969ca2d5d80"
   },
   "tasks": {
     "t1-workspace": {
@@ -421,13 +421,22 @@
       ]
     },
     "t17-os": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t17-gpui-optional": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t17-gpui-tizen-cfg": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t18-platform": {
       "status": "pending"
@@ -857,6 +866,42 @@
         }
       },
       "recordedAt": "2026-11-10T13:00:37Z"
+    },
+    "24404c2172ccd4ba743c5507ed5384a81eb79df21ff722b5ea63f59b3caef4ec": {
+      "snapshot": {
+        "specHash": "ef40ded1867b46d6ae6f64143dae2c2a0841188be8abcb7dfb2ca3d171f1bdd1",
+        "repositories": {
+          "gpuitizen": "e613a837f7c765f7ba99e59d63f38546f841eb6a639fdd4b538e1d5dde280de2",
+          "gpui-fast": "c318780179e3efe79b3549e66b723ee445ed7dd36b3d54e1db560726aee9a019",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "6428510423eb1a03f27a034c7f449c9c3cab63c03bed2be9735b78c66783e068"
+        }
+      },
+      "recordedAt": "2026-11-10T13:27:45Z"
+    },
+    "ac7cc33821614295044912e6865bbb1ea92e437f0f098c012f7b8d44c1010a8c": {
+      "snapshot": {
+        "specHash": "c638d23465eed43f00cfc310b47cda9bce8bc96ce39fc8bfa9f0db0fc73e5178",
+        "repositories": {
+          "gpuitizen": "47ce5358b88d417446a7d362faab81d05b794f2edcd0c26283542b78a52f05ec",
+          "gpui-fast": "c318780179e3efe79b3549e66b723ee445ed7dd36b3d54e1db560726aee9a019",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "2b6c65b282d1b79ccd58ccfe3116243084949721870c23bf615c44924ebf6b21"
+        }
+      },
+      "recordedAt": "2026-11-10T14:28:46Z"
+    },
+    "d5bfdd462c4455b267d134c3c9960a29aeec7b3a04f870b374ce8513268dec0e": {
+      "snapshot": {
+        "specHash": "b87a575d5652fc43e818abededa8ebc5ba329c636a84a2a8aa953108203c423f",
+        "repositories": {
+          "gpuitizen": "47ce5358b88d417446a7d362faab81d05b794f2edcd0c26283542b78a52f05ec",
+          "gpui-fast": "c318780179e3efe79b3549e66b723ee445ed7dd36b3d54e1db560726aee9a019",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "2b6c65b282d1b79ccd58ccfe3116243084949721870c23bf615c44924ebf6b21"
+        }
+      },
+      "recordedAt": "2026-11-10T14:42:22Z"
     }
   },
   "checkResults": {
@@ -2865,6 +2910,210 @@
       "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s16-nsh-tv-final-8b93f7a97c2c.log",
       "logSha256": "4899f95e808877c1873420f2bf2346e7bb8797d50f6390555ad5019e8c7f692f",
       "inputsHash": "bfcb0e2f4dfd1f939fe0cedb59bb5ebce68b2f1e330ba17d0bb68d4f9ba5d20c"
+    },
+    "s17-nsh-gpui-tizen/chk-nsh-gate-armv7/final": {
+      "checkId": "chk-nsh-gate-armv7",
+      "boundaryId": "s17-nsh-gpui-tizen",
+      "phase": "final",
+      "batchId": "ac7cc33821614295044912e6865bbb1ea92e437f0f098c012f7b8d44c1010a8c",
+      "definitionHash": "ac37c006bdd8fff12d1041aab09573d81a0f897b08c31c8e8eb7805b18742a02",
+      "basisHash": "e6ee11cde46cad02704321b52cb5383f0f7b1e5480e08675277ebf6511c14e52",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 93.923,
+      "recordedAt": "2026-11-10T14:13:24Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-578b6b1a1765.log",
+      "logSha256": "4e573f86092422829ed693b6a635ccf9fe039765e72628069408a9f556e489db",
+      "inputsHash": "25a18cfee6d3cbe7e0270c11e917b0e0604eb21b2073a5653c71852e5cbff8b5"
+    },
+    "s17-nsh-gpui-tizen/chk-nsh-tv-env/final": {
+      "checkId": "chk-nsh-tv-env",
+      "boundaryId": "s17-nsh-gpui-tizen",
+      "phase": "final",
+      "batchId": "24404c2172ccd4ba743c5507ed5384a81eb79df21ff722b5ea63f59b3caef4ec",
+      "definitionHash": "78294c624bf7ad40898c1bd7a15e75154faeeb12abcf3abe56311922d9364799",
+      "basisHash": "5bab904a27fcb96a5159e04dffeda9d687d9da2fcafa812a44a236225ad69e6c",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 3,
+      "durationSeconds": 36.6416,
+      "recordedAt": "2026-11-10T13:09:09Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-d796b644613e.log",
+      "logSha256": "6ce56e9b13d8854a56464a2552c92807507502493f08257fc3fc172ebdb7605b",
+      "inputsHash": "f215435764b054b94ef92126cfc16d4df56ddaf92ff2e0fec39346d35c091ce3"
+    },
+    "s17-nsh-gpui-tizen/chk-nsh-os-tizen/final": {
+      "checkId": "chk-nsh-os-tizen",
+      "boundaryId": "s17-nsh-gpui-tizen",
+      "phase": "final",
+      "batchId": "24404c2172ccd4ba743c5507ed5384a81eb79df21ff722b5ea63f59b3caef4ec",
+      "definitionHash": "b5a5423c06145eefb948ee262eab1efd0d9d1a4c4a50de1ef2f74b03fae4ba43",
+      "basisHash": "70a4a33073d3aafdb81e142200ba77d5db12435b35a4575586653eb0d866f010",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 4,
+      "durationSeconds": 34.9594,
+      "recordedAt": "2026-11-10T13:09:44Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-66f50b698ce7.log",
+      "logSha256": "25e33aa5f40385ee04d949c84dbdaadbba089a8924bbf448d19402b8c735b194",
+      "inputsHash": "e379a604474de90f063488ea83655f1813a35612e60a22b8b4826c9806c568ad"
+    },
+    "s17-nsh-gpui-tizen/chk-nsh-gpui-default/final": {
+      "checkId": "chk-nsh-gpui-default",
+      "boundaryId": "s17-nsh-gpui-tizen",
+      "phase": "final",
+      "batchId": "ac7cc33821614295044912e6865bbb1ea92e437f0f098c012f7b8d44c1010a8c",
+      "definitionHash": "258d7403b61c5120b1c8ff9994ccbd295b8d02065a4d5e01a4465f30ca81e605",
+      "basisHash": "0f70421063d66742c84fa4bef9b95d11740c6ff75dc131937339b74e9ce19fb2",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 42.8908,
+      "recordedAt": "2026-11-10T14:14:07Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-7f0fd56c491f.log",
+      "logSha256": "a9a80a11871c6c919743adb65d5335ec8b8e6ff277c51e7bc7e9e8121312015e",
+      "inputsHash": "c1bd30c84865484855d93ba5cdc122d83d49b672239635452cc7e6a79b6a56ec"
+    },
+    "s17-nsh-gpui-tizen/chk-nsh-gpui-tizen-deps/final": {
+      "checkId": "chk-nsh-gpui-tizen-deps",
+      "boundaryId": "s17-nsh-gpui-tizen",
+      "phase": "final",
+      "batchId": "ac7cc33821614295044912e6865bbb1ea92e437f0f098c012f7b8d44c1010a8c",
+      "definitionHash": "5333339d50f76420f70cda99f7dafd513134443f9dfea4a671201e27dd5d683e",
+      "basisHash": "5d0f0fa34a3946ff5d1f252ea534237f4d2b62f645197dfcc7a4080bfa41b255",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 0.7468,
+      "recordedAt": "2026-11-10T14:14:07Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-be778d015119.log",
+      "logSha256": "a6ace4916348fba5598227d90b48267be8f077e327a5f6dffbdde948ee08330e",
+      "inputsHash": "eec04b96188c451f4c9a137d43d8be789297aad7bc1b924668969d8b3dc1704a"
+    },
+    "s17-nsh-gpui-tizen/chk-nsh-gpui-tizen-build/final": {
+      "checkId": "chk-nsh-gpui-tizen-build",
+      "boundaryId": "s17-nsh-gpui-tizen",
+      "phase": "final",
+      "batchId": "ac7cc33821614295044912e6865bbb1ea92e437f0f098c012f7b8d44c1010a8c",
+      "definitionHash": "f9308808cff00032a08ef3158e45b220cbd919860a56ac3444b6ade6194f1ecb",
+      "basisHash": "aa69add2c8fc197864e320b37b08dc3ee115138b2194795cf093e02b2a414677",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 53.9873,
+      "recordedAt": "2026-11-10T14:15:01Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-dd1aa16a376f.log",
+      "logSha256": "421759808093d2a927eff42401f6389881376d700f53334847e0237d4ddfdbfc",
+      "inputsHash": "c72336c01b34de8087858418ab28a6222f3afeb2488c154f31546d3d7d2a2b3c"
+    },
+    "s17-nsh-gpui-tizen/chk-nsh-compat-tizen/final": {
+      "checkId": "chk-nsh-compat-tizen",
+      "boundaryId": "s17-nsh-gpui-tizen",
+      "phase": "final",
+      "batchId": "d5bfdd462c4455b267d134c3c9960a29aeec7b3a04f870b374ce8513268dec0e",
+      "definitionHash": "06f165786b88eda610093ba1883c3db176d9033205db202bdf9af0b313340cf5",
+      "basisHash": "f506581c2db1e9d46640b93edd3fc2859234aeb5e50832496664d68b3d4c944b",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 0,
+      "durationSeconds": 781.8726,
+      "recordedAt": "2026-11-10T14:42:21Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-0d7a6e0d5c7d.log",
+      "logSha256": "0731428a053be0ed4c9e963138f64988216791d68ee22e1e376d0043ba922e1b",
+      "inputsHash": "6069231677ed6a89da6c71e4b91eafda35954e1a46ffb14d963f0c3fcdc92c75"
+    },
+    "s17-nsh-gpui-tizen/chk-nsh-gpui-tizen-settings/final": {
+      "checkId": "chk-nsh-gpui-tizen-settings",
+      "boundaryId": "s17-nsh-gpui-tizen",
+      "phase": "final",
+      "batchId": "ac7cc33821614295044912e6865bbb1ea92e437f0f098c012f7b8d44c1010a8c",
+      "definitionHash": "83677136b70824b38c01709f50f4714010226eabfbe26ee0cec44137b9b1159e",
+      "basisHash": "6e7638100b72932bb12eb86cb9acad5f5062cf2b501809aa62cd0defdbbe07c3",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 1,
+      "durationSeconds": 84.8287,
+      "recordedAt": "2026-11-10T14:27:07Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-9783bb371ad3.log",
+      "logSha256": "fa9f1cbdb6bbd51cf9267b0be69c7590c8d0ea250315961b8c544b05e4d92765",
+      "inputsHash": "3ea457ffde371870d1e753b2898d7c020486005ef8cf30c6f7514946e03f983d"
+    },
+    "s17-nsh-gpui-tizen/chk-nsh-gpui-tizen-system/final": {
+      "checkId": "chk-nsh-gpui-tizen-system",
+      "boundaryId": "s17-nsh-gpui-tizen",
+      "phase": "final",
+      "batchId": "ac7cc33821614295044912e6865bbb1ea92e437f0f098c012f7b8d44c1010a8c",
+      "definitionHash": "815b47ac4ed0e09a39153e63bc575a8b0c6b18249e28afb8251594ed00dad8d9",
+      "basisHash": "81dd8f490ba3244a04c8699d2dbac3bf5399d4c5e4463a02a5bc60ddb5f8eb24",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 1,
+      "durationSeconds": 0.6037,
+      "recordedAt": "2026-11-10T14:27:08Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-a3990684b61e.log",
+      "logSha256": "e6a50f1daaccadaa9f3795fd3de8583e23e63f82361099f5f0abb2e4d0ded942",
+      "inputsHash": "3ea457ffde371870d1e753b2898d7c020486005ef8cf30c6f7514946e03f983d"
+    },
+    "s17-nsh-gpui-tizen/chk-nsh-gpui-tizen-fonts/final": {
+      "checkId": "chk-nsh-gpui-tizen-fonts",
+      "boundaryId": "s17-nsh-gpui-tizen",
+      "phase": "final",
+      "batchId": "ac7cc33821614295044912e6865bbb1ea92e437f0f098c012f7b8d44c1010a8c",
+      "definitionHash": "4607ad6c1d0860764698a46e0f1eb930344c71af09ca432e61d5222ceed5b480",
+      "basisHash": "c5612b0e39776ce28b00c531519df47b88db8024f17162c0aa2a9bf3e8d87ef7",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 3,
+      "durationSeconds": 0.2757,
+      "recordedAt": "2026-11-10T14:27:08Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-d67fae080e84.log",
+      "logSha256": "b3244684a6cc02ea3f80bb19d4b53cdf2719694cac84eba507428f7a31560b40",
+      "inputsHash": "3ea457ffde371870d1e753b2898d7c020486005ef8cf30c6f7514946e03f983d"
+    },
+    "s17-nsh-gpui-tizen/chk-nsh-gpui-webview-placeholder/final": {
+      "checkId": "chk-nsh-gpui-webview-placeholder",
+      "boundaryId": "s17-nsh-gpui-tizen",
+      "phase": "final",
+      "batchId": "ac7cc33821614295044912e6865bbb1ea92e437f0f098c012f7b8d44c1010a8c",
+      "definitionHash": "e182e79f14daa7a876d4e40521d75155d857384e6f18c2a9d8504eaac33f5abb",
+      "basisHash": "4fdb48da15ec7ea62b2786928ab55fe95c57e9ec3091a3ad1e90aa125f136b63",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 1,
+      "durationSeconds": 50.5245,
+      "recordedAt": "2026-11-10T14:27:59Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-2ae4bb217d1e.log",
+      "logSha256": "aa9b1de6c6781ee433b238c5e9ac031f1cf03c9abe176af2d7306d2c7fb45065",
+      "inputsHash": "3ea457ffde371870d1e753b2898d7c020486005ef8cf30c6f7514946e03f983d"
+    },
+    "s17-nsh-gpui-tizen/chk-nsh-os-tizen-js/final": {
+      "checkId": "chk-nsh-os-tizen-js",
+      "boundaryId": "s17-nsh-gpui-tizen",
+      "phase": "final",
+      "batchId": "ac7cc33821614295044912e6865bbb1ea92e437f0f098c012f7b8d44c1010a8c",
+      "definitionHash": "66d6f5b2a47536d5775acedd851adefb742ba1b15be4964fc23890859570b2f1",
+      "basisHash": "eadab1851abc06cd500b49806580cbe71f4d3653eab9a2bdba93ff9763d42628",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 4,
+      "durationSeconds": 46.2908,
+      "recordedAt": "2026-11-10T14:28:45Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-4d0ceb77b8d8.log",
+      "logSha256": "208a7f8886057e19e5ec1b6ca294b6c341b3aac47840bdc9ba100474958b8782",
+      "inputsHash": "f215435764b054b94ef92126cfc16d4df56ddaf92ff2e0fec39346d35c091ce3"
     }
   },
   "reviews": {
@@ -7176,6 +7425,428 @@
         "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "gpuitizen:docs/pr/**": "954cd9e92ba3838651abc431be0fd4aab6c6e2c3e40ee630588fd6bdc639b38d"
       }
+    },
+    "s17-nsh-gpui-tizen": {
+      "reviewerId": "reviewer-s17-independent",
+      "snapshotId": "d5bfdd462c4455b267d134c3c9960a29aeec7b3a04f870b374ce8513268dec0e",
+      "criterionIds": [
+        "NTZ-1",
+        "NTZ-2",
+        "NTZ-3",
+        "NTZ-4"
+      ],
+      "verdict": "passed",
+      "anchors": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/platform.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-2"
+          ],
+          "sha256": "482b352a96a348b60f28244741ba70bfcc6952f0958339f4d610cb5a8d9b1736"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/platform.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-2"
+          ],
+          "sha256": "482b352a96a348b60f28244741ba70bfcc6952f0958339f4d610cb5a8d9b1736"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/element/ambient.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-2"
+          ],
+          "sha256": "9c2cef42b51716d248926358271766eead6852cf3136101c47288b222a1c991f"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-core/src/keymap.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-2"
+          ],
+          "sha256": "b42e4c35ad1baca962a96c9c127717bad8f4123efcfd22d2134803c87b049cdd"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-js/src/env.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-2"
+          ],
+          "sha256": "f15588ebdaa1f603c350b511b8fd71b94568a1998c6c3c953b7048d93f033b34"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-js/src/declarations.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-2"
+          ],
+          "sha256": "a8cff8e25b403ab328a04e3f641839af8774003889456cdaa0851250fe26f5ce"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-js/src/env/tests.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-2"
+          ],
+          "sha256": "0ad4b67bddb773b464cd72848122166ed4dc7a2a807135d7337aac932670a9b3"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "tests/compat/cases/tizen/mod-device-tizen.tsx",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-2"
+          ],
+          "sha256": "77cb9e792f4689edb2c67fcf1f7c30174548d03aa7ddc3de1615b28c9b499921"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "tests/compat/cases/tizen/script.txt",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-2"
+          ],
+          "sha256": "1d88607cacace6a00874809bad1929d5d42bdf3c1acb4d22f48d47cf765583ee"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-tui/src/app.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-2"
+          ],
+          "sha256": "4c860d57bf2a2df7b98cc8a44991d01abfc87e3ce10d759c8fc145f636cab283"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/keymap.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-2",
+            "NTZ-4"
+          ],
+          "sha256": "948ec429a41deb79bec47c7fd22e1df02bf0c829447932358a2dd61ebd9cdb6e"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/Cargo.toml",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-1",
+            "NTZ-3",
+            "NTZ-4"
+          ],
+          "sha256": "ed8f860def15fa31ad309c94cf29a6d024bc17f3df337b4b2db83f57fa65a874"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-gpui-host/Cargo.toml",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-3"
+          ],
+          "sha256": "2b7389d6a7f1e30cec56458c22de6294880a77a676eb75ec15a0d34977bc10b7"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/lib.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-3",
+            "NTZ-4"
+          ],
+          "sha256": "f7d6778acb4fafc6d3fead1386a9f39404c75dd6f9b13d71d2af503232aa1952"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/app.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-2",
+            "NTZ-3",
+            "NTZ-4"
+          ],
+          "sha256": "fbf44d8fc7f2b2f700e008fcf09f3f6b3e7ab02ebc268a8c056df183b5eb0a7f"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/app.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-2"
+          ],
+          "sha256": "fbf44d8fc7f2b2f700e008fcf09f3f6b3e7ab02ebc268a8c056df183b5eb0a7f"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/host_settings.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-4"
+          ],
+          "sha256": "f8d5607bb1602b9ae522d378b6eca7e6a104e892bf87fe9448f208eeb9f656d6"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/host_settings.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-4"
+          ],
+          "sha256": "f8d5607bb1602b9ae522d378b6eca7e6a104e892bf87fe9448f208eeb9f656d6"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/system.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-4"
+          ],
+          "sha256": "22eedac4b1e3fb9ef54a794e6d0c2bcb0964ce6054a98bbcd9c186d031f46c5d"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/system.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-4"
+          ],
+          "sha256": "22eedac4b1e3fb9ef54a794e6d0c2bcb0964ce6054a98bbcd9c186d031f46c5d"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/surface.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-4"
+          ],
+          "sha256": "0eca3658acb6655ecd2a17276f18133125d39c708eee98e3b78059dd091b0222"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/text.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-3",
+            "NTZ-4"
+          ],
+          "sha256": "1fd9cded0d139a42d067d8a5a3f5c1af78da4aad062d387d02bfec08dbba9f04"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/text/tv.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-4"
+          ],
+          "sha256": "f9175e24d375be14b5bba1021937e7cdca6d4ce82397c9c89fb94879e68d5064"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/text/tv.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-4"
+          ],
+          "sha256": "f9175e24d375be14b5bba1021937e7cdca6d4ce82397c9c89fb94879e68d5064"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/native/web.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-4"
+          ],
+          "sha256": "e65c7492dd47f6aba63a8d005cb7ebb834f63800b7098afa4a1cb0991ea2ba23"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/native/web.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NTZ-4"
+          ],
+          "sha256": "e65c7492dd47f6aba63a8d005cb7ebb834f63800b7098afa4a1cb0991ea2ba23"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/native/video.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-4"
+          ],
+          "sha256": "e28ba635d86a716f5b10163acbf7ed47658b30fc3d1a6cadac99a60e8bbbc08a"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/synth.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-4"
+          ],
+          "sha256": "d5906ea97028d5e2eee023cbc59069159a54e63ba36aa2350d8c503c273f0982"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "docs/dev/gpui.md",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-3",
+            "NTZ-4"
+          ],
+          "sha256": "b60e049ece30da08c9e6b7e6a7519faa56d81d1b23a374bb3be95ca79ed37d2e"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "docs/dev/platforms.md",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-2"
+          ],
+          "sha256": "b87996a2d773c9b79acde81db3fbbab85c39180e6ecfe63885f68eac63117fa4"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "xtask/src/tizen_deps/mod.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NTZ-3",
+            "NTZ-4"
+          ],
+          "sha256": "32ba4dafae22d3541dc06be39b95579d5c95d8ac36a9f9494980e73222b65808"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-578b6b1a1765.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "NTZ-1"
+          ],
+          "sha256": "4e573f86092422829ed693b6a635ccf9fe039765e72628069408a9f556e489db"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-dd1aa16a376f.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "NTZ-4"
+          ],
+          "sha256": "421759808093d2a927eff42401f6389881376d700f53334847e0237d4ddfdbfc"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-be778d015119.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "NTZ-3",
+            "NTZ-4"
+          ],
+          "sha256": "a6ace4916348fba5598227d90b48267be8f077e327a5f6dffbdde948ee08330e"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-7f0fd56c491f.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "NTZ-3"
+          ],
+          "sha256": "a9a80a11871c6c919743adb65d5335ec8b8e6ff277c51e7bc7e9e8121312015e"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-4d0ceb77b8d8.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "NTZ-2"
+          ],
+          "sha256": "208a7f8886057e19e5ec1b6ca294b6c341b3aac47840bdc9ba100474958b8782"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-0d7a6e0d5c7d.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "NTZ-2"
+          ],
+          "sha256": "0731428a053be0ed4c9e963138f64988216791d68ee22e1e376d0043ba922e1b"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-9783bb371ad3.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "NTZ-4"
+          ],
+          "sha256": "fa9f1cbdb6bbd51cf9267b0be69c7590c8d0ea250315961b8c544b05e4d92765"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-a3990684b61e.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "NTZ-4"
+          ],
+          "sha256": "e6a50f1daaccadaa9f3795fd3de8583e23e63f82361099f5f0abb2e4d0ded942"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-d67fae080e84.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "NTZ-4"
+          ],
+          "sha256": "b3244684a6cc02ea3f80bb19d4b53cdf2719694cac84eba507428f7a31560b40"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-2ae4bb217d1e.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "NTZ-4"
+          ],
+          "sha256": "aa9b1de6c6781ee433b238c5e9ac031f1cf03c9abe176af2d7306d2c7fb45065"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-d796b644613e.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "NTZ-2"
+          ],
+          "sha256": "6ce56e9b13d8854a56464a2552c92807507502493f08257fc3fc172ebdb7605b"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-66f50b698ce7.log",
+          "kind": "runtime",
+          "criterionIds": [
+            "NTZ-2"
+          ],
+          "sha256": "25e33aa5f40385ee04d949c84dbdaadbba089a8924bbf448d19402b8c735b194"
+        }
+      ],
+      "summaryMarkdown": "Passed. All four first-review findings are resolved, with regression refs, and the repair delta raises no new finding. `feat/tizen` is at bcc2ed5d2, and all 12 s17 checks pass at snapshot d5bfdd46.\n\n- **Evidence:** the new check `chk-nsh-os-tizen-js` runs the four tizen JS environment tests.\n- **The `platform` feature on Tizen:** it is now a `compile_error!`. Build scripts of the C dependencies may fail first, which is acceptable alongside `default-features = false` in the GPUI workspace and the tizen-deps check.\n- **Doc example:** `AppView`'s example compiles without `platform`.\n- **TV fonts:** `ui_lines` now matches the TV families ignoring case and spaces, with a new test. The armv7 builds pass without warnings.\n- **Compat:** the compat check now clones the local nsh-compat `nsh-tizen` branch inside its command. The earlier failure (log 692709a34c63: upstream nsh-compat lacked `focusGroup`) was the wrong runner, not an NSH regression; the run with `nsh-tizen` reports \"compatible with every recorded release\" (log 0d7a6e0d5c7d).\n- **First review still holds:** `Os::Tizen`, `default_on`, `reported_on` and `tv()` change behavior only on Tizen. The `initial_environment(idiom)` merge resolution is correct. The Tizen graph holds no desktop crate for any feature but `platform`. Default builds are unchanged. Each branch holds only its topic's commits, with merges (no rebases); there are no AgentX files and no AI attribution.",
+      "findingIds": [
+        "f-s17-js-tizen-tests-unchecked",
+        "f-s17-platform-feature-reaches-tizen",
+        "f-s17-appview-doctest-needs-platform",
+        "f-s17-tv-ui-lines-name-match"
+      ],
+      "recordedAt": "2026-11-10T14:44:36Z",
+      "recordHashes": {
+        "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "gpuitizen:docs/pr/**": "954cd9e92ba3838651abc431be0fd4aab6c6e2c3e40ee630588fd6bdc639b38d"
+      }
     }
   },
   "checkpoints": {
@@ -7371,6 +8042,17 @@
       },
       "reviewHash": "679c4eab1ed6360606d95bdcec62fd77c261bc52942901e3cd04e566b8c0bbdc",
       "recordedAt": "2026-11-10T13:01:32Z"
+    },
+    "s17-nsh-gpui-tizen": {
+      "snapshotId": "d5bfdd462c4455b267d134c3c9960a29aeec7b3a04f870b374ce8513268dec0e",
+      "commits": {
+        "gpuitizen": "83cd3e076c7c09861e67f7d1f37f975c3362e828",
+        "gpui-fast": "e6ae34b9484cb050831aa9ab974fdd685e8800e3",
+        "wgpu": "4e3d80d5de97d1e66860f0f74fca92d50be70d4a",
+        "nsh": "bcc2ed5d27222efa521dca2debbe2cdffaafd146"
+      },
+      "reviewHash": "9ef88ee27029ec76927442b9d7bab5ed938f53054783cd826f22c989d2d1978e",
+      "recordedAt": "2026-11-10T14:44:39Z"
     }
   },
   "findings": [
@@ -9407,9 +10089,94 @@
           "path": "crates/nsh-macros/src/host_props.rs"
         }
       ]
+    },
+    {
+      "id": "f-s17-js-tizen-tests-unchecked",
+      "boundaryId": "s17-nsh-gpui-tizen",
+      "criterionIds": [
+        "NTZ-2"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "Resolved. The new check `chk-nsh-os-tizen-js` runs `cargo test -p nsh-js --lib env::tests::tizen` with a minimum of 4 tests, mapped to NTZ-2. On `feat/tizen` bcc2ed5d2 all four tizen JS environment tests pass (`tizen_reports_its_os_and_its_select_key`, `tizen_is_never_a_desktop`, `tizen_web_apps_are_web_on_a_tv`, `tizen_takes_tv_props`; log 4d0ceb77b8d8).",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-js/src/env/tests.rs",
+          "symbol": "tizen"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-4d0ceb77b8d8.log"
+        }
+      ]
+    },
+    {
+      "id": "f-s17-platform-feature-reaches-tizen",
+      "boundaryId": "s17-nsh-gpui-tizen",
+      "criterionIds": [
+        "NTZ-3",
+        "NTZ-4"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "Resolved with the `compile_error!` option the finding offered (`pr/tizen/03-gpui-tizen-cfg` 5c719ccbf). `lib.rs` stops `all(feature = \"platform\", target_vendor = \"tizen\")` with a message that names `--no-default-features --features js`, and `docs/dev/gpui.md` (the feature table and \"Tizen\") says so. Judgement on the implementer's note: right, Cargo runs dependency build scripts before it compiles this crate. On a machine without a C++ toolchain, `freetype-sys` or `yeslogic-fontconfig-sys` fail first, so the message mostly shows on setups where those scripts succeed. That is acceptable. The real guarantees stay in place: the GPUI workspace declares `nsh-platform-gpui` with `default-features = false`, `docs/dev/gpui.md` documents the Tizen feature set, and `chk-nsh-gpui-tizen-deps` checks the graph. No Tizen consumer in the repository builds with `platform`. Moving `gpui_platform` into a non-Tizen target table would have removed the crates from the graph outright, but that is not required.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/lib.rs"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "docs/dev/gpui.md"
+        }
+      ]
+    },
+    {
+      "id": "f-s17-appview-doctest-needs-platform",
+      "boundaryId": "s17-nsh-gpui-tizen",
+      "criterionIds": [
+        "NTZ-3"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "Resolved (`pr/tizen/02-gpui-platform-optional` 2f7eb1758 and c22f7a995). `AppView`'s example now defines `fn open(cx: &mut gpui::App)` through the crate's own `nsh_platform_gpui::gpui` re-export and no longer calls `gpui_platform`. The only remaining `gpui_platform` mention in it is prose. The crate's other doc example (`native.rs`) also uses only the re-export. Outside that prose, `gpui_platform` appears only in `run_app` (gated on `platform`), the `embed` example (`required-features`) and the text tests (gated on `platform`). The implementer reports that `--no-default-features --features js --doc` passes 2 doctests; that agrees with the code.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/app.rs",
+          "symbol": "AppView"
+        }
+      ]
+    },
+    {
+      "id": "f-s17-tv-ui-lines-name-match",
+      "boundaryId": "s17-nsh-gpui-tizen",
+      "criterionIds": [
+        "NTZ-4"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "Resolved (`pr/tizen/03-gpui-tizen-cfg` 6325f81ea and 2e0e29dc5). `ui_lines` now goes through `preferred_ui`, `is_ui_family` and `same_family`. On Tizen these call `tv::ui_candidates`, `tv::is_ui_family` and `tv::same_family`, which normalize case and spaces; elsewhere they behave exactly as before (exact lowercase lookup, `eq_ignore_ascii_case`, `==`). The Tizen `UI_FAMILIES` stays as documentation, marked `#[allow(dead_code)]`. The new test `text::tv::tests::the_preferred_family_matches_ignoring_case_and_spaces` passes (log d67fae080e84). The armv7 builds that compile the Tizen-only branches pass without warnings (logs dd1aa16a376f and 578b6b1a1765).",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/text.rs",
+          "symbol": "preferred_ui"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/text/tv.rs",
+          "symbol": "the_preferred_family_matches_ignoring_case_and_spaces"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "artifacts-temp/agentx/tizen-gpui-platform/s17-nsh-gpui-tizen-final-d67fae080e84.log"
+        }
+      ]
     }
   ],
-  "handoffMarkdown": "pr/engine/01-wgpu-30 c5a018805: root wgpu and naga 29 -> 30, nsh-engine shader adapted; one wgpu 30.0.1 and one naga in crates/gpui/Cargo.lock (shader:: 5).",
+  "handoffMarkdown": "pr/tizen/03-gpui-tizen-cfg 3411a7710 (on 02): under target_vendor tizen no zbus/x11rb/raw-window-handle/gtk/webkit2gtk/wry/gstreamer; settings via AppView setters (set_reduce_motion, set_screen_reader, set_time_zone), TV font families, web views report unsupported, video placeholder seam, screenshots unsupported; groups host_settings, system::tv, text::tv, native::web::placeholder.",
   "protectedPaths": {
     "gpuitizen": {
       "gpuitizen:.agentx/memory/**": "94784ab15131a5a4ff6827a67fa677677a923e04a068e1e4335659b7b6e5c11e"

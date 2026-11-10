@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 42,
+  "revision": 45,
   "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
   "repositories": [
     {
@@ -2073,9 +2073,9 @@
         "TV-5"
       ],
       "argv": [
-        "cargo",
-        "xtask",
-        "compat"
+        "bash",
+        "-c",
+        "rm -rf target/nsh-compat/nsh-compat && mkdir -p target/nsh-compat && git clone -q --branch nsh-tizen /Users/dinko/work-private/projects/dXn/nsh-compat target/nsh-compat/nsh-compat && NSH_BIN=/Users/dinko/work-private/projects/dXn/nsh/target-shared/debug/nsh cargo xtask compat"
       ],
       "expected": {
         "exitCode": 0,
@@ -2086,12 +2086,9 @@
         "tests/compat/**",
         "Cargo.lock"
       ],
-      "descriptionMarkdown": "`cargo xtask compat` with nsh-compat from the local clone's `tv-idiom` branch (`platform <os> tv`, `platform tizen`, focus props; prepared for the owner to send upstream), cloned into `target/nsh-compat/nsh-compat` of the worktree, where `crates/xtask/src/compat.rs` looks for it. `cargo xtask compat` reports one line and no count (\"compatible with every recorded release\", or the first incompatible step), so the check matches that line. nsh-compat looks for `nsh` under the checkout's `target/`; NSH's `.cargo/config.toml` builds into a shared target directory, so `NSH_BIN` names it there.",
+      "descriptionMarkdown": "`cargo xtask compat` with nsh-compat from the local clone's `tv-idiom` branch (`platform <os> tv`, `platform tizen`, focus props; prepared for the owner to send upstream), cloned into `target/nsh-compat/nsh-compat` of the worktree, where `crates/xtask/src/compat.rs` looks for it. `cargo xtask compat` reports one line and no count (\"compatible with every recorded release\", or the first incompatible step), so the check matches that line. nsh-compat looks for `nsh` under the checkout's `target/`; NSH's `.cargo/config.toml` builds into a shared target directory, so `NSH_BIN` names it there. The command clones the local nsh-compat branch `nsh-tizen` into `target/nsh-compat/nsh-compat` itself (`cargo xtask compat` would clone upstream's when it is missing) and names `nsh` with `NSH_BIN` inline (the runner does not apply a check's `environment`).",
       "reuse": false,
-      "timeoutSeconds": 5400,
-      "environment": {
-        "NSH_BIN": "/Users/dinko/work-private/projects/dXn/nsh/target-shared/debug/nsh"
-      }
+      "timeoutSeconds": 5400
     },
     {
       "id": "chk-nsh-shader-wgpu30",
@@ -3246,9 +3243,9 @@
         "NTZ-2"
       ],
       "argv": [
-        "cargo",
-        "xtask",
-        "compat"
+        "bash",
+        "-c",
+        "rm -rf target/nsh-compat/nsh-compat && mkdir -p target/nsh-compat && git clone -q --branch nsh-tizen /Users/dinko/work-private/projects/dXn/nsh-compat target/nsh-compat/nsh-compat && NSH_BIN=/Users/dinko/work-private/projects/dXn/nsh/target-shared/debug/nsh cargo xtask compat"
       ],
       "expected": {
         "exitCode": 0,
@@ -3259,12 +3256,9 @@
         "tests/compat/**",
         "Cargo.lock"
       ],
-      "descriptionMarkdown": "`cargo xtask compat` once `Os::Tizen` is in: the `tizen` domain's case runs on nsh-compat's `platform tizen` (local clone, branch `nsh-tizen`: `tv-idiom`, `tizen-platform` and `focus-props` merged). `cargo xtask compat` reports one line and no count (\"compatible with every recorded release\", or the first incompatible step), so the check matches that line. nsh-compat looks for `nsh` under the checkout's `target/`; NSH's `.cargo/config.toml` builds into a shared target directory, so `NSH_BIN` names it there.",
+      "descriptionMarkdown": "`cargo xtask compat` once `Os::Tizen` is in: the `tizen` domain's case runs on nsh-compat's `platform tizen` (local clone, branch `nsh-tizen`: `tv-idiom`, `tizen-platform` and `focus-props` merged). `cargo xtask compat` reports one line and no count (\"compatible with every recorded release\", or the first incompatible step), so the check matches that line. nsh-compat looks for `nsh` under the checkout's `target/`; NSH's `.cargo/config.toml` builds into a shared target directory, so `NSH_BIN` names it there. The command clones the local nsh-compat branch `nsh-tizen` into `target/nsh-compat/nsh-compat` itself (`cargo xtask compat` would clone upstream's when it is missing) and names `nsh` with `NSH_BIN` inline (the runner does not apply a check's `environment`).",
       "reuse": false,
-      "timeoutSeconds": 5400,
-      "environment": {
-        "NSH_BIN": "/Users/dinko/work-private/projects/dXn/nsh/target-shared/debug/nsh"
-      }
+      "timeoutSeconds": 5400
     },
     {
       "id": "chk-nsh-keys-macos-build",
@@ -3381,6 +3375,148 @@
         "Cargo.lock"
       ],
       "descriptionMarkdown": "`Native::press_remote_key`'s default.",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-gpui-tizen-settings",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "NTZ-4"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "crates/gpui/Cargo.toml",
+        "-p",
+        "nsh-platform-gpui",
+        "--lib",
+        "host_settings::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "crates/gpui/**"
+      ],
+      "descriptionMarkdown": "Settings an embedding host sets through `AppView` (no D-Bus portal on Tizen).",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-gpui-tizen-system",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "NTZ-4"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "crates/gpui/Cargo.toml",
+        "-p",
+        "nsh-platform-gpui",
+        "--lib",
+        "system::tv::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "crates/gpui/**"
+      ],
+      "descriptionMarkdown": "The environment on a TV without the Linux portal.",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-gpui-tizen-fonts",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "NTZ-4"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "crates/gpui/Cargo.toml",
+        "-p",
+        "nsh-platform-gpui",
+        "--lib",
+        "text::tv::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "crates/gpui/**"
+      ],
+      "descriptionMarkdown": "The TV's UI font families and their fallbacks.",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-gpui-webview-placeholder",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "NTZ-4"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "crates/gpui/Cargo.toml",
+        "-p",
+        "nsh-platform-gpui",
+        "--no-default-features",
+        "--features",
+        "platform",
+        "--lib",
+        "native::web::placeholder::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "crates/gpui/**"
+      ],
+      "descriptionMarkdown": "Web views report unsupported without a web view (Tizen, builds without `webview`).",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-os-tizen-js",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "NTZ-2"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-js",
+        "--lib",
+        "env::tests::tizen"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 4
+      },
+      "inputs": [
+        "crates/nsh-core/**",
+        "crates/nsh-js/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "`\"tizen\"` in the JS `OS` type and `platform.select({ tizen })` (finding `f-s17-js-tizen-tests-unchecked`: `chk-nsh-tv-env` selects `env::tests::tv` only).",
       "timeoutSeconds": 3600
     }
   ],
@@ -5057,7 +5193,12 @@
         "chk-nsh-gpui-default",
         "chk-nsh-gpui-tizen-deps",
         "chk-nsh-gpui-tizen-build",
-        "chk-nsh-compat-tizen"
+        "chk-nsh-compat-tizen",
+        "chk-nsh-gpui-tizen-settings",
+        "chk-nsh-gpui-tizen-system",
+        "chk-nsh-gpui-tizen-fonts",
+        "chk-nsh-gpui-webview-placeholder",
+        "chk-nsh-os-tizen-js"
       ],
       "tasks": [
         {
@@ -5099,7 +5240,8 @@
           "checkIds": [
             "chk-nsh-os-tizen",
             "chk-nsh-tv-env",
-            "chk-nsh-compat-tizen"
+            "chk-nsh-compat-tizen",
+            "chk-nsh-os-tizen-js"
           ],
           "sourceRefs": [
             {
@@ -5125,7 +5267,11 @@
           ],
           "checkIds": [
             "chk-nsh-gpui-tizen-deps",
-            "chk-nsh-gpui-tizen-build"
+            "chk-nsh-gpui-tizen-build",
+            "chk-nsh-gpui-tizen-settings",
+            "chk-nsh-gpui-tizen-system",
+            "chk-nsh-gpui-tizen-fonts",
+            "chk-nsh-gpui-webview-placeholder"
           ],
           "sourceRefs": [
             {
