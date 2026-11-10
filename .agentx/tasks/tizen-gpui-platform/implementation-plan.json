@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 49,
+  "revision": 52,
   "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
   "repositories": [
     {
@@ -2594,15 +2594,9 @@
         "TWEB-6"
       ],
       "argv": [
-        "cargo",
-        "run",
-        "-p",
-        "nsh-cli",
-        "--",
-        "test",
-        "examples/counter",
-        "--target",
-        "tizen-web"
+        "bash",
+        "-c",
+        "CARGO_TARGET_DIR=target CC_wasm32_unknown_unknown=/opt/homebrew/opt/llvm/bin/clang AR_wasm32_unknown_unknown=/opt/homebrew/opt/llvm/bin/llvm-ar cargo build -p nsh-platform-web --profile web --no-default-features --features dev --target wasm32-unknown-unknown && mkdir -p target/nsh-runtime/web && cp target/wasm32-unknown-unknown/web/nsh_platform_web.wasm target/nsh-runtime/web/nsh-dev.wasm && cp crates/nsh-platform-web/web/nsh.js target/nsh-runtime/web/nsh.js && rm -rf target/nsh-runtime/web/browser && cp -R crates/nsh-platform-web/web/browser target/nsh-runtime/web/browser && NSH_RUNTIME=\"$PWD/target/nsh-runtime\" cargo run -p nsh-cli -- test examples/counter --target tizen-web"
       ],
       "expected": {
         "exitCode": 0,
@@ -2614,7 +2608,7 @@
         "examples/counter/**",
         "Cargo.lock"
       ],
-      "descriptionMarkdown": "Headless Chromium, as `--target web`. Resolve the exact selector and test-count pattern from the NSH checkout at sprint start (`amend` the check if it differs).",
+      "descriptionMarkdown": "Headless Chromium, as `--target web`. Resolve the exact selector and test-count pattern from the NSH checkout at sprint start (`amend` the check if it differs). The CLI finds or builds the dev web runtime next to its own binary only in a checkout's target directory, and NSH builds into a shared target directory outside the checkout, so the check lays out `runtime/web` as `cargo xtask dist` does (`nsh-dev.wasm`, `nsh.js`, `browser/`) in the worktree's `target/` and names it with `NSH_RUNTIME`.",
       "reuse": false,
       "timeoutSeconds": 3600
     },
@@ -3739,6 +3733,59 @@
         "Cargo.lock"
       ],
       "descriptionMarkdown": "The CLI checks an app's Tizen library against the component's `symbols.allow` (one export, no weak exports, allowlisted imports), so apps need no dXn.GpuiTizen checkout (finding `f-s19-app-library-needs-dxn-checkout`).",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-cli-tizen-web-unit",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "TWEB-1",
+        "TWEB-5",
+        "TWEB-7"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-cli",
+        "--bin",
+        "nsh",
+        "tizen_web::"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "`config.xml`, the package layout, signing, the dev package and the loader probe as pure functions.",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-tizen-module-web",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "TWEB-4"
+      ],
+      "argv": [
+        "node",
+        "--test",
+        "crates/nsh-platform-web/web/browser/tizen.test.mjs"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1,
+        "testCountPattern": "(?:#|ℹ) pass (\\d+)"
+      },
+      "inputs": [
+        "crates/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "`nsh/tizen` in a `.wgt` through the TV's `tizen.*` / `webapis.*` (fakes), and unavailable elsewhere.",
       "timeoutSeconds": 3600
     }
   ],
@@ -5760,7 +5807,9 @@
         "chk-nsh-cli-tizen-web",
         "chk-nsh-tv-shim",
         "chk-nsh-scrollend",
-        "chk-nsh-test-tizen-web"
+        "chk-nsh-test-tizen-web",
+        "chk-nsh-cli-tizen-web-unit",
+        "chk-nsh-tizen-module-web"
       ],
       "tasks": [
         {
@@ -5776,7 +5825,8 @@
           ],
           "dependsOn": [],
           "checkIds": [
-            "chk-nsh-cli-tizen-web"
+            "chk-nsh-cli-tizen-web",
+            "chk-nsh-cli-tizen-web-unit"
           ],
           "sourceRefs": [
             {
@@ -5802,7 +5852,8 @@
             "t20-package"
           ],
           "checkIds": [
-            "chk-nsh-tv-shim"
+            "chk-nsh-tv-shim",
+            "chk-nsh-tizen-module-web"
           ]
         },
         {

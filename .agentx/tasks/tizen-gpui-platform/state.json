@@ -1,12 +1,12 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 323,
-  "planRevision": 49,
+  "revision": 338,
+  "planRevision": 52,
   "specHashes": {
     "requirements": "068b40fba8f3eeb831a46d913cc2bbd60e3e470cfbbed6933dc6aede91ac4a6e",
     "design": "a3e9ab1641d598bff3fdd015bd4af4393cd6025f28b84ab7dab193dcb9794dcc",
-    "plan": "8aadcb854e1e7db1b6c6799b6c5c010a9ade8ed8cdc719ff12216a4240c3417a"
+    "plan": "8db04d11c6583609c2459e97934e89500f9c11fa666edbd1baeff1ab30d4c8a3"
   },
   "tasks": {
     "t1-workspace": {
@@ -499,16 +499,28 @@
       ]
     },
     "t20-package": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t20-shim": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t20-scrollend": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t20-run-test": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t21-nsh-ci": {
       "status": "pending"
@@ -968,6 +980,30 @@
         }
       },
       "recordedAt": "2026-11-10T17:14:59Z"
+    },
+    "834b4f4c9ff7131125bc2842914ad20f502c2ba934a7ca9c0448610a30f4483e": {
+      "snapshot": {
+        "specHash": "8ecfde014207ca15c6f841cb0a8343fddb7c6e56edf8aeab059f1e90da3a501a",
+        "repositories": {
+          "gpuitizen": "47ce5358b88d417446a7d362faab81d05b794f2edcd0c26283542b78a52f05ec",
+          "gpui-fast": "c318780179e3efe79b3549e66b723ee445ed7dd36b3d54e1db560726aee9a019",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "155203c483deae08280d81d334a60c9406df3ca35ff9eead93f69a36f12605b4"
+        }
+      },
+      "recordedAt": "2026-11-10T17:17:47Z"
+    },
+    "2b098ae8e89ea9f8350ec4b57a8ae761d8ac4f271e56f41a19855d78b772db05": {
+      "snapshot": {
+        "specHash": "28f9fa17fc666567428c5ec44a6a627d7924d838d9b79c407ac9acebf372279f",
+        "repositories": {
+          "gpuitizen": "47ce5358b88d417446a7d362faab81d05b794f2edcd0c26283542b78a52f05ec",
+          "gpui-fast": "c318780179e3efe79b3549e66b723ee445ed7dd36b3d54e1db560726aee9a019",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "85bc21c197fb4b6e2a4632417067445069dee87e1490be5925900997772e321f"
+        }
+      },
+      "recordedAt": "2026-11-10T17:46:48Z"
     }
   },
   "checkResults": {
@@ -3503,6 +3539,108 @@
       "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s19-nsh-cli-final-f717ff2868f9.log",
       "logSha256": "1abc551dfabf76bb6e3c1f8fb33a3e66bb5b0ae817812f4fc84c15531aa7e237",
       "inputsHash": "e8e90fabc1744de1ca41ed5944e89759735c88246ab608d1138083f5929f4d19"
+    },
+    "s20-nsh-tizen-web/chk-nsh-cli-tizen-web/final": {
+      "checkId": "chk-nsh-cli-tizen-web",
+      "boundaryId": "s20-nsh-tizen-web",
+      "phase": "final",
+      "batchId": "2b098ae8e89ea9f8350ec4b57a8ae761d8ac4f271e56f41a19855d78b772db05",
+      "definitionHash": "5b3ee9be12f3b088a9c3b58822f0b0444bc26e38206f16c88b659829829d2a4a",
+      "basisHash": "23ac777008288a670c04eccfa424cd62d9622bb54d7b08a837be4967d88043d4",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 8,
+      "durationSeconds": 12.3215,
+      "recordedAt": "2026-11-10T17:46:33Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s20-nsh-tizen-web-final-48a0b2acc47d.log",
+      "logSha256": "33b44325be4f4058d6524a392d64f11ca397e60d43f71ae9924cf6e0a0daebee",
+      "inputsHash": "e7a043850c4faf04f1486c66b42e766ca7d7e16978ccd9bfd9ee598a8ec55cc6"
+    },
+    "s20-nsh-tizen-web/chk-nsh-tv-shim/final": {
+      "checkId": "chk-nsh-tv-shim",
+      "boundaryId": "s20-nsh-tizen-web",
+      "phase": "final",
+      "batchId": "2b098ae8e89ea9f8350ec4b57a8ae761d8ac4f271e56f41a19855d78b772db05",
+      "definitionHash": "0359d4e015fbdd77375e26c492783a930641c6c6ce8528b18ea94df7741ddea2",
+      "basisHash": "4ba4413052e637e7cb291e620a1e5395284f9d33a4265d08112d322cc914760c",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 14,
+      "durationSeconds": 0.0664,
+      "recordedAt": "2026-11-10T17:46:33Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s20-nsh-tizen-web-final-c63972479141.log",
+      "logSha256": "9f47d16b1ce40bd3075878143279e278926cdd92748918b4097cadec8b9cb8fa",
+      "inputsHash": "1136661ebdb18251f7008ba11b1bbe376bded24a7e2a0af6bc6d6209ed3add8d"
+    },
+    "s20-nsh-tizen-web/chk-nsh-scrollend/final": {
+      "checkId": "chk-nsh-scrollend",
+      "boundaryId": "s20-nsh-tizen-web",
+      "phase": "final",
+      "batchId": "834b4f4c9ff7131125bc2842914ad20f502c2ba934a7ca9c0448610a30f4483e",
+      "definitionHash": "31627410fcce9f353e9726b7d3236e969b2add0bf5112eb1541c864fdb020341",
+      "basisHash": "7e20cb4c8e8fd48428b93dfe9ceecd50f5c2898b85564da5340b5ea9ab23c0a3",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 4,
+      "durationSeconds": 0.0849,
+      "recordedAt": "2026-11-10T17:17:37Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s20-nsh-tizen-web-final-35c3fd3505f6.log",
+      "logSha256": "17600aa8d335cc1f6741a09b3ac54e8fa4abf098e9dcb40946f5f40eedf59751",
+      "inputsHash": "b87d6a5499b46eaa0131b7859a2d6ced9251f3d33839a992057aaa76dcf8c320"
+    },
+    "s20-nsh-tizen-web/chk-nsh-test-tizen-web/final": {
+      "checkId": "chk-nsh-test-tizen-web",
+      "boundaryId": "s20-nsh-tizen-web",
+      "phase": "final",
+      "batchId": "2b098ae8e89ea9f8350ec4b57a8ae761d8ac4f271e56f41a19855d78b772db05",
+      "definitionHash": "1606c4fed268b4399f1203b21f8d6c7c9e60b098cca5117572c8e73600ff782b",
+      "basisHash": "91d2303141f1cfd9c8276779bc8d97f6a913ea56ddc8ec9128357c38d2d7aac1",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 1,
+      "durationSeconds": 7.7149,
+      "recordedAt": "2026-11-10T17:46:41Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s20-nsh-tizen-web-final-2f651ef3780b.log",
+      "logSha256": "224a43a9e316cbb25984316948a78ace13582642d664b1941852e8eb2fb56bff",
+      "inputsHash": "f7ac7e070d2b43e183e3431e06b41e478d757a363ba2038afe8b6ac19d6dd854"
+    },
+    "s20-nsh-tizen-web/chk-nsh-cli-tizen-web-unit/final": {
+      "checkId": "chk-nsh-cli-tizen-web-unit",
+      "boundaryId": "s20-nsh-tizen-web",
+      "phase": "final",
+      "batchId": "2b098ae8e89ea9f8350ec4b57a8ae761d8ac4f271e56f41a19855d78b772db05",
+      "definitionHash": "2a530309f2d711faa0aed6099f87a5d48ce82c3c23300961ed70a961caef6144",
+      "basisHash": "e55ecb67e22d7184a22f8d231528d92e14e8486db91dea196b8edb72c0e03a6c",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 7,
+      "durationSeconds": 6.72,
+      "recordedAt": "2026-11-10T17:46:47Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s20-nsh-tizen-web-final-b25e903af9ed.log",
+      "logSha256": "0e4858d7464922ea7fbb977e97e3365e933d663d66f821dfc3435b974ec40392",
+      "inputsHash": "19030332a42de3e6c3ee428e8430accdfe40a4a16f08b11d05373835f3a2d3ed"
+    },
+    "s20-nsh-tizen-web/chk-nsh-tizen-module-web/final": {
+      "checkId": "chk-nsh-tizen-module-web",
+      "boundaryId": "s20-nsh-tizen-web",
+      "phase": "final",
+      "batchId": "2b098ae8e89ea9f8350ec4b57a8ae761d8ac4f271e56f41a19855d78b772db05",
+      "definitionHash": "d61c343ca45269a3869140077b2220270bc39a472ab361a5ac99ba0ef01568dc",
+      "basisHash": "14f47e0b5310476071831d05a77d2c29471aba4cae716224ef6a170510ad8105",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 6,
+      "durationSeconds": 0.0583,
+      "recordedAt": "2026-11-10T17:46:48Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s20-nsh-tizen-web-final-f48d4ca489e0.log",
+      "logSha256": "fdbcd8a7caac1ecead8e042dac592fcac4207e13f9b8426caa4e7d4e90ec6450",
+      "inputsHash": "19030332a42de3e6c3ee428e8430accdfe40a4a16f08b11d05373835f3a2d3ed"
     }
   },
   "reviews": {
@@ -8989,6 +9127,275 @@
         "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "gpuitizen:docs/pr/**": "b5d40005f237a2602c368bbafd0b4edcbfdfb44db7e8929b8b8836dc6f7a6372"
       }
+    },
+    "s20-nsh-tizen-web": {
+      "reviewerId": "reviewer-s20-independent",
+      "snapshotId": "2b098ae8e89ea9f8350ec4b57a8ae761d8ac4f271e56f41a19855d78b772db05",
+      "criterionIds": [
+        "TWEB-1",
+        "TWEB-2",
+        "TWEB-3",
+        "TWEB-4",
+        "TWEB-5",
+        "TWEB-6",
+        "TWEB-7"
+      ],
+      "verdict": "passed",
+      "anchors": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen_web.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TWEB-1",
+            "TWEB-4",
+            "TWEB-5",
+            "TWEB-7"
+          ],
+          "sha256": "3e1009643ef3669a61c7bed461e862c721cf3ccc0f9a5596316df3c969476dd5"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen_web.rs",
+          "kind": "test",
+          "criterionIds": [
+            "TWEB-1",
+            "TWEB-4",
+            "TWEB-5",
+            "TWEB-7"
+          ],
+          "sha256": "3e1009643ef3669a61c7bed461e862c721cf3ccc0f9a5596316df3c969476dd5"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/package.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TWEB-1",
+            "TWEB-4",
+            "TWEB-7"
+          ],
+          "sha256": "2deeb85438e134f4584f43417e6457d4dc5158dc481e98d15346a21c4d834d4c"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/web.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TWEB-1",
+            "TWEB-2",
+            "TWEB-6"
+          ],
+          "sha256": "6fca66293fa826cc389cd9881073f23d39322250c9ad2cefbe1e66b76156efeb"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/web/index.html",
+          "kind": "source",
+          "criterionIds": [
+            "TWEB-1",
+            "TWEB-2"
+          ],
+          "sha256": "5285bf111e48a55d051d6302cdb87c6af2e95396917177e13733b54cf54977d5"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/tests/cli/tizen_web.rs",
+          "kind": "test",
+          "criterionIds": [
+            "TWEB-1",
+            "TWEB-2",
+            "TWEB-4",
+            "TWEB-5",
+            "TWEB-7"
+          ],
+          "sha256": "e1339bac70caef781bf4b20c4977d882e64e6022a9777f4fa6964cd37a72468f"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen_web/shim.js",
+          "kind": "source",
+          "criterionIds": [
+            "TWEB-2",
+            "TWEB-4"
+          ],
+          "sha256": "4c38875f239b50ca72e0780dc5ffc8222ff28a920293adb3a8a84cff431e79fb"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen_web/preview-service.js",
+          "kind": "source",
+          "criterionIds": [
+            "TWEB-4"
+          ],
+          "sha256": "30ae34c5564eea64252b1ee9296dab1d363ce0a468ee32a91a317839d12da929"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen_web/shim.test.mjs",
+          "kind": "test",
+          "criterionIds": [
+            "TWEB-2",
+            "TWEB-4"
+          ],
+          "sha256": "598a70f9bb191b5ddd2d603d2905d7276e58ea6b3748bb42ac7538fe7699ec2b"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/web/nsh.js",
+          "kind": "source",
+          "criterionIds": [
+            "TWEB-2",
+            "TWEB-3"
+          ],
+          "sha256": "10f1035ff96ed3d5be8bd97c60d68cc5041274140ae093566ba2df8b53ae8644"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/web/browser/scrollend.test.mjs",
+          "kind": "test",
+          "criterionIds": [
+            "TWEB-3"
+          ],
+          "sha256": "e5500ec9dc0c9db8d8f3c5e92c7ae558502d082d2e7d9121edc3479ff1cee574"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/web/browser/tizen.js",
+          "kind": "source",
+          "criterionIds": [
+            "TWEB-4"
+          ],
+          "sha256": "3afa49d27acabe63d7c4a2d7ffa0dc428dcd81cea1e6ca8fa1345fb79bc8d7cb"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/web/browser/runtime.js",
+          "kind": "source",
+          "criterionIds": [
+            "TWEB-4"
+          ],
+          "sha256": "4b26243a9b001173ba14bfeedc5820d68f3806c816ff1468a6537e00300cd4cf"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-platform-web/web/browser/tizen.test.mjs",
+          "kind": "test",
+          "criterionIds": [
+            "TWEB-4"
+          ],
+          "sha256": "0e6ba93297915bc06aac09762c9b0280ead0dcd06f48b7280b0bdee90d2de186"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen_web/dev.html",
+          "kind": "source",
+          "criterionIds": [
+            "TWEB-5"
+          ],
+          "sha256": "d4c519a77ab2f6510793a190b50ec20dcb63fefb1a4a40bb2421dc0668c599e6"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/run.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TWEB-5"
+          ],
+          "sha256": "7ffd81d2d79f4693af9b1bfdc9886b50f695d3caefb7d15b2dcccbde295e121d"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/dev.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TWEB-5"
+          ],
+          "sha256": "273bcee7ba543d5065e2c4f2ee8fc9b24ac59d2b5500ab233236b981624141c5"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/test_web.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TWEB-6"
+          ],
+          "sha256": "4564f49df9fd53cf48fbdc83368fee7035f295f4529c383dff1de6b5cd9be77c"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/test_host.rs",
+          "kind": "source",
+          "criterionIds": [
+            "TWEB-6"
+          ],
+          "sha256": "3e00d4f9cd1079d078c4ee5095db108791bababcedf6d3e8bb3fbcf8e38328a3"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "examples/counter/App.test.tsx",
+          "kind": "runtime",
+          "criterionIds": [
+            "TWEB-6"
+          ],
+          "sha256": "5e908a7ed89f28914bcfe638ee93b36d892870615b21d250fe90995bd4132a64"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen_web/probe/index.html",
+          "kind": "source",
+          "criterionIds": [
+            "TWEB-7"
+          ],
+          "sha256": "392c9dfe780946eaff1f035a56257d6ae1a72f3c8f9bbbe96a47c436359c5c4f"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen_web/probe/csp.html",
+          "kind": "source",
+          "criterionIds": [
+            "TWEB-7"
+          ],
+          "sha256": "23e3482068f9c10e99f1e67008f82df0b5ccc0a109533baac1765e485153418a"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "website/modules/nsh-tizen.md",
+          "kind": "source",
+          "criterionIds": [
+            "TWEB-4"
+          ],
+          "sha256": "347046e75235f78f4af900ba05569764696a64c29ade959540a460624849f763"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "docs/dev/web.md",
+          "kind": "source",
+          "criterionIds": [
+            "TWEB-1",
+            "TWEB-2",
+            "TWEB-3",
+            "TWEB-4",
+            "TWEB-5",
+            "TWEB-6",
+            "TWEB-7"
+          ],
+          "sha256": "ae1de576f85ea2c1029bb662cda88590727a932d5af5bffb66dbdbab8cbb77b0"
+        }
+      ],
+      "summaryMarkdown": "Full re-review at `acc42e2a6` (snapshot `2b098ae8…`; all 6 s20 checks pass). All four earlier findings are resolved with tests and docs.\n\n- **`tz run -p`:** now takes the package id.\n- **Dev package:** open `<access>` and a host-only `allow-navigation`, with the missing `$WEBAPIS` documented.\n- **Probe:** new rows for CSP `'self'` (`probe/csp.html`) and `webapis.js`.\n- **Smart Hub preview:** an opt-in through a bundled `bg_service` preview service.\n\nThe preview-service approach is sound and honestly labelled. It follows Samsung's personal-preview model: a `<tizen:service>` in the package with `$WEBAPIS/service/webapis.js`, `onRequest` reading the app-control data, then `setPreviewData` and exit. The page needs `application.launch` for `launchAppControl`, which the package now requests. `http://tizen.org/appcontrol/operation/service`, launched explicitly by the service id, is the standard way to start a web service app. Both stay unconfirmed until DEV-6, as the docs say. One more point belongs on the DEV-6 list: when Smart Hub itself starts the service with no data, the service only exits.\n\n- **Unchanged and still correct:** the `config.xml` base, the shim (Back and exit confirmation, key registration, robustness without `tizen`), the realm-correct `nsh/tizen` web half, the `scrollend` fallback, `nsh test --target tizen-web`, and the docs in en and zh-CN.\n- **Branch hygiene:** history only moved forward by merges. 01 still contains tv/01 and tv/02, 03 contains the current 06 and 01, 07 contains 01. There are no AgentX files and no AI attribution.\n\n`f-s20-preview-endpoint-value` is withdrawn and resolved: Samsung's Implementing Public Preview guide shows `endpoint_URL=<url>`, which is what the code writes. The guide's `eden_resume` app-control serves tile `action_data`. Its absence is the documented limit, not a TWEB-4 defect; DEV-6 should confirm a preview shows without it. All TWEB-1..7 criteria pass.",
+      "findingIds": [
+        "f-s20-preview-metadata",
+        "f-s20-dev-package-policy",
+        "f-s20-tz-run-id",
+        "f-s20-probe-csp",
+        "f-s20-preview-endpoint-value"
+      ],
+      "recordedAt": "2026-11-10T17:50:33Z",
+      "recordHashes": {
+        "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "gpuitizen:docs/pr/**": "b5d40005f237a2602c368bbafd0b4edcbfdfb44db7e8929b8b8836dc6f7a6372"
+      }
     }
   },
   "checkpoints": {
@@ -9217,6 +9624,17 @@
       },
       "reviewHash": "c64c6326fcc06af20c9a305198b3868ca2273fd49ca505009b12aabc2acadb39",
       "recordedAt": "2026-11-10T17:16:55Z"
+    },
+    "s20-nsh-tizen-web": {
+      "snapshotId": "2b098ae8e89ea9f8350ec4b57a8ae761d8ac4f271e56f41a19855d78b772db05",
+      "commits": {
+        "gpuitizen": "48c71b90967eec99c6cad2f720b3f6935c7ad4c3",
+        "gpui-fast": "e6ae34b9484cb050831aa9ab974fdd685e8800e3",
+        "wgpu": "4e3d80d5de97d1e66860f0f74fca92d50be70d4a",
+        "nsh": "acc42e2a696076a0b14ab065acfe8180a3ae184c"
+      },
+      "reviewHash": "964a57d6258f771de38f68d323483ed02d11e0030d9c6af322009ebe14272b95",
+      "recordedAt": "2026-11-10T17:50:34Z"
     }
   },
   "findings": [
@@ -11703,9 +12121,129 @@
           "symbol": "tizen_targets"
         }
       ]
+    },
+    {
+      "id": "f-s20-preview-metadata",
+      "boundaryId": "s20-nsh-tizen-web",
+      "criterionIds": [
+        "TWEB-4",
+        "TWEB-1"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "Resolved by 0294d0204 and 54f54bc36. `nsh.json` `tizen.smartHubPreview` now opts in to a preview:\n\n- `\"service\"` writes `use.preview` `bg_service`, a `<tizen:service id=\"<package>.NshPreview\">` with `service/preview.js` and the `application.launch` privilege. The shim's `setPreviewData` starts that service with `launchAppControl`, and the service hands the JSON to `webapis.preview.setPreviewData` (from `$WEBAPIS/service/webapis.js` where `webapis` is not a global), then exits.\n- Without a personal preview the call rejects and says why, with `ERR_FEATURE_UNAVAILABLE_ON_PLATFORM`.\n\nThis is covered by the CLI test `a_smart_hub_preview_is_declared_as_samsung_asks`, the `shim.test.mjs` service tests and the unit `the_shim_carries_the_packages_preview`. Docs are updated in en and zh-CN.\n\nThe approach matches Samsung's personal-preview model (a service in the package sets the data and exits). Launching the service explicitly by id with `http://tizen.org/appcontrol/operation/service` is the documented way to start a Tizen web service application, so the operation is reasonable; with an explicit app id it should not need to match any declared app-control. The docs list both as unconfirmed until DEV-6. The public-preview form is tracked separately in `f-s20-preview-endpoint-value`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen_web.rs",
+          "symbol": "Preview"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen_web/preview-service.js"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/tests/cli/tizen_web.rs",
+          "symbol": "a_smart_hub_preview_is_declared_as_samsung_asks"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen_web/shim.test.mjs"
+        }
+      ]
+    },
+    {
+      "id": "f-s20-dev-package-policy",
+      "boundaryId": "s20-nsh-tizen-web",
+      "criterionIds": [
+        "TWEB-5"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "Resolved by 6f0005235. The development package now has `<access origin=\"*\" subdomains=\"true\"/>`, which covers the dev page's `ws://` socket, and `<tizen:allow-navigation>` with the host alone (parsed with `url::Url`). The docs say the remote dev page has no `$WEBAPIS`, and the device checklist lists the navigation and the WebSocket. The test `the_development_package_opens_the_dev_servers_tv_page` asserts the new form.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen_web.rs",
+          "symbol": "write_dev_package"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/tests/cli/tizen_web.rs",
+          "symbol": "the_development_package_opens_the_dev_servers_tv_page"
+        }
+      ]
+    },
+    {
+      "id": "f-s20-tz-run-id",
+      "boundaryId": "s20-nsh-tizen-web",
+      "criterionIds": [
+        "TWEB-1",
+        "TWEB-5",
+        "TWEB-7"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "Resolved by 6bfecf051. `install_and_launch` now passes `widget.package` to `tz run -p`, matching `tz run --help` (\"Launch app using package ID\"), for the app, the probe and the development package. `tz_signs_installs_and_launches` and `docs/dev/web.md` are updated to match.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen_web.rs",
+          "symbol": "install_commands"
+        }
+      ]
+    },
+    {
+      "id": "f-s20-probe-csp",
+      "boundaryId": "s20-nsh-tizen-web",
+      "criterionIds": [
+        "TWEB-7"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "Resolved by 1fd94197c. The probe adds a `csp` row: `probe/csp.html` in an iframe, with `connect-src 'self'`, fetches and instantiates `probe/probe.wasm` from the package and reports its origin to the parent. It also adds a `webapis` row that loads `$WEBAPIS/webapis/webapis.js` and reports whether `webapis` is defined. Both are in `PROBE_FILES`, asserted by `the_probe_tries_how_the_page_loads_its_files`, and listed in the docs (en and zh-CN).",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen_web/probe/csp.html"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen_web/probe/index.html"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/tests/cli/tizen_web.rs",
+          "symbol": "the_probe_tries_how_the_page_loads_its_files"
+        }
+      ]
+    },
+    {
+      "id": "f-s20-preview-endpoint-value",
+      "boundaryId": "s20-nsh-tizen-web",
+      "criterionIds": [
+        "TWEB-4",
+        "TWEB-1"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Withdrawn as a defect; resolved with no source change.** Samsung's guide confirms the implementation: https://developer.samsung.com/smarttv/develop/guides/smart-hub-preview/implementing-public-preview.html (fetched by the reviewer on 2026-11-10) shows `<tizen:metadata key='http://samsung.com/tv/metadata/use.preview' value='endpoint_URL=http://yourServer/JSONfile.json'>`, the `=` form, and no colon form appears. `Widget::config_xml` writes exactly that, and `a_smart_hub_preview_is_declared_as_samsung_asks` asserts it. The colon form I cited came from my own recollection and was wrong.\n\n**The `eden_resume` `<tizen:app-control>`** (`<tizen:src name='index.html' reload='disable'>`, operation `http://samsung.com/appcontrol/operation/eden_resume`): the page gives its purpose as letting a running app receive a tile's `action_data` without reloading, and does not say the preview fails to show without it. TWEB-4 asks for the preview, not tile actions. The implementation documents that `action_data` is not delivered to the app yet (`docs/dev/web.md`), so this is a recorded limit, not a TWEB-4 defect. Two follow-ups: DEV-6 should confirm that a preview shows without the app-control, and tile actions need their own criterion if they are wanted.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen_web.rs",
+          "symbol": "Widget::config_xml"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/tests/cli/tizen_web.rs",
+          "symbol": "a_smart_hub_preview_is_declared_as_samsung_asks"
+        }
+      ]
     }
   ],
-  "handoffMarkdown": "docs/dev/tizen.md (both targets, CLI, testing, limits), nsh.json table, website Tizen page and CLI/platforms/installation tables (en, zh-CN); 22c48fe78 crate README.",
+  "handoffMarkdown": "01-package 12834794f: nsh run --target tizen-web (dev page with shim, dev .wgt NshDevHost opening the LAN dev page), nsh test --target tizen-web (headless Chromium 1920x1080 with the shim); counter spec passes.",
   "protectedPaths": {
     "gpuitizen": {
       "gpuitizen:.agentx/memory/**": "94784ab15131a5a4ff6827a67fa677677a923e04a068e1e4335659b7b6e5c11e"
