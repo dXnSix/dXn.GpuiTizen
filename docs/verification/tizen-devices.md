@@ -69,6 +69,7 @@ prerequisite check (tried in the `gpuitizen` VM on Ubuntu 24.04). On that PR, ev
 | 42915085901 | ready by `sdb capability` (`cpu_arch:x86_64`, `platform_version:10.0`, `profile_name:tv`); `sdb install` handed the `.tpk` to the web-app installer, which rejected it while `sdb` exited 0 |
 | 42917352601 | installing with `tz install` / `sdb shell 0 vd_appinstall`: the installer rejected the signature (`unrecognized root CA certificate` for `signature1.xml`) with the SDK's old public distributor (expired 2012) |
 | 42919211444 | the same with the SDK's current public distributor (valid until 2032): the Samsung TV emulator trusts only Samsung's distributor roots. The emulator's DUID is `XTCJYJZXZBZVK` on every run |
+| 42921473021 | without the Samsung secrets: signed with a throwaway certificate, the emulator booted, install and report skipped with a warning; the job passed |
 
 `CI-3`, emulator part, recorded as a failure: the emulator boots on a hosted runner, but installing needs the
 owner's Samsung certificate with the emulator's DUID (`docs/development_setup.md`, sections 2 and 5). It's
