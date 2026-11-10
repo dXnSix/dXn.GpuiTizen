@@ -15,11 +15,11 @@ Each step and the problem it solves:
 | KVM and Xvfb | gives every user access to `/dev/kvm` (udev rule) and installs Xvfb | the emulator is a QEMU VM and needs KVM; it opens a window, so it needs an X display |
 | `setup`, `setup-dotnet` | Rust, Linux packages, .NET 8 | the diagnostic app's library and its C# host |
 | `tizen-sdk` | installs the SDK CLI with `TIZEN-8.0-NativeAppDevelopment-CLI Emulator TV-SAMSUNG-Public-Emulator`, cached by the package list | see [SDK install](#sdk-install) |
-| Signing profile | a throwaway Tizen author certificate (`tz cert`) and the SDK's public distributor certificate, in a profile `ci` | see [Signing](#signing) |
+| Signing profile | the owner's Samsung certificate from secrets, or without them a throwaway Tizen certificate, in a profile `ci` | see [Signing](#signing) |
 | Package | `cargo xtask package --app diag --target x86_64 --sign ci` | the emulator is x86_64 |
 | Boot | starts Xvfb `:99` with GLX, then `em-cli create` and `em-cli launch`, then waits up to 15 minutes until `sdb devices` lists the emulator and `sdb capability` reports its CPU architecture | see [Boot](#boot) |
-| Install and launch | `tz install`, or `sdb push` and `sdb shell 0 vd_appinstall` if that fails, until `sdb shell 0 vd_applist` lists the package (3 tries); then `sdb shell 0 execute DxnGpuiTzD.Diag` | see [Installing](#installing) |
-| Pull the report | `cargo xtask diag pull` (6 tries, 20 s apart) | the app needs time to start and answer |
+| Install and launch (Samsung-signed only) | `tz install`, or `sdb push` and `sdb shell 0 vd_appinstall` if that fails, until `sdb shell 0 vd_applist` lists the package (3 tries); then `sdb shell 0 execute DxnGpuiTzD.Diag` | see [Installing](#installing) |
+| Pull the report (Samsung-signed only) | `cargo xtask diag pull` (6 tries, 20 s apart) | the app needs time to start and answer |
 | Emulator log, upload | the VM's logs and `sdb dlog`, uploaded as the `tizen-emulator` artifact with the report | |
 | Remove the signing material | deletes the certificates and `profiles.xml` | |
 
@@ -28,7 +28,10 @@ Each step and the problem it solves:
 - **Actions on in `dXnSix/dXn.GpuiTizen`.** The job uses only GitHub-hosted `ubuntu-24.04` runners. Every run so far
   has had `/dev/kvm`.
 - **`dXnSix/gpui-fast` and `dXnSix/wgpu` readable.** `Cargo.toml`'s git patch fetches them. Both are public.
-- **No secrets.** See [Signing](#signing).
+- **The Samsung signing secrets, for the install.** `TIZEN_AUTHOR_P12`, `TIZEN_AUTHOR_PASSWORD`,
+  `TIZEN_DISTRIBUTOR_P12` and `TIZEN_DISTRIBUTOR_PASSWORD`, from a Samsung certificate whose distributor lists the
+  emulator's DUID ([`development_setup.md`](development_setup.md), sections 2 and 5). Without them the job only
+  boots the emulator. See [Signing](#signing).
 - **Starting a run.** The job runs weekly (Monday 04:41 UTC) and on demand. To run it on a branch:
 
   ```bash
@@ -53,24 +56,33 @@ to `https://` ([`setup.md`](setup.md), step 4).
 
 ## Signing
 
-The emulator accepts a plain Tizen certificate, so the job needs no Samsung account, no DUID and no secrets:
+The Samsung TV emulator trusts only Samsung's distributor roots, like a TV. Runs 42917352601 and 42919211444
+signed with a `tz cert` author certificate and the SDK's Tizen public distributor. The author signature passed, but
+the emulator's certificate service rejected the distributor's: `signature1.xml has got unrecognized root CA
+certificate`, reported by `vd_appinstall` as `install failed[118, -12], reason: Check certificate error : :Invalid
+certificate chain`. That happened with both the SDK's old public distributor, `tizen-distributor-signer.p12` (expired
+in 2012), and its current one, `tizen-distributor-signer-new.p12` (valid until 2032).
 
-- The author certificate is made in the job with `tz cert` and a random password (masked in the log).
-- The distributor certificate is the SDK's public one,
-  `tools/certificate-generator/certificates/distributor/sdk-public/tizen-distributor-signer-new.p12`, with its
-  published password. Not `tizen-distributor-signer.p12` next to it: that one expired in 2012, and the emulator
-  rejects it (`install failed[118, -12], reason: Check certificate error : :Invalid certificate chain`, run
-  42917352601).
-- The author certificate's issuer, the SDK's `Tizen Developers CA`, expires on 2027-01-01. After that date, `tz
-  cert` certificates may be rejected the same way until a newer SDK ships a new CA.
-- `tz security-profiles add` writes the profile `ci` to `~/tizen-studio-data/profile/profiles.xml`. It keeps the
-  passwords in the OS keyring, never in `profiles.xml`. A hosted runner has no keyring, so the job starts a D-Bus
-  session and an unlocked `gnome-keyring` and passes their addresses to the later steps through `GITHUB_ENV`.
+So the install needs a Samsung certificate, made with the owner's Samsung account, whose distributor lists the
+emulator's DUID. `sdb shell 0 getduid` reported `XTCJYJZXZBZVK` on every fresh VM and runner so far
+(42915085901, 42917352601, 42919211444). One certificate serves the TV and the emulator.
+
+The signing step:
+
+- **With the secrets** (`TIZEN_AUTHOR_P12`, `TIZEN_DISTRIBUTOR_P12` and their passwords): it decodes the
+  certificates, adds them as the profile `ci`, and sets `SAMSUNG_SIGNED=true`. Install, launch and the report run.
+- **Without them:** it creates a throwaway author certificate with `tz cert` and a random password (masked in the
+  log), pairs it with `tizen-distributor-signer-new.p12`, sets `SAMSUNG_SIGNED=false` and warns. The package is
+  signed and the emulator boots, but install, launch and the report are skipped.
+
+In both cases:
+
+- `tz security-profiles add` keeps the passwords in the OS keyring, never in `profiles.xml`. A hosted runner has no
+  keyring, so the step starts a D-Bus session and an unlocked `gnome-keyring` and passes their addresses to the
+  later steps through `GITHUB_ENV`.
 - `cargo xtask package --sign ci` zips the staged tree and re-signs it with `tz pack -b`. `tz pack` doesn't sign a
   directory.
-
-A Samsung certificate is needed only on a real TV, and it stays on the owner's machine
-([`development_setup.md`](development_setup.md)).
+- The certificates and `profiles.xml` are removed at the end, whatever happened.
 
 ## Boot
 
@@ -118,13 +130,14 @@ package. It launches with `sdb shell 0 execute <app id>`.
 | `winsys interface 'vigs_wsi' not found`, `Failed to start this VM` | the VM was created without a display, so with VIGS's software backend | create it with Xvfb (GLX) running and `DISPLAY` set; see [Boot](#boot) |
 | `the emulator did not come up in 15 minutes` with `emulator-26101 device` listed | a readiness check through `sdb shell <command>` | check with `sdb capability` |
 | `the emulator did not come up in 15 minutes`, nothing listed | the guest is slow or stuck | read `emulator.klog` (the guest kernel's console) in the printed logs |
-| `Check certificate error : :Invalid certificate chain` from `vd_appinstall` | an expired certificate in the chain, such as the SDK's old public distributor | `tizen-distributor-signer-new.p12`; for a TV, a Samsung certificate with its DUID |
+| `Check certificate error : :Invalid certificate chain` from `vd_appinstall`; `unrecognized root CA certificate` for `signature1.xml` in the VM's log | a distributor certificate that isn't Samsung's, or one that doesn't list the device's DUID | the Samsung certificate secrets, with the emulator's DUID `XTCJYJZXZBZVK` |
 | `install app failed` from `sdb install`, then `is not available for the user 5001` at launch | `sdb install` on a TV (emulator) | `tz install`, or `sdb shell 0 vd_appinstall`; see [Installing](#installing) |
 | `ls: cannot access '/dev/kvm'` in KVM and Xvfb | the runner has no KVM | a runner with KVM (a larger runner, or self-hosted) |
 
 ## The NSH fork's emulator job
 
 `fork-tizen.yml` on `dXnSix/nsh` `fork/tizen-ci` uses this repository's `.github/actions/tizen-sdk`, so it gets
-the SDK fix. Its signing step still writes a `profiles.xml` from `TIZEN_*` secrets with plain passwords, which
-can't sign. It needs the same throwaway-certificate step as `tizen-emulator.yml`. That change belongs on
-`fork/tizen-ci`, once this repository's emulator job boots.
+the SDK fix. Its emulator job still writes a `profiles.xml` with plain passwords, which can't sign. It needs the
+steps above: Xvfb with GLX before `em-cli create`, readiness by `sdb capability`, `tz security-profiles add` with
+the keyring, and installing with `vd_appinstall`. That change belongs on `fork/tizen-ci`, and it can only pass
+once the Samsung certificate exists.

@@ -6,9 +6,13 @@ which come first. Neither guide uses Tizen Studio.
 
 | Where the app runs | Certificate | Who sets it up |
 | --- | --- | --- |
-| the TV emulator, in CI (`tizen-emulator.yml`) | a throwaway Tizen certificate | the job itself, with no secrets ([`ci-emulator.md`](ci-emulator.md)) |
-| the TV emulator, locally | a Tizen certificate | you, once ([Emulator certificate](#3-a-tizen-certificate-for-the-emulator)) |
-| a real Samsung TV | a Samsung certificate bound to the TV's DUID | you, once per TV ([Samsung certificate](#2-a-samsung-certificate-for-your-tv)) |
+| a real Samsung TV | a Samsung certificate whose distributor lists the TV's DUID | you, once per TV ([Samsung certificate](#2-a-samsung-certificate-for-your-tv)) |
+| the TV emulator, locally or in CI (`tizen-emulator.yml`) | the same Samsung certificate, its distributor also listing the emulator's DUID `XTCJYJZXZBZVK` | you, in the same step; CI gets it as secrets ([section 5](#5-repository-secrets), [`ci-emulator.md`](ci-emulator.md)) |
+
+The Samsung TV emulator trusts only Samsung's distributor roots, like a TV. A plain Tizen certificate, which `tz
+cert` makes without an account, is rejected (`signature1.xml has got unrecognized root CA certificate`). All of
+this is the owner's work at the end of the epic, together with the TV. Until then, the emulator job boots the
+emulator and skips the install.
 
 Certificates, `profiles.xml`, `.p12` and `.pwd` files are never committed. `.gitignore` excludes them, and
 everything below keeps them under your home directory.
@@ -90,8 +94,10 @@ Steps:
    4. **Distributor Details**: privilege level **Public**. The apps here use only
       `http://tizen.org/privilege/internet`, which is public, so **Partner** isn't needed. Keep the default
       version.
-   5. Tick the **DUID** of your TV. To use the TV emulator with the same profile, tick its DUID too, if the emulator
-      is running and listed.
+   5. Tick the **DUID** of your TV. Add the TV emulator's DUID as well: `XTCJYJZXZBZVK`. Every fresh TV emulator
+      VM has reported this DUID, on every CI runner so far (`sdb shell 0 getduid`). If the wizard only offers the
+      DUIDs of connected devices, also connect a running TV emulator, which needs an x86_64 machine with KVM. Or
+      ask the agent to find another way.
    6. Click **Create** and sign in with your Samsung account when the browser asks.
 5. Check that `tz` sees the profile:
 
@@ -107,23 +113,11 @@ Steps:
 Adding another TV later: create a new distributor certificate with the same author certificate and both DUIDs.
 In **Create Certificate**, reuse the existing author certificate.
 
-## 3. A Tizen certificate for the emulator
+## 3. The emulator
 
-The TV emulator also accepts a plain Tizen certificate, which needs no Samsung account and no DUID. This is what
-CI does:
-
-```bash
-tz=~/tizen-studio/tools/tizen-core/tz
-mkdir -p ~/tizen-certs && chmod 700 ~/tizen-certs
-$tz cert -n "$(id -un)-emulator" -p '<a password>' -f ~/tizen-certs/emulator-author
-$tz security-profiles add -n emulator \
-  -a ~/tizen-certs/emulator-author.p12 -p '<the same password>' \
-  -d ~/tizen-studio/tools/certificate-generator/certificates/distributor/sdk-public/tizen-distributor-signer-new.p12 \
-  -P tizenpkcs12passfordsigner
-```
-
-The distributor certificate and its password come with the SDK. They are Tizen's public ones, not secrets. A real
-TV rejects this certificate.
+Use the profile `tv` from step 2 for the emulator too. Its distributor must list `XTCJYJZXZBZVK`. A Tizen
+certificate (`tz cert` with the SDK's public distributor) packages and signs, but the TV emulator won't install
+it. The SDK's older public distributor, `tizen-distributor-signer.p12`, also expired in 2012.
 
 ## 4. Install the diagnostic app on the TV
 
@@ -172,23 +166,49 @@ If `tz install` fails, or `vd_applist` doesn't list the package:
 
 ## 5. Repository secrets
 
-**No signing secrets are needed.** The emulator job signs with a throwaway Tizen certificate it creates itself
-(section 3, automated), and a Samsung certificate only matters on a real TV, which CI never reaches. Earlier
-versions of this repository asked for `TIZEN_AUTHOR_P12`, `TIZEN_DISTRIBUTOR_P12`, `TIZEN_AUTHOR_PASSWORD`,
-`TIZEN_DISTRIBUTOR_PASSWORD` and `TIZEN_PROFILES_XML`. Those could not have worked, because `tz` reads passwords
-from the OS keyring and not from `profiles.xml`. Don't create them. If you already did, delete them under
-**Settings > Secrets and variables > Actions**.
+The emulator job (`tizen-emulator.yml`) installs the diagnostic app only when it has the Samsung certificate from
+step 2, with the emulator's DUID. It reads four secrets:
 
-Only publishing to crates.io (`release-plz.yml`, the last sprint) needs secrets. Add them when that sprint comes:
+| Secret | Value |
+| --- | --- |
+| `TIZEN_AUTHOR_P12` | `author.p12`, base64-encoded |
+| `TIZEN_AUTHOR_PASSWORD` | the author certificate's password |
+| `TIZEN_DISTRIBUTOR_P12` | `distributor.p12`, base64-encoded |
+| `TIZEN_DISTRIBUTOR_PASSWORD` | the distributor certificate's password |
+
+The job adds them to a profile with `tz security-profiles add`, which keeps the passwords in a keyring it unlocks.
+`profiles.xml` can't carry passwords, so there is no `TIZEN_PROFILES_XML` secret. If you created one, delete it.
+Without the secrets, the job signs with a throwaway Tizen certificate, boots the emulator, and skips the install with
+a warning.
+
+Set them from the certificate folder of step 2. `gh secret set` reads a value from standard input, so neither the
+files nor the passwords land in your shell history:
+
+```bash
+base64 -i ~/SamsungCertificate/tv/author.p12 | gh secret set TIZEN_AUTHOR_P12 -R dXnSix/dXn.GpuiTizen
+```
+
+```bash
+base64 -i ~/SamsungCertificate/tv/distributor.p12 | gh secret set TIZEN_DISTRIBUTOR_P12 -R dXnSix/dXn.GpuiTizen
+```
+
+```bash
+gh secret set TIZEN_AUTHOR_PASSWORD -R dXnSix/dXn.GpuiTizen
+```
+
+```bash
+gh secret set TIZEN_DISTRIBUTOR_PASSWORD -R dXnSix/dXn.GpuiTizen
+```
+
+The last two prompt for the value. Samsung's wizard may use one password for both certificates. Then ask the agent
+to run the emulator job.
+
+Publishing to crates.io (`release-plz.yml`, the last sprint) needs two more. Add them when that sprint comes:
 
 | Secret | Value | Where to get it |
 | --- | --- | --- |
 | `CARGO_REGISTRY_TOKEN` | a crates.io API token with the `publish-new` and `publish-update` scopes | [crates.io/settings/tokens](https://crates.io/settings/tokens) |
 | `RELEASE_PLZ_TOKEN` | a GitHub fine-grained token for `dXnSix/dXn.GpuiTizen` with **Contents** and **Pull requests** read and write | **GitHub > Settings > Developer settings > Fine-grained tokens** |
 
-Add a secret in the browser under **Repository > Settings > Secrets and variables > Actions > New repository
-secret**, or with `gh`, which reads the value from the prompt so it never lands in your shell history:
-
-```bash
-gh secret set CARGO_REGISTRY_TOKEN -R dXnSix/dXn.GpuiTizen
-```
+In the browser, secrets are under **Repository > Settings > Secrets and variables > Actions > New repository
+secret**.
