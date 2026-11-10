@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Chooses what a workflow run executes. Reads EVENT_NAME, DISPATCH_JOBS, DISPATCH_PLATFORMS,
 # DISPATCH_GREP, PR_LABELS (a JSON array of label names), BASE_SHA and HEAD_SHA, and writes
-# `jobs`, `os`, `lane_c` and `grep` to $GITHUB_OUTPUT (stdout when unset).
+# `jobs`, `os` and `grep` to $GITHUB_OUTPUT (stdout when unset).
 #
 #   manual run   the inputs choose; `all` is everything
 #   pull request labels choose: `ci:<job>` limits the jobs (several add up), `ci:all` runs
@@ -18,7 +18,6 @@ set -euo pipefail
 ALL_JOBS=(check test host cross gles egl)
 OS_NAMES=(ubuntu macos)
 image() { case "$1" in ubuntu) echo ubuntu-24.04 ;; macos) echo macos-15 ;; esac; }
-backend() { case "$1" in ubuntu) echo llvmpipe ;; macos) echo metal ;; esac; }
 lines_to_array() { # name, then lines on stdin
   local name=$1 line; eval "$name=()"
   while IFS= read -r line; do [ -n "$line" ] && eval "$name+=(\"\$line\")"; done
@@ -71,15 +70,11 @@ done
 
 jobs_json=$(printf '%s\n' "${jobs[@]}" | jq -R . | jq -sc .)
 os_json=$(for name in "${platforms[@]}"; do image "$name"; done | jq -R . | jq -sc .)
-lane_c_json=$(for name in "${platforms[@]}"; do
-  jq -nc --arg os "$(image "$name")" --arg backend "$(backend "$name")" '{os: $os, backend: $backend}'
-done | jq -sc .)
 
 out="${GITHUB_OUTPUT:-/dev/stdout}"
 {
   echo "jobs=$jobs_json"
   echo "os=$os_json"
-  echo "lane_c=$lane_c_json"
   echo "grep=$grep_selector"
 } >>"$out"
 echo "plan: jobs=$jobs_json os=$os_json grep='$grep_selector'" >&2

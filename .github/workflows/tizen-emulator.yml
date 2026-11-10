@@ -34,8 +34,9 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: KVM
+      - name: KVM and Xvfb
         run: |
+          sudo apt-get update && sudo apt-get install -y --no-install-recommends xvfb
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' \
             | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules
@@ -87,17 +88,21 @@ jobs:
         run: |
           set -euo pipefail
           em-cli list-platform | tee "$RUNNER_TEMP/platforms.txt"
-          platform="$(grep -io 'tv-samsung[^ ]*x86_64[^ ]*\|tv-samsung[^ ]*' "$RUNNER_TEMP/platforms.txt" | head -1)"
+          platform="$(grep -io 'tv-samsung[^ ]*' "$RUNNER_TEMP/platforms.txt" | head -1)"
           [ -n "$platform" ] || { echo "::error::no TV emulator platform installed"; exit 1; }
           em-cli create -n "$EMULATOR" -p "$platform"
           mkdir -p artifacts-temp/emulator
-          nohup xvfb-run -a -s '-screen 0 1920x1080x24' em-cli launch -n "$EMULATOR" \
-            >artifacts-temp/emulator/launch.log 2>&1 &
-          if ! timeout 900 bash -c 'until sdb devices | grep -q "emulator-.*device"; do sleep 10; done'; then
+          # Xvfb of its own, for the job's whole life (not tied to em-cli's process).
+          Xvfb :99 -screen 0 1920x1080x24 >artifacts-temp/emulator/xvfb.log 2>&1 &
+          echo "DISPLAY=:99" >>"$GITHUB_ENV"
+          DISPLAY=:99 nohup em-cli launch -n "$EMULATOR" >artifacts-temp/emulator/launch.log 2>&1 &
+          # Listed by sdb first, ready for a shell and packages a little later.
+          if ! timeout 900 bash -c 'until sdb devices | grep -q "emulator-.*device" && [ "$(sdb shell echo ready 2>/dev/null | tr -d "\r")" = ready ]; do sleep 10; done'; then
             echo "::error::the emulator did not come up in 15 minutes"
             sdb devices || true
             exit 1
           fi
+          sleep 30
           sdb devices
           sdb capability | tee artifacts-temp/emulator/capability.txt
 
@@ -106,8 +111,13 @@ jobs:
           set -euo pipefail
           tpk="$(find target/tpk -name '*.tpk' -newer Cargo.toml | head -1)"
           [ -n "$tpk" ] || { echo "::error::no signed TPK under target/tpk"; exit 1; }
-          sdb install "$tpk"
-          sdb shell 0 execute "$APP_ID"
+          for attempt in 1 2 3; do
+            sdb install "$tpk" && break
+            [ "$attempt" = 3 ] && exit 1
+            echo "install attempt $attempt failed; retrying"; sleep 20
+          done
+          # The emulator has a shell and app_launcher (`sdb shell 0 execute` is the TVs' path).
+          sdb shell app_launcher -s "$APP_ID"
 
       - name: Pull the diagnostic report
         run: |

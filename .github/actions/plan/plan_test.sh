@@ -65,7 +65,7 @@ expect "manual default platforms" "$both" EVENT_NAME=workflow_dispatch DISPATCH_
 expect "manual jobs" 'jobs=["cross","gles"]' EVENT_NAME=workflow_dispatch DISPATCH_JOBS="cross, gles" DISPATCH_PLATFORMS=all
 expect "manual platform" 'os=["macos-15"]' EVENT_NAME=workflow_dispatch DISPATCH_JOBS=check DISPATCH_PLATFORMS=macos
 expect "manual grep" 'grep=release::tests' EVENT_NAME=workflow_dispatch DISPATCH_JOBS=test DISPATCH_GREP=release::tests
-expect "manual lane matrix" 'lane_c=[{"os":"ubuntu-24.04","backend":"llvmpipe"}]' EVENT_NAME=workflow_dispatch DISPATCH_PLATFORMS=ubuntu
+expect "manual one platform" 'os=["ubuntu-24.04"]' EVENT_NAME=workflow_dispatch DISPATCH_PLATFORMS=ubuntu
 expect_failure "manual unknown job" EVENT_NAME=workflow_dispatch DISPATCH_JOBS=lane-a
 expect_failure "manual unknown platform" EVENT_NAME=workflow_dispatch DISPATCH_PLATFORMS=windows
 

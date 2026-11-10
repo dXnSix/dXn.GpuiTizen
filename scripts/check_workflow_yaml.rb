@@ -1,9 +1,10 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Checks GitHub workflow and composite action files: each parses as YAML and has the shape GitHub
-# expects. Prints `workflow yaml ok` once every given file passes; exits 1 with the problems
-# otherwise.
+# Checks GitHub workflow and composite action files: each parses as YAML, has no duplicate mapping
+# keys (which YAML loaders accept silently and GitHub rejects as a "workflow file issue"; AgentX's
+# check_workflow_yaml.rb) and has the shape GitHub expects. Prints `workflow yaml ok` once every given
+# file passes; exits 1 with the problems otherwise.
 #
 #   ruby scripts/check_workflow_yaml.rb .github/workflows/*.yml .github/actions/*/action.yml
 
@@ -25,6 +26,21 @@ def check_steps(steps, where, problems)
     if step.key?("uses") && step["uses"].to_s !~ /\A[\w.\-\/]+@[\w.\-]+\z|\A\.\/[\w.\-\/]+\z|\Adocker:\/\//
       problems << "#{where}: step #{index + 1} `uses: #{step['uses']}` names no version (owner/repo@ref)"
     end
+  end
+end
+
+# Duplicate keys at any depth, from the parse tree (the loaded document keeps only the last one).
+def check_duplicates(node, file, path, problems)
+  return unless node.respond_to?(:children) && node.children
+  if node.is_a?(Psych::Nodes::Mapping)
+    pairs = node.children.each_slice(2).to_a
+    keys = pairs.map { |key, _| key.respond_to?(:value) ? key.value : key.to_s }
+    keys.group_by(&:itself).select { |_, all| all.size > 1 }.each_key do |key|
+      problems << "#{file}: duplicate key `#{key}` at #{path.empty? ? '/' : path}"
+    end
+    pairs.each_with_index { |(_, value), i| check_duplicates(value, file, "#{path}/#{keys[i]}", problems) }
+  else
+    node.children.each { |child| check_duplicates(child, file, path, problems) }
   end
 end
 
@@ -74,6 +90,7 @@ end
 problems = []
 files.each do |path|
   begin
+    check_duplicates(Psych.parse_file(path), path, "", problems)
     doc = YAML.safe_load(File.read(path), aliases: false)
   rescue Psych::SyntaxError, Errno::ENOENT => e
     problems << "#{path}: #{e.message}"

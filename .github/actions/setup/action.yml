@@ -7,6 +7,9 @@ description: >-
   artifacts-temp/gpui-fast-patch.toml for them. Jobs pass `--config` with it to Cargo when the file
   exists (`cargo xtask cross` does so itself).
 inputs:
+  cache-key:
+    description: What tells this job's Rust cache apart from its matrix siblings (a target).
+    default: ''
   linux-packages:
     description: "Install the Linux packages of the Lima VM (scripts/lima/gpuitizen.yaml): X11, Wayland, Mesa, Weston, AT-SPI."
     default: 'true'
@@ -29,7 +32,7 @@ runs:
     - name: Rust (rust-toolchain.toml)
       uses: actions-rust-lang/setup-rust-toolchain@v1
       with:
-        cache-shared-key: ${{ runner.os }}-${{ github.job }}
+        cache-shared-key: ${{ runner.os }}-${{ github.job }}-${{ inputs.cache-key }}
         rustflags: ""
 
     - name: Is the gpui-fast patch committed?

@@ -6,7 +6,11 @@ description: >-
   the repository owner's acceptance. Adds sdb, tz and the emulator CLI to PATH.
 inputs:
   packages:
-    description: Space-separated SDK packages, for example `TIZEN-8.0-NativeAppDevelopment-CLI`.
+    description: >-
+      Space-separated SDK packages, for example `TIZEN-8.0-NativeAppDevelopment-CLI`. The TV
+      emulator's are `Emulator` (the emulator manager) and `TV-SAMSUNG-Public-Emulator` (TV Extension
+      10.0), as `package-manager-cli.bin show-pkgs --tree` lists them in the default repository
+      (2026-11-10).
     required: true
   sdk-version:
     description: The CLI installer's SDK version (docs/setup.md, step 2).
@@ -20,7 +24,9 @@ runs:
       with:
         # The SDK only: ~/tizen-studio-data holds emulator VMs and signing profiles, never cached.
         path: ~/tizen-studio
-        key: tizen-sdk-${{ runner.os }}-${{ inputs.sdk-version }}-${{ hashFiles('.github/actions/tizen-sdk/action.yml') }}-${{ inputs.packages }}
+        # `recipe`: bump it when the install steps below change (hashFiles cannot see this action
+        # when another repository checks it out, as NSH's fork CI does).
+        key: tizen-sdk-${{ runner.os }}-${{ inputs.sdk-version }}-recipe2-${{ inputs.packages }}
 
     - name: Install
       if: steps.cache.outputs.cache-hit != 'true'
@@ -35,7 +41,9 @@ runs:
         curl -fsSL -o "$dir/tizen-sdk-cli.bin" \
           "https://usa.sdk-dl.tizen.org/web-cli_Tizen_SDK_${SDK_VERSION}_usa_ubuntu-64.bin"
         chmod +x "$dir/tizen-sdk-cli.bin"
-        yes | "$dir/tizen-sdk-cli.bin" --accept-license "$HOME/tizen-studio"
+        # Answers from a process substitution, not `yes |`: with pipefail, `yes` dies of SIGPIPE
+        # once the installer exits and fails the step.
+        "$dir/tizen-sdk-cli.bin" --accept-license "$HOME/tizen-studio" < <(yes)
         # The installer's repository URL is http://, which the mirror answers with 403 (setup.md step 4).
         sed -i 's#^Repository: http://#Repository: https://#' "$HOME/tizen-studio/.info/repository.info"
         # shellcheck disable=SC2086

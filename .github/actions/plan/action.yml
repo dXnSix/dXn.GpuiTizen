@@ -19,9 +19,6 @@ outputs:
   os:
     description: JSON array of the runner images to run on.
     value: ${{ steps.plan.outputs.os }}
-  lane_c:
-    description: JSON matrix `include` for lane C, limited to the chosen platforms.
-    value: ${{ steps.plan.outputs.lane_c }}
   grep:
     description: The test selector, empty for the lane's own selection.
     value: ${{ steps.plan.outputs.grep }}

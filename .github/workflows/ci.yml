@@ -122,6 +122,7 @@ jobs:
       - uses: ./.github/actions/setup
         with:
           linux-packages: 'false'
+          cache-key: ${{ matrix.target }}
       - name: clang
         run: sudo apt-get update && sudo apt-get install -y --no-install-recommends clang
       - uses: ./.github/actions/tizen-sdk
