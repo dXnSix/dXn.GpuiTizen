@@ -46,7 +46,7 @@ jobs:
 
       - name: KVM and Xvfb
         run: |
-          sudo apt-get update && sudo apt-get install -y --no-install-recommends xvfb
+          sudo apt-get update && sudo apt-get install -y --no-install-recommends xvfb x11-utils mesa-utils libgl1-mesa-dri libglx-mesa0
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' \
             | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules
@@ -95,12 +95,21 @@ jobs:
           em-cli list-platform | tee "$RUNNER_TEMP/platforms.txt"
           platform="$(grep -io 'tv-samsung[^ ]*' "$RUNNER_TEMP/platforms.txt" | head -1)"
           [ -n "$platform" ] || { echo "::error::no TV emulator platform installed"; exit 1; }
-          em-cli create -n "$EMULATOR" -p "$platform"
           mkdir -p artifacts-temp/emulator
-          # Xvfb of its own, for the job's whole life (not tied to em-cli's process).
-          Xvfb :99 -screen 0 1920x1080x24 >artifacts-temp/emulator/xvfb.log 2>&1 &
+          # Xvfb of its own, for the job's whole life (not tied to em-cli's process), started before
+          # `em-cli create`: create checks for OpenGL and, finding no display, configures VIGS's software
+          # backend, under which the TV tuner device finds no `vigs_wsi` and the VM exits at once (run
+          # 42907330624). With GLX on Xvfb, Mesa's llvmpipe provides the GL it checks for.
+          Xvfb :99 -screen 0 1920x1080x24 +extension GLX >artifacts-temp/emulator/xvfb.log 2>&1 &
+          export DISPLAY=:99
           echo "DISPLAY=:99" >>"$GITHUB_ENV"
-          DISPLAY=:99 nohup em-cli launch -n "$EMULATOR" >artifacts-temp/emulator/launch.log 2>&1 &
+          timeout 30 bash -c 'until xdpyinfo >/dev/null 2>&1; do sleep 1; done'
+          glxinfo -B | tee artifacts-temp/emulator/glxinfo.txt || true
+          em-cli create --help || true
+          em-cli create -n "$EMULATOR" -p "$platform"
+          conf=~/tizen-studio-data/emulator/vms/"$EMULATOR"/vm_launch.conf
+          echo "::group::$conf"; cat "$conf" || true; echo "::endgroup::"
+          nohup em-cli launch -n "$EMULATOR" >artifacts-temp/emulator/launch.log 2>&1 &
           # Listed by sdb first, ready for a shell and packages a little later.
           if ! timeout 900 bash -c 'until sdb devices | grep -q "emulator-.*device" && [ "$(timeout 20 sdb shell echo ready 2>/dev/null | tr -d "\r")" = ready ]; do sleep 10; done'; then
             echo "::error::the emulator did not come up in 15 minutes"
