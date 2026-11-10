@@ -1,0 +1,50 @@
+name: Tizen SDK
+description: >-
+  Installs the Tizen SDK CLI (the Baseline SDK, never Tizen Studio) into ~/tizen-studio with the
+  given packages, as docs/setup.md does, cached by the package list. The installer and the package
+  manager accept Samsung's SDK licence on the runner (`--accept-license`): running this workflow is
+  the repository owner's acceptance. Adds sdb, tz and the emulator CLI to PATH.
+inputs:
+  packages:
+    description: Space-separated SDK packages, for example `TIZEN-8.0-NativeAppDevelopment-CLI`.
+    required: true
+  sdk-version:
+    description: The CLI installer's SDK version (docs/setup.md, step 2).
+    default: '10.0'
+runs:
+  using: composite
+  steps:
+    - name: Cache
+      id: cache
+      uses: actions/cache@v4
+      with:
+        # The SDK only: ~/tizen-studio-data holds emulator VMs and signing profiles, never cached.
+        path: ~/tizen-studio
+        key: tizen-sdk-${{ runner.os }}-${{ inputs.sdk-version }}-${{ hashFiles('.github/actions/tizen-sdk/action.yml') }}-${{ inputs.packages }}
+
+    - name: Install
+      if: steps.cache.outputs.cache-hit != 'true'
+      shell: bash
+      env:
+        SDK_VERSION: ${{ inputs.sdk-version }}
+        PACKAGES: ${{ inputs.packages }}
+      run: |
+        set -euo pipefail
+        dir="$RUNNER_TEMP/tizen-sdk-installer"
+        mkdir -p "$dir"
+        curl -fsSL -o "$dir/tizen-sdk-cli.bin" \
+          "https://usa.sdk-dl.tizen.org/web-cli_Tizen_SDK_${SDK_VERSION}_usa_ubuntu-64.bin"
+        chmod +x "$dir/tizen-sdk-cli.bin"
+        yes | "$dir/tizen-sdk-cli.bin" --accept-license "$HOME/tizen-studio"
+        # The installer's repository URL is http://, which the mirror answers with 403 (setup.md step 4).
+        sed -i 's#^Repository: http://#Repository: https://#' "$HOME/tizen-studio/.info/repository.info"
+        # shellcheck disable=SC2086
+        "$HOME/tizen-studio/package-manager/package-manager-cli.bin" install --accept-license $PACKAGES
+
+    - name: PATH
+      shell: bash
+      run: |
+        echo "$HOME/tizen-studio/tools" >>"$GITHUB_PATH"
+        echo "$HOME/tizen-studio/tools/tizen-core" >>"$GITHUB_PATH"
+        echo "$HOME/tizen-studio/tools/emulator/bin" >>"$GITHUB_PATH"
+        echo "$HOME/tizen-studio/tools/ide/bin" >>"$GITHUB_PATH"

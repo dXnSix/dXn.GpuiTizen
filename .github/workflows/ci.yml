@@ -1,0 +1,194 @@
+name: CI
+
+# A `plan` job decides what runs (.github/actions/plan, README.md "Continuous integration"):
+# manual runs take the `jobs`, `platforms` and `grep` inputs; pull requests take `ci:<job>`,
+# `ci:all` and `ci-os:<ubuntu|macos>` labels, and without a `ci:` label a change that touches only
+# documentation runs only `check`; pushes to main and the weekly schedule run everything.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '17 3 * * 1'
+  workflow_dispatch:
+    inputs:
+      jobs:
+        description: 'Comma-separated: check, test, host, cross, gles, egl, or all'
+        default: all
+      platforms:
+        description: 'Comma-separated: ubuntu, macos, or all (check and test)'
+        default: all
+      grep:
+        description: 'A test name filter for the test, gles and egl jobs'
+        default: ''
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+  pull-requests: read
+
+env:
+  CARGO_TERM_COLOR: always
+  PATCH_CONFIG: artifacts-temp/gpui-fast-patch.toml
+
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    outputs:
+      jobs: ${{ steps.plan.outputs.jobs }}
+      os: ${{ steps.plan.outputs.os }}
+      grep: ${{ steps.plan.outputs.grep }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - id: plan
+        uses: ./.github/actions/plan
+        with:
+          jobs: ${{ inputs.jobs || 'all' }}
+          platforms: ${{ inputs.platforms || 'all' }}
+          grep: ${{ inputs.grep || '' }}
+
+  check:
+    needs: plan
+    if: contains(fromJSON(needs.plan.outputs.jobs), 'check')
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ${{ fromJSON(needs.plan.outputs.os) }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup
+      - name: Policy
+        run: cargo xtask policy
+      - name: Format
+        run: cargo fmt --all --check
+      - name: Clippy
+        shell: bash
+        run: |
+          cfg=(); [ -f "$PATCH_CONFIG" ] && cfg=(--config "$PATCH_CONFIG")
+          cargo clippy "${cfg[@]}" --workspace --all-targets -- -D warnings
+      - name: Workflows
+        if: runner.os == 'Linux'
+        run: |
+          ruby scripts/check_workflow_yaml.rb .github/workflows/*.yml .github/actions/*/action.yml
+          bash .github/actions/plan/plan_test.sh
+
+  test:
+    needs: plan
+    if: contains(fromJSON(needs.plan.outputs.jobs), 'test')
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ${{ fromJSON(needs.plan.outputs.os) }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup
+      - name: Host test groups
+        shell: bash
+        env:
+          GREP: ${{ needs.plan.outputs.grep }}
+        run: |
+          cfg=(); [ -f "$PATCH_CONFIG" ] && cfg=(--config "$PATCH_CONFIG")
+          cargo test "${cfg[@]}" --workspace --lib -- ${GREP:+"$GREP"}
+
+  host:
+    needs: plan
+    if: contains(fromJSON(needs.plan.outputs.jobs), 'host')
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Build the C# host (Tizen.NET.Sdk from NuGet)
+        run: dotnet build host/Dxn.GpuiTizen.Host.csproj -c Release
+
+  cross:
+    needs: plan
+    if: contains(fromJSON(needs.plan.outputs.jobs), 'cross')
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [armv7, x86_64]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup
+        with:
+          linux-packages: 'false'
+      - name: clang
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends clang
+      - uses: ./.github/actions/tizen-sdk
+        with:
+          packages: TIZEN-8.0-NativeAppDevelopment-CLI
+      - name: Clippy for the target
+        run: cargo xtask cross --target ${{ matrix.target }} --clippy --all-tv-libs
+      - name: TV libraries and their symbols
+        run: cargo xtask cross --target ${{ matrix.target }} --release --all-tv-libs --check-symbols
+      - name: Tizen dependency graph
+        run: cargo xtask tizen-deps --target ${{ matrix.target }}
+
+  gles:
+    needs: plan
+    if: contains(fromJSON(needs.plan.outputs.jobs), 'gles')
+    runs-on: ubuntu-24.04
+    env:
+      # The GL ES 3.0 TVs' and the emulator's situation (scripts/lima-run.sh): wgpu on GL, Mesa's
+      # llvmpipe, GL ES 3.0 and no storage buffers (gpui-fast change 1's path).
+      WGPU_BACKEND: gl
+      LIBGL_ALWAYS_SOFTWARE: '1'
+      MESA_GLES_VERSION_OVERRIDE: '3.0'
+      MESA_EXTENSION_OVERRIDE: -GL_ARB_shader_storage_buffer_object
+      RUSTFLAGS: -C link-arg=-fuse-ld=lld
+      CARGO_PROFILE_DEV_DEBUG: line-tables-only
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup
+      - name: gles_smoke (counter, long list) under Xvfb
+        shell: bash
+        env:
+          GREP: ${{ needs.plan.outputs.grep }}
+        run: |
+          cfg=(); [ -f "$PATCH_CONFIG" ] && cfg=(--config "$PATCH_CONFIG")
+          for example in example_counter example_long_list; do
+            timeout 1800 xvfb-run -a -s '-screen 0 1920x1080x24' \
+              cargo test "${cfg[@]}" -p "$example" --test gles_smoke -- ${GREP:+"$GREP"}
+          done
+
+  egl:
+    needs: plan
+    if: contains(fromJSON(needs.plan.outputs.jobs), 'egl')
+    runs-on: ubuntu-24.04
+    env:
+      WGPU_BACKEND: gl
+      LIBGL_ALWAYS_SOFTWARE: '1'
+      MESA_GLES_VERSION_OVERRIDE: '3.0'
+      MESA_EXTENSION_OVERRIDE: -GL_ARB_shader_storage_buffer_object
+      RUSTFLAGS: -C link-arg=-fuse-ld=lld
+      CARGO_PROFILE_DEV_DEBUG: line-tables-only
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup
+      - name: The platform-owned EGL path under headless Weston
+        shell: bash
+        env:
+          GREP: ${{ needs.plan.outputs.grep }}
+        run: |
+          cfg=(); [ -f "$PATCH_CONFIG" ] && cfg=(--config "$PATCH_CONFIG")
+          export XDG_RUNTIME_DIR="$(mktemp -d)"
+          chmod 700 "$XDG_RUNTIME_DIR"
+          weston --backend=headless --socket=wayland-dxn --idle-time=0 >"$RUNNER_TEMP/weston.log" 2>&1 &
+          for _ in $(seq 50); do [ -S "$XDG_RUNTIME_DIR/wayland-dxn" ] && break; sleep 0.1; done
+          [ -S "$XDG_RUNTIME_DIR/wayland-dxn" ] || { cat "$RUNNER_TEMP/weston.log"; exit 1; }
+          export WAYLAND_DISPLAY=wayland-dxn
+          unset DISPLAY
+          timeout 1800 cargo test "${cfg[@]}" -p dxn_gpui_tizen --test egl_wayland -- ${GREP:+"$GREP"}
+      - name: Weston log
+        if: failure()
+        run: cat "$RUNNER_TEMP/weston.log" || true

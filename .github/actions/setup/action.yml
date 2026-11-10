@@ -1,0 +1,67 @@
+name: Set up a build
+description: >-
+  The pinned nightly from rust-toolchain.toml, the Linux packages the host builds and tests need,
+  and the gpui-fast patch: until Cargo.toml commits git `[patch.crates-io]` lines, the forks'
+  `tizen-release` (dXnSix/gpui-fast) and `v30-tizen` (dXnSix/wgpu) are checked out under
+  artifacts-temp/forks/ and `cargo xtask gpui-fast-release --from` writes
+  artifacts-temp/gpui-fast-patch.toml for them. Jobs pass `--config` with it to Cargo when the file
+  exists (`cargo xtask cross` does so itself).
+inputs:
+  linux-packages:
+    description: "Install the Linux packages of the Lima VM (scripts/lima/gpuitizen.yaml): X11, Wayland, Mesa, Weston, AT-SPI."
+    default: 'true'
+runs:
+  using: composite
+  steps:
+    - name: Linux packages
+      if: runner.os == 'Linux' && inputs.linux-packages == 'true'
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+          build-essential clang lld pkg-config curl ca-certificates git jq \
+          mesa-utils libgl1-mesa-dri libegl1 libegl-mesa0 libgles2 libgbm1 mesa-vulkan-drivers \
+          xvfb xauth dbus-x11 at-spi2-core libatspi2.0-dev weston libwayland-egl1 \
+          libwayland-dev libxkbcommon-dev libxkbcommon-x11-dev libx11-dev libx11-xcb-dev \
+          libxcb1-dev libxcb-xkb-dev libxcursor-dev libxrandr-dev libxi-dev \
+          libfontconfig1-dev libfreetype-dev libssl-dev libzstd-dev
+
+    - name: Rust (rust-toolchain.toml)
+      uses: actions-rust-lang/setup-rust-toolchain@v1
+      with:
+        cache-shared-key: ${{ runner.os }}-${{ github.job }}
+        rustflags: ""
+
+    - name: Is the gpui-fast patch committed?
+      id: patch
+      shell: bash
+      run: |
+        if grep -q '^\[patch\.crates-io\]' Cargo.toml; then
+          echo "committed=true" >>"$GITHUB_OUTPUT"
+          echo "Cargo.toml commits the gpui-fast patch; no fork checkouts needed."
+        else
+          echo "committed=false" >>"$GITHUB_OUTPUT"
+        fi
+
+    - name: gpui-fast fork (tizen-release)
+      if: steps.patch.outputs.committed == 'false'
+      uses: actions/checkout@v6
+      with:
+        repository: dXnSix/gpui-fast
+        ref: tizen-release
+        path: artifacts-temp/forks/gpui-fast
+        persist-credentials: false
+
+    - name: wgpu fork (v30-tizen)
+      if: steps.patch.outputs.committed == 'false'
+      uses: actions/checkout@v6
+      with:
+        repository: dXnSix/wgpu
+        ref: v30-tizen
+        path: artifacts-temp/forks/wgpu
+        persist-credentials: false
+
+    - name: Patch config
+      if: steps.patch.outputs.committed == 'false'
+      shell: bash
+      run: cargo xtask gpui-fast-release --from artifacts-temp/forks/gpui-fast --wgpu artifacts-temp/forks/wgpu

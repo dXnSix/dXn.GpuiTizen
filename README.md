@@ -96,6 +96,44 @@ package (`--target all --sign` looks next to and inside each staged tree).
 Submission itself (Seller Office, the certificates, the answer on native libraries for public sellers) is the
 owner's.
 
+## Continuous integration
+
+`.github/workflows/ci.yml` starts with a `plan` job (`.github/actions/plan/`, tested by `bash
+.github/actions/plan/plan_test.sh`) that chooses what runs:
+
+| Run | What it runs |
+| --- | --- |
+| manual (`workflow_dispatch`) | the `jobs`, `platforms` (`ubuntu`, `macos`) and `grep` inputs; `all` is everything |
+| pull request | labels: `ci:<job>` limits the jobs (several add up), `ci:all`, `ci-os:<ubuntu\|macos>`; without a `ci:` label, a change that touches only documentation runs only `check` |
+| push to `main`, weekly schedule | everything |
+
+The jobs: `check` (`cargo xtask policy`, `cargo fmt --check`, clippy with `-D warnings` on Linux and macOS, and the
+workflow files), `test` (the host test groups, `cargo test --workspace --lib`), `host` (`dotnet build` of the C# host
+with `Tizen.NET.Sdk` from NuGet), `cross` (armv7 and x86_64: clippy for the target, the release TV libraries with the
+symbol check, and the Tizen dependency graph, with the Tizen SDK and the 8.0 rootstraps installed in the job), `gles`
+(both examples' `gles_smoke` tests under Xvfb with Mesa's llvmpipe on the GL ES 3.0 path) and `egl` (the
+platform-owned EGL path, `egl_wayland`, under headless Weston). `grep` filters the test names of `test`, `gles` and
+`egl`.
+
+Until `Cargo.toml` commits git `[patch.crates-io]` lines for the forks, every job that builds checks out
+`dXnSix/gpui-fast` at `tizen-release` and `dXnSix/wgpu` at `v30-tizen` under `artifacts-temp/forks/` and writes the
+patch config with `cargo xtask gpui-fast-release --from artifacts-temp/forks/gpui-fast --wgpu
+artifacts-temp/forks/wgpu`; both forks must be pushed and readable by the workflow.
+
+`.github/workflows/tizen-emulator.yml` (manual and weekly) boots the Samsung TV emulator headless on an Ubuntu runner
+with KVM, packages and signs the x86_64 diagnostic TPK, installs and launches it, pulls its report with `cargo xtask
+diag pull` and uploads the report and the emulator's logs. It needs these repository secrets, read only by that job:
+
+| Secret | Value |
+| --- | --- |
+| `TIZEN_AUTHOR_P12`, `TIZEN_DISTRIBUTOR_P12` | the author and distributor certificates, base64-encoded `.p12` files |
+| `TIZEN_AUTHOR_PASSWORD`, `TIZEN_DISTRIBUTOR_PASSWORD` | their passwords |
+| `TIZEN_PROFILES_XML` | a `profiles.xml` with a profile named `ci`, with `@CERT_DIR@` where the certificates' directory goes and `@AUTHOR_PASSWORD@` / `@DISTRIBUTOR_PASSWORD@` where the passwords go |
+
+Both workflows install the Tizen SDK CLI with `--accept-license`: running them is the owner's acceptance of Samsung's
+SDK licence on the runner. The emulator's distributor certificate must allow it (Samsung's public distributor
+certificate does).
+
 ## Licence
 
 Licensed under either of [Apache License, Version 2.0](LICENSE-APACHE) or [MIT license](LICENSE-MIT) at your option.

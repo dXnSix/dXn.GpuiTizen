@@ -1,0 +1,139 @@
+name: Tizen emulator
+
+# Installs, launches and reads the diagnostic app on the Samsung TV emulator (x86_64) on a
+# GitHub-hosted Ubuntu runner with KVM. Manual and weekly. Whether the emulator boots on a hosted
+# runner is the first thing this proves (docs/verification/tizen-devices.md records the runs).
+#
+# Secrets, used only by the signing steps of this job (README.md "Continuous integration"):
+#   TIZEN_AUTHOR_P12, TIZEN_DISTRIBUTOR_P12   the certificates, base64-encoded .p12 files
+#   TIZEN_AUTHOR_PASSWORD, TIZEN_DISTRIBUTOR_PASSWORD
+#   TIZEN_PROFILES_XML   a profiles.xml naming a profile `ci`, with @CERT_DIR@, @AUTHOR_PASSWORD@ and
+#                        @DISTRIBUTOR_PASSWORD@ where the paths and passwords go
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '41 4 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tizen-emulator
+  cancel-in-progress: false
+
+env:
+  CARGO_TERM_COLOR: always
+  EMULATOR: dxn-tv
+  PROFILE: ci
+  APP_ID: DxnGpuiTzD.Diag
+
+jobs:
+  emulator:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' \
+            | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+          ls -l /dev/kvm
+
+      - uses: ./.github/actions/setup
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ./.github/actions/tizen-sdk
+        with:
+          packages: TIZEN-8.0-NativeAppDevelopment-CLI Emulator TV-SAMSUNG-Public-Emulator
+
+      - name: Signing profile (from secrets)
+        env:
+          AUTHOR_P12: ${{ secrets.TIZEN_AUTHOR_P12 }}
+          DISTRIBUTOR_P12: ${{ secrets.TIZEN_DISTRIBUTOR_P12 }}
+          AUTHOR_PASSWORD: ${{ secrets.TIZEN_AUTHOR_PASSWORD }}
+          DISTRIBUTOR_PASSWORD: ${{ secrets.TIZEN_DISTRIBUTOR_PASSWORD }}
+          PROFILES_XML: ${{ secrets.TIZEN_PROFILES_XML }}
+        run: |
+          set -euo pipefail
+          if [ -z "$AUTHOR_P12" ] || [ -z "$DISTRIBUTOR_P12" ] || [ -z "$PROFILES_XML" ]; then
+            echo "::error::the signing secrets are not set (TIZEN_AUTHOR_P12, TIZEN_DISTRIBUTOR_P12, TIZEN_PROFILES_XML, ...)"
+            exit 1
+          fi
+          certs="$RUNNER_TEMP/tizen-certs"
+          mkdir -p "$certs" ~/tizen-studio-data/profile
+          chmod 700 "$certs"
+          base64 -d <<<"$AUTHOR_P12" >"$certs/author.p12"
+          base64 -d <<<"$DISTRIBUTOR_P12" >"$certs/distributor.p12"
+          python3 - "$certs" <<'PY'
+          import os, sys, pathlib
+          xml = os.environ["PROFILES_XML"]
+          for key, value in (("@CERT_DIR@", sys.argv[1]),
+                             ("@AUTHOR_PASSWORD@", os.environ["AUTHOR_PASSWORD"]),
+                             ("@DISTRIBUTOR_PASSWORD@", os.environ["DISTRIBUTOR_PASSWORD"])):
+              xml = xml.replace(key, value)
+          path = pathlib.Path.home() / "tizen-studio-data/profile/profiles.xml"
+          path.write_text(xml)
+          path.chmod(0o600)
+          PY
+
+      - name: Package the x86_64 diagnostic TPK
+        run: cargo xtask package --app diag --target x86_64 --sign "$PROFILE"
+
+      - name: Boot the TV emulator headless
+        run: |
+          set -euo pipefail
+          em-cli list-platform | tee "$RUNNER_TEMP/platforms.txt"
+          platform="$(grep -io 'tv-samsung[^ ]*x86_64[^ ]*\|tv-samsung[^ ]*' "$RUNNER_TEMP/platforms.txt" | head -1)"
+          [ -n "$platform" ] || { echo "::error::no TV emulator platform installed"; exit 1; }
+          em-cli create -n "$EMULATOR" -p "$platform"
+          mkdir -p artifacts-temp/emulator
+          nohup xvfb-run -a -s '-screen 0 1920x1080x24' em-cli launch -n "$EMULATOR" \
+            >artifacts-temp/emulator/launch.log 2>&1 &
+          if ! timeout 900 bash -c 'until sdb devices | grep -q "emulator-.*device"; do sleep 10; done'; then
+            echo "::error::the emulator did not come up in 15 minutes"
+            sdb devices || true
+            exit 1
+          fi
+          sdb devices
+          sdb capability | tee artifacts-temp/emulator/capability.txt
+
+      - name: Install and launch
+        run: |
+          set -euo pipefail
+          tpk="$(find target/tpk -name '*.tpk' -newer Cargo.toml | head -1)"
+          [ -n "$tpk" ] || { echo "::error::no signed TPK under target/tpk"; exit 1; }
+          sdb install "$tpk"
+          sdb shell 0 execute "$APP_ID"
+
+      - name: Pull the diagnostic report
+        run: |
+          for attempt in 1 2 3 4 5 6; do
+            if cargo xtask diag pull; then exit 0; fi
+            echo "attempt $attempt failed; waiting for the app"
+            sleep 20
+          done
+          exit 1
+
+      - name: Emulator log
+        if: always()
+        run: |
+          mkdir -p artifacts-temp/emulator
+          cp -r ~/tizen-studio-data/emulator/vms/"$EMULATOR"/logs artifacts-temp/emulator/ 2>/dev/null || true
+          sdb dlog -d >artifacts-temp/emulator/dlog.txt 2>/dev/null || true
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tizen-emulator
+          path: |
+            artifacts-temp/diag/
+            artifacts-temp/emulator/
+          if-no-files-found: warn
+
+      - name: Remove the signing material
+        if: always()
+        run: rm -rf "$RUNNER_TEMP/tizen-certs" ~/tizen-studio-data/profile/profiles.xml
