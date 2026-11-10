@@ -13,8 +13,8 @@ The owner turned GitHub Actions off on `dXnSix/gpui-fast` and `dXnSix/wgpu` and 
 | `dXnSix/gpui-fast` | `gles-instance-path`, `wgpu-backend-env`, `pipeline-cache`, `scene-damage`, `external-target`, `video-hole` | the PR branches of `docs/pr/gpui-fast/` |
 | `dXnSix/wgpu` | `v30-tizen` | 4e3d80d5d |
 | `dXnSix/wgpu` | `egl14-wayland`, `gles-program-binaries` | the PR branches of `docs/pr/wgpu/` |
-| `dXnSix/dXn.GpuiTizen` | `main` | 9cd8fa3 |
-| `dXnSix/nsh` | `feat/tizen`, `fork/tizen-ci` and every `pr/{focus,tv,engine,tizen,tizen-web}/*` branch | `feat/tizen` 7c5cd1c13 |
+| `dXnSix/dXn.GpuiTizen` | `main` | 9cd8fa3, then f1fa54d (the git patch below) |
+| `dXnSix/nsh` | `feat/tizen`, `fork/tizen-ci` and every `pr/{focus,tv,engine,tizen,tizen-web}/*` branch | `feat/tizen` 7c5cd1c13, then 289fcd8ff with the six branches the git patch below changed |
 
 Then, on the owner's go, the git `[patch.crates-io]` lines were committed:
 
@@ -41,13 +41,21 @@ Confirmed, with no local patch config (`artifacts-temp/gpui-fast-patch.toml` mov
   (release and dev `libnsh.so` export only `nsh_tizen_main`). On `feat/tizen`, `cargo metadata --locked` passes and
   gpui-fast resolves to the fork.
 
-Still open in this step (the owner's): push the commits above (dXn.GpuiTizen `main`, the NSH branches they changed),
-open the fork PRs, add the signing secrets (`README.md`, "Continuous integration"), and watch the first CI runs
-(`CI-3`), recorded below.
+Pushed on 2026-11-10: dXn.GpuiTizen `main` at f1fa54d, and the NSH branches it changed: `feat/tizen` 289fcd8ff, `pr/tizen/04-platform`
+ac5701419, `05-video` 42a6cd56c, `06-module` 84758b656, `07-cli` 5881eb40f, `pr/tizen-web/03-module` 445c2e43e.
+Still open in this step (the owner's): add the signing secrets (`README.md`, "Continuous integration").
 
 ## CI on GitHub (`CI-3`)
 
-Not run yet.
+`ci.yml` on `dXnSix/dXn.GpuiTizen`, on pushes to `main`:
+
+| Run | Commit | Result |
+| --- | --- | --- |
+| 42883920411 | 9cd8fa3 (no committed patch) | every job past `plan` and `host` failed in `setup`: with the forks checked out under `artifacts-temp/forks/`, `cargo tree` with the generated patch config could not load `naga` (`error inheriting authors from workspace root manifest's workspace.package.authors`). The fallback stays for a tree without the committed patch, but no CI run takes it any more |
+| 42887002585 | f1fa54d (the git patch) | `plan`, `host`, `check` and `test` (ubuntu-24.04, macos-15), `egl` and `gles` passed; `cross (armv7)` and `cross (x86_64)` failed in `tizen-sdk`: the package manager stopped on the OS prerequisites `python3.8` and `libpython3.8`, which Ubuntu 24.04 lacks |
+
+The fix (`.github/actions/tizen-sdk`: empty stand-in packages for the prerequisite check, run in the `gpuitizen` VM
+on Ubuntu 24.04) went through a pull request; its run is recorded below.
 
 ## Devices (`HOST-3`, `DIAG-5`, `DEV-2`, `PLAT-7`, `VID-4`, `DEV-3`)
 
