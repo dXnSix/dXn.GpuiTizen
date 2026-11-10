@@ -1,0 +1,11 @@
+#!/bin/sh
+# Check-only stand-in for a C compiler: writes the requested output, compiles nothing.
+out=""
+prev=""
+for a in "$@"; do
+  case "$prev" in -o) out="$a";; esac
+  case "$a" in -Fo*|/Fo*) out="${a#?Fo}";; esac
+  prev="$a"
+done
+[ -n "$out" ] && : > "$out"
+exit 0

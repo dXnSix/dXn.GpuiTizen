@@ -1,0 +1,17 @@
+#!/bin/sh
+# Check-only stand-in for pkg-config: every package exists at a recent version.
+for a in "$@"; do
+  case "$a" in
+    --modversion) echo "99.0.0"; exit 0;;
+    --exists|--atleast-version*|--print-errors) ;;
+    --variable*) echo ""; exit 0;;
+  esac
+done
+libs=""
+for a in "$@"; do
+  case "$a" in
+    -*|*" "*) ;;
+    *) libs="$libs -l$(echo "$a" | tr -c 'a-zA-Z0-9_\n' '_')";;
+  esac
+done
+echo "$libs"

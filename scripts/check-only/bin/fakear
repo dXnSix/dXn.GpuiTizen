@@ -1,0 +1,6 @@
+#!/bin/sh
+# Check-only stand-in for an archiver: writes the requested archive.
+for a in "$@"; do
+  case "$a" in -out:*|/OUT:*|-OUT:*|/out:*) : > "${a#*:}";; *.lib|*.a) [ -e "$a" ] || : > "$a";; esac
+done
+exit 0

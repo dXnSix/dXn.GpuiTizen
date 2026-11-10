@@ -36,7 +36,9 @@ provision:
         xvfb xauth dbus-x11 at-spi2-core libatspi2.0-dev weston libwayland-egl1 \
         libwayland-dev libxkbcommon-dev libxkbcommon-x11-dev libx11-dev libx11-xcb-dev \
         libxcb1-dev libxcb-xkb-dev libxcursor-dev libxrandr-dev libxi-dev \
-        libfontconfig1-dev libfreetype-dev libssl-dev libzstd-dev
+        libfontconfig1-dev libfreetype-dev libssl-dev libzstd-dev \
+        libclang-dev libgtk-4-dev libwebkitgtk-6.0-dev libgstreamer1.0-dev \
+        libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good
   - mode: user
     script: |
       #!/bin/bash
