@@ -25,7 +25,7 @@ The split itself is a review repair: s16's `f-s16-nsh-compat-one-thing-per-pr` (
 serving three NSH PRs; it became these three topic branches, with `nsh-tizen` (`bc033c9`) merging them, whose tree
 equals the old single branch's (resolved in `review-s16-2.json`). The same review's `f-s16-tv5-os-tizen-unmet` moved
 `Os::Tizen`'s compat case to NTZ-2 by amendment: `tizen-platform` serves `pr/tizen/01-os`, checked by s17's
-`chk-nsh-compat-tizen`. s17's review accepted the `tizen-platform` gate that matches `platform.rs`'s text.
+`chk-nsh-compat-tizen`. s16's re-review accepted the `tizen-platform` gate that matches `platform.rs`'s text.
 
 ## Where things are
 

@@ -27,8 +27,11 @@
 | `chk-nsh-focus-web` | `bash -c '$WASM_BUILD && NSH_BROWSER_WASM=target/wasm32-unknown-unknown/web/nsh_platform_web.wasm node --expose-gc --test crates/nsh-platform-web/web/browser/focus.test.mjs'` (`$WASM_BUILD`: [../../README.md](../../README.md#the-epics-checks-and-the-environment-they-need)) | `t15-focus-web` | passed, 14 tests, 2026-11-10 10:38 UTC (s15) |
 | `chk-nsh-focus-web-core` | `cargo test -p nsh-platform-web --test text focus_moves` | `t15-focus-web` | passed, 14 tests (s15) |
 
-On `feat/tizen` both files also hold 07's TV cases, so the counts are 05's and 07's together. Not run on this branch
-alone; not run: the pre-open checks.
+On `feat/tizen` both files also hold 07's TV cases, so the counts are 05's and 07's together.
+
+**On this branch alone** (no result above is from it): both commands run as written, but the recorded runs did not test
+05's code alone: they ran with 07's rewritten `src/focus.rs` (+318 −62), `web/nsh.js` and `focus.test.mjs` (+181) and
+07's `focus_moves::tv`. On this branch `focus.test.mjs` has 8 tests and `focus_moves` 7. Not run: the pre-open checks.
 
 ## Updating and opening
 

@@ -33,8 +33,10 @@
 | `chk-nsh-focus-linux-tab` | `../../../dXn.GpuiTizen/scripts/lima-run.sh cargo test -p nsh-platform-linux --lib key_focus::` | `t15-focus-desktops` | passed, 7 tests, Lima (s15) |
 | `chk-nsh-focus-windows-clippy` | `../../../dXn.GpuiTizen/scripts/check-only-clippy.sh x86_64-pc-windows-msvc -p nsh-platform-windows --all-targets -- -D warnings` | `t15-focus-desktops` | passed (clippy, check-only from the Mac) (s15) |
 
-The `lima-run.sh` paths are relative to `nsh-wt/tizen`; from `nsh-wt/tizen-desktop` they are the same depth. Not
-run on this branch alone; not run: Windows' tests, the pre-open checks.
+The `lima-run.sh` paths are relative to `nsh-wt/tizen`; from `nsh-wt/tizen-desktop` they are the same depth.
+
+**On this branch alone** (no result above is from it): every command runs as written; `tests/apps/pressable-focus` is
+this branch's. Not run: Windows' tests, the pre-open checks.
 
 ## Updating and opening
 

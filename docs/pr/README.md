@@ -20,7 +20,7 @@ docs/pr/<project>/[<area>/]issue*.md   the issues that come before the PRs
 |---|---|---|---|
 | gpui-fast | [gpui-fast/README.md](gpui-fast/README.md) | six renderer changes for GL ES 3.0 TVs (one issue, six PRs) | nothing opened; issues are closed on `longbridge/gpui-fast` |
 | wgpu | [wgpu/README.md](wgpu/README.md) | EGL 1.4 on Wayland, GL program binaries (two PRs) | nothing opened |
-| NSH | [nsh/README.md](nsh/README.md) | focus, TV keys and category, one wgpu, `Os::Tizen` and the `tizen` / `tizen-web` targets (three issues and a fourth on the desktop defaults, 22 PRs) and one fork-only CI branch | nothing opened or pushed; every branch's sprint checked, reviewed (s14–s21 all passed) and checkpointed |
+| NSH | [nsh/README.md](nsh/README.md) | focus, TV keys and category, one wgpu, `Os::Tizen` and the `tizen` / `tizen-web` targets (three issues and a fourth on the desktop defaults, 22 PRs) and one fork-only CI branch | nothing opened or pushed; every branch's sprint checked on `feat/tizen`, reviewed (s14–s21 all passed) and checkpointed |
 | nsh-compat | [nsh/compat/README.md](nsh/compat/README.md) | three companions of the NSH PRs | nothing opened; no `dXnSix/nsh-compat` fork yet |
 
 ### NSH
@@ -77,9 +77,15 @@ before it is answered or merged as noted.
   needs an nsh-compat PR names it at the top. When a PR changes under review, change `PR.md` and the PR together.
 - **Placeholders**: `#(…)` is a PR or issue number to fill in once it exists; `[OWNER: …]` is something only the owner
   can supply (device numbers, probe results, published versions, a link). Replace them before opening.
-- **Before opening**: fetch, rebase onto the latest upstream branch (keeping the old head under an `epic/…` tag for
-  the epic's records, [nsh/README.md](nsh/README.md#updating-a-branch-and-opening-it)), run the branch's checks, update
-  the numbers and the checklist in `PR.md`.
+- **Recorded checks**: every check result an NSH branch README records comes from the integration branch `feat/tizen`
+  (with the other branches merged in), none from a branch alone; each such README marks the checks that cannot run on
+  the branch alone.
+- **Before opening** (each branch, owner's step):
+  1. Fetch and rebase it onto the latest upstream branch (`upstream/main`; wgpu's `trunk`), resolving the conflicts
+     its README lists, and keeping the old head under an `epic/…` tag for the epic's records
+     ([nsh/README.md](nsh/README.md#updating-a-branch-and-opening-it)).
+  2. Run its README's checks on its tip, on that branch alone.
+  3. Update the numbers and the checklist in `PR.md`.
 - **After opening**: put the number in the branch `README.md`, the area `README.md`, this index, and the `PR.md` of
   the PRs that depend on it. After merging: the date and the merge commit; the folder stays as the record.
 - Nothing is pushed, posted or opened without the owner's go; no AI attribution in commits, PR texts or comments.

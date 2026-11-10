@@ -38,7 +38,7 @@ The Tizen backend's checks need `$TIZEN_ENV`, `$PATCH` and `$LOCK` ([../../READM
 
 | Check | Command | Task | Recorded on `feat/tizen` |
 |---|---|---|---|
-| `chk-nsh-platform-tizen` | `cargo test --manifest-path crates/gpui/Cargo.toml -p nsh-platform-tizen --lib --config "$PATCH" --config "resolver.lockfile-path='$LOCK'"` | `t18-platform`, `t18-dev`, `t18-module` | passed, 27 tests (04's groups and 06's `tv::tests`), 2026-11-10 15:49 UTC (s18) |
+| `chk-nsh-platform-tizen` | `cargo test --manifest-path crates/gpui/Cargo.toml -p nsh-platform-tizen --lib --config "$PATCH" --config "resolver.lockfile-path='$LOCK'"` | `t18-platform`, `t18-dev`, `t18-module` | passed, 27 tests (04's 23, and 06's `tv::tests` and `keys::tests::nsh_keys_have_their_tizen_names`), 2026-11-10 15:49 UTC (s18) |
 | `chk-nsh-platform-tizen-dev` | the same with `--features dev` and the filter `dev::` | `t18-dev` | passed, 5 tests, 16:09 UTC (s18) |
 | `chk-nsh-gpui-embedding-tv` | `cargo test --manifest-path crates/gpui/Cargo.toml -p nsh-platform-gpui --lib --config "$PATCH" --config "resolver.lockfile-path='$LOCK'" -- host_settings::tests::lifecycle navigation::tests::unhandled_back keys::tests` | `t18-platform` | passed, 5 tests (s18) |
 | `chk-nsh-dev-transport` | `cargo test -p nsh-dev --features client,server --test roundtrip` | `t18-dev` | passed, 12 tests (s18) |
@@ -46,8 +46,12 @@ The Tizen backend's checks need `$TIZEN_ENV`, `$PATCH` and `$LOCK` ([../../READM
 | `chk-nsh-tizen-link-x86_64` | the same with `--target x86_64` | `t18-link` | passed, 16:02 UTC (s18) |
 | `chk-nsh-tizen-link-aarch64` | the same with `--target aarch64` | `t18-link` | passed, 16:09 UTC (s18) |
 
-The link checks need the Tizen 8.0 rootstraps and the SDK's GCC toolchains. Not run on this branch alone; not run: the
-pre-open checks, anything on a TV or the emulator (the owner's `DEV` runs), `dotnet build` of the host.
+The link checks need the Tizen 8.0 rootstraps and the SDK's GCC toolchains.
+
+**On this branch alone** (no result above is from it): `chk-nsh-platform-tizen` runs as written but selects 23 tests
+there: 4 of the recorded 27 are 06's. The link checks' `--manifest-path` names `nsh-wt/tizen`, which is `feat/tizen`:
+point it at a worktree that has this branch. The other commands run as written. Not run: the pre-open checks, anything
+on a TV or the emulator (the owner's `DEV` runs), `dotnet build` of the host.
 
 ## Updating and opening
 

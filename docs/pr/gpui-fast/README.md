@@ -78,8 +78,8 @@ Checked with `git merge-tree` (no branch touched):
 ## The issue
 
 [issue.md](issue.md): the TV use, changes 1–3, 5 and the hole, what each touches, why two need API, the TV numbers
-(placeholders until the owner's `DEV-3` measurements), and whether the maintainers want this in gpui-fast or in Zed's
-GPUI.
+(`[OWNER: DEV-3: …]` placeholders until the owner's measurements), and whether the maintainers want this in gpui-fast
+or in Zed's GPUI.
 
 **Issues are closed on `longbridge/gpui-fast`.**
 `gh repo view longbridge/gpui-fast --json hasIssuesEnabled,hasDiscussionsEnabled` gives `false` for both

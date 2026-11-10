@@ -30,7 +30,9 @@
 | `chk-nsh-tv-env` | `cargo test -p nsh-js --lib env::tests::tv` | `t16-category`, `t17-os` | passed, 3 tests, 13:09 UTC (s17) |
 | `chk-nsh-compat-tizen` | the compat run ([../../README.md](../../README.md#the-epics-checks-and-the-environment-they-need)), nsh-compat `nsh-tizen` | `t17-os` | passed, 14:42 UTC (s17) |
 
-Not run on this branch alone; not run: the pre-open checks.
+**On this branch alone** (no result above is from it): the three test commands run as written. `chk-nsh-compat-tizen`
+ran with the other branches' compat cases and nsh-compat's `nsh-tizen`; on this branch, clone nsh-compat's
+`tizen-platform` (which holds `tv-idiom`, for 02's `tv` cases) in its place. Not run: the pre-open checks.
 
 ## Updating and opening
 

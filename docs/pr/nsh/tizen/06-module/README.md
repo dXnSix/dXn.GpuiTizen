@@ -30,7 +30,10 @@
 | `chk-nsh-platform-tizen` | 04's (with `$TIZEN_ENV`, `$PATCH`, `$LOCK`): `tv::tests`, `keys::tests::nsh_keys_have_their_tizen_names` among the 27 | `t18-module` | passed, 27 tests, 15:49 UTC (s18) |
 | `chk-nsh-compat` | the compat run (`tv/mod-tizen`) | `t16-compat` | the s16 run (13:00 UTC) came before this case; s17's `chk-nsh-compat-tizen` (14:42 UTC) too. **Not recorded for `tv/mod-tizen`** |
 
-Not run on this branch alone; not run: the pre-open checks, `cargo xtask compat` with `tv/mod-tizen`.
+**On this branch alone** (no result above is from it): the three test commands run as written (`chk-nsh-platform-tizen`
+selects the same 27 tests there). For `cargo xtask compat` with `tv/mod-tizen`, clone nsh-compat's `tizen-platform`
+(which holds `tv-idiom`; the branch also holds 01's `tizen` cases). Not run: the pre-open checks, `cargo xtask compat`
+with `tv/mod-tizen`.
 
 ## Updating and opening
 

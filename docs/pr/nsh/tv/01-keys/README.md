@@ -33,7 +33,11 @@
 | `chk-nsh-keys-macos-build` | `cargo clippy -p nsh-platform-macos --all-targets --features dev -- -D warnings` | `t16-keys` | passed (s16) |
 | `chk-nsh-compat` | the compat run ([../../README.md](../../README.md#the-epics-checks-and-the-environment-they-need)) | `t16-compat` | passed, 13:00 UTC (s16) |
 
-Not run on this branch alone; not run: the pre-open checks, the Windows and Android builds (they map keys too).
+**On this branch alone** (no result above is from it): the four `cargo` and `node` commands run as written (the recorded
+`chk-nsh-keys-web` loaded `feat/tizen`'s `nsh.js`, with the focus branches' changes and 02's TV idiom: see above).
+`chk-nsh-compat` ran with the other branches' compat cases and nsh-compat's `nsh-tizen`; this branch needs no companion,
+so clone nsh-compat `main` in its place. Not run: the pre-open checks, the Windows and Android builds (they map keys
+too).
 
 ## Updating and opening
 

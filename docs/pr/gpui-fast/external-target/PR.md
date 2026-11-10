@@ -63,9 +63,9 @@ Hooks and the rest:
 
 | | wgpu's surface | This renderer, partial presents |
 |---|---|---|
-| Frame times while scrolling with key repeat | [DEV-3: frame times on <device>, wgpu's surface] | [DEV-3: frame times on <device>, platform EGL with partial presents] |
-| Launch to first frame, cache cold / warm | [DEV-3: launch to first frame on <device>, wgpu's surface] | [DEV-3: launch to first frame on <device>, platform EGL] |
-| Memory (PSS) after scrolling the long list | [DEV-3: PSS on <device>, wgpu's surface] | [DEV-3: PSS on <device>, platform EGL] |
+| Frame times while scrolling with key repeat | [OWNER: DEV-3: frame times on <device>, wgpu's surface] | [OWNER: DEV-3: frame times on <device>, platform EGL with partial presents] |
+| Launch to first frame, cache cold / warm | [OWNER: DEV-3: launch to first frame on <device>, wgpu's surface] | [OWNER: DEV-3: launch to first frame on <device>, platform EGL] |
+| Memory (PSS) after scrolling the long list | [OWNER: DEV-3: PSS on <device>, wgpu's surface] | [OWNER: DEV-3: PSS on <device>, platform EGL] |
 
 ## How to Test
 
@@ -95,5 +95,5 @@ Hooks and the rest:
 - [ ] `cargo test -p gpui_wgpu --features test-support --lib fast::damage::tests` passes.
 - [ ] `cargo fmt -p gpui_wgpu -- --check` and `cargo clippy -p gpui_wgpu --lib --features test-support -- -D warnings`
   pass; the wasm check passes.
-- [ ] The `DEV-3` numbers above are filled in.
+- [ ] The TV numbers above are filled in.
 - [x] The new public API is listed as an exception in `docs/upstream-sync.md`; `WgpuRenderer` is unchanged.

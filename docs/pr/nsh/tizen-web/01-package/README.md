@@ -30,10 +30,15 @@
 | `chk-nsh-cli-tizen-web-unit` | `cargo test -p nsh-cli --bin nsh tizen_web::` | `t20-package` | passed, 7 tests, 17:46 UTC (s20) |
 | `chk-nsh-tv-shim` | `node --test crates/nsh-cli/src/tizen_web/shim.test.mjs` (at least 2) | `t20-shim` | passed, 14 tests (with 03's), 17:46 UTC (s20) |
 | `chk-nsh-test-tizen-web` | `bash -c '$WEB_RUNTIME && NSH_RUNTIME="$PWD/target/nsh-runtime" cargo run -p nsh-cli -- test examples/counter --target tizen-web'` (`$WEB_RUNTIME`: [../../README.md](../../README.md#the-epics-checks-and-the-environment-they-need)) | `t20-run-test` | passed, 1 test, 17:46 UTC (s20) |
-| `chk-nsh-tv-idiom-tizen-web` | the same with `tests/apps/tv-idiom` (`pr/tv/03-dev-idiom`'s app: on `feat/tizen` only) | `t21-nsh-ci` | passed, 2 tests, 18:30 UTC (s21) |
+| `chk-nsh-tv-idiom-tizen-web` | the same with `tests/apps/tv-idiom` (`pr/tv/03-dev-idiom`'s app, not on this branch: on `feat/tizen` only) | `t21-nsh-ci` | passed, 2 tests, 18:30 UTC (s21) |
 
-The s20 runs (17:46 UTC) came after `0294d0204` (17:41 UTC) and `54f54bc36` (17:44 UTC). Not run on this branch alone;
-not run: the pre-open checks, anything on a TV.
+The s20 runs (17:46 UTC) came after `0294d0204` (17:41 UTC) and `54f54bc36` (17:44 UTC).
+
+**On this branch alone** (no result above is from it): `chk-nsh-test-tizen-web` and the two `cargo test` groups run as
+written (8 and 7 tests there; the recorded runs had 03's changes to `tizen_web.rs` and `tests/cli/tizen_web.rs`, and
+`pr/tizen/07-cli`'s to `tizen_web.rs`). `chk-nsh-tv-shim` runs as written but has 10 tests there: 4 of the recorded 14
+are 03's. `chk-nsh-tv-idiom-tizen-web` cannot run: `tests/apps/tv-idiom` is `pr/tv/03-dev-idiom`'s, not on this branch;
+here `chk-nsh-test-tizen-web` checks `--target tizen-web`. Not run: the pre-open checks, anything on a TV.
 
 ## Updating and opening
 

@@ -19,7 +19,8 @@
   #1411) added `crates/gpui/nsh-platform-gpui/src/key_focus.rs`: `Command::Focus` / `Command::Blur` on a focusable
   view that is no input, its `FOCUSED` state, `onFocus` / `onBlur`, reveal, and Return / Space pressing it. This
   branch's `focus.rs` gives such views their own focus too, for the arrows. When moving 02 onto `upstream/main`,
-  build on `key_focus.rs` (one view focus, not two) and say so in `PR.md`; the `ref.focus()` part of 04
+  build on `key_focus.rs` (one view focus, not two), then replace `PR.md`'s two `[OWNER: …]` markers (the text
+  assumes that rework) with what the rebased branch adds on top of #1545; the `ref.focus()` part of 04
   (`e8de46ac9`) and 06's `b4a0181c9` (dropping the note that GPUI does not follow `focus()` on views) shrink with it.
 - **Upstream #1519** (`focus-visible:` by input modality): the GPUI backend now reports key or pointer input; an arrow
   is a key, so check that a stop the arrows reach shows `focus-visible:`.
@@ -31,7 +32,8 @@
 |---|---|---|---|
 | `chk-nsh-focus-gpui` | `cargo test --manifest-path crates/gpui/Cargo.toml -p nsh-platform-gpui --lib directional_focus` | `t15-focus-gpui` | passed, 11 tests, 2026-11-10 10:41 UTC (s15) |
 
-Not run on this branch alone; not run: the pre-open checks.
+**On this branch alone** (no result above is from it): the command runs as written (11 tests there too), but the
+recorded run had 04's and 06's changes to `focus.rs` beside 02's. Not run: the pre-open checks.
 
 ## Updating and opening
 

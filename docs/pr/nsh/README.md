@@ -59,7 +59,9 @@ branch READMEs list them.
   cleanly; every other branch has conflicts, listed in its README. Upstream also merged work that overlaps ours
   (#1545 GPUI focus on focusable views, #1519 `focus-visible:` by input modality, #1439 web views reporting they are
   unavailable, #1475 Windows' RichEdit text inputs); the branch READMEs say where.
-- **Every branch is rebased onto the latest `upstream/main` before it is opened**, and its checks run again there.
+- **Every branch is rebased onto the latest `upstream/main` before it is opened**, and its README's checks are then run
+  on the rebased branch alone, for the first time: every result recorded so far is from `feat/tizen`
+  ([below](#updating-a-branch-and-opening-it)).
 
 ## Rules
 
@@ -83,6 +85,16 @@ They are nsh-root's (`/Users/dinko/work-private/projects/dXn/nsh/nsh-root/AGENTS
 
 ## Updating a branch and opening it
 
+Every check result a branch README records comes from the integration branch `feat/tizen` (with the other branches
+merged in), none from the branch alone; each README's checks section says which of its checks cannot run on the branch
+alone, and gives the command that does where there is one. So before a branch is opened (owner's step):
+
+1. **Rebase** it onto the latest `upstream/main` (commands below), resolving the conflicts its README lists (its
+   "Base" row and "Before opening").
+2. **Run its README's checks on its tip**, on that branch alone (in the worktree that has it), with the commands for
+   the branch alone where its README gives them, and the pre-open checks below.
+3. **Update the numbers and the checklist in `PR.md`**.
+
 The epic's AgentX records name these branches' commits, and the fork's rule is not to rebase a committed branch.
 Opening upstream needs a rebase all the same; keep the old head reachable first:
 
@@ -94,8 +106,7 @@ git rebase --onto upstream/main <its base or merged parent> pr/<area>/<topic>
 # a branch with several parents: cherry-pick its own commits instead (its README lists them)
 ```
 
-Then run the branch's checks (its README) and the pre-open checks below, update the numbers and the checklist in
-`PR.md`, replace the `#(…)` placeholders with the real issue and PR numbers, and (owner runs this):
+Then steps 2 and 3, replace the `#(…)` placeholders with the real issue and PR numbers, and (owner runs this):
 
 ```bash
 git push -u origin pr/<area>/<topic>
@@ -135,7 +146,7 @@ The checks a README lists are the epic's sprint checks (`.agentx/tasks/tizen-gpu
 
 | Sprint | Branches | Final checks | Review |
 |---|---|---|---|
-| s14 | `pr/focus/01-core` | 2 passed, 2026-11-09 13:15 UTC (no `check-s14.json`; `state.json` only) | – |
+| s14 | `pr/focus/01-core` | 2 passed (2 run), revision 236, 2026-11-09 13:15 UTC (`s14-check-3.json`) | 2 findings (`f-s14-cell-points-inexact` major, `f-s14-frame-unit-contract` minor), resolved by `ad514bb85` and `ce993fd21`; passed (`review-s14-3.json`) |
 | s15 | `pr/focus/02` … `07` | 13 passed (5 run, 8 reused), revision 258, 2026-11-10 10:36–10:41 UTC | 8 findings, all resolved; passed (`review-s15-2.json`) |
 | s16 | `pr/tv/*`, `pr/engine/01-wgpu-30` | 17 passed (2 run, 15 reused), revision 280, 2026-11-10 11:26–13:00 UTC | 8 findings, all resolved; passed (`review-s16-2.json`) |
 | s17 | `pr/tizen/01` … `03` | 12 passed (1 run, 11 reused), revision 293, 2026-11-10 13:09–14:42 UTC | 4 findings, all resolved; passed (`review-s17-2.json`) |
@@ -147,9 +158,13 @@ The checks a README lists are the epic's sprint checks (`.agentx/tasks/tizen-gpu
 Every sprint from s14 to s21 is checkpointed; t22 (these folders) is the next task. The findings and what each
 branch changed for them are in the branch READMEs and the area READMEs' review tables.
 
-All of them ran in `nsh-wt/tizen` on `feat/tizen`, so they prove the branches together, not each one alone. Running
-them on a branch: check it out (its worktree), and for the checks owned by dXn.GpuiTizen (`cargo xtask …` from
-`/Users/dinko/work-private/projects/dXn/dXn.GpuiTizen`) point `--manifest-path` at that worktree's `crates/gpui`.
+All of them ran in `nsh-wt/tizen` on `feat/tizen`, with the other branches merged in as of their sprint, so they prove
+the branches together, not each one alone: no recorded result is from a branch alone. Running them on a branch: check it
+out (its worktree), and for the checks owned by dXn.GpuiTizen (`cargo xtask …` from
+`/Users/dinko/work-private/projects/dXn/dXn.GpuiTizen`) point `--manifest-path` at that worktree's `crates/gpui`. A
+check whose test, app or file is another branch's cannot run on the branch alone, or runs with fewer tests there; each
+branch README says so under "On this branch alone", with the command that runs there where one exists (for the compat
+checks: the branch's own nsh-compat companion, or `main`, in place of `nsh-tizen`).
 
 The Tizen backend's checks need dXn.GpuiTizen and the two forks reachable before they are pushed, and the gpui-fast
 patch kept outside the checkout ([tizen/04-platform](tizen/04-platform/README.md)). Written below as **`$TIZEN_ENV`**:

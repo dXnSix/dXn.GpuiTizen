@@ -34,7 +34,10 @@
 | `chk-nsh-focus-gpui` | `cargo test --manifest-path crates/gpui/Cargo.toml -p nsh-platform-gpui --lib directional_focus` | `t15-focus-gpui` | passed, 11 tests (s15) |
 | `chk-nsh-compat` | the compat run in [../../README.md](../../README.md#the-epics-checks-and-the-environment-they-need) (nsh-compat `nsh-tizen`, which holds `focus-props`) | `t16-compat` | passed ("compatible with every recorded release"), 2026-11-10 13:00 UTC (s16) |
 
-Not run on this branch alone; not run: the pre-open checks.
+**On this branch alone** (no result above is from it): the five `cargo test` commands run as written
+(`chk-nsh-focus-gpui`'s recorded run had 06's changes to `focus.rs` beside 04's). `chk-nsh-compat` ran with the other
+branches' compat cases and nsh-compat's `nsh-tizen`; on this branch, clone nsh-compat's `focus-props` in its place. Not
+run: the pre-open checks.
 
 ## Updating and opening
 

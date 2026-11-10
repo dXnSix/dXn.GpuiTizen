@@ -34,7 +34,8 @@
 | `chk-nsh-focus-web-core` | `cargo test -p nsh-platform-web --test text focus_moves` | `t15-focus-web` | passed, 14 tests (05's and 07's), 2026-11-10 10:39 UTC (s15) |
 | `chk-nsh-focus-web` | `bash -c '$WASM_BUILD && NSH_BROWSER_WASM=target/wasm32-unknown-unknown/web/nsh_platform_web.wasm node --expose-gc --test crates/nsh-platform-web/web/browser/focus.test.mjs'` | `t15-focus-web` | passed, 14 tests (05's and 07's), 10:38 UTC (s15) |
 
-Not run on this branch alone; not run: the pre-open checks.
+**On this branch alone** (no result above is from it): both commands run as written; the branch holds 04 and 05 at their
+heads, and its web focus files are `feat/tizen`'s. Not run: the pre-open checks.
 
 ## Updating and opening
 

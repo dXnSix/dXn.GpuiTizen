@@ -56,11 +56,15 @@ moved onto `upstream/main` alone). 04 waits for 02, 06 for 04, 07 for 04 and 05.
   replaces Windows' text inputs with RichEdit, which 03's `text_input.rs` change merges with textually but must be
   rebuilt and checked against.
 
-## The s15 review and its repairs
+## The reviews and their repairs
 
-The sprint's independent review (`review-s15.json`, failed with 8 findings; re-review `review-s15-2.json` and
-`review-s15-full.json`, passed at snapshot `a5295e00`, all 13 checks of `check-s15.json` passing) and where each
-finding was repaired:
+s14 reviewed 01 alone: `review-s14.json` failed with `f-s14-cell-points-inexact` (major), `review-s14-2.json` with
+`f-s14-frame-unit-contract` (minor), and `review-s14-3.json` passed; the repairs are `ad514bb85` and `ce993fd21`
+([01-core/README.md](01-core/README.md)).
+
+s15 reviewed 02 … 07 (`review-s15.json`, failed with 8 findings; re-review `review-s15-2.json` and
+`review-s15-full.json`, passed at snapshot `a5295e00`, all 13 checks of `check-s15.json` passing). Where each finding
+was repaired:
 
 | Finding | Branch | What changed |
 |---|---|---|

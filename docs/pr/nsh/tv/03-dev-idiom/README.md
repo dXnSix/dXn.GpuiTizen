@@ -27,11 +27,24 @@
 |---|---|---|---|
 | `chk-nsh-dev-idiom` | `cargo test -p nsh-cli --test cli dev_idiom::` | `t16-dev-idiom` | passed, 4 tests, 2026-11-10 12:24 UTC (s16), before `35ce21821`'s four new tests; the 8 tests passed in `s21-idiom-test1.log` (18:09 UTC, the work that became `35ce21821`), not recorded as a check |
 | `chk-nsh-dev-idiom-gpui` | `cargo test --manifest-path crates/gpui/Cargo.toml -p nsh-platform-gpui --lib app::idiom_tests` | `t16-dev-idiom` | passed, 1 test, 12:42 UTC (s16) |
-| `chk-nsh-tv-idiom-gpui` | `bash -c 'cargo build --manifest-path crates/gpui/Cargo.toml -p nsh-gpui-host && cargo run -p nsh-cli -- test tests/apps/tv-idiom --target gpui --idiom tv && cargo run -p nsh-cli -- test tests/apps/pressable-focus --target gpui --idiom tv --filter arrows'` | `t21-nsh-ci` | passed, 3 tests, 18:28 UTC (s21) |
+| `chk-nsh-tv-idiom-gpui` | `bash -c 'cargo build --manifest-path crates/gpui/Cargo.toml -p nsh-gpui-host && cargo run -p nsh-cli -- test tests/apps/tv-idiom --target gpui --idiom tv && cargo run -p nsh-cli -- test tests/apps/pressable-focus --target gpui --idiom tv --filter arrows'` (the `pressable-focus` part needs `pr/focus/02-gpui` and `03-desktop-stops`: on `feat/tizen` only) | `t21-nsh-ci` | passed, 3 tests, 18:28 UTC (s21) |
 | `chk-nsh-tv-idiom-tizen-web` | `bash -c '$WEB_RUNTIME && NSH_RUNTIME="$PWD/target/nsh-runtime" cargo run -p nsh-cli -- test tests/apps/tv-idiom --target tizen-web'` (`$WEB_RUNTIME`: [../../README.md](../../README.md#the-epics-checks-and-the-environment-they-need)) (needs `pr/tizen-web/01-package`: on `feat/tizen` only) | `t21-nsh-ci` | passed, 2 tests, 18:30 UTC (s21) |
 
-`--target web --idiom tv` ran by hand (`s21-tv-idiom-web-tv.log`, 2 passed; `s21-tv-idiom-web-desktop.log`, the
-desktop idiom, fails both as it should). Not run on this branch alone; not run: the pre-open checks.
+`--target web --idiom tv` ran by hand (`s21-tv-idiom-web-tv.log`, 2 passed; `s21-tv-idiom-web-desktop.log`, the desktop
+idiom, fails both as it should).
+
+**On this branch alone** (no result above is from it): `chk-nsh-dev-idiom` (8 tests there) and `chk-nsh-dev-idiom-gpui`
+run as written. `chk-nsh-tv-idiom-gpui` does not: its last command runs `tests/apps/pressable-focus`, which is
+`pr/focus/03-desktop-stops`'s, with the arrows moving GPUI's focus, which is `pr/focus/02-gpui`'s; on this branch run
+its first part:
+
+```bash
+cargo build --manifest-path crates/gpui/Cargo.toml -p nsh-gpui-host && \
+  cargo run -p nsh-cli -- test tests/apps/tv-idiom --target gpui --idiom tv
+```
+
+`chk-nsh-tv-idiom-tizen-web` needs `pr/tizen-web/01-package`'s `--target tizen-web`: no command runs it on this branch.
+Not run: the pre-open checks.
 
 ## Updating and opening
 

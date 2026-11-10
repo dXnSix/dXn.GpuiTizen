@@ -33,9 +33,12 @@ It needs nothing of dXn.GpuiTizen and could be opened before the rest of the are
 The recorded runs are on `feat/tizen`, with 03. Before 03 existed, the armv7 build of `nsh-platform-gpui
 --no-default-features` (with and without `--features js`) finished
 (`artifacts-temp/agentx/tizen-gpui-platform/ntz1-gate-armv7.log`, `ntz1-gate-armv7-js.log`, written 10:53 UTC, four
-minutes before `768864617` was committed, so from its working tree), where it had failed on 2026-11-08 in
-`freetype-sys` and `yeslogic-fontconfig-sys` (`amend-nsh-gate-s17.json`). Not run
-on this branch alone; not run: the pre-open checks.
+minutes before `768864617` was committed, so from its working tree), where it had failed on 2026-11-08 in `freetype-sys`
+and `yeslogic-fontconfig-sys` (`amend-nsh-gate-s17.json`).
+
+**On this branch alone** (no result above is from it): `chk-nsh-gpui-default` runs as written; the two cross checks'
+`--manifest-path` names `nsh-wt/tizen`, which is `feat/tizen`: point it at a worktree that has this branch. Not run: the
+pre-open checks.
 
 ## Updating and opening
 

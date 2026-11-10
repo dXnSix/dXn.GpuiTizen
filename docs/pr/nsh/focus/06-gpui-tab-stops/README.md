@@ -27,7 +27,8 @@
 | `chk-nsh-focus-gpui-tab` | `cargo test --manifest-path crates/gpui/Cargo.toml -p nsh-platform-gpui --lib focus::tab_stops` | `t15-focus-desktops` | passed, 6 tests, 2026-11-10 10:41 UTC (s15) |
 | `chk-nsh-focus-gpui` | `cargo test --manifest-path crates/gpui/Cargo.toml -p nsh-platform-gpui --lib directional_focus` | `t15-focus-gpui` | passed, 11 tests (s15) |
 
-Not run on this branch alone; not run: the pre-open checks.
+**On this branch alone** (no result above is from it): both commands run as written; the branch holds 02 and 04 at their
+heads, and its `focus` module is `feat/tizen`'s. Not run: the pre-open checks.
 
 ## Updating and opening
 

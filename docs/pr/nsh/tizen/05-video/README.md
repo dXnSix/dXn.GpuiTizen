@@ -27,7 +27,9 @@
 | `chk-nsh-video-tizen` | with `$TIZEN_ENV` ([../../README.md](../../README.md#the-epics-checks-and-the-environment-they-need)): `cargo test --manifest-path crates/gpui/Cargo.toml -p nsh-platform-gpui --lib --config "$PATCH" --config "resolver.lockfile-path='$LOCK'" native::video::tizen` | `t18-video` | passed, 15 tests, 2026-11-10 15:49 UTC (s18) |
 | `chk-nsh-tizen-link-*` | 04's three link checks (the video code is in the TV library) | `t18-link` | passed (s18) |
 
-Not run on this branch alone; not run: the pre-open checks, a video on a TV or the emulator (the owner's `t23-video`).
+**On this branch alone** (no result above is from it): `chk-nsh-video-tizen` runs as written; for the link checks point
+`--manifest-path` at a worktree that has this branch (the recorded ones ran on `feat/tizen`, with 05 and 06). Not run:
+the pre-open checks, a video on a TV or the emulator (the owner's `t23-video`).
 
 ## Updating and opening
 

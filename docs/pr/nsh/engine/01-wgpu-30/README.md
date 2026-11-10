@@ -30,7 +30,9 @@
 | `chk-nsh-shader-wgpu30` | `cargo test -p nsh-engine --features shader --test engine shader::` (in the branch's checkout) | `t16-wgpu30` | passed, 5 tests, 2026-11-10 11:26 UTC (s16) |
 | `chk-nsh-one-wgpu` | `cargo xtask tizen-deps --manifest-path ../nsh/nsh-wt/tizen/crates/gpui/Cargo.toml --single wgpu` (from `/Users/dinko/work-private/projects/dXn/dXn.GpuiTizen`; expects "one wgpu") | `t16-wgpu30` | passed, 11:26 UTC (s16) |
 
-Not run on this branch alone; not run: the pre-open checks, the shader tests on Windows and Linux, the gallery's
+**On this branch alone** (no result above is from it): `chk-nsh-shader-wgpu30` runs as written in a worktree that has
+this branch; `chk-nsh-one-wgpu`'s `--manifest-path` names `nsh-wt/tizen`, which is `feat/tizen`: point it at that
+worktree's `crates/gpui/Cargo.toml`. Not run: the pre-open checks, the shader tests on Windows and Linux, the gallery's
 shader demos.
 
 ## Updating and opening

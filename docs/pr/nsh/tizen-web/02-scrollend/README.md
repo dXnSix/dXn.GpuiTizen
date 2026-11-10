@@ -23,7 +23,8 @@ keeps it with the `tizen-web` area, after the loader probe, which also reports w
 |---|---|---|---|
 | `chk-nsh-scrollend` | `node --expose-gc --test crates/nsh-platform-web/web/browser/scrollend.test.mjs` | `t20-scrollend` | passed, 4 tests, 2026-11-10 17:17 UTC (s20; reused by the final check, revision 336) |
 
-Not run on this branch alone; not run: the pre-open checks.
+**On this branch alone** (no result above is from it): the command runs as written (4 tests there); the recorded run
+loaded `feat/tizen`'s `nsh.js`, with the focus and TV branches' changes. Not run: the pre-open checks.
 
 ## Updating and opening
 

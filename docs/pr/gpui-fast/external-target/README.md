@@ -125,7 +125,7 @@ itself):
 ## Opening
 
 After rebasing as above, running the checks, ticking the checklist in `PR.md`, replacing `#(issue)` and
-`#(scene-damage PR)`, and filling the `DEV-3` numbers. The owner runs this:
+`#(scene-damage PR)`, and filling the `[OWNER: DEV-3: …]` numbers. The owner runs this:
 
 ```bash
 cd /Users/dinko/work-private/projects/dXn/gpui-fast-wt/pr

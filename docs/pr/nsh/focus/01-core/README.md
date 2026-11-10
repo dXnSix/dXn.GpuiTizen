@@ -10,7 +10,7 @@
 | Its commits | `ccbd31d9d` core: Decide directional focus moves in nsh_core::focus; `b34fd610e` tui: Take focus moves from nsh_core::focus; `ad514bb85` tui: Give the focus core its Cells one point each; `ce993fd21` core: Let focus frames be in any unit scaled per axis |
 | Text | [PR.md](PR.md) |
 | In `feat/tizen` | yes (merge `173386011`; `feat/tizen` is at `7c5cd1c13`) |
-| Review findings | none: the s15 review (`review-s15*.json`) reviewed the branches built on it, and raised nothing in `nsh_core::focus` itself |
+| Review findings | s14's review of this branch: `f-s14-cell-points-inexact` (major, `review-s14.json`, failed): the TUI's conversion of Cells to points missed the next Cell's edge by a float on fractional Cell sizes (16.8, 10.2, …), so a move could differ from the old TUI's; `ad514bb85` gives the core each Cell as one point, exact, guarded by the new group `focus_cell_size`. `f-s14-frame-unit-contract` (minor, raised by `review-s14-2.json`, failed): the core documented frames in points while the TUI passed Cells; `ce993fd21` makes "frames in any unit scaled per axis" the module's contract, with a `focus::tests` case under three per-axis scales. Both resolved; passed in `review-s14-3.json` (snapshot `f5f0e570`). The s15 review (`review-s15*.json`) reviewed the branches built on it and raised nothing in `nsh_core::focus` itself |
 | Needs | the focus issue ([../issue.md](../issue.md)) posted; no nsh-compat change; no behaviour change |
 
 The TUI's rules move from its `keyboard.rs` (over Cells) into `nsh_core::focus` (over frames), and the TUI becomes its
@@ -31,8 +31,11 @@ a float on sizes like 8.4×16.8), and `ce993fd21` makes "frames in any unit scal
 | `chk-nsh-focus-core` | `cargo test -p nsh-core --lib focus::tests` | `t14-focus-core` | passed, 13 tests, 2026-11-09 13:15 UTC (s14) |
 | `chk-nsh-focus-tui` | `cargo test -p nsh-platform-tui --features dev,run-app --test tui -- focus_navigation:: modal_focus:: keyboard:: popup:: navigation:: focus_cell_size::` | `t14-focus-tui` | passed, 89 tests, 2026-11-09 13:15 UTC (s14) |
 
-The s14 run (13:15 UTC) came after `ce993fd21` (13:13 UTC), so its 13 tests include the scale tests. Not run on this
-branch alone, and not run: the pre-open checks ([../../README.md](../../README.md#pre-open-checks-every-branch)).
+The s14 run (13:15 UTC) came after `ce993fd21` (13:13 UTC), so its 13 tests include the scale tests.
+
+**On this branch alone** (no result above is from it): both commands run as written, `focus::tests` with the same 13
+tests (on today's `feat/tizen` it also selects 04's `focus::tests::tv`). Not run: the pre-open checks
+([../../README.md](../../README.md#pre-open-checks-every-branch)).
 
 ## Updating and opening
 

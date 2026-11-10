@@ -28,7 +28,9 @@
 | `chk-nsh-tv-web` | `bash -c '$WASM_BUILD && NSH_BROWSER_WASM=target/wasm32-unknown-unknown/web/nsh_platform_web.wasm node --expose-gc --test crates/nsh-platform-web/web/browser/tv.test.mjs'` | `t16-category` | passed, 4 tests, 12:47 UTC (s16) |
 | `chk-nsh-compat` | the compat run ([../../README.md](../../README.md#the-epics-checks-and-the-environment-they-need)) | `t16-compat` | passed, 13:00 UTC (s16) |
 
-Not run on this branch alone; not run: the pre-open checks.
+**On this branch alone** (no result above is from it): the three test commands run as written (`env::tests::tv` has the
+same 3 tests there). `chk-nsh-compat` ran with the other branches' compat cases and nsh-compat's `nsh-tizen`; on this
+branch, clone nsh-compat's `tv-idiom` in its place. Not run: the pre-open checks.
 
 ## Updating and opening
 

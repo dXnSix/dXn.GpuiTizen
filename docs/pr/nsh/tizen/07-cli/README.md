@@ -45,11 +45,13 @@
 | `chk-nsh-cli-runtime` | `cargo test -p xtask --bin xtask tizen::tests` | `t19-runtime` | passed, 8 tests, 17:14 UTC (s19) |
 | `chk-nsh-hostplatform` | `cargo test -p nsh-dev --lib protocol::tests::tizen` | `t19-runtime` | passed, 1 test, 16:14 UTC (s19) |
 
-s19's final check (`check-s19.json`, revision 321): 9 passed, 8 run and 1 reused (`chk-nsh-hostplatform`), the 17:14
-UTC runs on `feat/tizen` after `55f2d6e7f` (17:14 UTC commit, merged by `b91fab916`). s19's tasks are `done`, its
-review passed (`review-s19-3.json`) and the sprint is checkpointed. Not run on this branch alone; not run: the
-pre-open checks, `cargo xtask tizen` for all three architectures (one armv7l build is reported in `ef365beaa`: 4m 48s,
-a 41 MB stripped release library).
+s19's final check (`check-s19.json`, revision 321): 9 passed, 8 run and 1 reused (`chk-nsh-hostplatform`), the 17:14 UTC
+runs on `feat/tizen` after `55f2d6e7f` (17:14 UTC commit, merged by `b91fab916`). s19's tasks are `done`, its review
+passed (`review-s19-3.json`) and the sprint is checkpointed.
+
+**On this branch alone** (no result above is from it): every command runs as written; the branch holds 05, 06 and
+`pr/tizen-web/01-package`, whose code the tests use. Not run: the pre-open checks, `cargo xtask tizen` for all three
+architectures (one armv7l build is reported in `ef365beaa`: 4m 48s, a 41 MB stripped release library).
 
 ## Updating and opening
 

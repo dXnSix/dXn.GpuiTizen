@@ -23,7 +23,8 @@
 | `chk-nsh-remote-keys-gpui` | `cargo test --manifest-path crates/gpui/Cargo.toml -p nsh-platform-gpui --features dev --lib agent::tests::remote_keys` | `t16-remote-keys` | passed, 2 tests (s16) |
 | `chk-nsh-remote-keys-web` | `cargo test -p nsh-cli --bin nsh test_web::tests::remote_keys` | `t16-remote-keys` | passed, 2 tests, 12:43 UTC (s16) |
 
-Not run on this branch alone; not run: the pre-open checks, iOS and Windows builds of their agents.
+**On this branch alone** (no result above is from it): every command runs as written. Not run: the pre-open checks, iOS
+and Windows builds of their agents.
 
 ## Updating and opening
 

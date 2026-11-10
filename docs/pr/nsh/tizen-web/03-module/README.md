@@ -28,8 +28,10 @@
 | `chk-nsh-tv-shim` | `node --test crates/nsh-cli/src/tizen_web/shim.test.mjs` | `t20-shim` | passed, 14 tests (01's and 03's), 17:46 UTC (s20) |
 | `chk-nsh-cli-tizen-web` | `cargo test -p nsh-cli --test cli tizen_web::` | `t20-package`, `t20-run-test` | passed, 8 tests, 17:46 UTC (s20) |
 
-The s20 runs came after `54f54bc36` (17:44 UTC). Not run on this branch alone; not run: the pre-open checks, anything
-on a TV.
+The s20 runs came after `54f54bc36` (17:44 UTC).
+
+**On this branch alone** (no result above is from it): every command runs as written; the branch holds 01 and
+`pr/tizen/06-module` at their heads. Not run: the pre-open checks, anything on a TV.
 
 ## Updating and opening
 

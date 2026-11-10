@@ -118,11 +118,11 @@ cold and warm.
 
 | | Value |
 |---|---|
-| Stripped library size | [DEV-3: stripped library size on <device>] |
-| Launch to first frame | [DEV-3: launch to first frame on <device>, cache cold / warm, per renderer path] |
-| Memory (PSS) after start | [DEV-3: PSS after start on <device>, against the 300 / 380 MB budget] |
-| Memory (PSS) after scrolling a long list | [DEV-3: PSS after scrolling the long list on <device>] |
-| Frame times while scrolling with key repeat | [DEV-3: frame times on <device>, 5b with partial presents vs wgpu's surface] |
+| Stripped library size | [OWNER: DEV-3: stripped library size on <device>] |
+| Launch to first frame | [OWNER: DEV-3: launch to first frame on <device>, cache cold / warm, per renderer path] |
+| Memory (PSS) after start | [OWNER: DEV-3: PSS after start on <device>, against the 300 / 380 MB budget] |
+| Memory (PSS) after scrolling a long list | [OWNER: DEV-3: PSS after scrolling the long list on <device>] |
+| Frame times while scrolling with key repeat | [OWNER: DEV-3: frame times on <device>, 5b with partial presents vs wgpu's surface] |
 
 ## Questions
 

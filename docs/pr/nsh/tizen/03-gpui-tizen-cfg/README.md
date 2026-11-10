@@ -20,7 +20,8 @@
   web view where it is `false`. 03's `native/web.rs` placeholder reports `onError` for each source itself (on Tizen and
   in builds without `webview`). After the move, report `web_views: false` on Tizen and without `webview` instead, and
   drop what #1439 now does (the `native::web::placeholder::tests` group shrinks or goes). `PR.md` is written for the
-  branch after that change; the branch as it is reports `onError` from its own placeholder.
+  branch after that change, with an `[OWNER: …]` marker saying so; the branch as it is reports `onError` from its own
+  placeholder.
 - `2e0e29dc5` keeps `UI_FAMILIES` "for the docs only, allowed unused" on Tizen: a reviewer may prefer it moved to a
   doc comment.
 
@@ -35,8 +36,11 @@
 | `chk-nsh-gpui-tizen-fonts` | `cargo test --manifest-path crates/gpui/Cargo.toml -p nsh-platform-gpui --lib text::tv::tests` | `t17-gpui-tizen-cfg` | passed, 3 tests (s17) |
 | `chk-nsh-gpui-webview-placeholder` | `cargo test --manifest-path crates/gpui/Cargo.toml -p nsh-platform-gpui --no-default-features --features platform --lib native::web::placeholder::tests` | `t17-gpui-tizen-cfg` | passed, 1 test, 14:27 UTC (s17) |
 
-The cross checks need the Tizen 8.0 rootstrap and the SDK's GCC toolchain (dXn.GpuiTizen's `docs/setup.md`). Not run on
-this branch alone; not run: the pre-open checks.
+The cross checks need the Tizen 8.0 rootstrap and the SDK's GCC toolchain (dXn.GpuiTizen's `docs/setup.md`).
+
+**On this branch alone** (no result above is from it): the four `cargo test` commands run as written; the two cross
+checks' `--manifest-path` names `nsh-wt/tizen`, which is `feat/tizen`: point it at a worktree that has this branch. Not
+run: the pre-open checks.
 
 ## Updating and opening
 

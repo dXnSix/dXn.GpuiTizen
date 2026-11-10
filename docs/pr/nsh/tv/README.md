@@ -52,9 +52,9 @@ All local in `nsh-wt/tizen`, not pushed; 01 and 02 are cut from `upstream/main` 
 | `f-s16-tv5-os-tizen-unmet` (major) | – | by amendment: `Os::Tizen`'s case moved to NTZ-2 (`pr/tizen/01-os`, `chk-nsh-compat-tizen`) |
 | `f-s21-gpui-spec-not-tv-idiom` (major) | 03 | `nsh test --target gpui` and `--target web` take `--idiom` (`35ce21821`), and `tests/apps/tv-idiom` checks `platform.tv` and `tv=` props in the TV idiom (`2cb11014a`); `chk-nsh-tv-idiom-gpui` ran it, 2 passed |
 
-s16's review (`review-s16.json` failed, `review-s16-2.json` passed at snapshot `3517f005`, all 17 checks passing)
-covers 01, 02, 03 (its first commit) and 04. s21's (`review-s21.json`, failed) raised the 03 finding; its repairs are
-recorded as resolved in `state.json`, but s21 has no passing re-review yet.
+s16's review (`review-s16.json` failed, `review-s16-2.json` passed at snapshot `3517f005`, all 17 checks passing) covers
+01, 02, 03 (its first commit) and 04. s21's (`review-s21.json`, failed) raised the 03 finding; `review-s21-2.json`
+resolved it, and `review-s21-3.json` passed at snapshot `24e1a6df` with all 13 of s21's findings resolved.
 
 ## Against the latest `upstream/main` (`c16a70096`)
 

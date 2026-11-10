@@ -37,13 +37,19 @@ forks and pass dXn.GpuiTizen's patch config (`cargo xtask gpui-fast-release --fr
 | Check | Command (in the branch's checkout) | Task | Recorded on `feat/tizen` |
 |---|---|---|---|
 | `chk-nsh-ci-yaml` | `ruby ../../../dXn.GpuiTizen/scripts/check_workflow_yaml.rb .github/workflows/fork-tizen.yml` ("workflow yaml ok"; the checker now also refuses duplicate keys) | `t21-nsh-ci` | passed, 2026-11-10 18:23 UTC (s21) |
-| `chk-nsh-ci-paths` | `/Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/artifacts-temp/venv/bin/python .github/ci/paths.py --print` (names `nsh-platform-tizen`; needs `pr/tizen/04-platform`'s `paths.py`) | `t21-nsh-ci` | passed, 18:23 UTC (s21) |
-| `chk-nsh-tv-idiom-gpui` | the two `--target gpui --idiom tv` commands of `tv-specs` (after `cargo build --manifest-path crates/gpui/Cargo.toml -p nsh-gpui-host`) | `t21-nsh-ci` | passed, 3 tests, 18:28 UTC (s21) |
-| `chk-nsh-tv-idiom-tizen-web` | `tests/apps/tv-idiom --target tizen-web` with `$WEB_RUNTIME` ([../../README.md](../../README.md#the-epics-checks-and-the-environment-they-need)) | `t21-nsh-ci` | passed, 2 tests, 18:30 UTC (s21) |
-| `chk-nsh-test-tizen-web` | `examples/counter --target tizen-web` (s20's) | `t20-run-test` | passed, 1 test, 17:46 UTC (s20) |
+| `chk-nsh-ci-paths` | `/Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/artifacts-temp/venv/bin/python .github/ci/paths.py --print` (names `nsh-platform-tizen`; needs `pr/tizen/04-platform`'s `paths.py`: on `feat/tizen` only) | `t21-nsh-ci` | passed, 18:23 UTC (s21) |
+| `chk-nsh-tv-idiom-gpui` | the two `--target gpui --idiom tv` commands of `tv-specs` (after `cargo build --manifest-path crates/gpui/Cargo.toml -p nsh-gpui-host`; on `feat/tizen` only) | `t21-nsh-ci` | passed, 3 tests, 18:28 UTC (s21) |
+| `chk-nsh-tv-idiom-tizen-web` | `tests/apps/tv-idiom --target tizen-web` with `$WEB_RUNTIME` ([../../README.md](../../README.md#the-epics-checks-and-the-environment-they-need)); on `feat/tizen` only | `t21-nsh-ci` | passed, 2 tests, 18:30 UTC (s21) |
+| `chk-nsh-test-tizen-web` | `examples/counter --target tizen-web` (s20's; on `feat/tizen` only) | `t20-run-test` | passed, 1 test, 17:46 UTC (s20) |
 
-s21's final check (`check-s21.json`, revision 351): 7 passed, 3 run and 4 reused. The real check is the workflow's
-first run on the fork, after the dependencies above are in place (the owner's s23–s25).
+s21's final check (`check-s21.json`, revision 351): 7 passed, 3 run and 4 reused.
+
+**On this branch alone** (no result above is from it): only `chk-nsh-ci-yaml` runs there. The branch adds only the
+workflow: `chk-nsh-ci-paths` names `nsh-platform-tizen` only with `pr/tizen/04-platform`'s `paths.py` and crate, and the
+three `nsh test` checks need `pr/tv/03-dev-idiom` (`--idiom`, `tests/apps/tv-idiom`), `pr/focus/02-gpui` and
+`pr/focus/03-desktop-stops` (the arrows on GPUI, `tests/apps/pressable-focus`) and `pr/tizen-web/01-package` (`--target
+tizen-web`): they run on `feat/tizen` only. The real check is the workflow's first run on the fork, after the
+dependencies above are in place (the owner's s23–s25).
 
 ## Opening (fork PR)
 

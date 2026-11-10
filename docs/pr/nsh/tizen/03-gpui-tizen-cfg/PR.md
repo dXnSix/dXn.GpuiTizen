@@ -20,8 +20,10 @@ GStreamer: the manifest's target tables exclude the vendor), whatever the featur
   family's line metrics too); the fallbacks are every installed family of those and of their scripts
   (`BreezeSansKorean`, …), as the set differs between TVs. The Linux desktop's families are not tried.
 - **Web views** report that they are unavailable (as builds without `webview` now do too: #1439's
-  `Environment::web_views`). **Videos** draw the placeholder where the TV's player goes (#(pr/tizen/05-video)).
-  **Screenshots** report that they are unsupported.
+  `Environment::web_views`). [OWNER: this assumes the change after the rebase before opening: `web_views: false` on
+  Tizen and without `webview`, in place of the branch's own placeholder, which reports `onError` for each source
+  itself. Make that change, or describe the placeholder.] **Videos** draw the placeholder where the TV's player goes
+  (#(pr/tizen/05-video)). **Screenshots** report that they are unsupported.
 - A Tizen build that keeps the default feature `platform` stops at a `compile_error!` naming the features to use
   (`gpui_platform` would bring gpui-fast-linux, X11, xkbcommon, fontconfig and FreeType into the TV's graph).
 

@@ -1,7 +1,11 @@
 # gpui: Move focus with the arrows through nsh_core::focus
 
-Part of #(focus issue). **Depends on:** #(pr/focus/01-core), merged. Builds on #1545's view focus. No nsh-compat
-change.
+Part of #(focus issue). **Depends on:** #(pr/focus/01-core), merged. No nsh-compat change.
+
+[OWNER: this text assumes the rework onto #1545 that the rebase before opening does: the arrows' stops take #1545's
+view focus (`key_focus.rs`), not one of this branch's own. The branch as it is, cut before #1545, adds its own view
+focus in `focus.rs`. After the rework, say here that it builds on #1545's view focus, and keep below only what this PR
+adds on top of it.]
 
 ## Description
 
@@ -18,7 +22,9 @@ The arrows now move the focus through `nsh_core::focus`, as the terminal backend
   anchored popup comes first; a menu item's Left / Right stay in its popup.
 - The stop reached is scrolled into view as a focused field is, reports `FOCUSED` (`focus:` styles), `onFocus` /
   `onBlur` and the accessibility focus; Enter and Space press it when it takes presses. A ref's `blur()` takes the
-  focus off a focused view.
+  focus off a focused view. [OWNER: #1545 already gives a focusable view that is no input `Command::Focus` /
+  `Command::Blur`, `FOCUSED`, `onFocus` / `onBlur`, reveal and Return / Space; after the rework, name here only what
+  the rebased branch adds to that.]
 - The arrows come after the app's bindings, the menus, the focused field (which keeps Left / Right, and Up / Down when
   multiline) and selectable text. An arrow that moves no focus scrolls as before.
 - Modals blur and give back the focused view as they do a field; a layer that goes (a popup, a sheet) gives the focus
