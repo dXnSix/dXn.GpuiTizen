@@ -2,9 +2,10 @@
 # Runs a command in the `gpuitizen` Lima VM (design `d19-lima-desktop-path`), in the caller's
 # directory (this repository, or a sibling such as ../wgpu), under Xvfb, on the GL ES 3.0 path: WGPU_BACKEND=gl, MESA_GLES_VERSION_OVERRIDE=3.0 and no
 # storage buffers (MESA_EXTENSION_OVERRIDE), a VM-local
-# CARGO_TARGET_DIR, and, for Cargo commands, the local gpui-fast patch
-# (artifacts-temp/gpui-fast-patch.toml, written by `cargo xtask gpui-fast-release --verify`) with
-# its own lockfile, so the repository's Cargo.lock never records the path patch.
+# CARGO_TARGET_DIR, and, for Cargo commands, the local gpui-fast patch when it is there
+# (artifacts-temp/gpui-fast-patch.toml, written by `cargo xtask gpui-fast-release --verify`; it
+# overrides Cargo.toml's git patch with local checkouts) with its own lockfile, so the repository's
+# Cargo.lock never records the path patch.
 #
 # Usage: scripts/lima-run.sh cargo test -p example_counter --test gles_smoke
 #        LIMA_RUN_TIMEOUT=600 scripts/lima-run.sh ...   (the VM-side time limit, default 5400 s)

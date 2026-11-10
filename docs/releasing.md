@@ -31,7 +31,9 @@ gpui-fast's release of the renderer changes this platform needs (GL ES 3.0 devic
 target, holes): a published crate resolves `gpui-fast` from crates.io and cannot carry the `[patch]` lines local and
 CI builds use. When that release is out:
 
-1. Move the workspace's `gpui` and `gpui_wgpu` pins to it (and NSH's with them).
+1. Move the workspace's `gpui` and `gpui_wgpu` pins to it (and NSH's with them), and drop the git
+   `[patch.crates-io]` lines from `Cargo.toml` (the wgpu ones too once wgpu releases the EGL 1.4 and program-binary
+   fixes; until then they stay, and the crates cannot be published).
 2. Check that `cargo package -p dxn_gpui_tizen_sys -p dxn_gpui_tizen --no-verify --allow-dirty` still succeeds
    (it runs against crates.io dependencies only), and that `cargo publish --dry-run` builds.
 3. Add the secrets `RELEASE_PLZ_TOKEN` (a fine-grained token with contents and pull-request write access) and

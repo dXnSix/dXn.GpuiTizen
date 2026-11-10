@@ -58,3 +58,31 @@ strip = "symbols"
 
 [profile.dev]
 panic = "abort"
+
+# The renderer changes TV builds need (gpui-fast changes 1-3 and 5, the video hole, the EGL 1.4
+# and program-binary fixes of wgpu) until gpui-fast and wgpu release them: all nine `gpui-fast-*`
+# crates from the gpui-fast fork's `tizen-release` (generated from `tizen` by `cargo xtask
+# gpui-fast-release`) and the wgpu stack from the wgpu fork's `v30-tizen`, always together.
+# `cargo xtask gpui-fast-release --verify` writes a local path config that overrides these with
+# local checkouts while the forks change. Dropped once both release (docs/releasing.md).
+[patch.crates-io]
+gpui-fast-macros = { git = "https://github.com/dXnSix/gpui-fast", branch = "tizen-release" }
+gpui-fast = { git = "https://github.com/dXnSix/gpui-fast", branch = "tizen-release" }
+gpui-fast-apple = { git = "https://github.com/dXnSix/gpui-fast", branch = "tizen-release" }
+gpui-fast-wgpu = { git = "https://github.com/dXnSix/gpui-fast", branch = "tizen-release" }
+gpui-fast-macos = { git = "https://github.com/dXnSix/gpui-fast", branch = "tizen-release" }
+gpui-fast-linux = { git = "https://github.com/dXnSix/gpui-fast", branch = "tizen-release" }
+gpui-fast-windows = { git = "https://github.com/dXnSix/gpui-fast", branch = "tizen-release" }
+gpui-fast-web = { git = "https://github.com/dXnSix/gpui-fast", branch = "tizen-release" }
+gpui-fast-platform = { git = "https://github.com/dXnSix/gpui-fast", branch = "tizen-release" }
+wgpu-hal = { git = "https://github.com/dXnSix/wgpu", branch = "v30-tizen" }
+naga = { git = "https://github.com/dXnSix/wgpu", branch = "v30-tizen" }
+naga-types = { git = "https://github.com/dXnSix/wgpu", branch = "v30-tizen" }
+wgpu-types = { git = "https://github.com/dXnSix/wgpu", branch = "v30-tizen" }
+wgpu-naga-bridge = { git = "https://github.com/dXnSix/wgpu", branch = "v30-tizen" }
+wgpu-core = { git = "https://github.com/dXnSix/wgpu", branch = "v30-tizen" }
+wgpu-core-deps-apple = { git = "https://github.com/dXnSix/wgpu", branch = "v30-tizen" }
+wgpu-core-deps-emscripten = { git = "https://github.com/dXnSix/wgpu", branch = "v30-tizen" }
+wgpu-core-deps-wasm = { git = "https://github.com/dXnSix/wgpu", branch = "v30-tizen" }
+wgpu-core-deps-windows-linux-android = { git = "https://github.com/dXnSix/wgpu", branch = "v30-tizen" }
+wgpu = { git = "https://github.com/dXnSix/wgpu", branch = "v30-tizen" }

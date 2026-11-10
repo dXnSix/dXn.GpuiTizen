@@ -42,9 +42,13 @@ start files and `libgcc_s` the rootstrap leaves out, and its GNU `ld`, since lld
 [docs/setup.md](docs/setup.md) installs all of it on a clean macOS or Linux machine. Rootstraps and Samsung
 certificates are never committed.
 
-TV builds take gpui-fast and wgpu from the forks (`../gpui-fast` on `tizen`, `../wgpu` on `v30-tizen`): run
-`cargo xtask gpui-fast-release --verify` once, which writes `artifacts-temp/gpui-fast-patch.toml`; `cargo xtask cross`
-then applies it to every build of this workspace.
+TV builds take gpui-fast and wgpu from the forks: `Cargo.toml`'s `[patch.crates-io]` takes all nine `gpui-fast-*`
+crates from `dXnSix/gpui-fast` at `tizen-release` and the wgpu stack from `dXnSix/wgpu` at `v30-tizen` (the lockfile
+pins the commits). While changing the forks themselves, run `cargo xtask gpui-fast-release --verify` with
+`../gpui-fast` on `tizen` and `../wgpu` on `v30-tizen`: it writes `artifacts-temp/gpui-fast-patch.toml`, which
+overrides the git patch with those checkouts in every `cargo xtask cross` (and `scripts/lima-run.sh`) build until you
+delete it. `cargo xtask gpui-fast-release` without `--verify` commits a new `tizen-release` from `tizen`; push it and
+run `cargo update -p gpui-fast` to move the lockfile to it.
 
 ## Rendering
 
@@ -130,10 +134,11 @@ symbol check, and the Tizen dependency graph, with the Tizen SDK and the 8.0 roo
 platform-owned EGL path, `egl_wayland`, under headless Weston). `grep` filters the test names of `test`, `gles` and
 `egl`.
 
-Until `Cargo.toml` commits git `[patch.crates-io]` lines for the forks, every job that builds checks out
+The jobs build with `Cargo.toml`'s git patch, so both forks must be readable by the workflow. Without the committed
+patch (after gpui-fast and wgpu release the changes, or on a branch that drops it), each job that builds checks out
 `dXnSix/gpui-fast` at `tizen-release` and `dXnSix/wgpu` at `v30-tizen` under `artifacts-temp/forks/` and writes the
 patch config with `cargo xtask gpui-fast-release --from artifacts-temp/forks/gpui-fast --wgpu
-artifacts-temp/forks/wgpu`; both forks must be pushed and readable by the workflow.
+artifacts-temp/forks/wgpu` instead.
 
 `.github/workflows/tizen-emulator.yml` (manual and weekly) boots the Samsung TV emulator headless on an Ubuntu runner
 with KVM, packages and signs the x86_64 diagnostic TPK, installs and launches it, pulls its report with `cargo xtask
