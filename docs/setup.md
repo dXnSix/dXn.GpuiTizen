@@ -189,6 +189,7 @@ and `aarch64-tizen-linux-gnu`. C code is still compiled by clang, never by the S
 | Symptom | Cause | Fix |
 | --- | --- | --- |
 | `show-pkgs` prints `Cannot connect the repository server`; `install` prints `Network disconnected` | `repository.info` uses `http://`, which the mirror rejects (403); the log in `~/.package-manager/install-log/package-manager/` shows `Cannot connect the download URL` | step 4 |
+| `install` prints `Failed to install the following packages automatically` with `libpython3.8`, `python3.8` (Ubuntu 24.04) | the package manager requires every OS prerequisite to show as installed in `dpkg -l`, and Ubuntu 24.04 has no Python 3.8; nothing this repository builds runs it | install empty stand-in packages of those names, as `.github/actions/tizen-sdk` does, then run step 5 again |
 | `linking for ... needs the Tizen 8.0 common rootstrap ...` | rootstrap not installed or not found | step 5, or set `TIZEN_ROOTSTRAP_<ARCH>` |
 | `linking for ... needs the Tizen SDK's GCC 9.2.0 toolchain ...` | `NativeToolchain-Gcc-9.2` missing | `package-manager-cli.bin install --accept-license NativeToolchain-Gcc-9.2`, or set `TIZEN_GCC_TOOLCHAIN_<ARCH>` |
 | `cannot open crtbeginS.o`, `unable to find library -lgcc_s` | linking without the GCC toolchain arguments (an old `xtask`, or a hand-written link command) | use `cargo xtask cross`; it adds them |
