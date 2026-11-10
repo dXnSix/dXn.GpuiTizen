@@ -140,17 +140,25 @@ jobs:
           set -euo pipefail
           tpk="$(find target/tpk -maxdepth 1 -name '*-x86_64.tpk' -newer Cargo.toml | head -1)"
           [ -n "$tpk" ] || { echo "::error::no signed TPK under target/tpk"; exit 1; }
+          serial="$(sdb devices | awk '/^emulator-/ {print $1; exit}')"
+          pkg="${APP_ID%%.*}"
+          # The TV emulator has no pkgcmd (`appcmd_support:disabled`): `sdb install` hands a .tpk to
+          # the web-app installer, which rejects it while sdb still exits 0 (run 42915085901). TVs
+          # install with `sdb shell 0 vd_appinstall`, which `tz install` uses; `vd_applist` confirms.
+          installed() { timeout 60 sdb -s "$serial" shell 0 vd_applist 2>/dev/null | tr -d '\r' | grep -q "$pkg"; }
           for attempt in 1 2 3; do
-            sdb install "$tpk" && break
-            [ "$attempt" = 3 ] && exit 1
-            echo "install attempt $attempt failed; retrying"; sleep 20
+            timeout 300 tz install -p "$tpk" -e "$serial" || true
+            if ! installed; then
+              remote="/home/owner/share/tmp/sdk_tools/$(basename "$tpk")"
+              timeout 120 sdb -s "$serial" push "$tpk" "$remote" || true
+              timeout 300 sdb -s "$serial" shell 0 vd_appinstall "$pkg" "$remote" 2>&1 | tr -d '\r' || true
+            fi
+            installed && break
+            [ "$attempt" = 3 ] && { echo "::error::$pkg is not installed (vd_applist)"; exit 1; }
+            echo "install attempt $attempt failed; retrying"; sleep 30
           done
-          # The TV emulator takes the TVs' form; app_launcher is the fallback for a full shell.
-          out="$(timeout 60 sdb shell 0 execute "$APP_ID" 2>&1 | tr -d '\r')"
-          echo "$out"
-          if echo "$out" | grep -qiE 'error|fail|not found|unknown|denied'; then
-            timeout 60 sdb shell app_launcher -s "$APP_ID"
-          fi
+          echo "$pkg installed"
+          timeout 60 sdb -s "$serial" shell 0 execute "$APP_ID" 2>&1 | tr -d '\r'
 
       - name: Pull the diagnostic report
         run: |
