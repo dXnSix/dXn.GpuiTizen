@@ -145,7 +145,8 @@ jobs:
           # The TV emulator has no pkgcmd (`appcmd_support:disabled`): `sdb install` hands a .tpk to
           # the web-app installer, which rejects it while sdb still exits 0 (run 42915085901). TVs
           # install with `sdb shell 0 vd_appinstall`, which `tz install` uses; `vd_applist` confirms.
-          installed() { timeout 60 sdb -s "$serial" shell 0 vd_applist 2>/dev/null | tr -d '\r' | grep -q "$pkg"; }
+          # Read the whole list first: with pipefail, `grep -q` quitting early would fail the pipe.
+          installed() { local list; list="$(timeout 60 sdb -s "$serial" shell 0 vd_applist 2>/dev/null || true)"; grep -q "$pkg" <<<"$list"; }
           for attempt in 1 2 3; do
             timeout 300 tz install -p "$tpk" -e "$serial" || true
             if ! installed; then
