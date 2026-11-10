@@ -4,12 +4,10 @@ name: Tizen emulator
 # GitHub-hosted Ubuntu runner with KVM. Manual and weekly. Whether the emulator boots on a hosted
 # runner is the first thing this proves (docs/verification/tizen-devices.md records the runs).
 #
-# Secrets, used only by the signing steps of this job (README.md "Continuous integration"):
-#   TIZEN_AUTHOR_P12, TIZEN_DISTRIBUTOR_P12   the certificates, base64-encoded .p12 files
-#   TIZEN_AUTHOR_PASSWORD, TIZEN_DISTRIBUTOR_PASSWORD
-#   TIZEN_PROFILES_XML   a profiles.xml naming a profile `ci`, with @CERT_DIR@, @AUTHOR_PASSWORD@ and
-#                        @DISTRIBUTOR_PASSWORD@ where the paths and passwords go; the job writes the
-#                        certificates as @CERT_DIR@/author.p12 and @CERT_DIR@/distributor.p12
+# Signing needs no secrets: the emulator accepts a Tizen certificate, so the job creates a throwaway
+# author certificate with `tz cert` and signs with the SDK's public Tizen distributor certificate.
+# A Samsung TV needs a Samsung certificate instead, which stays on the owner's machine
+# (docs/development_setup.md).
 on:
   workflow_dispatch:
   schedule:
@@ -52,35 +50,29 @@ jobs:
         with:
           packages: TIZEN-8.0-NativeAppDevelopment-CLI Emulator TV-SAMSUNG-Public-Emulator
 
-      - name: Signing profile (from secrets)
-        env:
-          AUTHOR_P12: ${{ secrets.TIZEN_AUTHOR_P12 }}
-          DISTRIBUTOR_P12: ${{ secrets.TIZEN_DISTRIBUTOR_P12 }}
-          AUTHOR_PASSWORD: ${{ secrets.TIZEN_AUTHOR_PASSWORD }}
-          DISTRIBUTOR_PASSWORD: ${{ secrets.TIZEN_DISTRIBUTOR_PASSWORD }}
-          PROFILES_XML: ${{ secrets.TIZEN_PROFILES_XML }}
+      - name: Signing profile (a throwaway Tizen certificate)
         run: |
           set -euo pipefail
-          if [ -z "$AUTHOR_P12" ] || [ -z "$DISTRIBUTOR_P12" ] || [ -z "$PROFILES_XML" ]; then
-            echo "::error::the signing secrets are not set (TIZEN_AUTHOR_P12, TIZEN_DISTRIBUTOR_P12, TIZEN_PROFILES_XML, ...)"
-            exit 1
-          fi
+          # `tz security-profiles add` keeps the certificates' passwords in the OS keyring; a hosted
+          # runner has none, so start a session bus and an unlocked gnome-keyring for this job.
+          sudo apt-get install -y --no-install-recommends gnome-keyring libsecret-tools dbus-x11
+          eval "$(dbus-launch --sh-syntax)"
+          echo "DBUS_SESSION_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS" >>"$GITHUB_ENV"
+          keyring="$(printf '%s' ci | gnome-keyring-daemon --unlock --components=secrets)"
+          eval "$keyring"
+          echo "$keyring" | grep -E '^[A-Z_]+=' >>"$GITHUB_ENV" || true
           certs="$RUNNER_TEMP/tizen-certs"
-          mkdir -p "$certs" ~/tizen-studio-data/profile
+          mkdir -p "$certs"
           chmod 700 "$certs"
-          base64 -d <<<"$AUTHOR_P12" >"$certs/author.p12"
-          base64 -d <<<"$DISTRIBUTOR_P12" >"$certs/distributor.p12"
-          python3 - "$certs" <<'PY'
-          import os, sys, pathlib
-          xml = os.environ["PROFILES_XML"]
-          for key, value in (("@CERT_DIR@", sys.argv[1]),
-                             ("@AUTHOR_PASSWORD@", os.environ["AUTHOR_PASSWORD"]),
-                             ("@DISTRIBUTOR_PASSWORD@", os.environ["DISTRIBUTOR_PASSWORD"])):
-              xml = xml.replace(key, value)
-          path = pathlib.Path.home() / "tizen-studio-data/profile/profiles.xml"
-          path.write_text(xml)
-          path.chmod(0o600)
-          PY
+          password="$(openssl rand -hex 16)"
+          echo "::add-mask::$password"
+          tz cert -n dXn.GpuiTizen-CI -p "$password" -f "$certs/author"
+          # The SDK's public distributor certificate; its password is the SDK's published one.
+          tz security-profiles add -n "$PROFILE" -A \
+            -a "$certs/author.p12" -p "$password" \
+            -d "$HOME/tizen-studio/tools/certificate-generator/certificates/distributor/sdk-public/tizen-distributor-signer.p12" \
+            -P tizenpkcs12passfordsigner
+          tz security-profiles list
 
       - name: Package the x86_64 diagnostic TPK
         run: cargo xtask package --app diag --target x86_64 --sign "$PROFILE"
@@ -110,7 +102,7 @@ jobs:
       - name: Install and launch
         run: |
           set -euo pipefail
-          tpk="$(find target/tpk -name '*.tpk' -newer Cargo.toml | head -1)"
+          tpk="$(find target/tpk -maxdepth 1 -name '*-x86_64.tpk' -newer Cargo.toml | head -1)"
           [ -n "$tpk" ] || { echo "::error::no signed TPK under target/tpk"; exit 1; }
           for attempt in 1 2 3; do
             sdb install "$tpk" && break
