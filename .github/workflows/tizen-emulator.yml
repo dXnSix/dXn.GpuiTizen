@@ -89,6 +89,7 @@ jobs:
         run: cargo xtask package --app diag --target x86_64 --sign "$PROFILE"
 
       - name: Boot the TV emulator headless
+        timeout-minutes: 20
         run: |
           set -euo pipefail
           em-cli list-platform | tee "$RUNNER_TEMP/platforms.txt"
@@ -101,9 +102,18 @@ jobs:
           echo "DISPLAY=:99" >>"$GITHUB_ENV"
           DISPLAY=:99 nohup em-cli launch -n "$EMULATOR" >artifacts-temp/emulator/launch.log 2>&1 &
           # Listed by sdb first, ready for a shell and packages a little later.
-          if ! timeout 900 bash -c 'until sdb devices | grep -q "emulator-.*device" && [ "$(sdb shell echo ready 2>/dev/null | tr -d "\r")" = ready ]; do sleep 10; done'; then
+          if ! timeout 900 bash -c 'until sdb devices | grep -q "emulator-.*device" && [ "$(timeout 20 sdb shell echo ready 2>/dev/null | tr -d "\r")" = ready ]; do sleep 10; done'; then
             echo "::error::the emulator did not come up in 15 minutes"
-            sdb devices || true
+            # Printed here: a job stopped by its time limit keeps no logs.
+            timeout 20 sdb devices || true
+            em-cli list-vm || true
+            em-cli launch --help || true
+            ps aux | grep -iE 'emulator|qemu' | grep -v grep || true
+            for log in artifacts-temp/emulator/launch.log artifacts-temp/emulator/xvfb.log \
+                       ~/tizen-studio-data/emulator/vms/"$EMULATOR"/logs/*; do
+              [ -f "$log" ] || continue
+              echo "::group::$log"; tail -n 200 "$log"; echo "::endgroup::"
+            done
             exit 1
           fi
           sleep 30
@@ -134,10 +144,12 @@ jobs:
 
       - name: Emulator log
         if: always()
+        timeout-minutes: 5
         run: |
           mkdir -p artifacts-temp/emulator
           cp -r ~/tizen-studio-data/emulator/vms/"$EMULATOR"/logs artifacts-temp/emulator/ 2>/dev/null || true
-          sdb dlog -d >artifacts-temp/emulator/dlog.txt 2>/dev/null || true
+          # `sdb dlog` waits for a device forever when there is none.
+          timeout 60 sdb dlog -d >artifacts-temp/emulator/dlog.txt 2>/dev/null || true
 
       - uses: actions/upload-artifact@v4
         if: always()
