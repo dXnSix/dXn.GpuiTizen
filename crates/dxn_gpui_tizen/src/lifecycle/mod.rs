@@ -2,6 +2,8 @@
 //! become effects for the shell. Pause stops frames and releases GPU resources, resume rebuilds
 //! them and forces a full redraw, terminate runs GPUI's quit callbacks once. Repeated or
 //! out-of-order callbacks produce nothing. The launch request's extras are kept as a string map.
+//! What GPUI hears of pause and resume (activation, visibility) is placed among these effects by
+//! [`crate::activation`].
 
 use std::collections::BTreeMap;
 

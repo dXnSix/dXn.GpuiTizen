@@ -10,6 +10,7 @@ use std::rc::Rc;
 use dxn_gpui_tizen_sys as sys;
 
 use super::platform::{Shared, TizenPlatform};
+use crate::activation::Step;
 use crate::display::RunOptions;
 use crate::lifecycle::Effect;
 
@@ -138,16 +139,20 @@ pub(crate) fn enter_main_loop(shared: &Rc<Shared>) {
     shared.exit_code.set(code);
 }
 
+/// Performs the lifecycle's effects with the activation and visibility reports placed among them
+/// (`crate::activation`).
 fn perform(shared: &Rc<Shared>, effects: Vec<Effect>) {
-    for effect in effects {
-        match effect {
-            Effect::Start => shared.start(),
-            Effect::StopFrames => shared.stop_frames(),
-            Effect::ReleaseGpu => shared.release_gpu(),
-            Effect::RebuildGpu => shared.rebuild_gpu(),
-            Effect::ForceRedraw => shared.force_redraw(),
-            Effect::Quit => shared.quit_callbacks(),
-            Effect::AppControl => shared.app_controlled(),
+    let steps = shared.status.borrow_mut().steps(effects);
+    for step in steps {
+        match step {
+            Step::Lifecycle(Effect::Start) => shared.start(),
+            Step::Lifecycle(Effect::StopFrames) => shared.stop_frames(),
+            Step::Lifecycle(Effect::ReleaseGpu) => shared.release_gpu(),
+            Step::Lifecycle(Effect::RebuildGpu) => shared.rebuild_gpu(),
+            Step::Lifecycle(Effect::ForceRedraw) => shared.force_redraw(),
+            Step::Lifecycle(Effect::Quit) => shared.quit_callbacks(),
+            Step::Lifecycle(Effect::AppControl) => shared.app_controlled(),
+            Step::Report(report) => shared.report(report),
         }
     }
 }

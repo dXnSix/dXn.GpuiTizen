@@ -6,6 +6,7 @@
 
 #[cfg(any(target_os = "linux", target_os = "macos"))]
 pub mod a11y;
+pub mod activation;
 pub mod blob_cache;
 pub mod dispatcher;
 pub mod display;

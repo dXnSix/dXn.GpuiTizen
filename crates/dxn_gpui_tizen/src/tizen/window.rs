@@ -83,6 +83,7 @@ struct Callbacks {
     request_frame: Option<Box<dyn FnMut(RequestFrameOptions)>>,
     input: Option<Box<dyn FnMut(PlatformInput) -> DispatchEventResult>>,
     active: Option<Box<dyn FnMut(bool)>>,
+    visibility: Option<Box<dyn FnMut(WindowVisibility)>>,
     close: Option<Box<dyn FnOnce()>>,
 }
 
@@ -238,6 +239,32 @@ impl WindowInner {
             .map(|imf| imf.window_focus(active))
             .unwrap_or_default();
         self.perform_imf(&calls);
+    }
+
+    /// Tells GPUI the window turned (in)active (pause or resume). The callback is taken out of
+    /// its slot while it runs, so GPUI may re-enter the window.
+    pub(crate) fn active_status_changed(&self, active: bool) {
+        let callback = self.callbacks.borrow_mut().active.take();
+        if let Some(mut callback) = callback {
+            callback(active);
+            let mut callbacks = self.callbacks.borrow_mut();
+            if callbacks.active.is_none() {
+                callbacks.active = Some(callback);
+            }
+        }
+    }
+
+    /// Tells GPUI the window turned hidden or visible (pause or resume); GPUI reads the new
+    /// value back through `visibility`.
+    pub(crate) fn visibility_changed(&self, visibility: WindowVisibility) {
+        let callback = self.callbacks.borrow_mut().visibility.take();
+        if let Some(mut callback) = callback {
+            callback(visibility);
+            let mut callbacks = self.callbacks.borrow_mut();
+            if callbacks.visibility.is_none() {
+                callbacks.visibility = Some(callback);
+            }
+        }
     }
 
     /// Performs IMF calls now (outside GPUI's frame).
@@ -553,8 +580,12 @@ impl PlatformWindow for TizenWindow {
 
     fn activate(&self) {}
 
+    /// Inactive while the app is paused (`crate::activation`).
     fn is_active(&self) -> bool {
-        true
+        self.0
+            .shared
+            .upgrade()
+            .is_none_or(|shared| shared.status.borrow().is_active())
     }
 
     fn is_hovered(&self) -> bool {
@@ -591,11 +622,23 @@ impl PlatformWindow for TizenWindow {
         self.0.callbacks.borrow_mut().active = Some(callback);
     }
 
+    /// Hidden while the app is paused (`crate::activation`).
     fn visibility(&self) -> WindowVisibility {
-        WindowVisibility::Visible
+        let visible = self
+            .0
+            .shared
+            .upgrade()
+            .is_none_or(|shared| shared.status.borrow().is_visible());
+        if visible {
+            WindowVisibility::Visible
+        } else {
+            WindowVisibility::Hidden
+        }
     }
 
-    fn on_visibility_change(&self, _callback: Box<dyn FnMut(WindowVisibility)>) {}
+    fn on_visibility_change(&self, callback: Box<dyn FnMut(WindowVisibility)>) {
+        self.0.callbacks.borrow_mut().visibility = Some(callback);
+    }
 
     fn on_hover_status_change(&self, _callback: Box<dyn FnMut(bool)>) {}
 

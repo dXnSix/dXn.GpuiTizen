@@ -17,11 +17,13 @@ use gpui::{
     ForegroundExecutor, KeyDownEvent, KeyUpEvent, Keymap, Menu, MenuItem, PathPromptOptions,
     Platform, PlatformDisplay, PlatformInput, PlatformKeyboardLayout, PlatformKeyboardMapper,
     PlatformTextSystem, PlatformWindow, Result, Task, ThermalState, WindowAppearance, WindowParams,
+    WindowVisibility,
 };
 
 use super::display::TizenDisplay;
 use super::main_loop::EcoreLoop;
 use super::window::{FrameOutcome, TizenWindow, WindowInner};
+use crate::activation::{Report, WindowStatus};
 use crate::dispatcher::{MainLoop, TizenDispatcher};
 use crate::display::{self, RefreshMeter, RunOptions};
 use crate::frame::{FrameEffect, FrameScheduler};
@@ -40,6 +42,8 @@ pub(crate) struct Shared {
     pub(crate) dispatcher: Arc<TizenDispatcher<EcoreLoop>>,
     pub(crate) main_loop: Arc<EcoreLoop>,
     pub(crate) lifecycle: RefCell<Lifecycle>,
+    /// The window's activation and visibility as GPUI was last told (`crate::activation`).
+    pub(crate) status: RefCell<WindowStatus>,
     pub(crate) frames: RefCell<FrameScheduler>,
     pub(crate) refresh: RefCell<RefreshMeter>,
     /// Whether the last frame was drawn straight from a frame callback (for the refresh meter).
@@ -122,9 +126,6 @@ impl Shared {
     }
 
     pub(crate) fn stop_frames(&self) {
-        if let Some(window) = self.window.borrow().clone() {
-            window.window_focus(false);
-        }
         self.frames.borrow_mut().pause();
         self.refresh.borrow_mut().pause();
         self.held.borrow_mut().clear();
@@ -171,11 +172,28 @@ impl Shared {
     }
 
     pub(crate) fn force_redraw(self: &Rc<Self>) {
-        if let Some(window) = self.window.borrow().clone() {
-            window.window_focus(true);
-        }
         let effect = self.frames.borrow_mut().resume();
         self.perform_frame(effect, false);
+    }
+
+    /// The window turned (in)active or hidden/visible (`crate::activation`): the IMF context and
+    /// the AT-SPI window focus follow the activation, and GPUI hears of both. `status` already
+    /// holds the new value, so the window's `is_active` and `visibility` agree with the report.
+    pub(crate) fn report(&self, report: Report) {
+        let Some(window) = self.window.borrow().clone() else {
+            return;
+        };
+        match report {
+            Report::Active(active) => {
+                window.window_focus(active);
+                window.active_status_changed(active);
+            }
+            Report::Visible(visible) => window.visibility_changed(if visible {
+                WindowVisibility::Visible
+            } else {
+                WindowVisibility::Hidden
+            }),
+        }
     }
 
     pub(crate) fn quit_callbacks(&self) {
@@ -382,6 +400,7 @@ impl TizenPlatform {
             dispatcher: Arc::clone(&dispatcher),
             main_loop,
             lifecycle: RefCell::new(Lifecycle::new()),
+            status: RefCell::new(WindowStatus::new()),
             frames: RefCell::new(FrameScheduler::new()),
             refresh: RefCell::new(RefreshMeter::default()),
             chained: Cell::new(false),
