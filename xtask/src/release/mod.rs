@@ -277,6 +277,22 @@ pub fn parse_mode(args: &[String]) -> Result<Mode, String> {
     }
 }
 
+/// Whether a workspace manifest carries the forks' git patch: a `[patch.crates-io]` entry for
+/// `gpui-fast` (the policy check keeps the rest of the nine and the wgpu stack beside it).
+pub fn has_committed_patch(manifest: &str) -> bool {
+    manifest
+        .parse::<toml::Value>()
+        .ok()
+        .and_then(|value| {
+            value
+                .get("patch")?
+                .get("crates-io")?
+                .get("gpui-fast")
+                .cloned()
+        })
+        .is_some()
+}
+
 /// Files of the release workspace that `cargo check` adds and `prepare-release.ts` does not
 /// write; they stay out of `tizen-release`.
 pub const NOT_RELEASED: &[&str] = &["target", "Cargo.lock", ".git"];

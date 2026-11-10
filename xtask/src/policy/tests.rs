@@ -47,17 +47,17 @@ fn gpui_fast_pin_drift_fails() {
 #[test]
 fn local_path_patch_fails() {
     let errors = with_manifest(|m| {
-        format!("{m}\n[patch.crates-io]\ngpui-fast = {{ path = \"../gpui-fast/crates/gpui\" }}\n")
+        replace(
+            m,
+            r#"gpui-fast = { git = "https://github.com/dXnSix/gpui-fast", branch = "tizen-release" }"#,
+            r#"gpui-fast = { path = "../gpui-fast/crates/gpui" }"#,
+        )
     });
     assert!(
         errors.iter().any(|e| e.contains("local path")),
         "{errors:?}"
     );
-    let errors = with_manifest(|m| {
-        format!(
-            "{m}\n[patch.crates-io]\ngpui-fast = {{ git = \"https://github.com/dXnSix/gpui-fast\", branch = \"tizen-release\" }}\n"
-        )
-    });
+    let errors = with_manifest(|m| m.to_owned());
     assert!(
         !errors.iter().any(|e| e.contains("local path")),
         "{errors:?}"
@@ -120,8 +120,8 @@ fn member_and_workspace_package_drift_fails() {
     let errors = with_manifest(|m| {
         replace(
             m,
-            "    \"examples/long_list\",\n    \"xtask\",",
-            "    \"xtask\",",
+            "    \"examples/long_list\",\n    \"examples/video\",\n    \"xtask\",",
+            "    \"examples/video\",\n    \"xtask\",",
         )
     });
     assert!(
@@ -166,4 +166,30 @@ fn alias_drift_fails() {
         errors.iter().any(|e| e.contains("alias `xtask`")),
         "{errors:?}"
     );
+}
+
+/// The committed git patch of the forks is all or nothing.
+mod git_patch {
+    use super::*;
+
+    #[test]
+    fn the_committed_patch_covers_every_gpui_fast_and_wgpu_crate() {
+        assert!(workspace_complies_now().is_empty());
+        let errors = with_manifest(|text| {
+            text.lines()
+                .filter(|line| !line.starts_with("gpui-fast-web ="))
+                .collect::<Vec<_>>()
+                .join("\n")
+        });
+        assert!(
+            errors
+                .iter()
+                .any(|e| e.contains("only in part") && e.contains("gpui-fast-web")),
+            "{errors:?}"
+        );
+    }
+
+    fn workspace_complies_now() -> Vec<String> {
+        check(&inputs())
+    }
 }

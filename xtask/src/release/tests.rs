@@ -334,3 +334,24 @@ mod from_checkout {
         );
     }
 }
+
+/// The forks' git patch committed in Cargo.toml replaces the local config as the default.
+mod committed_patch {
+    use super::*;
+
+    #[test]
+    fn a_manifest_with_the_git_patch_is_recognized() {
+        let with = "[patch.crates-io]\ngpui-fast = { git = \"https://github.com/dXnSix/gpui-fast\", branch = \"tizen-release\" }\n";
+        assert!(has_committed_patch(with));
+        assert!(!has_committed_patch("[workspace]\nmembers = []\n"));
+        assert!(!has_committed_patch(
+            "[patch.crates-io]\nserde = { path = \"x\" }\n"
+        ));
+        assert!(!has_committed_patch("not toml ["));
+        let manifest = std::fs::read_to_string(crate::workspace_root().join("Cargo.toml")).unwrap();
+        assert!(
+            has_committed_patch(&manifest),
+            "this workspace commits the patch"
+        );
+    }
+}

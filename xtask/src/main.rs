@@ -103,10 +103,16 @@ fn run_cross(options: &Options) -> Result<ExitCode> {
 /// `cdylib`s it built, or `None` when the build or a check failed.
 fn cross_build(options: &Options) -> Result<Option<Vec<PathBuf>>> {
     let root = workspace_root();
-    // This workspace's TV builds take gpui-fast and wgpu from the forks (the patch config that
-    // `cargo xtask gpui-fast-release --verify` writes); a build of another workspace does not.
+    // This workspace's TV builds take gpui-fast and wgpu from the forks: Cargo.toml's git patch,
+    // overridden by the local path config `cargo xtask gpui-fast-release --verify` writes when it
+    // is there. A build of another workspace takes neither.
+    let committed = xtask::release::has_committed_patch(
+        &std::fs::read_to_string(root.join("Cargo.toml")).unwrap_or_default(),
+    );
     let patched;
-    let options = if options.manifest_path().is_none() {
+    let options = if options.manifest_path().is_none()
+        && (root.join(xtask::release::PATCH_CONFIG).is_file() || !committed)
+    {
         let config = root.join(xtask::release::PATCH_CONFIG);
         if !config.is_file() {
             bail!(

@@ -185,11 +185,36 @@ fn expect_lint(manifest: &Value, tool: &str, lint: &str, errors: &mut Vec<String
     }
 }
 
-/// No `[patch]` entry may point at a local path: a local patch only exists on one machine.
+/// No `[patch]` entry may point at a local path: a local patch only exists on one machine. The
+/// committed git patch is all or nothing: every `gpui-fast-*` crate and the whole wgpu stack, as
+/// `cargo xtask gpui-fast-release` patches them (`release::CRATES`, `release::WGPU_CRATES`), so no
+/// crate of either comes from crates.io beside the forks'.
 fn check_patches(manifest: &Value, errors: &mut Vec<String>) {
     let Some(patch) = manifest.get("patch").and_then(Value::as_table) else {
         return;
     };
+    if let Some(crates_io) = patch.get("crates-io").and_then(Value::as_table) {
+        let names = crate::release::CRATES
+            .iter()
+            .chain(crate::release::WGPU_CRATES.iter())
+            .map(|(_, package)| *package);
+        let all: Vec<&str> = names.collect();
+        let present: Vec<&&str> = all
+            .iter()
+            .filter(|name| crates_io.contains_key(**name))
+            .collect();
+        if !present.is_empty() && present.len() != all.len() {
+            let missing: Vec<&str> = all
+                .iter()
+                .filter(|name| !crates_io.contains_key(**name))
+                .copied()
+                .collect();
+            errors.push(format!(
+                "Cargo.toml: `[patch.crates-io]` patches gpui-fast and wgpu only in part; missing {}",
+                missing.join(", ")
+            ));
+        }
+    }
     for (registry, entries) in patch {
         for (name, entry) in entries.as_table().into_iter().flatten() {
             if entry.get("path").is_some() {
