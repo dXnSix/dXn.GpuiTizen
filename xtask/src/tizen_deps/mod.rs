@@ -32,6 +32,36 @@ pub const DESKTOP_CRATES: &[&str] = &[
     "winit",
 ];
 
+/// Name prefixes of desktop toolkit crates that must never reach a Tizen build: GTK and its
+/// libraries, WebKitGTK, GStreamer (NSH's Linux web view and video), wry.
+pub const DESKTOP_PREFIXES: &[&str] = &[
+    "gtk",
+    "gdk",
+    "gio",
+    "glib",
+    "gobject",
+    "pango",
+    "cairo",
+    "webkit",
+    "javascriptcore",
+    "soup",
+    "gstreamer",
+    "wry",
+];
+
+/// Whether `name` is a desktop platform or toolkit crate: one of [`DESKTOP_CRATES`], or a
+/// toolkit prefix followed by nothing, `-` or a version digit (`gtk4`, `gtk4-sys`, `soup3`).
+pub fn is_desktop_crate(name: &str) -> bool {
+    DESKTOP_CRATES.contains(&name)
+        || DESKTOP_PREFIXES.iter().any(|prefix| {
+            name.strip_prefix(prefix).is_some_and(|rest| {
+                rest.is_empty()
+                    || rest.starts_with('-')
+                    || rest.starts_with(|c: char| c.is_ascii_digit())
+            })
+        })
+}
+
 /// The wgpu versions in a graph.
 pub fn wgpu_versions(packages: &BTreeSet<(String, String)>) -> Vec<String> {
     packages
@@ -73,7 +103,7 @@ pub fn parse_tree(text: &str) -> BTreeSet<(String, String)> {
 pub fn desktop_crates(packages: &BTreeSet<(String, String)>) -> Vec<String> {
     packages
         .iter()
-        .filter(|(name, _)| DESKTOP_CRATES.contains(&name.as_str()))
+        .filter(|(name, _)| is_desktop_crate(name))
         .map(|(name, version)| format!("{name} {version}"))
         .collect()
 }

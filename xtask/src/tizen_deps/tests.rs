@@ -215,3 +215,62 @@ version = "30.0.0"
         assert!(violations.iter().any(|v| v.contains("gpui-fast-linux")));
     }
 }
+
+/// GTK, WebKitGTK, GStreamer and wry (NSH's Linux toolkit) are desktop crates too.
+mod gui_toolkits {
+    use super::*;
+
+    #[test]
+    fn toolkit_crates_are_desktop_crates() {
+        for name in [
+            "gtk4",
+            "gtk4-sys",
+            "gdk4",
+            "gdk-pixbuf",
+            "gio",
+            "glib-sys",
+            "gobject-sys",
+            "pango",
+            "cairo-rs",
+            "webkit6",
+            "webkit2gtk",
+            "javascriptcore6",
+            "soup3",
+            "gstreamer",
+            "gstreamer-video",
+            "wry",
+            "x11rb",
+            "gpui-fast-linux",
+        ] {
+            assert!(is_desktop_crate(name), "{name}");
+        }
+    }
+
+    #[test]
+    fn crates_that_only_share_a_prefix_are_not() {
+        for name in [
+            "glob",
+            "gimli",
+            "gif",
+            "gioxyz",
+            "wgpu",
+            "gpui-fast",
+            "cairo_like",
+            "wrynot",
+            "softbuffer",
+            "pangocairo_x",
+        ] {
+            assert!(!is_desktop_crate(name), "{name}");
+        }
+    }
+
+    #[test]
+    fn a_graph_with_gtk_reports_it() {
+        let graph =
+            parse_tree("nsh-platform-gpui v0.4.0\ngtk4 v0.10.0\ngstreamer v0.24.0\nwgpu v30.0.1\n");
+        assert_eq!(
+            foreign_violations(&graph),
+            ["gstreamer 0.24.0", "gtk4 0.10.0"]
+        );
+    }
+}
