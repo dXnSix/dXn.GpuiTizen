@@ -21,6 +21,7 @@ pub mod keys;
 pub mod lifecycle;
 pub mod renderer_select;
 pub mod settings;
+pub mod system_info;
 pub mod video;
 pub mod video_frames;
 

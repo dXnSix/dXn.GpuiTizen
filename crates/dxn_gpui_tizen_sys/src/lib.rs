@@ -245,6 +245,8 @@ pub const SYSTEM_SETTINGS_KEY_LOCALE_TIMEZONE: system_settings_key_e = 15;
 pub const SYSTEM_SETTINGS_KEY_ACCESSIBILITY_TTS: system_settings_key_e = 32;
 /// `SYSTEM_SETTINGS_ERROR_NONE` (`TIZEN_ERROR_NONE`).
 pub const SYSTEM_SETTINGS_ERROR_NONE: c_int = 0;
+/// `SYSTEM_INFO_ERROR_NONE` (`system/system_info_type.h`, `TIZEN_ERROR_NONE`).
+pub const SYSTEM_INFO_ERROR_NONE: c_int = 0;
 
 /// `system_settings_changed_cb` (`system/system_settings.h`).
 pub type system_settings_changed_cb =
@@ -514,6 +516,8 @@ tizen_extern! {
     }
     // system/system_info.h (System > System Information)
     "capi-system-info" {
+        fn system_info_get_platform_bool(key: *const c_char, value: *mut bool) -> c_int;
+        fn system_info_get_platform_int(key: *const c_char, value: *mut c_int) -> c_int;
         fn system_info_get_platform_string(key: *const c_char, value: *mut *mut c_char) -> c_int;
     }
     // media/player.h (Multimedia > Media Player)

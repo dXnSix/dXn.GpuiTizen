@@ -10,6 +10,7 @@ mod main_loop;
 mod platform;
 mod renderer;
 mod settings;
+pub(crate) mod system_info;
 pub(crate) mod video;
 mod window;
 

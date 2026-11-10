@@ -86,6 +86,8 @@ system_settings_add_changed_cb System > System Settings (system/system_settings.
 system_settings_remove_changed_cb System > System Settings (system/system_settings.h)
 
 # libcapi-system-info.so
+system_info_get_platform_bool System > System Information (system/system_info.h)
+system_info_get_platform_int System > System Information (system/system_info.h)
 system_info_get_platform_string System > System Information (system/system_info.h)
 
 # libdlog.so
