@@ -110,11 +110,14 @@ jobs:
           conf=~/tizen-studio-data/emulator/vms/"$EMULATOR"/vm_launch.conf
           echo "::group::$conf"; cat "$conf" || true; echo "::endgroup::"
           nohup em-cli launch -n "$EMULATOR" >artifacts-temp/emulator/launch.log 2>&1 &
-          # Listed by sdb first, ready for a shell and packages a little later.
-          if ! timeout 900 bash -c 'until sdb devices | grep -q "emulator-.*device" && [ "$(timeout 20 sdb shell echo ready 2>/dev/null | tr -d "\r")" = ready ]; do sleep 10; done'; then
+          # Listed by sdb first, ready for packages a little later. The TV emulator's `sdb shell` does not
+          # run plain commands (run 42911347984: listed as `device`, `echo ready` never answered), so
+          # readiness is `sdb capability` answering with the CPU architecture, as on a TV.
+          if ! timeout 900 bash -c 'until sdb devices | grep -q "emulator-.*device" && timeout 20 sdb capability 2>/dev/null | grep -q cpu_arch; do sleep 10; done'; then
             echo "::error::the emulator did not come up in 15 minutes"
             # Printed here: a job stopped by its time limit keeps no logs.
             timeout 20 sdb devices || true
+            timeout 20 sdb capability || true
             em-cli list-vm || true
             em-cli launch --help || true
             ps aux | grep -iE 'emulator|qemu' | grep -v grep || true
@@ -128,6 +131,9 @@ jobs:
           sleep 30
           sdb devices
           sdb capability | tee artifacts-temp/emulator/capability.txt
+          # What the two shell forms answer here (TVs take `sdb shell 0 <command>` only).
+          echo "sdb shell echo: $(timeout 20 sdb shell echo ready 2>&1 | tr -d '\r' | head -3)"
+          echo "sdb shell 0: $(timeout 20 sdb shell 0 getduid 2>&1 | tr -d '\r' | head -3)"
 
       - name: Install and launch
         run: |
@@ -139,8 +145,12 @@ jobs:
             [ "$attempt" = 3 ] && exit 1
             echo "install attempt $attempt failed; retrying"; sleep 20
           done
-          # The emulator has a shell and app_launcher (`sdb shell 0 execute` is the TVs' path).
-          sdb shell app_launcher -s "$APP_ID"
+          # The TV emulator takes the TVs' form; app_launcher is the fallback for a full shell.
+          out="$(timeout 60 sdb shell 0 execute "$APP_ID" 2>&1 | tr -d '\r')"
+          echo "$out"
+          if echo "$out" | grep -qiE 'error|fail|not found|unknown|denied'; then
+            timeout 60 sdb shell app_launcher -s "$APP_ID"
+          fi
 
       - name: Pull the diagnostic report
         run: |
