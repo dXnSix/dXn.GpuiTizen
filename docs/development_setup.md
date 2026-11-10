@@ -6,7 +6,7 @@ which come first. Neither guide uses Tizen Studio.
 
 | Where the app runs | Certificate | Who sets it up |
 | --- | --- | --- |
-| the TV emulator, in CI (`tizen-emulator.yml`) | a throwaway Tizen certificate | the job itself, with no secrets |
+| the TV emulator, in CI (`tizen-emulator.yml`) | a throwaway Tizen certificate | the job itself, with no secrets ([`ci-emulator.md`](ci-emulator.md)) |
 | the TV emulator, locally | a Tizen certificate | you, once ([Emulator certificate](#3-a-tizen-certificate-for-the-emulator)) |
 | a real Samsung TV | a Samsung certificate bound to the TV's DUID | you, once per TV ([Samsung certificate](#2-a-samsung-certificate-for-your-tv)) |
 
