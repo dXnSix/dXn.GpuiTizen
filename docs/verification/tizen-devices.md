@@ -64,12 +64,22 @@ prerequisite check (tried in the `gpuitizen` VM on Ubuntu 24.04). On that PR, ev
 | --- | --- |
 | 42890534996 | passed the prerequisite check, then the runner's disk filled up while the SDK installed the TV emulator packages (`No space left on device`); fixed by a step that frees disk space |
 | 42891492722 | SDK installed; the signing step (a throwaway `tz cert` author certificate and the SDK's public distributor, no secrets) and the signed x86_64 diagnostic TPK passed. The emulator did not boot in 15 minutes, then `sdb dlog` waited for a device until the job's 90-minute limit, and GitHub kept no logs. The boot step now prints the emulator's logs itself, and the steps have their own limits |
+| 42907330624 | the boot step's own diagnostics: `em-cli create` ran without a display and configured VIGS's software backend, so the TV tuner device failed (`winsys interface 'vigs_wsi' not found`) and the VM exited at once |
+| 42911347984 | Xvfb with GLX before `create`: the VM got VIGS's GL backend and booted (`sdb devices`: `emulator-26101 device`), but the readiness check through `sdb shell echo` never answered (the TV emulator's shell runs no plain commands) |
+| 42915085901 | ready by `sdb capability` (`cpu_arch:x86_64`, `platform_version:10.0`, `profile_name:tv`); `sdb install` handed the `.tpk` to the web-app installer, which rejected it while `sdb` exited 0 |
+| 42917352601 | installing with `tz install` / `sdb shell 0 vd_appinstall`: the installer rejected the signature (`unrecognized root CA certificate` for `signature1.xml`) with the SDK's old public distributor (expired 2012) |
+| 42919211444 | the same with the SDK's current public distributor (valid until 2032): the Samsung TV emulator trusts only Samsung's distributor roots. The emulator's DUID is `XTCJYJZXZBZVK` on every run |
+
+`CI-3`, emulator part, recorded as a failure: the emulator boots on a hosted runner, but installing needs the
+owner's Samsung certificate with the emulator's DUID (`docs/development_setup.md`, sections 2 and 5). It's
+deferred with the TV work to `s25-owner-devices`. Without the secrets, the job now boots the emulator and skips the
+install with a warning. The NSH fork's emulator job needs the same steps (`docs/ci-emulator.md`, last section).
 
 Found while preparing the certificates (`docs/development_setup.md`): `cargo xtask package --sign` could never sign,
 because `tz pack` rejects a plain directory ("is not a valid project"). It now zips the staged tree and re-signs it
 with `tz pack -b` (tried locally with a throwaway profile: `author-signature.xml` and `signature1.xml` in the
 package). And `tz` keeps certificate passwords in the OS keyring, never in `profiles.xml`, so the planned
-`TIZEN_PROFILES_XML` secret could not have worked. The emulator job needs no secrets.
+`TIZEN_PROFILES_XML` secret could not have worked. The four certificate and password secrets stay.
 
 ## Devices (`HOST-3`, `DIAG-5`, `DEV-2`, `PLAT-7`, `VID-4`, `DEV-3`)
 

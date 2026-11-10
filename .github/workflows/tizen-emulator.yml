@@ -4,10 +4,14 @@ name: Tizen emulator
 # GitHub-hosted Ubuntu runner with KVM. Manual and weekly. Whether the emulator boots on a hosted
 # runner is the first thing this proves (docs/verification/tizen-devices.md records the runs).
 #
-# Signing needs no secrets: the emulator accepts a Tizen certificate, so the job creates a throwaway
-# author certificate with `tz cert` and signs with the SDK's public Tizen distributor certificate.
-# A Samsung TV needs a Samsung certificate instead, which stays on the owner's machine
-# (docs/development_setup.md).
+# Signing (docs/ci-emulator.md, "Signing"): the Samsung TV emulator trusts only Samsung's distributor
+# roots, so installing needs a Samsung certificate whose distributor lists the emulator's DUID
+# (XTCJYJZXZBZVK, the same on every fresh runner). The owner creates it with the TV's certificate and
+# adds these secrets, read only by the signing step:
+#   TIZEN_AUTHOR_P12, TIZEN_DISTRIBUTOR_P12   base64 of author.p12 and distributor.p12
+#   TIZEN_AUTHOR_PASSWORD, TIZEN_DISTRIBUTOR_PASSWORD
+# Without them, the job signs with a throwaway Tizen certificate, boots the emulator and skips the
+# install with a warning.
 on:
   workflow_dispatch:
   schedule:
@@ -61,7 +65,12 @@ jobs:
         with:
           packages: TIZEN-8.0-NativeAppDevelopment-CLI Emulator TV-SAMSUNG-Public-Emulator
 
-      - name: Signing profile (a throwaway Tizen certificate)
+      - name: Signing profile
+        env:
+          AUTHOR_P12: ${{ secrets.TIZEN_AUTHOR_P12 }}
+          DISTRIBUTOR_P12: ${{ secrets.TIZEN_DISTRIBUTOR_P12 }}
+          AUTHOR_PASSWORD: ${{ secrets.TIZEN_AUTHOR_PASSWORD }}
+          DISTRIBUTOR_PASSWORD: ${{ secrets.TIZEN_DISTRIBUTOR_PASSWORD }}
         run: |
           set -euo pipefail
           # `tz security-profiles add` keeps the certificates' passwords in the OS keyring; a hosted
@@ -75,16 +84,27 @@ jobs:
           certs="$RUNNER_TEMP/tizen-certs"
           mkdir -p "$certs"
           chmod 700 "$certs"
-          password="$(openssl rand -hex 16)"
-          echo "::add-mask::$password"
-          tz cert -n dXn.GpuiTizen-CI -p "$password" -f "$certs/author"
-          # The SDK's current public distributor certificate (the older tizen-distributor-signer.p12 next
-          # to it expired in 2012; the emulator rejects it as an invalid chain). Its password is the
-          # SDK's published one.
-          tz security-profiles add -n "$PROFILE" -A \
-            -a "$certs/author.p12" -p "$password" \
-            -d "$HOME/tizen-studio/tools/certificate-generator/certificates/distributor/sdk-public/tizen-distributor-signer-new.p12" \
-            -P tizenpkcs12passfordsigner
+          if [ -n "$AUTHOR_P12" ] && [ -n "$DISTRIBUTOR_P12" ]; then
+            # The owner's Samsung certificate, its distributor listing the emulator's DUID.
+            base64 -d <<<"$AUTHOR_P12" >"$certs/author.p12"
+            base64 -d <<<"$DISTRIBUTOR_P12" >"$certs/distributor.p12"
+            tz security-profiles add -n "$PROFILE" -A \
+              -a "$certs/author.p12" -p "$AUTHOR_PASSWORD" \
+              -d "$certs/distributor.p12" -P "$DISTRIBUTOR_PASSWORD"
+            echo "SAMSUNG_SIGNED=true" >>"$GITHUB_ENV"
+          else
+            # A throwaway Tizen certificate: enough to package and boot, not to install (the TV
+            # emulator rejects the SDK's Tizen distributor roots, run 42919211444).
+            password="$(openssl rand -hex 16)"
+            echo "::add-mask::$password"
+            tz cert -n dXn.GpuiTizen-CI -p "$password" -f "$certs/author"
+            tz security-profiles add -n "$PROFILE" -A \
+              -a "$certs/author.p12" -p "$password" \
+              -d "$HOME/tizen-studio/tools/certificate-generator/certificates/distributor/sdk-public/tizen-distributor-signer-new.p12" \
+              -P tizenpkcs12passfordsigner
+            echo "SAMSUNG_SIGNED=false" >>"$GITHUB_ENV"
+            echo "::warning::no Samsung signing secrets (TIZEN_AUTHOR_P12, ...): the emulator boots, but the app is not installed (docs/ci-emulator.md)"
+          fi
           tz security-profiles list
 
       - name: Package the x86_64 diagnostic TPK
@@ -138,6 +158,7 @@ jobs:
           echo "sdb shell 0: $(timeout 20 sdb shell 0 getduid 2>&1 | tr -d '\r' | head -3)"
 
       - name: Install and launch
+        if: env.SAMSUNG_SIGNED == 'true'
         run: |
           set -euo pipefail
           tpk="$(find target/tpk -maxdepth 1 -name '*-x86_64.tpk' -newer Cargo.toml | head -1)"
@@ -164,6 +185,7 @@ jobs:
           timeout 60 sdb -s "$serial" shell 0 execute "$APP_ID" 2>&1 | tr -d '\r'
 
       - name: Pull the diagnostic report
+        if: env.SAMSUNG_SIGNED == 'true'
         run: |
           for attempt in 1 2 3 4 5 6; do
             if cargo xtask diag pull; then exit 0; fi

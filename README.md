@@ -88,8 +88,8 @@ an about screen shows; every read is `None` off Tizen.
 `cargo xtask package --app <app> --target <armv7|x86_64|aarch64>` stages a TPK tree under `target/tpk/`;
 `--target all` stages one package per TV architecture (armv7 and aarch64, each with its own fourth version number
 and CPU feature) and the multi-architecture `.zip` for Seller Office (see the assumptions below). Packages are signed only with
-`--sign <profile>`, a certificate profile of `tz security-profiles` (a Samsung certificate for a TV, a Tizen
-certificate for the emulator; `docs/development_setup.md`): the staged tree is zipped and re-signed with `tz pack -b`,
+`--sign <profile>`, a certificate profile of `tz security-profiles` (a Samsung certificate, for a TV and for the
+emulator; `docs/development_setup.md`): the staged tree is zipped and re-signed with `tz pack -b`,
 because `tz pack` does not sign a plain directory. The signed package is `target/tpk/<package id>-<version>-<arch>.tpk`.
 
 Before submitting, `cargo xtask store-check <tpk or staged dir>` checks what can be checked on the Mac: the manifest
@@ -144,11 +144,12 @@ artifacts-temp/forks/wgpu` instead.
 
 `.github/workflows/tizen-emulator.yml` (manual and weekly) boots the Samsung TV emulator headless on an Ubuntu runner
 with KVM, packages and signs the x86_64 diagnostic TPK, installs and launches it, pulls its report with `cargo xtask
-diag pull` and uploads the report and the emulator's logs. It needs no secrets: the emulator accepts a Tizen
-certificate, so the job creates a throwaway author certificate with `tz cert` and pairs it with the SDK's public
-Tizen distributor certificate in a profile `ci` (`tz security-profiles add`, which keeps the passwords in a
-gnome-keyring the job unlocks). Samsung certificates, which a TV needs, stay on the owner's machine. [docs/ci-emulator.md](docs/ci-emulator.md)
-describes what the job needs and what each step works around.
+diag pull` and uploads the report and the emulator's logs. Installing needs a Samsung certificate whose distributor
+lists the emulator's DUID, because the Samsung TV emulator, like a TV, trusts only Samsung's distributor roots. It
+comes from the secrets `TIZEN_AUTHOR_P12`, `TIZEN_AUTHOR_PASSWORD`, `TIZEN_DISTRIBUTOR_P12` and
+`TIZEN_DISTRIBUTOR_PASSWORD` ([docs/development_setup.md](docs/development_setup.md), section 5). Without them,
+the job signs with a throwaway Tizen certificate, boots the emulator and skips the install.
+[docs/ci-emulator.md](docs/ci-emulator.md) describes what the job needs and what each step works around.
 
 Both workflows install the Tizen SDK CLI with `--accept-license`: running them is the owner's acceptance of Samsung's
 SDK licence on the runner.
