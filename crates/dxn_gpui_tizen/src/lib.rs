@@ -1,6 +1,11 @@
 //! The Tizen platform for GPUI (gpui-fast): one full-screen window on Ecore_Wl2, a dispatcher on Ecore's
 //! main loop, TV keys, the on-screen keyboard, the app lifecycle and one display.
 //!
+//! Beyond GPUI's APIs, apps grab TV keys at run time ([`keygrab::grab`], [`keygrab::release`],
+//! [`keygrab::set`]), read platform information ([`system_info`]) and system settings
+//! ([`settings`]); pause and resume reach GPUI as window activation and visibility
+//! ([`activation`]).
+//!
 //! The feature modules hold every decision and are tested on the host with fakes; the Tizen shell
 //! under `src/tizen/` (`cfg(target_vendor = "tizen")`) only calls the Tizen C APIs and GPUI.
 

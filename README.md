@@ -63,6 +63,21 @@ while its frame has holes (on the EGL path with `EGL_KHR_no_config_context`). Wh
 translucent, or when asked (`Output::Texture`), decoded frames are converted to RGBA and drawn as a dynamic texture,
 which also works inside transformed or clipped UI. `examples/video` plays a bundled clip with a control row over it.
 
+## Lifecycle, keys and system information
+
+Pausing the app (the TV switches to another app or input) stops frames, frees the surface and reports the window to
+GPUI as inactive (`on_active_status_change(false)`) and hidden (`WindowVisibility::Hidden`); resuming rebuilds the
+surface, reports it visible and active, then redraws everything. `is_active()` and `visibility()` follow.
+
+While the window is shown the color, media and channel keys are grabbed so they reach the app instead of the TV
+(`RunOptions::grab_keys` chooses the set at start). `dxn_gpui_tizen::keygrab::{grab, release, set}` change the set
+while the app runs, by Tizen (`XF86Info`) or GPUI (`info`) key name, on the main thread; the set survives pause and
+resume. The remote's Info key is grabbed only on request; Return, Exit and Home never are.
+
+`dxn_gpui_tizen::system_info` reads `system_info`'s documented platform keys (`platform_string`, `platform_int`,
+`platform_bool`), and `product_info()` the model name, manufacturer, platform name and version, build and screen size
+an about screen shows; every read is `None` off Tizen.
+
 ## Packaging and store submission
 
 `cargo xtask package --app <app> --target <armv7|x86_64|aarch64>` stages a TPK tree under `target/tpk/`;

@@ -5,6 +5,14 @@ one full-screen window on Ecore_Wl2, a dispatcher on Ecore's main loop, TV remot
 the app lifecycle, the display, accessibility over AT-SPI, a platform-owned EGL context with the driver's shader
 cache and partial presents, and video through Tizen's media player.
 
+Beyond GPUI's own APIs, apps can:
+
+- see pause and resume as GPUI's window activation and visibility (`on_active_status_change`, `WindowVisibility`);
+- grab and release TV keys while running: `keygrab::grab`, `keygrab::release`, `keygrab::set` (the Info key on
+  request; Return, Exit and Home never);
+- read platform information: `system_info::platform_string`, `platform_int`, `platform_bool`, `product_info`;
+- read system settings (`settings`), the launch request's extras (`launch_extras`) and play video (`video`).
+
 ```rust,ignore
 #[unsafe(no_mangle)]
 pub unsafe extern "C" fn dxn_gpui_tizen_main(argc: core::ffi::c_int, argv: *mut *mut core::ffi::c_char) -> core::ffi::c_int {
