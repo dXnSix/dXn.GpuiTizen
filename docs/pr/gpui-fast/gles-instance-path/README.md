@@ -5,7 +5,7 @@
 | Change | 1, GL ES 3.0 devices |
 | Upstream PR | not opened |
 | Branch | `gles-instance-path`, local in `/Users/dinko/work-private/projects/dXn/gpui-fast`, not pushed |
-| Base | `upstream/main` `fb8cf94` (2026-11-08, #118). 7 commits behind the fetched `upstream/main` `a427a7d`, 8 behind live `main` `820088284`; none of them touches `crates/gpui_wgpu`, and the branch merges onto `a427a7d` without conflict. Not rebased |
+| Base | `upstream/main` `fb8cf94` (2026-11-08, #118). 7 commits behind the fetched `upstream/main` `a427a7d`, 11 behind live `main` `c2bec823e` (2026-11-10, #130); none of them touches `crates/gpui_wgpu`, and the branch merges onto `a427a7d` without conflict (`git merge-tree`; live `main` is not fetched). Not rebased |
 | Size | 3 files, +215 −1: `crates/gpui_wgpu/src/fast/gles.rs` (new, with its tests), `fast/mod.rs` (+1), `wgpu_context.rs` (+5 −1, three hooks) |
 | Its commits | `fbd3ed9` fast: draw GL ES 3.0 devices through the instance-texture path |
 | Text | [PR.md](PR.md) |

@@ -5,7 +5,7 @@
 | Change | the hole: video on the TV's video plane under the window |
 | Upstream PR | not opened |
 | Branch | `video-hole`, local in `/Users/dinko/work-private/projects/dXn/gpui-fast`, not pushed |
-| Base | `upstream/main` `a427a7d` (2026-11-09, #123), the fetched `upstream/main`; one commit behind live `main` `820088284` (#129 adds `mod list_measure;` to `crates/gpui/src/fast/mod.rs` and `fast/tests/mod.rs`, in other hunks than this branch's `mod hole;`). Not rebased |
+| Base | `upstream/main` `a427a7d` (2026-11-09, #123), the fetched `upstream/main`; 4 commits behind live `main` `c2bec823e` (2026-11-10: #129, #132, #131, #130). #129 and #132 add `mod list_measure;` and `mod truncation;` to `crates/gpui/src/fast/mod.rs` and `fast/tests/mod.rs`, in other hunks than this branch's `mod hole;` (GitHub API; live `main` not fetched, so `git merge-tree` against it has not run). Merges onto `a427a7d` without conflict. Not rebased |
 | Size | 10 files, +477 −1: `crates/gpui/src/fast/hole.rs` (+125), `crates/gpui/src/fast/tests/hole.rs` (+53), two `mod` lines in `gpui`; `crates/gpui_wgpu/src/fast/hole.rs` (+141), `fast/hole/tests.rs` (+126), `fast/frame.rs` (+13, the batch arm), `fast/mod.rs` (+1), `wgpu_renderer.rs` (+5 −1, three hooks); `docs/upstream-sync.md` (+11) |
 | Its commits | `60ba887` gpui, gpui_wgpu: paint holes that replace the window's pixels with transparent black |
 | Text | [PR.md](PR.md) |
@@ -31,9 +31,11 @@ Hooks in `wgpu_renderer.rs`: the `fast_hole` field in `WgpuPipelines`, the shade
 
 ### Before opening
 
-- `docs/upstream-sync.md` puts the exception in rule 5 as "a third exception"; `external-target` puts its own under
-  "Where our API differs from upstream's" as "a second". Make the two consistent with what has merged by then (on
-  `tizen`, both are in the API list).
+- `docs/upstream-sync.md` puts the exception in rule 5 as "a third exception", after `fast::dynamic_textures` and
+  `WebPlatform::wgpu_context()` (#102). That is right on this branch: it is cut from `main`, which has those two.
+  `external-target`, also cut from `main`, now calls its own the third as well (`5ee78d5`), right on its branch too.
+  Whichever of the two merges second renumbers itself the fourth when it is rebased (on `tizen`, which carries both,
+  the hole says "a fourth exception here, the third on `video-hole` for `main`").
 - The commit subject says `gpui, gpui_wgpu:`; the PR title uses `fast:`.
 - The pipeline is created with `cache: None` (see Needs).
 

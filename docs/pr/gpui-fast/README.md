@@ -3,7 +3,7 @@
 Renderer changes to [gpui-fast](https://github.com/longbridge/gpui-fast) that let GPUI draw on Samsung TVs running
 Tizen 8.0 and later. dXn.GpuiTizen (this repository, the Tizen platform for GPUI) builds on them; they are proposed
 upstream so that it can use a released gpui-fast instead of the fork. All of them live in `crates/gpui_wgpu` (the hole
-also in `crates/gpui`), in `src/fast/` with one-line hooks in upstream files, as gpui-fast's
+also in `crates/gpui`, and the damage's padding test), in `src/fast/` with one-line hooks in upstream files, as gpui-fast's
 `docs/upstream-sync.md` asks. Four add no public API; two (the external target and the hole) are new API exceptions
 and say why.
 
@@ -35,23 +35,28 @@ has only `main` as of the last fetch. Sizes are `git diff --stat $(git merge-bas
 | 01 | [gles-instance-path/](gles-instance-path/) | `gles-instance-path` | `fb8cf94` | fast: draw GL ES 3.0 devices through the instance-texture path | 3 files, +215 −1 | no | the issue | not opened |
 | 02 | [wgpu-backend-env/](wgpu-backend-env/) | `wgpu-backend-env` | `fb8cf94` | fast: let WGPU_BACKEND choose the native backends | 3 files, +66 −1 | no | the issue; a rebase if 01 merges first (both create `fast/gles.rs`) | not opened |
 | 03 | [pipeline-cache/](pipeline-cache/) | `pipeline-cache` | `fb8cf94` | fast: keep compiled pipelines in a cache on disk | 4 files, +279 −1 | no | the issue | not opened |
-| 04 | [scene-damage/](scene-damage/) | `scene-damage` | `a427a7d` | fast: compute scene damage between frames | 3 files, +914 −0 | no | the issue (unused until 05) | not opened |
-| 05 | [external-target/](external-target/) | `external-target` | `a427a7d` | fast: draw into a target the caller supplies, with partial redraws | 11 files, +2088 −5 (own part: 9 files, +1183 −5) | yes: `WgpuExternalRenderer`, `WgpuFrameDamage` | 04 merged; the maintainers' answer on the API | not opened |
+| 04 | [scene-damage/](scene-damage/) | `scene-damage` | `a427a7d` | fast: compute scene damage between frames | 5 files, +1050 −0 | no | the issue (unused until 05) | not opened |
+| 05 | [external-target/](external-target/) | `external-target` | `a427a7d` | fast: draw into a target the caller supplies, with partial redraws | 11 files, +2089 −5 (own part: 9 files, +1184 −5) | yes: `WgpuExternalRenderer`, `WgpuFrameDamage` | 04 merged; the maintainers' answer on the API | not opened |
 | 06 | [video-hole/](video-hole/) | `video-hole` | `a427a7d` | fast: paint holes that replace the window's pixels with transparent black | 10 files, +477 −1 | yes: `Window::paint_hole`, `Scene::has_holes`, `AtlasTextureId::hole` / `is_hole` | the maintainers' answer on the API | not opened |
 
 Bases: `fb8cf94` is "fast: count tab stops only when the accessibility tree is dumped (#118)", 2026-11-08; `a427a7d`
 is "chore: Sync GPUI upstream d2a4fb6ded (#123)", 2026-11-09, the fork's `upstream/main` as last fetched.
 
-### Are the bases current? (2026-11-10)
+### Are the bases current? (2026-11-10, 19:30 CET)
 
-- `upstream/main` in the checkout is `a427a7d`. The live `longbridge/gpui-fast` `main` is `820088284` (`git ls-remote`,
-  not fetched): one more commit, #129 "fast: measure a measure_all list over later frames after a width change",
-  touching `crates/gpui/src/elements/list.rs`, `fast/list_measure.rs`, two `mod` lists in `crates/gpui/src/fast/` and
-  `script/upstream-allowlist`.
-- 01–03 are 7 commits behind `a427a7d` (8 behind live `main`). None of those commits touches `crates/gpui_wgpu`, and
+- `upstream/main` in the checkout is `a427a7d` (not fetched for this refresh). The live `longbridge/gpui-fast` `main`
+  is `c2bec823e` (`git ls-remote`), 4 commits on (GitHub's compare API): #129 "fast: measure a measure_all list over
+  later frames after a width change" (`820088284`, 2026-11-09), #132 "fast: Fit truncated text to its shaped width",
+  #131 "fast: give Windows a dynamic texture backend", #130 "composition: keep GPUI-started mouse drags on GPUI" (all
+  2026-11-10). They touch `crates/gpui` (`elements/list.rs`, `fast/list_measure.rs`, `fast/truncation.rs`, `fast/text.rs`,
+  `text_system/line_wrapper.rs`, the two `mod` lists in `fast/mod.rs` and `fast/tests/mod.rs`), `gpui_apple`,
+  `gpui_macos`, `gpui_windows` and `script/upstream-allowlist`; none touches `crates/gpui_wgpu` or
+  `docs/upstream-sync.md`.
+- 01–03 are 7 commits behind `a427a7d` (11 behind live `main`). None of those commits touches `crates/gpui_wgpu`, and
   each branch merges onto `a427a7d` without conflict (`git merge-tree`).
-- 04–06 are cut from `a427a7d`, one commit behind live `main`. #129 adds `mod list_measure;` to the same two `mod`
-  lists 06 adds `mod hole;` to, in other hunks.
+- 04–06 are cut from `a427a7d`, 4 commits behind live `main`. #129 and #132 add `mod list_measure;` and
+  `mod truncation;` to the two `mod` lists where 06 adds `mod hole;` and 04 (since `6b15d78`) `mod scene_padding;`, in
+  other hunks (lines apart, compared through the API). `git merge-tree` against live `main` has not run (not fetched).
 - Nothing was rebased. Rebase each one onto the fresh `upstream/main` when it is opened.
 
 ### Between the branches
@@ -60,8 +65,12 @@ Checked with `git merge-tree` (no branch touched):
 
 - 01 + 02 conflict in `fast/gles.rs`: both create it. The second to merge adds its part to the file; on `tizen` the
   file holds both, with the test groups `fast::gles::tests::device` (01) and `fast::gles::tests::backends` (02).
-- 04 + 05 conflict in `fast/damage.rs`: 05 carries 04's two commits and drops 04's `allow(dead_code)`. 05 is opened
-  after 04 merges, rebased so it holds only its own commits ([external-target/README.md](external-target/README.md)).
+- 04 + 05 conflict in `fast/damage.rs`: 05 carries 04's first two commits and drops 04's `allow(dead_code)`. 05 does
+  not carry 04's third, `6b15d78` (the padding test, `gpui::fast::scene_padding`). 05 is opened after 04 merges,
+  rebased so it holds only its own commits ([external-target/README.md](external-target/README.md), which says how to
+  keep `6b15d78` out of the diff it applies).
+- 05 and 06 each call their API exception "the third" in `docs/upstream-sync.md`; on its own branch (both cut from
+  `main`) each is right. The second to merge becomes the fourth.
 - 03 + 06 merge cleanly, but 06 creates the hole pipeline with `cache: None`. Whichever lands second passes the
   pipeline cache to it, as `tizen` does (`Option::as_ref(&fast_pipeline_cache)`).
 - Every other pair merges cleanly.
@@ -119,15 +128,19 @@ git worktree add ../gpui-fast-wt/pr <branch>     # once; later: git -C ../gpui-f
   topic branches by cherry-picking their commits. Besides them it holds what 0.1.13 lacks and the TV build needs:
   the dynamic textures of #86 and #99 (merged upstream after 0.1.13), `e4960b0` (opens `WgpuRendererCore::new`,
   `render_frame` and `WgpuContext::create_headless`, which `main` already has as `pub(crate)`), and `wgpu-test-lints`
-  (`40d90c9`, see Checks). The files of the topic branches are the same on `tizen` (`fast/damage*`, `fast/external_target*`,
-  `fast/hole*`, `fast/pipeline_cache.rs`); `fast/gles.rs` holds 01 and 02 together. When a topic branch changes, its new
-  commits are cherry-picked onto `tizen`.
+  (`40d90c9`, see Checks). The files of the topic branches are the same on `tizen` (`fast/damage*`,
+  `fast/external_target*`, `fast/hole*`, `fast/pipeline_cache.rs`, `gpui`'s `fast/scene_padding.rs`); `fast/gles.rs`
+  holds 01 and 02 together. When a topic branch changes, its new commits are cherry-picked onto `tizen`.
 - **`tizen-release`** holds only the output of `bun script/prepare-release.ts --tag v0.1.13` run on `tizen` (through
   `cargo xtask gpui-fast-release` in this repository), the `gpui-fast-*` crates with wgpu 30.0.1 from crates.io, never
   edited by hand. TV builds patch all nine `gpui-fast-*` crates from it through `[patch.crates-io]`; local builds use
   `artifacts-temp/gpui-fast-patch.toml`, written by `cargo xtask gpui-fast-release --verify`.
-- The committed `tizen-release` (`1515355`) was generated from `tizen` at `3b6ea11`, which held changes 1–3 only;
-  `tizen` is at `e6ae34b` since. Regenerate it before pushing.
+- `tizen` is at `7047b05` (2026-11-10): besides the six changes it now carries `scene-damage`'s `6b15d78` as `e392162`
+  and `external-target`'s `5ee78d5` as `7047b05`. The committed `tizen-release` is **current**: `53659f0` (2026-11-10
+  19:17 CET), generated from `tizen` at `7047b05` and verified ("gpui-fast patch ok (tizen at 7047b05fdb67, wgpu
+  v30-tizen at 4e3d80d5d)"; `artifacts-temp/agentx/tizen-gpui-platform/gpui-fast-release-{commit2,verify2}.log`), which
+  rewrote dXn.GpuiTizen's `artifacts-temp/gpui-fast-patch.toml`. The two before it were `d09584c` (from `e6ae34b`)
+  and `1515355` (from `3b6ea11`). Neither branch is pushed: `origin` has `main` only.
 - When a gpui-fast release has the changes and NSH requires it, the patch lines and both branches go away.
 
 ## Checks

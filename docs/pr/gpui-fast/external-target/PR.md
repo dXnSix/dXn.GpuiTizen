@@ -53,7 +53,8 @@ Hooks and the rest:
 - `gpui_wgpu.rs`: the export (`#[cfg(not(target_family = "wasm"))]`).
 - Visibility bumps to `pub(crate)`: `WgpuContext::from_native_adapter_and_device`,
   `WgpuContext::select_color_texture_format`, `WgpuResources::invalidate_intermediate_textures`.
-- `docs/upstream-sync.md`: the exception, under "Where our API differs from upstream's".
+- `docs/upstream-sync.md`: the exception, under "Where our API differs from upstream's", the third after
+  `fast::dynamic_textures` and `WebPlatform::wgpu_context()`.
 
 `WgpuRenderer` and the surface path do not change, and nothing changes for an app that does not build an
 `WgpuExternalRenderer`.

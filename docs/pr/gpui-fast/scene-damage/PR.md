@@ -23,12 +23,17 @@ device-pixel rectangles.
   change while their description does not); sprites with a non-identity transform cover the whole window; scroll-layer
   tiles change with their layer's generation, and rounded clip groups with their content and geometry frame.
 
-All of it is in `crates/gpui_wgpu/src/fast/damage.rs` and its tests; no upstream file changes, and the renderer does
-not call it. Until #(external-target PR) does, the module carries an `allow(dead_code)` outside tests that says why.
-No public API.
+The primitives are hashed by their bytes, as the renderer uploads them (`#[repr(C)]`), so a padding byte would be an
+uninitialized read. `fast::scene_padding`, a test module in `gpui` (where the types and their private fields are),
+proves there is none: for every hashed type (the geometry, colors, atlas tiles and the six primitives) its size is
+the sum of its fields' sizes, so a field added with a gap fails that test instead of quietly hashing padding.
 
-#45 computed exact damage in `gpui` and added `Scene::damage`. This stays in `gpui_wgpu`, conservative, and adds
-nothing to `Scene`.
+All of it is in `crates/gpui_wgpu/src/fast/damage.rs` and its tests, and `crates/gpui/src/fast/scene_padding.rs`
+(tests only); no upstream file changes, and the renderer does not call it. Until #(external-target PR) does, the
+module carries an `allow(dead_code)` outside tests that says why. No public API.
+
+#45 computed exact damage in `gpui` and added `Scene::damage`. This stays in `gpui_wgpu` (but for the padding test),
+conservative, and adds nothing to `Scene`.
 
 ## How to Test
 
@@ -39,13 +44,17 @@ nothing to `Scene`.
   `invalidate` and more than 512 changes damage everything; a transformed sprite damages the whole window; a dirty
   layer tile is damaged only when its layer changes; a clip group's vertical radii are part of it; the diff keeps the
   longest common subsequence.
-- `script/check-upstream`, `cargo fmt -p gpui_wgpu -- --check`,
-  `cargo clippy -p gpui_wgpu --lib --features test-support -- -D warnings`.
+- `cargo test -p gpui --features test-support --lib fast::scene_padding` (3 tests): the geometry, the colors and
+  tiles, and the hashed primitives have no padding.
+- `script/check-upstream`, `cargo fmt -p gpui_wgpu -p gpui -- --check`,
+  `cargo clippy -p gpui_wgpu --lib --features test-support -- -D warnings`,
+  `cargo clippy -p gpui --all-targets --features test-support -- -D warnings`.
 
 ## Checklist
 
 - [ ] `script/check-upstream` passes (no upstream file changes).
 - [ ] `cargo test -p gpui_wgpu --features test-support --lib fast::damage::tests` passes.
-- [ ] `cargo fmt -p gpui_wgpu -- --check` and `cargo clippy -p gpui_wgpu --lib --features test-support -- -D warnings`
-  pass.
+- [ ] `cargo test -p gpui --features test-support --lib fast::scene_padding` passes.
+- [ ] `cargo fmt -p gpui_wgpu -p gpui -- --check`, `cargo clippy -p gpui_wgpu --lib --features test-support -- -D
+  warnings` and `cargo clippy -p gpui --all-targets --features test-support -- -D warnings` pass.
 - [x] No new public API; no change to what any renderer draws.

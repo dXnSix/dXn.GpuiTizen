@@ -5,7 +5,7 @@
 | Change | 3, a pipeline cache on disk |
 | Upstream PR | not opened |
 | Branch | `pipeline-cache`, local in `/Users/dinko/work-private/projects/dXn/gpui-fast`, not pushed |
-| Base | `upstream/main` `fb8cf94` (2026-11-08, #118). 7 commits behind the fetched `upstream/main` `a427a7d`, 8 behind live `main` `820088284`; none of them touches `crates/gpui_wgpu`, and the branch merges onto `a427a7d` without conflict. Not rebased |
+| Base | `upstream/main` `fb8cf94` (2026-11-08, #118). 7 commits behind the fetched `upstream/main` `a427a7d`, 11 behind live `main` `c2bec823e` (2026-11-10, #130); none of them touches `crates/gpui_wgpu`, and the branch merges onto `a427a7d` without conflict (`git merge-tree`; live `main` is not fetched). Not rebased |
 | Size | 4 files, +279 −1: `crates/gpui_wgpu/src/fast/pipeline_cache.rs` (new, with its tests), `fast/mod.rs` (+1), `wgpu_context.rs` (+2, two hooks), `wgpu_renderer.rs` (+3 −1, three hooks) |
 | Its commits | `a21267e` fast: keep compiled pipelines in a cache on disk; `5fa71b0` fast: drop the previous device's pipeline cache when opening a new one; `9864e93` fast: keep the pipeline cache slot on the main thread |
 | Text | [PR.md](PR.md) |
