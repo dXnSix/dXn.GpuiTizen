@@ -535,3 +535,89 @@ fn foreign_workspaces_keep_their_lockfile_here() {
         inv.args
     );
 }
+
+/// `--with-dev-variant`: the dev library built with `--features dev` beside the release one.
+mod dev_variant {
+    use super::*;
+
+    fn strings(list: &[&str]) -> Vec<String> {
+        list.iter().map(|s| (*s).to_owned()).collect()
+    }
+
+    #[test]
+    fn the_flag_parses_and_stays_out_of_cargo() {
+        let options = Options::parse(&strings(&[
+            "--target",
+            "armv7",
+            "--release",
+            "--with-dev-variant",
+            "-p",
+            "nsh-platform-tizen",
+        ]))
+        .unwrap();
+        assert!(options.with_dev_variant);
+        assert_eq!(options.cargo_args, strings(&["-p", "nsh-platform-tizen"]));
+        assert!(
+            !Options::parse(&strings(&["--target", "armv7"]))
+                .unwrap()
+                .with_dev_variant
+        );
+    }
+
+    #[test]
+    fn the_dev_build_adds_the_feature_and_its_own_target_dir() {
+        let args = dev_variant_args(
+            &strings(&[
+                "--manifest-path",
+                "m/Cargo.toml",
+                "-p",
+                "nsh-platform-tizen",
+            ]),
+            Path::new("/t"),
+        );
+        assert_eq!(
+            args,
+            strings(&[
+                "--manifest-path",
+                "m/Cargo.toml",
+                "-p",
+                "nsh-platform-tizen",
+                "--features",
+                "dev",
+                "--target-dir",
+                "/t/dev-variant",
+            ])
+        );
+    }
+
+    #[test]
+    fn a_given_target_dir_and_trailing_args_are_handled() {
+        let args = dev_variant_args(
+            &strings(&[
+                "--target-dir",
+                "/x",
+                "--features",
+                "js",
+                "--target-dir=/y",
+                "--",
+                "-D",
+                "warnings",
+            ]),
+            Path::new("/t"),
+        );
+        assert_eq!(
+            args,
+            strings(&[
+                "--features",
+                "js",
+                "--features",
+                "dev",
+                "--target-dir",
+                "/t/dev-variant",
+                "--",
+                "-D",
+                "warnings",
+            ])
+        );
+    }
+}

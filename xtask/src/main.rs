@@ -161,6 +161,30 @@ fn cross_build(options: &Options) -> Result<Option<Vec<PathBuf>>> {
         Some(path) => cargo_metadata(&toolchain, Some(Path::new(path)), lockfile.as_deref())?,
         None => own_metadata,
     };
+    if options.with_dev_variant {
+        // The release build first, then the `dev` variant into its own target directory.
+        let release = Options {
+            with_dev_variant: false,
+            ..options.clone()
+        };
+        let Some(mut libraries) = cross_build(&release)? else {
+            return Ok(None);
+        };
+        let target_dir = metadata["target_directory"]
+            .as_str()
+            .map(PathBuf::from)
+            .context("cargo metadata has no target_directory")?;
+        let dev = Options {
+            with_dev_variant: false,
+            cargo_args: cross::dev_variant_args(&release.cargo_args, &target_dir),
+            ..options.clone()
+        };
+        let Some(dev_libraries) = cross_build(&dev)? else {
+            return Ok(None);
+        };
+        libraries.extend(dev_libraries);
+        return Ok(Some(libraries));
+    }
     let target = options.target;
     let home = std::env::var_os("HOME").map(PathBuf::from);
     let searched = cross::rootstrap_candidates(

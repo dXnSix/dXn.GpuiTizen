@@ -23,6 +23,10 @@ pub struct Options {
     /// The entry symbol `--check-symbols` expects (`--entry`, default `dxn_gpui_tizen_main`).
     pub entry: Option<String>,
     pub all_tv_libs: bool,
+    /// Also build (and check) the selection's `dev` variant: `--features dev` into its own target
+    /// directory (`<target dir>/dev-variant`), as NSH's Tizen library ships a release and a dev
+    /// library.
+    pub with_dev_variant: bool,
     /// Cargo selection and feature flags, passed through unchanged (`-p`, `--manifest-path`,
     /// `--features`, `--no-default-features`, ...).
     pub cargo_args: Vec<String>,
@@ -30,7 +34,7 @@ pub struct Options {
 
 pub const USAGE: &str = "\
 cargo xtask cross --target <armv7|x86_64|aarch64> [--release] [--clippy] [--check-symbols [--entry <symbol>]]
-                  [--all-tv-libs]
+                  [--all-tv-libs] [--with-dev-variant]
                   [-p <package>]... [--manifest-path <Cargo.toml>] [--features <f>] [--no-default-features]
                   [other cargo flags]";
 
@@ -44,6 +48,7 @@ impl Options {
             check_symbols: false,
             entry: None,
             all_tv_libs: false,
+            with_dev_variant: false,
             cargo_args: Vec::new(),
         };
         let mut args = args.iter();
@@ -66,6 +71,7 @@ impl Options {
                     options.entry = Some(name.clone());
                 }
                 "--all-tv-libs" => options.all_tv_libs = true,
+                "--with-dev-variant" => options.with_dev_variant = true,
                 _ => options.cargo_args.push(arg.clone()),
             }
         }
@@ -93,6 +99,35 @@ impl Options {
             .iter()
             .any(|a| a == "--workspace" || a == "--all")
     }
+}
+
+/// The Cargo arguments of the dev variant of a build: the same selection with `--features dev`
+/// added, into `<target_dir>/dev-variant` so the release library is not overwritten.
+pub fn dev_variant_args(cargo_args: &[String], target_dir: &Path) -> Vec<String> {
+    let (before, after) = match cargo_args.iter().position(|a| a == "--") {
+        Some(at) => cargo_args.split_at(at),
+        None => (cargo_args, &[][..]),
+    };
+    let mut args: Vec<String> = before
+        .iter()
+        .scan(false, |skip, arg| {
+            // A target directory given for the release build does not carry over.
+            if std::mem::take(skip) {
+                return Some(None);
+            }
+            if arg == "--target-dir" {
+                *skip = true;
+                return Some(None);
+            }
+            Some((!arg.starts_with("--target-dir=")).then(|| arg.clone()))
+        })
+        .flatten()
+        .collect();
+    args.extend(["--features".to_owned(), "dev".to_owned()]);
+    args.push("--target-dir".to_owned());
+    args.push(target_dir.join("dev-variant").display().to_string());
+    args.extend(after.iter().cloned());
+    args
 }
 
 /// Values of a flag in its `-p x`, `-px`, `--package x` and `--package=x` spellings.
