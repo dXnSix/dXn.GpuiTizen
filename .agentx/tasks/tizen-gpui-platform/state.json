@@ -1,12 +1,12 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 307,
-  "planRevision": 46,
+  "revision": 323,
+  "planRevision": 49,
   "specHashes": {
     "requirements": "068b40fba8f3eeb831a46d913cc2bbd60e3e470cfbbed6933dc6aede91ac4a6e",
     "design": "a3e9ab1641d598bff3fdd015bd4af4393cd6025f28b84ab7dab193dcb9794dcc",
-    "plan": "4bbebfd0658d9506a45fe64b012b8f4100b989233ff24c59b8a29d067a38eb74"
+    "plan": "8aadcb854e1e7db1b6c6799b6c5c010a9ade8ed8cdc719ff12216a4240c3417a"
   },
   "tasks": {
     "t1-workspace": {
@@ -469,19 +469,34 @@
       ]
     },
     "t19-config-targets": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t19-runtime": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t19-package-run": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t19-rust-apps-test": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t19-docs": {
-      "status": "pending"
+      "status": "done",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t20-package": {
       "status": "pending"
@@ -929,6 +944,30 @@
         }
       },
       "recordedAt": "2026-11-10T16:09:38Z"
+    },
+    "093f4cce4522de79967fce227774bf0e04ac0e243e5ad1edfa055c160d24dfb2": {
+      "snapshot": {
+        "specHash": "143ff833c123b3339ff60189148eb5ac843595ac6ad87c6a07525827099d73d7",
+        "repositories": {
+          "gpuitizen": "47ce5358b88d417446a7d362faab81d05b794f2edcd0c26283542b78a52f05ec",
+          "gpui-fast": "c318780179e3efe79b3549e66b723ee445ed7dd36b3d54e1db560726aee9a019",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "e3168a6ffce199f877701feba4d4a3f05f3886179f3a980ce0b5f9d031c93956"
+        }
+      },
+      "recordedAt": "2026-11-10T16:14:38Z"
+    },
+    "6cac72e913022ee5f4583b545127806b136c95d1849ba2b6763d2647924d3574": {
+      "snapshot": {
+        "specHash": "51b79dde92be9bc1750d4d86046fa0b66ea9327ec0161525ee1552b6a7038b74",
+        "repositories": {
+          "gpuitizen": "47ce5358b88d417446a7d362faab81d05b794f2edcd0c26283542b78a52f05ec",
+          "gpui-fast": "c318780179e3efe79b3549e66b723ee445ed7dd36b3d54e1db560726aee9a019",
+          "wgpu": "b25f3c0d44169b1cf79c53b6b035cb598b69558107e27494197f43caad3e3359",
+          "nsh": "155203c483deae08280d81d334a60c9406df3ca35ff9eead93f69a36f12605b4"
+        }
+      },
+      "recordedAt": "2026-11-10T17:14:59Z"
     }
   },
   "checkResults": {
@@ -3311,6 +3350,159 @@
       "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s18-nsh-platform-tizen-final-060e86fcc8bf.log",
       "logSha256": "5f3e767ede049cc9d4fa776324beb12ae46c3aebd94f79709ab4f69c12c96ed5",
       "inputsHash": "a2ce04c4ce7317de3e9afdfaa13ed9b8f73b467b4512672f2aabba341a0a59ab"
+    },
+    "s19-nsh-cli/chk-nsh-cli-tizen/final": {
+      "checkId": "chk-nsh-cli-tizen",
+      "boundaryId": "s19-nsh-cli",
+      "phase": "final",
+      "batchId": "6cac72e913022ee5f4583b545127806b136c95d1849ba2b6763d2647924d3574",
+      "definitionHash": "d5430403ab0cc5caed4fce18033c0fc2ecb28f807c31fe3f379f564e86096880",
+      "basisHash": "3382b726fa49b9a2684ca82d520a0a9e84c0e2ac7c5df5a9db623408626065bf",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 6,
+      "durationSeconds": 11.6963,
+      "recordedAt": "2026-11-10T17:14:50Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s19-nsh-cli-final-e77c5542adfd.log",
+      "logSha256": "c7d377e0bbc5888e48db19984aa7c244f08a8016394390a15006f5644c82ccc6",
+      "inputsHash": "8853a88695db96c49821e73e5bd071e4536e27c4b5a25d642164835792348998"
+    },
+    "s19-nsh-cli/chk-nsh-cli-runtime/final": {
+      "checkId": "chk-nsh-cli-runtime",
+      "boundaryId": "s19-nsh-cli",
+      "phase": "final",
+      "batchId": "6cac72e913022ee5f4583b545127806b136c95d1849ba2b6763d2647924d3574",
+      "definitionHash": "4d01e0721f672d754fcca834f48c5d95bd72281a615b02885d298b25c4c06754",
+      "basisHash": "d0d067a99ee80cbdfa2930c52bdb7b895f9eb2cf17a1687859cce586e80b1266",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 8,
+      "durationSeconds": 0.8959,
+      "recordedAt": "2026-11-10T17:14:50Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s19-nsh-cli-final-a968ba985602.log",
+      "logSha256": "d20bd9487cac4e92e95d1b8316e396d8e7879634edc0664899c8aeba97012eda",
+      "inputsHash": "5db4a09a325b34a5a2ff5967304230643c95a8a242a7a786d8e86ab6392cf528"
+    },
+    "s19-nsh-cli/chk-nsh-component/final": {
+      "checkId": "chk-nsh-component",
+      "boundaryId": "s19-nsh-cli",
+      "phase": "final",
+      "batchId": "6cac72e913022ee5f4583b545127806b136c95d1849ba2b6763d2647924d3574",
+      "definitionHash": "27035c3eb647bddf10cf4c5a1eab3d9987cc5d75b667711c8f636ec2be8d676f",
+      "basisHash": "1ee69b66af0884047bcbe8b9e7d281c503409b6bedb3254757f4d8e6b9255338",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 1,
+      "durationSeconds": 6.6024,
+      "recordedAt": "2026-11-10T17:14:57Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s19-nsh-cli-final-591f98f7ef32.log",
+      "logSha256": "12a130ab2db1ecd574dbe58655bc60f7b0d564545a7f27ba5c06087dc122694c",
+      "inputsHash": "8853a88695db96c49821e73e5bd071e4536e27c4b5a25d642164835792348998"
+    },
+    "s19-nsh-cli/chk-nsh-hostplatform/final": {
+      "checkId": "chk-nsh-hostplatform",
+      "boundaryId": "s19-nsh-cli",
+      "phase": "final",
+      "batchId": "093f4cce4522de79967fce227774bf0e04ac0e243e5ad1edfa055c160d24dfb2",
+      "definitionHash": "33ef1cb3a9afd6c1709bf8531670838e70da4c73649a5df7f6328f8cd8c5b818",
+      "basisHash": "e89236f48481d70d345aaf2889f1c520e6d2e0772d2f6aa695b9cc09bfbb2a32",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 1,
+      "durationSeconds": 3.1453,
+      "recordedAt": "2026-11-10T16:14:36Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s19-nsh-cli-final-04b58df0d1f3.log",
+      "logSha256": "a8bbbee8f15b5fb259ad4bbc85a84bceb73e27dfaf2a3d4bb63fd65fdf397834",
+      "inputsHash": "690613060d4a33578de8a198fad53b4aafb6246ba7bce113ad4a5f478cbba20c"
+    },
+    "s19-nsh-cli/chk-nsh-cli-tizen-unit/final": {
+      "checkId": "chk-nsh-cli-tizen-unit",
+      "boundaryId": "s19-nsh-cli",
+      "phase": "final",
+      "batchId": "6cac72e913022ee5f4583b545127806b136c95d1849ba2b6763d2647924d3574",
+      "definitionHash": "ca5c6aa6ab5ec7d08fb1c33adda073935fbbd318077e5a65fd99be31bfcf30f3",
+      "basisHash": "e3f39c119b7e67c5d8194a8f9ea5f5c0538e43290087da261d20129b2feb0ca9",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 13,
+      "durationSeconds": 0.2342,
+      "recordedAt": "2026-11-10T17:14:57Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s19-nsh-cli-final-84531912cf86.log",
+      "logSha256": "eed6c6e893e0b91a04947a3d749c2479e0497cdeb9a1575cf24b9cb2031e7255",
+      "inputsHash": "e8e90fabc1744de1ca41ed5944e89759735c88246ab608d1138083f5929f4d19"
+    },
+    "s19-nsh-cli/chk-nsh-cli-tizen-rust/final": {
+      "checkId": "chk-nsh-cli-tizen-rust",
+      "boundaryId": "s19-nsh-cli",
+      "phase": "final",
+      "batchId": "6cac72e913022ee5f4583b545127806b136c95d1849ba2b6763d2647924d3574",
+      "definitionHash": "c8f4dc06de62d14cd144d52f2acf53cc140a505d008ddb14253a0511f46e9919",
+      "basisHash": "cff737c8e00dd1a6230b1082ad0421158c230fc6b6ba3c3e944a16d147525226",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 2,
+      "durationSeconds": 0.2325,
+      "recordedAt": "2026-11-10T17:14:58Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s19-nsh-cli-final-3960088844f5.log",
+      "logSha256": "b001dd4665d4512f3e11609e0e7cea303e7bdc7e4c1196a395403709294c7e0a",
+      "inputsHash": "e8e90fabc1744de1ca41ed5944e89759735c88246ab608d1138083f5929f4d19"
+    },
+    "s19-nsh-cli/chk-nsh-cli-tizen-test-host/final": {
+      "checkId": "chk-nsh-cli-tizen-test-host",
+      "boundaryId": "s19-nsh-cli",
+      "phase": "final",
+      "batchId": "6cac72e913022ee5f4583b545127806b136c95d1849ba2b6763d2647924d3574",
+      "definitionHash": "e3765d87d5cd045547cfad18d9f462c56ee1e2367409c8502c226746c54f7d47",
+      "basisHash": "75868d05e10bc49afd7be7784dd81c301b32cb9866511e4cdb2a6e31116638cf",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 1,
+      "durationSeconds": 0.2277,
+      "recordedAt": "2026-11-10T17:14:58Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s19-nsh-cli-final-9883f8deae25.log",
+      "logSha256": "e960080152dd5a7603a4bc4dbdd87e6dea1653878f58580ba016c28cd7f8f04f",
+      "inputsHash": "e8e90fabc1744de1ca41ed5944e89759735c88246ab608d1138083f5929f4d19"
+    },
+    "s19-nsh-cli/chk-nsh-cli-tizen-device/final": {
+      "checkId": "chk-nsh-cli-tizen-device",
+      "boundaryId": "s19-nsh-cli",
+      "phase": "final",
+      "batchId": "6cac72e913022ee5f4583b545127806b136c95d1849ba2b6763d2647924d3574",
+      "definitionHash": "6e749a539fe2a9159f4b04feb7191e217ca486ac0c1f39c1bb026da2512621c9",
+      "basisHash": "127725828e6256f9962d0ed3da8e357c559513b1e523625d0485e01967cdcedf",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 1,
+      "durationSeconds": 0.2161,
+      "recordedAt": "2026-11-10T17:14:58Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s19-nsh-cli-final-5f99a0ae1c77.log",
+      "logSha256": "631e70d20d1bcfd94b53cd5645eff987a9b18dd5667a9abb3ac40c4520672d1e",
+      "inputsHash": "e8e90fabc1744de1ca41ed5944e89759735c88246ab608d1138083f5929f4d19"
+    },
+    "s19-nsh-cli/chk-nsh-cli-tizen-symbols/final": {
+      "checkId": "chk-nsh-cli-tizen-symbols",
+      "boundaryId": "s19-nsh-cli",
+      "phase": "final",
+      "batchId": "6cac72e913022ee5f4583b545127806b136c95d1849ba2b6763d2647924d3574",
+      "definitionHash": "444c699a4e9a9ec489fb11121fc28034d0c351ca2858bd69ed3005925ae6a465",
+      "basisHash": "ffba9eb51bfce66286475e5c4196a3e109499e4c3e599d897c4cf0d0a3ee3a8e",
+      "status": "passed",
+      "exitCode": 0,
+      "testCount": 5,
+      "durationSeconds": 0.2182,
+      "recordedAt": "2026-11-10T17:14:58Z",
+      "messageMarkdown": "Expectation matched",
+      "logPath": "artifacts-temp/agentx/tizen-gpui-platform/s19-nsh-cli-final-f717ff2868f9.log",
+      "logSha256": "1abc551dfabf76bb6e3c1f8fb33a3e66bb5b0ae817812f4fc84c15531aa7e237",
+      "inputsHash": "e8e90fabc1744de1ca41ed5944e89759735c88246ab608d1138083f5929f4d19"
     }
   },
   "reviews": {
@@ -8434,6 +8626,369 @@
         "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "gpuitizen:docs/pr/**": "b5d40005f237a2602c368bbafd0b4edcbfdfb44db7e8929b8b8836dc6f7a6372"
       }
+    },
+    "s19-nsh-cli": {
+      "reviewerId": "reviewer-s19-independent",
+      "snapshotId": "6cac72e913022ee5f4583b545127806b136c95d1849ba2b6763d2647924d3574",
+      "criterionIds": [
+        "NCLI-1",
+        "NCLI-2",
+        "NCLI-3",
+        "NCLI-4",
+        "NCLI-5",
+        "NCLI-6",
+        "NCLI-7",
+        "NCLI-8"
+      ],
+      "verdict": "passed",
+      "anchors": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/package.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-1",
+            "NCLI-4"
+          ],
+          "sha256": "a497cab12f67a4bb3e5c26f3b18331326e2757b4ca813373c33deffe7368268f"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/run.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-1",
+            "NCLI-5"
+          ],
+          "sha256": "7ffd81d2d79f4693af9b1bfdc9886b50f695d3caefb7d15b2dcccbde295e121d"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/main.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-1",
+            "NCLI-4"
+          ],
+          "sha256": "fe8fb8752895f6a00484f66022a3dec87afbcf3d2e331eb01d63d651d13fb2b3"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen_web.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-1"
+          ],
+          "sha256": "cfe69f57e6cca5dd304346c50183828e5ecfa9f7288c18eba49ee4ae16a004ee"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-1",
+            "NCLI-4",
+            "NCLI-5",
+            "NCLI-6"
+          ],
+          "sha256": "6c3938e2c015d3da59cdfb7b8cb2fb4b59bf34a74defcc56eb007c520167ccc0"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/tests/cli/tizen.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NCLI-1",
+            "NCLI-4",
+            "NCLI-5"
+          ],
+          "sha256": "e9111365b8e5ed6121a1d60b26dc6756ad78809800f60523accce42ff82c5447"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/xtask/src/tizen.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-2"
+          ],
+          "sha256": "249119b5bf7964361f335d2b0255d53c3f304f7019b5ff0f3b26c473a2d9f0ff"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/xtask/src/tizen.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NCLI-2"
+          ],
+          "sha256": "249119b5bf7964361f335d2b0255d53c3f304f7019b5ff0f3b26c473a2d9f0ff"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/xtask/src/dist.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-2"
+          ],
+          "sha256": "f24ae8e07ee9171fe4d90d566317f03548e22a79400cd059a1d8bfdd227ed901"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/component.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-2"
+          ],
+          "sha256": "4d93398d975cf93ba05589847b57cb2dcdc0386abde5d9dea1aa2569967b37a9"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/component.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NCLI-2"
+          ],
+          "sha256": "4d93398d975cf93ba05589847b57cb2dcdc0386abde5d9dea1aa2569967b37a9"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/runtime.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-2",
+            "NCLI-6"
+          ],
+          "sha256": "0c30888536ae696f509f80eeebc55cdffd32a6f8a74ed2aa2c37052af489e0b6"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-dev/src/protocol.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-3"
+          ],
+          "sha256": "d7ec5c5e15237d2801c1ffb9fb2b4522f7361e01a511507c96d9aa3737223cdd"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-dev/src/protocol.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NCLI-3"
+          ],
+          "sha256": "d7ec5c5e15237d2801c1ffb9fb2b4522f7361e01a511507c96d9aa3737223cdd"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/dev.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-3"
+          ],
+          "sha256": "273bcee7ba543d5065e2c4f2ee8fc9b24ac59d2b5500ab233236b981624141c5"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-gpui/src/dev.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-3"
+          ],
+          "sha256": "85c5efc84c12b7cc992df94f770758c6c496521b4a84d549e736b268d59810b1"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/src/dev.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-3",
+            "NCLI-5"
+          ],
+          "sha256": "c163cdcb48f24442ba9e40bcbadc5083c09bfee351a519997badf1243b30026c"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NCLI-4",
+            "NCLI-5",
+            "NCLI-6",
+            "NCLI-7"
+          ],
+          "sha256": "6c3938e2c015d3da59cdfb7b8cb2fb4b59bf34a74defcc56eb007c520167ccc0"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/rust_app.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-6"
+          ],
+          "sha256": "ffbcc35d47f07d4a33922c64b2759ee1bedbf4718ec05e8068f19dde61c0bfde"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/rust_app.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NCLI-6"
+          ],
+          "sha256": "ffbcc35d47f07d4a33922c64b2759ee1bedbf4718ec05e8068f19dde61c0bfde"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/src/lib.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-6"
+          ],
+          "sha256": "e1d12408727b6ceb05441cd74953dc605b323611ea12ede261a88e2643943a86"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/test_tizen.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-7"
+          ],
+          "sha256": "b2d16c33859f6afd26a5992fa7441474760e5c515c3e5dfdab51823322ad5080"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/test_host.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-7"
+          ],
+          "sha256": "3e00d4f9cd1079d078c4ee5095db108791bababcedf6d3e8bb3fbcf8e38328a3"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/test_host.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NCLI-7"
+          ],
+          "sha256": "3e00d4f9cd1079d078c4ee5095db108791bababcedf6d3e8bb3fbcf8e38328a3"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "docs/dev/tizen.md",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-8"
+          ],
+          "sha256": "0e8a44849bfee2f87cee1b2b5420edce243aa95ea77275609bc6078518fddc6d"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "website/docs/tizen.md",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-8"
+          ],
+          "sha256": "d66b0cac7bcc67fcb901013e53ff03003d268634508817af0cb49fe4d263573a"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "website/zh-CN/docs/tizen.md",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-8"
+          ],
+          "sha256": "09654a43ecc5c1390aa101bf8681db1a2e137d879bb68b01caaa0377e91ff5bb"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "website/docs/project-structure.md",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-8"
+          ],
+          "sha256": "f5fff70f7e84cc617956e0fca88660b8dbeddf98b7fd339f6380f154443b63a3"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "website/zh-CN/docs/project-structure.md",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-8"
+          ],
+          "sha256": "bca7c38ae88aec85ef1f0dda50953cc488b6366d8ab37f81257397f92012380e"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "website/docs/cli.md",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-8"
+          ],
+          "sha256": "768ffbce4d3fdd45acbdc2b9ab5bbd7ce5552c28bb07498a3e507783b185855f"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "website/zh-CN/docs/cli.md",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-8"
+          ],
+          "sha256": "dc57c8f55871c62c1532ffdf2e5d61373b403e56ae0e64a2defa5490253c4d0e"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/Cargo.toml",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-6"
+          ],
+          "sha256": "3f0d762b184f4fbb747063276a2c9091a2240bd42b94ed62addc2f6be6dcdab7"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-6",
+            "NCLI-8"
+          ],
+          "sha256": "691be193da80b08638b4dc2fe36e88f20919c0859e6924b4a330e6b078114276"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen/symbols.rs",
+          "kind": "source",
+          "criterionIds": [
+            "NCLI-6"
+          ],
+          "sha256": "0b23b1fda0fbe244180f5d03a3abacc6cf87e8bad8d2b1d5e8dbda08f6b16fe8"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen/symbols.rs",
+          "kind": "test",
+          "criterionIds": [
+            "NCLI-6"
+          ],
+          "sha256": "0b23b1fda0fbe244180f5d03a3abacc6cf87e8bad8d2b1d5e8dbda08f6b16fe8"
+        }
+      ],
+      "summaryMarkdown": "**Passed.** All nine s19 findings are resolved and verified in source on `feat/tizen` b91fab916 (s19 scope `pr/tizen/07-cli` up to 55f2d6e7f; the s20/s21 content merged into feat/tizen is outside this review).\n\nThe last open finding, `f-s19-app-library-needs-dxn-checkout`, is fixed as d31 asks: the component ships dXn.GpuiTizen's `symbols.allow` beside the target specs and the CLI checks app libraries itself with a faithful port of dXn.GpuiTizen's `symcheck` (same constants and rules; libraries from the allowlist's headings), with 5 unit tests in `tizen::symbols::tests`; apps need no dXn.GpuiTizen checkout. A read-only spot check of the repair's real armv7 fixture app library under these rules found one export (`nsh_tizen_main`) and no import or needed library outside the policy.\n\nEarlier verdicts stand: one export by construction for app libraries; registry mode refused up front; one tested `open_sequence` for run and test with stop best-effort, reverse -> forward + relay, cleanup on failure, `nsh test --device`; store zip without x86_64; panic unwinding a justified, documented NSH deviation from dXn.GpuiTizen's profile rule; Public API recorded; hints fixed. Criteria NCLI-1..NCLI-8 hold; NCLI-8 docs confirmed (en, zh-CN).\n\nNon-blocking notes: `symbols.allow`, like the target specs before it, is copied from the dXn.GpuiTizen checkout's working tree rather than from the `rev` NSH pins, and the CLI's port of `symcheck` must follow future changes to dXn.GpuiTizen's rules by hand; both are worth a line when decisions are promoted. The two older failing tests remain outside s19's code paths. Nothing runs on a TV yet (owner sprint).",
+      "findingIds": [
+        "f-s19-app-library-extra-exports",
+        "f-s19-test-driver-open-sequence",
+        "f-s19-store-zip-includes-emulator",
+        "f-s19-registry-rust-apps-unresolvable",
+        "f-s19-run-sequence-not-executed",
+        "f-s19-tv-library-panic-strategy",
+        "f-s19-cross-hint-messages",
+        "f-s19-connect-dev-server-with-api-churn",
+        "f-s19-app-library-needs-dxn-checkout"
+      ],
+      "recordedAt": "2026-11-10T17:16:54Z",
+      "recordHashes": {
+        "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "gpuitizen:docs/pr/**": "b5d40005f237a2602c368bbafd0b4edcbfdfb44db7e8929b8b8836dc6f7a6372"
+      }
     }
   },
   "checkpoints": {
@@ -8651,6 +9206,17 @@
       },
       "reviewHash": "c1bafc682ae011d47e2d77fe84ed51b7c2605c3b152b8f3c6151dfdd3086894f",
       "recordedAt": "2026-11-10T16:11:49Z"
+    },
+    "s19-nsh-cli": {
+      "snapshotId": "6cac72e913022ee5f4583b545127806b136c95d1849ba2b6763d2647924d3574",
+      "commits": {
+        "gpuitizen": "d6adf51bab10b77aafd3f7e4814ca0e5f8e72500",
+        "gpui-fast": "e6ae34b9484cb050831aa9ab974fdd685e8800e3",
+        "wgpu": "4e3d80d5de97d1e66860f0f74fca92d50be70d4a",
+        "nsh": "b91fab91680661ba6e02ca9e19c483735761df65"
+      },
+      "reviewHash": "c64c6326fcc06af20c9a305198b3868ca2273fd49ca505009b12aabc2acadb39",
+      "recordedAt": "2026-11-10T17:16:55Z"
     }
   },
   "findings": [
@@ -10934,9 +11500,212 @@
           "symbol": "TizenApp::render_prompt"
         }
       ]
+    },
+    {
+      "id": "f-s19-app-library-extra-exports",
+      "boundaryId": "s19-nsh-cli",
+      "criterionIds": [
+        "NCLI-6"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** Every TV library exports exactly one symbol (epic constraint \"One export per TV library\"; dXn.GpuiTizen's `symcheck`/`store-check` SYS-3 fail any other global export), and the runtime build keeps `--check-symbols --entry nsh_tizen_main`.\n\n**Observed.** An app with Rust crates gets a `libnsh.so` built from `.nsh/rust/tizen/tizen-lib`, whose generated `lib.rs` invokes `nsh::ui_sets!` (and `nsh::root!`). `crates/gpui/nsh-platform-tizen/src/lib.rs` (1ca68cd89) defines those as `#[unsafe(no_mangle)] fn nsh_app_ui_sets` / `nsh_app_root`, and `nsh_tizen_main` finds them with `dladdr` + `dlopen(RTLD_NOLOAD)` + `dlsym`, which only works because they are in `.dynsym`. So by construction every app library with Rust crates exports three globals (`nsh_tizen_main`, `nsh_app_ui_sets`, optionally `nsh_app_root`); dXn.GpuiTizen's `cargo xtask store-check` on such a TPK would fail. `RustApp::tizen` / `build_tizen` also run no symbol check (nor the import allowlist check, nor `llvm-strip`) on the app's library, so nothing reports it; the commit message only notes that the *prebuilt* library still exports one symbol. d31 does not declare the constraint superseded.\n\n**Repair.** Register the app's sets/root without dynamic exports (e.g. a link-section/`.init_array` registration inside the single cdylib, or have `nsh-platform-tizen` expose an entry body the generated crate calls so only `nsh_tizen_main` is exported), then run the one-export + allowlisted-imports check on the CLI-built library (the nightly's `llvm-nm`, as dXn.GpuiTizen's `symcheck`) and strip it as `cargo xtask tizen` does. Add a test in `rust_app::tests::a_tizen*` / `tizen::tests` for the check's invocation. Alternatively obtain the owner's disposition amending the constraint for NSH app libraries.\n\n**Resolution (review 2).** Resolved by 5c22de690: `ui_sets!`/`root!` and the dladdr/dlsym lookup are gone; `nsh_tizen_main` of nsh-platform-tizen is behind the default feature `entry`; the generated `tizen-lib` depends on it with `default-features = false` and defines the one export (`nsh::set_ui_sets` then `nsh::main` / `nsh::run_rust`), with a compile-time `assert!(!nsh::ENTRY)`; `RustApp::tizen` runs dXn.GpuiTizen's `check-symbols --entry nsh_tizen_main` and strips with the nightly's `llvm-strip`. Tests: `rust_app::tests::a_tizen_workspace_takes_the_forks_and_defines_the_one_export` (exactly one `#[unsafe(no_mangle)]`), `tizen::tests::an_apps_library_is_checked_by_dxn_gpui_tizen_and_stripped`; runtime evidence `s19r-app-lib-cross.log`: an armv7 fixture app library \"symbols ok (exports only `nsh_tizen_main`)\". The new prerequisite this introduces is tracked separately as `f-s19-app-library-needs-dxn-checkout`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/rust_app.rs",
+          "symbol": "a_tizen_workspace_takes_the_forks_and_defines_the_one_export"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen.rs",
+          "symbol": "an_apps_library_is_checked_by_dxn_gpui_tizen_and_stripped"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/src/lib.rs",
+          "symbol": "ENTRY"
+        }
+      ]
+    },
+    {
+      "id": "f-s19-test-driver-open-sequence",
+      "boundaryId": "s19-nsh-cli",
+      "criterionIds": [
+        "NCLI-7"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** `nsh test --target tizen` installs and launches the runtime \"as `nsh run` does\" (NCLI-7).\n\n**Observed.** `test_tizen::start` runs every command of `open_sequence` with `sdb.run(..)?`, including the first one, `stop` (`0 kill` / `app_launcher -k`). `tizen::run_dev` deliberately ignores that step's failure (`let _ = sdb.run(&stop)`), as do `DevRun::drop` and `DeviceHost::drop`: stopping an app that is not running is expected to fail (non-zero status or an `error:` line, both of which `tizen::output` treats as failure). So the first `open` on a device where the development runtime is not running (the normal case after install) can fail the test before the runtime is launched. The test path also has no `sdb forward` fallback when `sdb reverse` is refused (which `nsh run` has, and whose availability on retail TVs is unverified per docs/dev/tizen.md \"Limits\"), and when two devices are connected the error tells the user to \"pick one with --device\", a flag `nsh test` does not have.\n\n**Repair.** Tolerate the stop step's failure in `start` (e.g. split `open_sequence` into the best-effort stop and the required map/launch steps, tested in `test_tizen::tests`); either fall back to `sdb forward` + relay as `run_dev` does or fail with a message naming the limitation; and add `--device` to `nsh test` for tizen (or word the error without it).\n\n**Resolution (review 2).** Resolved by 9244408df: `tizen::open_sequence` returns typed steps (`Step::Stop` best-effort, `Step::Reverse` with `sdb forward` + relay fallback, `Step::Launch` fatal) executed by `tizen::open` for both `nsh run` (`run_dev`) and each test `open` (`test_tizen::start`); what was mapped is recorded in `Opened` and removed by `close_sequence` on drop, also after a failed launch; the relay now stops with its `Relay` guard. `nsh test --device <serial>` exists for `--target tizen` and is refused for other targets. Tests: `tizen::tests::the_runtime_opens_as_its_sequence_says_each_step_with_its_failure_policy` (stop failing, reverse refused, launch failing), `test_host::tests::a_device_is_for_the_tizen_target_only`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen.rs",
+          "symbol": "the_runtime_opens_as_its_sequence_says_each_step_with_its_failure_policy"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/test_host.rs",
+          "symbol": "a_device_is_for_the_tizen_target_only"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/test_tizen.rs",
+          "symbol": "start"
+        }
+      ]
+    },
+    {
+      "id": "f-s19-store-zip-includes-emulator",
+      "boundaryId": "s19-nsh-cli",
+      "criterionIds": [
+        "NCLI-4"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** The multi-architecture `.zip` follows dXn.GpuiTizen's Seller Office conventions: `xtask/src/package/mod.rs` builds it from `STORE_TARGETS = [Armv7, Aarch64]` only (\"the TVs'; x86_64 is the emulator's\").\n\n**Observed.** `tizen::package` puts every requested architecture into `<package>-<version>.zip`, so `--arch armv7l,x86_64` (a natural choice when also testing on the emulator) produces a store upload containing the emulator's package; docs/dev/tizen.md and website/docs/tizen.md describe the zip as the upload without that caveat.\n\n**Repair.** Leave x86_64 out of the zip (still writing its TPK), or refuse/warn when it is in a multi-architecture request; cover it in `tests/cli/tizen.rs` `several_architectures_make_the_multi_architecture_upload` and say so in both docs.\n\n**Resolution (review 2).** Resolved by a5857a017: `Arch::in_store` (armv7l, aarch64, as dXn.GpuiTizen's `STORE_TARGETS`), `store_packages` filters the upload, x86_64 keeps its own four-part-versioned TPK and the command notes it is not in the upload; docs en + zh-CN updated. Tests: `tizen::tests::the_upload_takes_the_tvs_packages_not_the_emulators`, `tests/cli/tizen.rs` `several_architectures_make_the_multi_architecture_upload` (x86_64 requested, absent from the zip).",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen.rs",
+          "symbol": "the_upload_takes_the_tvs_packages_not_the_emulators"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/tests/cli/tizen.rs",
+          "symbol": "several_architectures_make_the_multi_architecture_upload"
+        }
+      ]
+    },
+    {
+      "id": "f-s19-registry-rust-apps-unresolvable",
+      "boundaryId": "s19-nsh-cli",
+      "criterionIds": [
+        "NCLI-6",
+        "NCLI-8"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Observed.** In registry mode (an installed `nsh`, no checkout) `tizen_workspace` writes `nsh-platform-tizen = { version = \"=<v>\" }`, but `crates/gpui/nsh-platform-tizen/Cargo.toml` is `publish = false` and docs/dev/tizen.md says it \"is not published ... it ships built\", so the build can only end in Cargo's \"no matching package\" error. website/docs/tizen.md and docs/dev/tizen.md (\"Apps with Rust crates\") instead say \"until it is on crates.io\", contradicting the Publishing paragraph.\n\n**Repair.** In `RustApp::tizen`, refuse registry mode up front with the documented hint (`nsh init --nsh-source <dir>`), tested in `rust_app::tests::a_tizen*`; make the docs (en and zh-CN) agree on whether the crate will be published.\n\n**Resolution (review 2).** Resolved by 5c22de690: `RustApp::tizen` refuses `Nsh::Registry` up front naming `nsh init --template rust --nsh-source <dir>`; docs no longer say the crate will be published. Test: `rust_app::tests::a_tizen_library_needs_a_checkout_of_nsh`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/rust_app.rs",
+          "symbol": "a_tizen_library_needs_a_checkout_of_nsh"
+        }
+      ]
+    },
+    {
+      "id": "f-s19-run-sequence-not-executed",
+      "boundaryId": "s19-nsh-cli",
+      "criterionIds": [
+        "NCLI-5"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Observed.** `run_sequence` (tested as stop, install, reverse, launch) is never executed in that form: `run_dev` installs first through `install_dev`, then calls `run_sequence(&sdb, None, port)` and pulls the steps out by position with `sequence.next()`. The tested function and the order on the device differ (install, stop, reverse, launch), and a change to `run_sequence`'s shape would silently mis-assign steps in `run_dev`.\n\n**Repair.** Have `run_dev` execute what a pure function returns (e.g. a sequence of typed steps with their failure policy: stop best-effort, reverse with forward fallback), and test that function with the order actually used.\n\n**Resolution (review 2).** Resolved by 9244408df: `run_dev` installs through `install_dev` and then executes exactly `open_sequence` through `tizen::open`; the tested function is the executed one (the `Bridge` trait with a recording fake in the test), so no step is picked by position any more.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen.rs",
+          "symbol": "open"
+        }
+      ]
+    },
+    {
+      "id": "f-s19-tv-library-panic-strategy",
+      "boundaryId": "s19-nsh-cli",
+      "criterionIds": [
+        "NCLI-2",
+        "NCLI-6"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** Epic constraint: TV libraries are built `panic = \"abort\"` (dXn.GpuiTizen's `[profile.release]`).\n\n**Observed.** Neither `cargo xtask tizen` (it builds `crates/gpui/Cargo.toml`, whose release profile has no `panic`) nor the generated `.nsh/rust/tizen/Cargo.toml` (`opt-level`, `lto`, `codegen-units` only) nor `tizen::cross_plan` sets it, so NSH's TV libraries unwind. NSH relies on `catch_unwind` in `nsh-core`/`nsh-js`, so keeping unwinding may well be intended, but no design or disposition records the deviation.\n\n**Repair.** Either build the TV libraries with `panic = \"abort\"` (profile line / `--config profile.release.panic=\\\"abort\\\"`) or record the owner's disposition that NSH's Tizen libraries keep unwinding, and say so in docs/dev/tizen.md.\n\n**Resolution (review 2).** Resolved as a justified, documented deviation (7cb4e3fb2: docs/dev/tizen.md \"Panics\", the crate README). The `panic = \"abort\"` rule is dXn.GpuiTizen's (its `[profile.release]`; the epic constraint bullet names its entry, `dxn_gpui_tizen_main`), while NSH, a separate repository, keeps unwinding on every native platform and depends on `catch_unwind` for documented behavior: verified call sites in `nsh-core` (`element/reactive.rs`, `component.rs`, `class.rs`, `module.rs`, `svg/mod.rs`, `runtime/websocket.rs`), `nsh-js` (`classes.rs`, `components.rs`, `host.rs`) and `nsh-engine` (`host_channel.rs`). Forcing abort only on Tizen would turn recoverable component/op failures into app exits there, a platform divergence NSH's rules avoid. Safety at the FFI edge is unchanged: a panic reaching `extern \"C\"` (`nsh_tizen_main`, Ecore callbacks) aborts (Rust >= 1.81), and dXn.GpuiTizen's symbol check passes with the unwinder's `libgcc_s` imports (runtime and fixture logs). This does not need a blocking owner decision; recommended (non-blocking) for the coordinator: when promoting decisions after the epic, state that the constraint's `panic = \"abort\"` applies to dXn.GpuiTizen's own TV libraries and that NSH's keep unwinding, so later reviews do not re-raise it.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "docs/dev/tizen.md"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/nsh-platform-tizen/README.md"
+        }
+      ]
+    },
+    {
+      "id": "f-s19-cross-hint-messages",
+      "boundaryId": "s19-nsh-cli",
+      "criterionIds": [
+        "NCLI-6",
+        "NCLI-8"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Observed.** `tizen::cross_command`'s two install hints contain a run of 14 spaces inside the string literal (a lost `\\` line continuation): \"...with the Tizen SDK's              package manager...\" and \"...GCC 9.2 toolchain: install it              (`package-manager-cli ...`\". They (and website/docs/tizen.md) also name `package-manager-cli install <pkg>`, while dXn.GpuiTizen's docs/setup.md gives `~/tizen-studio/package-manager/package-manager-cli.bin install --accept-license <pkg>`.\n\n**Repair.** Use `\\` continuations; give the command as setup.md does (en and zh-CN).\n\n**Resolution (review 2).** Resolved by 5c22de690: the hints no longer contain the run of spaces and give `package-manager-cli.bin install --accept-license <pkg>` as dXn.GpuiTizen's docs/setup.md does. Test: `tizen::tests::the_sdk_hints_give_the_package_managers_command`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen.rs",
+          "symbol": "the_sdk_hints_give_the_package_managers_command"
+        }
+      ]
+    },
+    {
+      "id": "f-s19-connect-dev-server-with-api-churn",
+      "boundaryId": "s19-nsh-cli",
+      "criterionIds": [
+        "NCLI-3"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "**Observed.** `AppView::connect_dev_server_with` is new public API of `pr/tizen/06-module` (affb03293, 3 arguments); `pr/tizen/07-cli` (5cea54e4b) adds a `platform` parameter. If 06 lands (or is released) before 07, 07 is a breaking change of a published signature; nothing in the branch records it as a Public API change.\n\n**Repair.** Record the signature change under the 07 PR text's `## Public API` (and that 06's form is superseded), or carry the `platform` parameter into 06 with a new commit there (no rebase) so the API is introduced once.\n\n**Resolution (review 2).** Resolved by 7cb4e3fb2: docs/dev/tizen.md \"Public API\" records `AppView::connect_dev_server_with(url, transport, platform, cx)` superseding 06's three-argument form (no release carries it; the two branches land together), and gpui.md names the parameters.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "docs/dev/tizen.md"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "docs/dev/gpui.md"
+        }
+      ]
+    },
+    {
+      "id": "f-s19-app-library-needs-dxn-checkout",
+      "boundaryId": "s19-nsh-cli",
+      "criterionIds": [
+        "NCLI-6",
+        "NCLI-8"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "**Expected.** Design `d31-nsh-platform-tizen`: \"The CLI cross builds through the Tizen target specs shipped in the component, so apps never need this repository's checkout\" (dXn.GpuiTizen's). The design does not declare this superseded.\n\n**Observed.** Since 5c22de690, `RustApp::tizen` fails without a dXn.GpuiTizen checkout (`tizen::dxn_gpui_tizen`: `DXN_GPUI_TIZEN`, else `<nsh checkout>/../dXn.GpuiTizen` with an `xtask/` directory) because the app library's symbol check runs `cargo xtask check-symbols` there; website/docs/tizen.md (en, zh-CN) now lists the checkout as a requirement for apps with Rust crates. The check itself is right (it is what made `f-s19-app-library-extra-exports` verifiable), and Rust-crate apps already need an nsh checkout, but a second repository's checkout for app developers is exactly what d31 rules out, and it couples every app build to that checkout's state (its `symbols.allow` and xtask at whatever commit it is on, not the `rev` NSH pins).\n\n**Repair (either).** (a) Ship what the check needs with the `tizen` component (dXn.GpuiTizen's `symbols.allow` beside the target specs in `runtime/tizen/targets/`, copied by `cargo xtask tizen` / `dist` like the specs) and run the one-export / no-weak / allowlisted-imports check in the CLI with the nightly's `llvm-nm`/`llvm-readobj` (`llvm-tools` is already required for `llvm-strip`), tested in `tizen::tests` against fixture `nm` output and covered by `component::tests::tizen*`; or (b) amend d31 (a recorded decision, owner-visible) to accept the dXn.GpuiTizen checkout as a prerequisite for Rust-crate apps until the check ships with the component, and keep the docs as they are.\n\n**Resolution (review 3).** Resolved by 55f2d6e7f: `cargo xtask tizen` copies dXn.GpuiTizen's `crates/dxn_gpui_tizen_sys/symbols.allow` into the runtime's `targets/` (`target_copies`), `dist` and the `tizen` component carry it (`runtime/tizen/targets/symbols.allow`), and `RustApp::tizen` checks each app library itself with `tizen::symbols::check_library` (the nightly's `llvm-nm -D --defined-only/--undefined-only` and `llvm-readobj --needed-libs`): exactly one non-weak export `nsh_tizen_main`, no weak exports, imports only of the allowlist, `GLIBC_*`/`GCC_*`-versioned symbols or the loader's unversioned weak ones, and `DT_NEEDED` only glibc's, `libgcc_s`, the loader or the Tizen libraries the allowlist's `# lib<name>.so` headings name. The rules and constants match dXn.GpuiTizen's `xtask/src/symcheck/mod.rs` line for line (`SYSTEM_VERSION_PREFIXES`, `LOADER_WEAK_IMPORTS`, `SYSTEM_LIBRARIES`, `library_allowed`, the export loop); the only structural difference, libraries from the headings instead of `DECLARED_SYMBOLS` link names, matches today's allowlist (12 headings covering every Tizen library the fixture needs). `DXN_GPUI_TIZEN`, `dxn_gpui_tizen()` and `symbol_check` are gone from nsh-cli; it remains only for NSH's own runtime build (maintainers). A component without the allowlist is refused with how to replace it (`runtime::tizen_targets`). Docs en + zh-CN no longer list the checkout. Tests: `tizen::symbols::tests` (5: allowlist parsing, nm/readobj parsing, pass case, extra/weak/missing export, undocumented imports and libraries), `xtask tizen::tests::the_targets_take_the_specs_and_the_symbol_allowlist`, the dist and component tests with `symbols.allow`. Reviewer spot check (read-only, no build): the armv7 fixture app library from the repair (`target-tizen-os/.../libnsh_app_tvfix_native_tizen_lib.so`) under these rules: defined exports `nsh_tizen_main` only; 340 imports, 0 outside the policy; 18 needed libraries, 0 outside it, so the port raises no false positives on a real library.",
+      "regressionRefs": [
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/tizen/symbols.rs",
+          "symbol": "check_library"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/rust_app.rs",
+          "symbol": "tizen"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/xtask/src/tizen.rs",
+          "symbol": "target_copies"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/nsh-cli/src/runtime.rs",
+          "symbol": "tizen_targets"
+        }
+      ]
     }
   ],
-  "handoffMarkdown": "NTZ-9: release and dev cdylibs for armv7, x86_64, aarch64 export only nsh_tizen_main (xtask cross --with-dev-variant --check-symbols; xtask finds libnsh.so by package, TV C with -DZSTD_TRACE=0).",
+  "handoffMarkdown": "docs/dev/tizen.md (both targets, CLI, testing, limits), nsh.json table, website Tizen page and CLI/platforms/installation tables (en, zh-CN); 22c48fe78 crate README.",
   "protectedPaths": {
     "gpuitizen": {
       "gpuitizen:.agentx/memory/**": "94784ab15131a5a4ff6827a67fa677677a923e04a068e1e4335659b7b6e5c11e"

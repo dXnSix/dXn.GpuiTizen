@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 46,
+  "revision": 49,
   "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
   "repositories": [
     {
@@ -2445,7 +2445,8 @@
         "test",
         "-p",
         "xtask",
-        "--lib",
+        "--bin",
+        "xtask",
         "tizen::tests"
       ],
       "expected": {
@@ -2471,7 +2472,8 @@
         "test",
         "-p",
         "nsh-cli",
-        "--lib",
+        "--bin",
+        "nsh",
         "component::tests::tizen"
       ],
       "expected": {
@@ -3601,6 +3603,142 @@
         "Cargo.lock"
       ],
       "descriptionMarkdown": "`nsh/tizen`'s TypeScript declarations.",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-cli-tizen-unit",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "NCLI-4",
+        "NCLI-5"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-cli",
+        "--bin",
+        "nsh",
+        "tizen::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "TPK staging, the manifest from `nsh.json`, signing refused without a profile, the `sdb` command sequence (install once per build, `sdb reverse` then `sdb forward`).",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-cli-tizen-rust",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "NCLI-6"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-cli",
+        "--bin",
+        "nsh",
+        "rust_app::tests::a_tizen"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "The generated `.nsh/rust/tizen` workspace.",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-cli-tizen-test-host",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "NCLI-7"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-cli",
+        "--bin",
+        "nsh",
+        "test_host::tests::tizen"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "`nsh test --target tizen`'s driver setup.",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-cli-tizen-device",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "NCLI-7"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-cli",
+        "--bin",
+        "nsh",
+        "test_host::tests::a_device_is_for_the_tizen_target_only"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "`nsh test --device` is for `--target tizen` only (finding `f-s19-test-driver-open-sequence`).",
+      "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-nsh-cli-tizen-symbols",
+      "repositoryId": "nsh",
+      "kind": "test",
+      "criterionIds": [
+        "NCLI-6"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "nsh-cli",
+        "--bin",
+        "nsh",
+        "tizen::symbols::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/**",
+        "Cargo.lock"
+      ],
+      "descriptionMarkdown": "The CLI checks an app's Tizen library against the component's `symbols.allow` (one export, no weak exports, allowlisted imports), so apps need no dXn.GpuiTizen checkout (finding `f-s19-app-library-needs-dxn-checkout`).",
       "timeoutSeconds": 3600
     }
   ],
@@ -5496,7 +5634,12 @@
         "chk-nsh-cli-tizen",
         "chk-nsh-cli-runtime",
         "chk-nsh-component",
-        "chk-nsh-hostplatform"
+        "chk-nsh-hostplatform",
+        "chk-nsh-cli-tizen-unit",
+        "chk-nsh-cli-tizen-rust",
+        "chk-nsh-cli-tizen-test-host",
+        "chk-nsh-cli-tizen-device",
+        "chk-nsh-cli-tizen-symbols"
       ],
       "tasks": [
         {
@@ -5556,7 +5699,8 @@
             "t19-runtime"
           ],
           "checkIds": [
-            "chk-nsh-cli-tizen"
+            "chk-nsh-cli-tizen",
+            "chk-nsh-cli-tizen-unit"
           ]
         },
         {
@@ -5574,7 +5718,11 @@
             "t19-package-run"
           ],
           "checkIds": [
-            "chk-nsh-cli-tizen"
+            "chk-nsh-cli-tizen",
+            "chk-nsh-cli-tizen-rust",
+            "chk-nsh-cli-tizen-test-host",
+            "chk-nsh-cli-tizen-device",
+            "chk-nsh-cli-tizen-symbols"
           ],
           "sourceRefs": [
             {
