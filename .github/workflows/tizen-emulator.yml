@@ -8,7 +8,8 @@ name: Tizen emulator
 #   TIZEN_AUTHOR_P12, TIZEN_DISTRIBUTOR_P12   the certificates, base64-encoded .p12 files
 #   TIZEN_AUTHOR_PASSWORD, TIZEN_DISTRIBUTOR_PASSWORD
 #   TIZEN_PROFILES_XML   a profiles.xml naming a profile `ci`, with @CERT_DIR@, @AUTHOR_PASSWORD@ and
-#                        @DISTRIBUTOR_PASSWORD@ where the paths and passwords go
+#                        @DISTRIBUTOR_PASSWORD@ where the paths and passwords go; the job writes the
+#                        certificates as @CERT_DIR@/author.p12 and @CERT_DIR@/distributor.p12
 on:
   workflow_dispatch:
   schedule:

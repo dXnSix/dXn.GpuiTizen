@@ -143,7 +143,7 @@ diag pull` and uploads the report and the emulator's logs. It needs these reposi
 | --- | --- |
 | `TIZEN_AUTHOR_P12`, `TIZEN_DISTRIBUTOR_P12` | the author and distributor certificates, base64-encoded `.p12` files |
 | `TIZEN_AUTHOR_PASSWORD`, `TIZEN_DISTRIBUTOR_PASSWORD` | their passwords |
-| `TIZEN_PROFILES_XML` | a `profiles.xml` with a profile named `ci`, with `@CERT_DIR@` where the certificates' directory goes and `@AUTHOR_PASSWORD@` / `@DISTRIBUTOR_PASSWORD@` where the passwords go |
+| `TIZEN_PROFILES_XML` | a `profiles.xml` with a profile named `ci`, with `@CERT_DIR@` where the certificates' directory goes (the job writes them there as `author.p12` and `distributor.p12`, so the profile names `@CERT_DIR@/author.p12` and `@CERT_DIR@/distributor.p12`) and `@AUTHOR_PASSWORD@` / `@DISTRIBUTOR_PASSWORD@` where the passwords go |
 
 Both workflows install the Tizen SDK CLI with `--accept-license`: running them is the owner's acceptance of Samsung's
 SDK licence on the runner. The emulator's distributor certificate must allow it (Samsung's public distributor
