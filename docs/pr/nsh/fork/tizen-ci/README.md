@@ -3,12 +3,12 @@
 | | |
 |---|---|
 | Fork PR | not opened to `dXnSix/nsh` `main` (never to `longbridge/nsh`). Its CI runs on `feat/tizen` in the draft dXnSix/nsh#191, against `ci/tizen-base` (`8c733731f`), labelled `ci:tizen` and `ci:tizen-emulator`: CI only, never merged |
-| Branch | `fork/tizen-ci`, head `413e9a8f4`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-ci` |
+| Branch | `fork/tizen-ci`, head `d5ddb90c2`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-ci` |
 | Base | `8c733731f`, which the fork's `main` holds (`origin/main` `8c8f96971`, 2026-11-10, not fetched since, is 707 commits on and merges the branch without conflict: `git merge-tree`). Recreated on `8c733731f` for the epic; not rebased since, and a fork branch merges, it is not rebased. Against `upstream/main` `c16a70096` it also merges cleanly |
-| Size | 1 file, +258: `.github/workflows/fork-tizen.yml` (new) |
-| Its commits | `7f6f6e49e` fork: Check the Tizen targets in a workflow of their own; `5018781f1` fork: Run the Tizen checks for the merge queue too; `6c94f6c73` ci: Give the fork's Tizen jobs the web toolchain and a steadier emulator; `138e51e1e` ci: Run the TV idiom's specs on the GPUI host and as a Tizen web app; `6dc91f475` ci: Take the forks from crates/gpui's git patch and boot the TV emulator the way that works; `413e9a8f4` ci: Keep one label's Tizen run from cancelling another's |
+| Size | 1 file, +261: `.github/workflows/fork-tizen.yml` (new) |
+| Its commits | `7f6f6e49e` fork: Check the Tizen targets in a workflow of their own; `5018781f1` fork: Run the Tizen checks for the merge queue too; `6c94f6c73` ci: Give the fork's Tizen jobs the web toolchain and a steadier emulator; `138e51e1e` ci: Run the TV idiom's specs on the GPUI host and as a Tizen web app; `6dc91f475` ci: Take the forks from crates/gpui's git patch and boot the TV emulator the way that works; `413e9a8f4` ci: Keep one label's Tizen run from cancelling another's; `d5ddb90c2` ci: Give the TV specs' GPUI host the system libraries gpui.yml installs |
 | Text | [PR.md](PR.md) |
-| In `feat/tizen` | yes (merges `e9936e8fb`, `edd1ab524`, `e1cda4852`) |
+| In `feat/tizen` | yes (merges `e9936e8fb`, `edd1ab524`, `e1cda4852`, …, `5e51c6411`) |
 | Review findings | s21's (`review-s21.json` failed with 12, `review-s21-2.json` left 2 open, `review-s21-3.json` passed at snapshot `24e1a6df` with all 13 resolved; the sprint is checkpointed). This branch's: `f-s21-tizen-web-toolchain` (major: `tv-specs` built the wasm32 web runtime without the target or `llvm-ar`) and `f-s21-apt-masked` (minor: the `chromium-browser` install, its failure masked, hid any failed package) by `6c94f6c73`; `f-s21-emulator-boot` (minor) by `6c94f6c73`, an Xvfb of the job's own and a wait until `sdb shell echo ready` answers, with the emulator's log printed `if: always()`; `f-s21-fork-ci-docs` (minor), NSH's half by `6c94f6c73`: the header names the five `TIZEN_*` secrets, `author.p12` / `distributor.p12` under `@CERT_DIR@`, the repositories the token must read and the licence acceptance, `profiles.xml` is `0600`, runs are grouped per event so a push never cancels a manual emulator run, and the new commits use `ci:` (dXn.GpuiTizen's half: `d374b9a`); `f-s21-gpui-spec-not-tv-idiom` (major) by `pr/tv/03-dev-idiom`'s `nsh test --idiom` and `tests/apps/tv-idiom`, which `138e51e1e` runs; `f-s21-tv-specs-unchecked` (minor): every `tv-specs` command now has a local check (`chk-nsh-tv-idiom-gpui`, `chk-nsh-tv-idiom-tizen-web`, `chk-nsh-test-tizen-web`). dXn.GpuiTizen's own (`f-s21-yes-pipefail`, `-yaml-checker-no-duplicates`, `-emulator-launch`, `-sdk-cache-key`, `-tv-emulator-packages`, `-cross-cache-key`, `-plan-leftovers`) are in `5415b4a` and `d374b9a`; the SDK action this workflow uses (`.github/actions/tizen-sdk`) is among them |
 | Needs | on the fork's `main`: `nsh-platform-tizen`, the Tizen CLI targets and `cargo xtask tizen` (the `pr/tizen/*` and `pr/tizen-web/*` branches), and `pr/tv/03-dev-idiom`; until then it runs on `feat/tizen` in dXnSix/nsh#191. For the emulator job's spec, the Samsung signing secrets, from a certificate whose distributor lists the TV emulator's DUID `XTCJYJZXZBZVK` (the owner's, at the end of the epic); without them the job boots the emulator and skips the spec |
 
@@ -51,8 +51,18 @@ s21's final check (`check-s21.json`, revision 351): 7 passed, 3 run and 4 reused
 workflow: `chk-nsh-ci-paths` names `nsh-platform-tizen` only with `pr/tizen/04-platform`'s `paths.py` and crate, and the
 three `nsh test` checks need `pr/tv/03-dev-idiom` (`--idiom`, `tests/apps/tv-idiom`), `pr/focus/02-gpui` and
 `pr/focus/03-desktop-stops` (the arrows on GPUI, `tests/apps/pressable-focus`) and `pr/tizen-web/01-package` (`--target
-tizen-web`): they run on `feat/tizen` only. The real check is the workflow's first run on the fork, after the
-dependencies above are in place (the owner's s23–s25).
+tizen-web`): they run on `feat/tizen` only.
+
+## Runs on the fork (`CI-3`, NSH part)
+
+On dXnSix/nsh#191 (`feat/tizen`, labelled `ci:tizen` and `ci:tizen-emulator`):
+
+| Run | `feat/tizen` | Result |
+|---|---|---|
+| 42943752989, 42943763914 (first attempts) | `696b30f19` | `cross` (all three) and `emulator` failed checking out `dXnSix/dXn.GpuiTizen`, then private, with the job's token (`Not Found`); `tv-specs` failed building the GPUI host: `glib-2.0` not found. The owner made dXn.GpuiTizen public, and `d5ddb90c2` installs `gpui.yml`'s system libraries in `tv-specs`. The second attempts were cancelled for the new head |
+| 42944522991 | `5e51c6411` | all five jobs passed, 2026-11-11: `cross (armv7)`, `cross (x86_64)`, `cross (aarch64)` (release and dev `nsh-platform-tizen`, one export each, TV clippy), `tv-specs` (the TV idiom on the GPUI host and as a Tizen web app, the counter), and `emulator` boot-only: without the Samsung secrets it warned, booted the TV emulator (`cpu_arch:x86_64`, `platform_version:10.0`) and skipped the x86_64 runtime and the counter's spec |
+
+The counter's spec on the emulator is left for the Samsung certificate, with the TV work (`s25-owner-devices`).
 
 ## Opening (fork PR)
 

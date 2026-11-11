@@ -1,8 +1,8 @@
 # The TV emulator on CI
 
 How `.github/workflows/tizen-emulator.yml` runs the Samsung TV emulator on a GitHub-hosted runner, what it needs
-from GitHub and the owner, and what each step works around. The NSH fork's emulator job (`fork-tizen.yml`,
-`tv-specs` with `emulator: true`) has the same needs. Results of the runs go in
+from GitHub and the owner, and what each step works around. The NSH fork's `emulator` job
+(`fork-tizen.yml`) has the same needs. Results of the runs go in
 [`verification/tizen-devices.md`](verification/tizen-devices.md) (`CI-3`).
 
 ## What the job does
@@ -40,9 +40,9 @@ Each step and the problem it solves:
 
   Starting it is the owner's acceptance of Samsung's SDK licence on the runner (`--accept-license`). The agent
   starts it on the owner's standing go.
-- **Minutes.** `dXnSix/dXn.GpuiTizen` is private, so runs count against the account's Actions minutes. One run takes
-  about 10 minutes until the boot, at most 20 minutes of boot and its logs, and a few minutes after. The job's
-  limit is 90 minutes. If minutes run short, remove the weekly `schedule` and keep the manual trigger.
+- **Minutes.** `dXnSix/dXn.GpuiTizen` is public, so standard GitHub-hosted runners cost no Actions minutes. One run
+  takes about 10 minutes until the boot, at most 20 minutes of boot and its logs, and a few minutes after. The
+  job's limit is 90 minutes.
 - **Cache.** `tizen-sdk` caches `~/tizen-studio` per package list. With the emulator packages that is several GB of
   the repository's 10 GB cache. GitHub evicts the oldest entries itself.
 
@@ -136,8 +136,10 @@ package. It launches with `sdb shell 0 execute <app id>`.
 
 ## The NSH fork's emulator job
 
-`fork-tizen.yml` on `dXnSix/nsh` `fork/tizen-ci` uses this repository's `.github/actions/tizen-sdk`, so it gets
-the SDK fix. Its emulator job still writes a `profiles.xml` with plain passwords, which can't sign. It needs the
-steps above: Xvfb with GLX before `em-cli create`, readiness by `sdb capability`, `tz security-profiles add` with
-the keyring, and installing with `vd_appinstall`. That change belongs on `fork/tizen-ci`, and it can only pass
-once the Samsung certificate exists.
+`fork-tizen.yml` on `dXnSix/nsh` `fork/tizen-ci` uses this repository's `.github/actions/tizen-sdk` and the same
+steps: free disk space, Xvfb with GLX before `em-cli create`, readiness by `sdb capability`, and `tz
+security-profiles add` in the keyring. It checks this repository out with the job's token, which works because
+`dXnSix/dXn.GpuiTizen` is public. It runs by hand (`emulator: true`, once the workflow is on the fork's `main`) or on
+a pull request labelled `ci:tizen-emulator`. With the Samsung secrets on `dXnSix/nsh` it builds the x86_64 runtime
+and runs `nsh test examples/counter --target tizen`. Without them it boots the emulator and skips the spec, as in
+run 42944522991 on dXnSix/nsh#191.

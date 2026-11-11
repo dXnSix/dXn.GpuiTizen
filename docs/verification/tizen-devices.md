@@ -74,7 +74,17 @@ prerequisite check (tried in the `gpuitizen` VM on Ubuntu 24.04). On that PR, ev
 `CI-3`, emulator part, recorded as a failure: the emulator boots on a hosted runner, but installing needs the
 owner's Samsung certificate with the emulator's DUID (`docs/development_setup.md`, sections 2 and 5). It's
 deferred with the TV work to `s25-owner-devices`. Without the secrets, the job now boots the emulator and skips the
-install with a warning. The NSH fork's emulator job needs the same steps (`docs/ci-emulator.md`, last section).
+install with a warning.
+
+The NSH fork's `fork-tizen.yml` (`fork/tizen-ci`) runs on `feat/tizen` in the draft dXnSix/nsh#191, labelled
+`ci:tizen` and `ci:tizen-emulator`:
+
+| Run | `feat/tizen` | Result |
+| --- | --- | --- |
+| 42943752989, 42943763914 | 696b30f19 | `cross` and `emulator` could not check out `dXnSix/dXn.GpuiTizen`, then private, with the job's token; `tv-specs` lacked the GPUI host's system libraries (`glib-2.0` not found). The owner made dXn.GpuiTizen public, and `fork/tizen-ci` `d5ddb90c2` installs `gpui.yml`'s libraries |
+| 42944522991 | 5e51c6411 | all five jobs passed (2026-11-11): `cross` for armv7, x86_64 and aarch64 (`nsh-platform-tizen` release and dev, one export each, the TV clippy), `tv-specs` (the TV idiom on the GPUI host and as a Tizen web app, the counter), and `emulator` boot-only (`cpu_arch:x86_64`, `platform_version:10.0`; the counter's spec skipped without the Samsung secrets) |
+
+`CI-3`, NSH part: passed, except the counter's spec on the emulator, which waits for the same Samsung certificate.
 
 Found while preparing the certificates (`docs/development_setup.md`): `cargo xtask package --sign` could never sign,
 because `tz pack` rejects a plain directory ("is not a valid project"). It now zips the staged tree and re-signs it

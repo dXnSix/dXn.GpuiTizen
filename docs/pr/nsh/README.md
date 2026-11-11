@@ -26,7 +26,8 @@ docs/pr/nsh/<area>/issue*.md      the issues that come before the area's PRs
 
 Every branch is **pushed to `dXnSix/nsh`** (2026-11-10), and none is opened upstream. The branch READMEs list the heads
 on `origin` as of 2026-11-11. `feat/tizen` runs the fork's Tizen CI in the draft dXnSix/nsh#191, against
-`ci/tizen-base` (`8c733731f`): CI only, never merged ([fork/tizen-ci/README.md](fork/tizen-ci/README.md)).
+`ci/tizen-base` (`8c733731f`): CI only, never merged. All five of its Tizen jobs passed at `5e51c6411`, the emulator
+boot-only ([fork/tizen-ci/README.md](fork/tizen-ci/README.md#runs-on-the-fork-ci-3-nsh-part)).
 
 ## Where things are
 
