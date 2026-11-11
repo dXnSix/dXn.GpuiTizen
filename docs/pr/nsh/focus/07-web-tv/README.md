@@ -3,8 +3,10 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/focus/07-web-tv`, head `f69c8f57c`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-web-tv` |
+| Fork PR | dXnSix/nsh#200 (merge commit), into the fork's `main`, on the owner's go |
+| Branch | `pr/focus/07-web-tv`, head `eb64d0a7f`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-web-tv` |
 | Base | `pr/focus/04-tv` at its head (`a662232f0`, merged in by `f69c8f57c`) with `pr/focus/05-web` merged in (`0bd2092b9`); on `upstream/main` `41100f2bf`. Against `c16a70096` it has 04's and 05's conflicts (`nsh-platform-gpui`'s `input.rs`, `mount.rs`, `text_input.rs`; `nsh-core`'s `core/tests.rs`, `element/builder.rs`, `element/mod.rs`; `nsh-platform-web/web/nsh.js`; `docs/dev/web.md`; the website's web and view pages, English and zh-CN). Not rebased |
+| Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `f69c8f57c`: `c85812a08`, `eb64d0a7f` ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
 | Depends on | 04 and 05 merged |
 | Size | own: 12 files, +984 −92 (against the 04 and 05 it holds): `nsh-platform-web`'s `src/focus.rs` (+318 −62), `src/lib.rs` (+44: `nsh_focus_auto`, `nsh_focus_past`), `src/encode.rs`, `web/nsh.js` (+183 −27), the new `tests/text/focus_moves/tv.rs` (+288), `focus_moves.rs`, `web/browser/focus.test.mjs` (+181); `docs/dev/web.md`, the website's web and `FocusGroup` pages (English and zh-CN). With 01, 02, 04 and 05: 67 files, +7512 −362 |
 | Its commits | (merge `0bd2092b9` of 05); `6f396c490` web: Honor the TV's focus props and focus groups; (merge `f69c8f57c` of 04, whose conflict in `website/elements/index.md` and its zh-CN page took 04's wording of "Arrow keys and TVs") |

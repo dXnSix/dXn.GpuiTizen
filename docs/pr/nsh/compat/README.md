@@ -7,8 +7,10 @@ of that PR's text, as nsh-root's rules ask. Each builds against NSH checkouts wi
 
 ## The PRs, in order
 
-All in the local clone `/Users/dinko/work-private/projects/dXn/nsh-compat`, not pushed; their heads have not moved
-since s16. Each is cut from `578f574` (#40, 2026-11-10). `origin/main` is `ab2670a` (#45, "compat: Name the `touch`
+All in the local clone `/Users/dinko/work-private/projects/dXn/nsh-compat`, not pushed. On 2026-11-11 each merged
+nsh-compat's `origin/main` `714e6fd` (#48), which has #45's `TouchPoint::pointer_type` that NSH's `main` now needs
+(`build.rs`'s `rustc-check-cfg` lists kept both sides), and `nsh-tizen` merged the three again (`d576912`); before that
+their heads had not moved since s16. The text below is as of 2026-11-10. Each is cut from `578f574` (#40, 2026-11-10). `origin/main` is `ab2670a` (#45, "compat: Name the `touch`
 step's pointer a finger", 2026-11-10 22:58 +0800; fetched 2026-11-10 19:30 CET), one commit on; all three branches
 merge onto it without conflict (`git merge-tree`). Rebase before opening. Sizes against `578f574`.
 

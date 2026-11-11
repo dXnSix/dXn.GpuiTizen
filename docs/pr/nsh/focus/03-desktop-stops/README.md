@@ -3,8 +3,10 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/focus/03-desktop-stops`, head `8d563c338`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-desktop` |
+| Fork PR | dXnSix/nsh#198 (merge commit), into the fork's `main`, on the owner's go |
+| Branch | `pr/focus/03-desktop-stops`, head `21b962ece`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-desktop` |
 | Base | `pr/focus/01-core` (`ce993fd21`), on `upstream/main` `41100f2bf`. Against `c16a70096` it conflicts in `docs/dev/elements.md` and `docs/dev/windows.md`; `nsh-platform-windows/src/text_input.rs` merges textually with #1475 (RichEdit text inputs) but must be rebuilt and checked. Not rebased |
+| Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `8d563c338`: `2168706bf`; then `21b962ece` windows: Keep a text's links in their place when Tab follows the overlays ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
 | Depends on | 01 merged; the desktop issue ([../issue-desktop-tab.md](../issue-desktop-tab.md)) answered: it changes Tab's order on macOS and Linux, Tab on Windows, and the arrows on all three |
 | Size | own: 36 files, +2501 −170: `nsh-platform-macos` (`focus.rs` +389 new, `input.rs`, `text_input.rs`, `view.rs`), `nsh-platform-linux` (`key_focus.rs` +855, `navigation.rs`, `scroll.rs`, `text_input.rs`), `nsh-platform-windows` (`focus.rs` +692 new, `input.rs`, `mount.rs`, `navigation.rs`, `surface.rs`, `text_input.rs`), `nsh-testing`'s headless keyboard, the app spec `tests/apps/pressable-focus/`, `AGENTS.md`, `docs/dev/{elements,linux,macos,windows}.md`, the website's forms-and-keyboard, linux, macos, windows and elements pages (English and zh-CN). With 01: 44 files, +3854 −464 |
 | Its commits | `9f79c06c4` macos: Move Tab through the stops in tree order; `07b9bd44f` linux: Move Tab through the stops in tree order; `4fdbdf9bb` windows: Stop Tab at pressables, in tree order; `0c6f760ad` windows: Move focus with the arrows through nsh_core::focus; `8332c5ba2` linux: Report a field's blur before the next view's focus; `07eec85a1` macos: Move focus with the arrows through nsh_core::focus; `48fed3f34` linux: Move focus with the arrows through nsh_core::focus; `8d563c338` windows: Name the app spec that checks the keyboard focus |

@@ -3,8 +3,10 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/tv/01-keys`, head `f908ff626`, pushed to `dXnSix/nsh` (checked out nowhere; `nsh-wt/tizen-engine` has `pr/tv/03-dev-idiom` now) |
+| Fork PR | none of its own: in dXnSix/nsh#197, dXnSix/nsh#201, dXnSix/nsh#202 (its stack tops'), into the fork's `main`, on the owner's go |
+| Branch | `pr/tv/01-keys`, head `7a5edc941`, pushed to `dXnSix/nsh` (checked out nowhere; `nsh-wt/tizen-engine` has `pr/tv/03-dev-idiom` now) |
 | Base | `upstream/main` `8c733731f` (#1135, 2026-11-09). Against `c16a70096` (161 commits on) it conflicts in `crates/nsh-platform-web/web/nsh.test.mjs`. Not rebased |
+| Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `f908ff626`: `7a5edc941` ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
 | Depends on | nothing |
 | Size | 22 files, +740 −27: `nsh-core/src/keymap.rs` (+306), `nsh-js/src/keymap.rs` (the TS names), `nsh-platform-gpui`'s `keys.rs` (+113), `keymap.rs`, `agent.rs`; `nsh-platform-web`'s `src/lib.rs`, `web/nsh.js`, `web/nsh.test.mjs`; `nsh-platform-linux`'s `agent.rs`, `keymap.rs`, `xtest.rs`; `nsh-platform-macos/src/agent.rs`; `nsh-platform-tui/src/app.rs`; `nsh-cli/src/test_web.rs`; compat case `modules/mod-keymap-tv.tsx`; `docs/dev/{elements,gpui,web}.md`; `website/modules/nsh.md` (English and zh-CN) |
 | Its commits | `99a05bf7b` keymap: Name the media and TV remote keys; `4e2fe610d` web: Map the media and TV remote keys, by Samsung TVs' key codes too; `2b8bc88a9` gpui: Map the Tizen platform's TV remote key names; `b8bc8dee1` macos: Fail clearly on the media and TV remote keys in the test agent; `c621bc72b` web: Read TV remote keys by Samsung's key codes whenever the TV idiom's key is unnamed; `f908ff626` gpui: Say the Tizen platform names Info `info`, with `xf86info` an alias |

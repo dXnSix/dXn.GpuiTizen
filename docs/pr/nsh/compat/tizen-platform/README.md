@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | PR | not opened (to `longbridge/nsh-compat`) |
-| Branch | `tizen-platform`, head `57754c4`, in `/Users/dinko/work-private/projects/dXn/nsh-compat`, not pushed (no fork yet) |
+| Branch | `tizen-platform`, head `c268493` (merges nsh-compat's `origin/main` `714e6fd`, 2026-11-11), in `/Users/dinko/work-private/projects/dXn/nsh-compat`, not pushed (no fork yet) |
 | Base | `tv-idiom` (`a5188f7`), on `578f574`; `origin/main` is `ab2670a` (#45, one commit on), onto which it merges without conflict. Not rebased |
 | Depends on | `tv-idiom` merged; then rebased so it holds only its two commits |
 | Size | own: 2 files, +20 −4 (`build.rs` +8: the `nsh_has_tizen` gate; `src/apps.rs`); with `tv-idiom`: 3 files, +31 −10 |

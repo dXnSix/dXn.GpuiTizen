@@ -3,8 +3,10 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/engine/01-wgpu-30`, head `c5a018805`, pushed to `dXnSix/nsh` |
+| Fork PR | dXnSix/nsh#194 (merge commit), into the fork's `main`, on the owner's go |
+| Branch | `pr/engine/01-wgpu-30`, head `176a2bd27`, pushed to `dXnSix/nsh` |
 | Base | `upstream/main` `8c733731f`. Against `c16a70096` it merges without conflict (`git merge-tree`), lockfiles included. Not rebased |
+| Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `c5a018805`: `176a2bd27` ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
 | Depends on | nothing |
 | Size | 6 files, +96 −322: `Cargo.toml` (`wgpu` and `naga` 29 → 30), `Cargo.lock`, `crates/gpui/Cargo.toml` (a comment), `crates/gpui/Cargo.lock` (−290: one wgpu stack instead of two), `crates/nsh-engine/src/shader.rs`, `shader_surfaces.rs` |
 | Its commits | `c5a018805` engine: Move the shader renderer to wgpu 30 |

@@ -3,8 +3,10 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/tizen-web/02-scrollend`, head `53670ef6a`, pushed to `dXnSix/nsh` |
+| Fork PR | dXnSix/nsh#195 (merge commit), into the fork's `main`, on the owner's go |
+| Branch | `pr/tizen-web/02-scrollend`, head `3c481859c`, pushed to `dXnSix/nsh` |
 | Base | `upstream/main` `8c733731f`. Against `c16a70096` it conflicts in `website/docs/web.md` and `website/zh-CN/docs/web.md`. Not rebased |
+| Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `53670ef6a`: `3c481859c` ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
 | Depends on | nothing |
 | Size | 5 files, +158 −4: `crates/nsh-platform-web/web/nsh.js` (+22 −1), the new `web/browser/scrollend.test.mjs` (+130), `docs/dev/web.md`, the website's web page (English and zh-CN) |
 | Its commits | `53670ef6a` web: End scrolls without scrollend |

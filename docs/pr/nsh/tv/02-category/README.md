@@ -3,8 +3,10 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/tv/02-category`, head `a8f7ad63c`, pushed to `dXnSix/nsh` |
+| Fork PR | none of its own: in dXnSix/nsh#196, dXnSix/nsh#201, dXnSix/nsh#202 (its stack tops'), into the fork's `main`, on the owner's go |
+| Branch | `pr/tv/02-category`, head `fc8dc6ea8`, pushed to `dXnSix/nsh` |
 | Base | `upstream/main` `8c733731f`. Against `c16a70096` it conflicts in `crates/nsh-core/src/prelude.rs` and `crates/nsh-platform-web/src/browser/engine.rs`. Not rebased |
+| Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `a8f7ad63c`: `fc8dc6ea8` ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
 | Depends on | nothing in NSH; nsh-compat [`tv-idiom`](../../compat/tv-idiom/) merged first (`platform android tv` in `tests/compat/cases/tv/script.txt`) |
 | Size | 42 files, +957 −106: `nsh-core` (`platform.rs`, `element/ambient.rs`, `js/host.rs`, `prelude.rs`), `nsh-js` (`declarations.rs`, `dom.rs`, `env.rs` and the new `env/tests.rs` +131, `host.rs`), `nsh-platform-web` (`src/lib.rs`, `src/browser/engine.rs`, `fixtures.rs`, `web/browser/{bootstrap,dom,environment}.js`, the new `web/browser/tv.test.mjs` +237, `web/index.html`, `web/nsh.js`), `nsh-base`'s new `tests/base/tv_props.rs` (+183), the compat domain `tests/compat/cases/tv/` (new), `docs/dev/{api-naming,compatibility,components,elements,js-modules,native-pipeline,web}.md`, the website's device-and-environment, platform-specific, web, elements index and `nsh` module pages (English and zh-CN) |
 | Its commits | `99ec7a52d` js: Add platform.tv, the tv prop group and the tv select key; `f2eccf9c3` web: Let the page set the TV idiom; `532345852` web: Check the TV idiom on the module itself in tv.test.mjs; `a8f7ad63c` js: Drop the host-prop platform `tv`, which no prop uses |

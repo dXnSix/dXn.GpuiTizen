@@ -3,8 +3,10 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/tizen/02-gpui-platform-optional`, head `c22f7a995`, pushed to `dXnSix/nsh` |
+| Fork PR | none of its own: in dXnSix/nsh#201, dXnSix/nsh#202 (its stack tops'), into the fork's `main`, on the owner's go |
+| Branch | `pr/tizen/02-gpui-platform-optional`, head `6e17f7993`, pushed to `dXnSix/nsh` |
 | Base | `upstream/main` `8c733731f`. Against `c16a70096` it conflicts in `website/zh-CN/docs/gpui.md`. Not rebased |
+| Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `c22f7a995`: `6e17f7993` ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
 | Depends on | nothing |
 | Size | 8 files, +35 −17: `nsh-platform-gpui`'s `Cargo.toml` (the `platform` feature), `src/app.rs`, `src/lib.rs`, `src/text.rs`; `nsh-gpui-host/Cargo.toml` (turns it on); `docs/dev/gpui.md`, the website's GPUI page (English and zh-CN) |
 | Its commits | `768864617` gpui: Make gpui_platform an optional default feature; `2f7eb1758` gpui: Let AppView's example compile without the platform feature; `c22f7a995` gpui: Format AppView's example |

@@ -24,10 +24,69 @@ docs/pr/nsh/<area>/issue*.md      the issues that come before the area's PRs
 | `tizen-web` | [tizen-web/README.md](tizen-web/README.md) | `pr/tizen-web/01-package` … `03-module` (three) | the `tizen` issue |
 | `fork` | [fork/README.md](fork/README.md) | `fork/tizen-ci` (a fork PR to `dXnSix/nsh` `main`, never upstream) | – |
 
-Every branch is **pushed to `dXnSix/nsh`** (2026-11-10), and none is opened upstream. The branch READMEs list the heads
-on `origin` as of 2026-11-11. `feat/tizen` runs the fork's Tizen CI in the draft dXnSix/nsh#191, against
-`ci/tizen-base` (`8c733731f`): CI only, never merged. All five of its Tizen jobs passed at `5e51c6411`, the emulator
-boot-only ([fork/tizen-ci/README.md](fork/tizen-ci/README.md#runs-on-the-fork-ci-3-nsh-part)).
+Every branch is **pushed to `dXnSix/nsh`** (2026-11-10; again 2026-11-11 with the fork's `main` merged in), and none
+is opened upstream. The branch READMEs list the heads on `origin` as of 2026-11-11. The fork PRs into the fork's `main`
+are open for the stack tops, dXnSix/nsh#194 to #203 ([below](#the-forks-main-merged-in-2026-11-11)). `feat/tizen` runs
+the fork's Tizen CI in the draft dXnSix/nsh#191, now against `main`: CI only, never merged. All five of its Tizen jobs
+passed at `5e51c6411`, the emulator boot-only ([fork/tizen-ci/README.md](fork/tizen-ci/README.md#runs-on-the-fork-ci-3-nsh-part)).
+
+## The fork's `main` merged in (2026-11-11)
+
+`DEV-1` asks for the branches to be merged into the fork's `main` through fork PRs. The fork's `main` (`7f5084268`,
+after the upstream sync #192) was 881 commits past `8c733731f`, and every branch but three conflicted with it. On the
+owner's go, the stacks took it by merges, never a rebase:
+
+1. The roots merged `origin/main`: `pr/tv/01-keys`, `pr/tv/02-category`, `pr/engine/01-wgpu-30`, `pr/focus/01-core`,
+   `pr/tizen-web/02-scrollend`, `pr/tizen/02-gpui-platform-optional`, `fork/tizen-ci`.
+2. Every other branch merged its parents' new heads, in stack order (each README's "Fork's `main`" row lists its
+   merges), with `rerere` carrying a resolution to the branches above.
+3. `feat/tizen` took a fresh merge of the ten stack tops (`b0ecdd09f`, its tree that merge's), then the fixes below.
+
+Besides keeping both sides, the merges decided:
+
+| Where | What main brought | What the merge does |
+|---|---|---|
+| `pr/tv/02-category` | `shaders` in the web environment; new prelude names | the branch's `environment_data` sends `shaders`; main's prelude list with `is_tv` |
+| `pr/tv/03-dev-idiom` | `nsh test --device` (an iOS simulator) | `starter` takes `device` and `idiom`; main's two new tests pass `idiom: None`; `cc0685a75` allows the starter its eight options |
+| `pr/tv/04-remote-keys` | `keyboard.press` chooses application menu items by their shortcut text | `72b2135f0`: the shared `press_stroke` takes the key's text (a remote key's is its keystroke's) |
+| `pr/tizen-web/01-package` | per-platform icons (`nsh.json` `icon` object); `compile_package`; one browser per run (`RUNNING`) | a `tizen` icon key (Samsung TVs, `--target tizen-web` and later `tizen`), in `website/docs/packaging.md` (English, zh-CN); the split compile for `tizen-web` too |
+| `pr/focus/02-gpui` | #1545: `key_focus.rs`, `focus()` on GPUI stops | folded into the branch's `focus.rs`: `Command::Focus` on a stop (`focus_command`: the window takes the keyboard, the stop is revealed), a pointer going down outside the focused view takes the focus (`pointer_down`); `key_focus.rs` removed; #1545's test reads `crate::focus` |
+| `pr/focus/03-desktop-stops` | #1475 RichEdit text inputs; Tab in `input::tab_order` (an overlay's content after its trigger, `tab_after`) | Windows' Tab through the branch's stops in `tab_order` (`21b962ece` keeps a text's links in place); `docs/dev/elements.md` keeps #1519's `FOCUS_VISIBLE` and says macOS and Linux go by tree order |
+| `pr/focus/04-tv` | as 02 | the branch's deferred `focus::asked` stays `Command::Focus`'s, now requesting the window's keyboard; `focus_command` dropped |
+| `pr/focus/05-web`, `07-web-tv` | `appearance` in the view props; `MOUSE_MODIFIER_KEYS`; `focus-visible:` in the docs | both props written; the docs say `focus-visible:` |
+| `pr/focus/06-gpui-tab-stops` | GPUI's Tab in `tab_order`, with a test over fields only | GPUI's stops ordered by `tab_order`; the popover test passes over the trigger, a stop of the branch's Tab |
+| `pr/tizen/01-os` | `rustfmt`'s merged imports | `6bb7ee28d` |
+| `pr/tizen/04-platform` | a GPUI dev session opened hidden (`held`) | `dev::start(held, transport)` |
+| `pr/tizen/07-cli` | `nsh test --device` (an iOS simulator), `nsh package --arch` (macOS) | one `--device` (the simulator with `--target ios`, the TV's `sdb` serial with `tizen`) and one `--arch` (one macOS processor set, or the TPKs' architectures), parsed per target (`package_archs`); `55bd2548b` keeps the device test's name for `chk-nsh-cli-tizen-device` |
+| `fork/tizen-ci` | `paths.py` wants every workflow's `pull_request` types | `6e719b0ca` drops `labeled` (a label takes effect with the next push) |
+| `feat/tizen` | | `nsh test --target web --idiom` with the TV page (`starter(browser, tv, idiom)`); the Tizen call sites pass no idiom |
+
+nsh-compat's three companions merged its `origin/main` `714e6fd` ([compat/README.md](compat/README.md#the-prs-in-order)).
+
+The epic's 78 NSH checks (`implementation-plan.json`, every `chk-nsh-*` and `fin-nsh-*`) ran on `feat/tizen` with the
+committed git patch (an empty `artifacts-temp/gpui-fast-patch.toml` for their `--config`), the failures repaired on
+their branches and run again: all pass but `fin-nsh-fmt` and `fin-nsh-gpui-fmt`, which flag
+`crates/nsh-platform-macos/src/native.rs`, `crates/nsh-platform-macos/tests/native/main.rs` and
+`crates/nsh-platform-windows/src/native/web.rs`, files no branch changes and the fork's `main` has unformatted itself.
+Logs: `artifacts-temp/merge-main/checks/`.
+
+The fork PRs, one per stack top, each bringing the branches below it (merge commits, on the owner's go):
+
+| PR | Branch | Brings |
+|---|---|---|
+| dXnSix/nsh#194 | `pr/engine/01-wgpu-30` | – |
+| dXnSix/nsh#195 | `pr/tizen-web/02-scrollend` | – |
+| dXnSix/nsh#196 | `pr/tv/03-dev-idiom` | `pr/tv/02-category` |
+| dXnSix/nsh#197 | `pr/tv/04-remote-keys` | `pr/tv/01-keys` |
+| dXnSix/nsh#198 | `pr/focus/03-desktop-stops` | `pr/focus/01-core` |
+| dXnSix/nsh#199 | `pr/focus/06-gpui-tab-stops` | `pr/focus/01`, `02`, `04` |
+| dXnSix/nsh#200 | `pr/focus/07-web-tv` | `pr/focus/01`, `02`, `04`, `05` |
+| dXnSix/nsh#201 | `pr/tizen/07-cli` | `pr/tv/01`, `02`, `pr/tizen/01` to `06`, `pr/tizen-web/01-package` |
+| dXnSix/nsh#202 | `pr/tizen-web/03-module` | `pr/tv/01`, `02`, `pr/tizen/01` to `04`, `06`, `pr/tizen-web/01-package` |
+| dXnSix/nsh#203 | `fork/tizen-ci` | – |
+
+The upstream PRs still go from the latest `upstream/main` ([below](#updating-a-branch-and-opening-it)): a branch's
+merge of the fork's `main` brings fork-only commits, so it is rebased (its own commits) before it is opened.
 
 ## Where things are
 

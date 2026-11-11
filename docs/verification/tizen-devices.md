@@ -45,6 +45,13 @@ Pushed on 2026-11-10: dXn.GpuiTizen `main` at f1fa54d, and the NSH branches it c
 ac5701419, `05-video` 42a6cd56c, `06-module` 84758b656, `07-cli` 5881eb40f, `pr/tizen-web/03-module` 445c2e43e.
 Still open in this step (the owner's): add the signing secrets (`README.md`, "Continuous integration").
 
+On 2026-11-11, on the owner's go, the NSH stacks merged the fork's `main` (`7f5084268`, 881 commits past
+`8c733731f`) by merges, `feat/tizen` took the new heads (`68e5f86af`), and the fork PRs into the fork's `main` were
+opened for the ten stack tops, dXnSix/nsh#194 to #203; dXnSix/nsh#191 now targets `main`. The epic's 78 NSH checks
+ran on `feat/tizen` again: all pass but the two `fmt` checks, on three files the fork's `main` leaves unformatted
+itself. What each merge decided, and the PRs: `docs/pr/nsh/README.md`, "The fork's `main` merged in". The fork PRs
+merge on the owner's go; their CI is watched with auto-fix.
+
 ## CI on GitHub (`CI-3`)
 
 `ci.yml` on `dXnSix/dXn.GpuiTizen`, on pushes to `main`:

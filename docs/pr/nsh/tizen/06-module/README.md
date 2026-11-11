@@ -3,8 +3,10 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/tizen/06-module`, head `84758b656`, pushed to `dXnSix/nsh` |
+| Fork PR | none of its own: in dXnSix/nsh#201, dXnSix/nsh#202 (its stack tops'), into the fork's `main`, on the owner's go |
+| Branch | `pr/tizen/06-module`, head `77d8ec194`, pushed to `dXnSix/nsh` |
 | Base | `pr/tizen/04-platform` at its head (merged in five times: `aac49042f`, `4638db353`, `5a7c09c19`, `78692dd6a`, `8f55629e3`), on `upstream/main` `8c733731f`. Against `c16a70096` it has 04's conflicts. Not rebased |
+| Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `84758b656`: `575b6556f`, `77d8ec194` ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
 | Depends on | 04 merged; nsh-compat [`tv-idiom`](../../compat/tv-idiom/) (its case is in the `tv` domain) |
 | Size | own: 17 files, +790 −7: `nsh-core` (the new `runtime/tizen.rs` +324, `runtime/mod.rs`, `element/ambient.rs`), `nsh-js/src/declarations.rs` (+40), `nsh-platform-tizen` (the new `src/tv.rs` +160, `keys.rs`, `lib.rs`, `tizen.rs`), compat case `tv/mod-tizen.tsx`, `docs/dev/{js-modules,tizen}.md`, the website's new `nsh/tizen` module page and the modules index (English and zh-CN). With 04 and below: 118 files, +6154 −315 |
 | Its commits | `97fe382a6` core: Add nsh/tizen, what Samsung TVs have; `73fe674b5` tizen: Give nsh/tizen the TV's product information and keys; `635203bbd` tizen: Grab the remote's keys for nsh/tizen while the app runs (merges of 04 between them) |

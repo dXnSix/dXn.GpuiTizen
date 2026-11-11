@@ -3,8 +3,10 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/focus/05-web`, head `0d23c931c`, pushed to `dXnSix/nsh` |
+| Fork PR | none of its own: in dXnSix/nsh#200 (its stack tops'), into the fork's `main`, on the owner's go |
+| Branch | `pr/focus/05-web`, head `55b534f2c`, pushed to `dXnSix/nsh` |
 | Base | `pr/focus/01-core` (`ce993fd21`), on `upstream/main` `41100f2bf`. Against `c16a70096` it conflicts in `crates/nsh-platform-web/web/nsh.js`, `docs/dev/web.md`, `website/docs/web.md` and its zh-CN page. Not rebased |
+| Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `0d23c931c`: `55b534f2c` ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
 | Depends on | 01 merged |
 | Size | own: 10 files, +994 −10: `nsh-platform-web`'s new `src/focus.rs` (+189), `src/lib.rs` (+24: the module's exports), `src/encode.rs` (+5: a popup's `anchored`), `web/nsh.js` (+153), the new `tests/text/focus_moves.rs` (+234) and `web/browser/focus.test.mjs` (+359), `docs/dev/web.md`, the website's web page (English and zh-CN). With 01: 18 files, +2347 −304 |
 | Its commits | `0d23c931c` web: Move focus with the arrows through nsh_core::focus |

@@ -3,8 +3,10 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/tv/04-remote-keys`, head `aa20e0e58`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-remote-keys` |
+| Fork PR | dXnSix/nsh#197 (merge commit), into the fork's `main`, on the owner's go |
+| Branch | `pr/tv/04-remote-keys`, head `72b2135f0`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-remote-keys` |
 | Base | `pr/tv/01-keys` at its head (merged in by `a0b3f29da`), on `upstream/main` `8c733731f`. Against `c16a70096` it conflicts in `crates/nsh-platform-web/web/nsh.test.mjs` (01's), `website/docs/testing-and-trace.md` and its zh-CN page. Not rebased |
+| Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `aa20e0e58`: `2ebccf404`; then `72b2135f0` testing: Check a pressed key against the application menu's shortcuts by its text ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
 | Depends on | 01 merged |
 | Size | own: 21 files, +768 −11: `nsh-testing` (the new `remote.rs` +148, `agent.rs` +118, `driver.rs`, `headless/keyboard.rs`, `module.rs`, `lib.rs`, the new test app `tests/testing/remote/` and `tests/testing/remote_keys.rs`), the agents of GPUI (`agent.rs` +52), the terminal (`agent.rs`, `tests/tui/remote_keys.rs`), iOS and Windows; `nsh-cli/src/test_web.rs` (+125), `nsh-dev/src/protocol.rs`; `docs/dev/tooling.md`, the website's testing page (English and zh-CN). With 01: 41 files, +1508 −38 |
 | Its commits | `7ea6f10ef` tui: Name the media and TV remote keys the test agent presses; `2b5417a15` test: Press TV remote keys in app tests; (merge `a0b3f29da` of 01); `aa20e0e58` test: Say where each TV remote key works, and test the agents' remote keys |

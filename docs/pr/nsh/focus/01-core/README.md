@@ -3,8 +3,10 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/focus/01-core`, head `ce993fd21`, pushed to `dXnSix/nsh` |
+| Fork PR | none of its own: in dXnSix/nsh#198, dXnSix/nsh#199, dXnSix/nsh#200 (its stack tops'), into the fork's `main`, on the owner's go |
+| Branch | `pr/focus/01-core`, head `51a37b870`, pushed to `dXnSix/nsh` |
 | Base | `upstream/main` `41100f2bf` (#1158, 2026-11-09). `upstream/main` is `c16a70096` (162 commits on); the branch merges onto it without conflict (`git merge-tree`). Not rebased |
+| Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `ce993fd21`: `51a37b870` ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
 | Depends on | nothing; the first of the `focus` stack (02, 03, 05 build on it) |
 | Size | 8 files, +1353 −294: `crates/nsh-core/src/focus.rs` (+533) and `focus/tests.rs` (+464), `lib.rs` (+1); `nsh-platform-tui`'s `keyboard.rs` (+181 −286), `navigation.rs` (+2 −6), the new `tests/tui/focus_cell_size.rs` (+165); `docs/dev/tui.md` |
 | Its commits | `ccbd31d9d` core: Decide directional focus moves in nsh_core::focus; `b34fd610e` tui: Take focus moves from nsh_core::focus; `ad514bb85` tui: Give the focus core its Cells one point each; `ce993fd21` core: Let focus frames be in any unit scaled per axis |

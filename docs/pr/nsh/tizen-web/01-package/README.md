@@ -3,8 +3,10 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/tizen-web/01-package`, head `0294d0204`, pushed to `dXnSix/nsh` |
+| Fork PR | none of its own: in dXnSix/nsh#201, dXnSix/nsh#202 (its stack tops'), into the fork's `main`, on the owner's go |
+| Branch | `pr/tizen-web/01-package`, head `c350173fe`, pushed to `dXnSix/nsh` |
 | Base | `pr/tv/02-category` (head), with `pr/tv/01-keys` (head) merged in (`32bdc715b`); on `upstream/main` `8c733731f`. Against `c16a70096` it conflicts in `nsh-cli`'s `package.rs` and `test_web.rs`, `crates/nsh-core/src/prelude.rs`, `crates/nsh-platform-web/src/browser/engine.rs`, `web/nsh.test.mjs`, the website's CLI and project-structure pages (English and zh-CN). Not rebased |
+| Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `0294d0204`: `a0d56e32f`, `c350173fe` ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
 | Depends on | `pr/tv/01-keys` (Samsung's key codes in `nsh.js`) and `pr/tv/02-category` (`idiom: "tv"`) merged; the loader probe's results on a TV (`DEV-6`, [../README.md](../README.md#the-loader-probe-dev-6)) |
 | Size | own: 35 files, +2863 −66: `nsh-cli` (the new `src/tizen_web.rs` +861, `tizen_web/dev.html`, `tizen_web/shim.js` +189 and `shim.test.mjs` +281, the new `tizen_web/preview-service.js` +62, the probe's `tizen_web/probe/` files with `csp.html`, `web.rs`, `web/dev.html`, `web/index.html`, `dev.rs`, `main.rs`, `package.rs`, `run.rs`, `test_host.rs`, `test_web.rs`, `Cargo.toml`, the new `tests/cli/tizen_web.rs` +718), `AGENTS.md`, `docs/dev/{compatibility,web}.md`, the website's CLI, platforms, project-structure and web pages (English and zh-CN). With `pr/tv/01` and `02`: 88 files, +4560 −199 |
 | Its commits | (merge `32bdc715b` of `pr/tv/01-keys`); `5ef50b12e` cli: Package apps as Tizen web apps; `12834794f` cli: Run and test apps as Tizen web apps; `d74ce6fcd` cli: Probe how a TV loads a Tizen web app's files; `bfd4b7d9b` cli: Name the Tizen package id package in nsh.json; `6bfecf051` cli: Launch Tizen web apps by their package id; `6f0005235` cli: Open the Tizen development package to the dev server; `1fd94197c` cli: Probe CSP 'self' and Samsung's webapis on a TV; `0294d0204` cli: Declare Smart Hub's preview in Tizen web packages |

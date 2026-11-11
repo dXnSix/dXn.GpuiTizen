@@ -3,8 +3,10 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/tizen/03-gpui-tizen-cfg`, head `5c719ccbf`, pushed to `dXnSix/nsh` |
+| Fork PR | none of its own: in dXnSix/nsh#201, dXnSix/nsh#202 (its stack tops'), into the fork's `main`, on the owner's go |
+| Branch | `pr/tizen/03-gpui-tizen-cfg`, head `57862414c`, pushed to `dXnSix/nsh` |
 | Base | `pr/tizen/02-gpui-platform-optional` at its head (merged in twice: `bcc0697ae`, `d0e064bbb`), on `upstream/main` `8c733731f`. Against `c16a70096` it conflicts in `website/zh-CN/docs/gpui.md` (02's); upstream's #1439 changes the same web view path (below). Not rebased |
+| Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `5c719ccbf`: `57862414c` ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
 | Depends on | 02 merged |
 | Size | own: 18 files, +645 −62: `nsh-platform-gpui`'s `Cargo.toml` (target tables without the vendor), `src/lib.rs` (the `compile_error!`), `src/app.rs` (the new setters), the new `src/host_settings.rs` (+74), `src/system.rs` (+89: the TV's), `src/text.rs` (+105) and the new `src/text/tv.rs` (+158), `src/native.rs`, `src/native/video.rs`, `src/native/web.rs` (+112: the placeholder), `src/image.rs`, `src/surface.rs`, `src/synth.rs`; `crates/gpui/Cargo.toml` (`unexpected_cfgs`); `docs/dev/{embedding,gpui}.md`, the website's GPUI page (English and zh-CN). With 02: 19 files, +679 −78 |
 | Its commits | `3411a7710` gpui: Build for Tizen; (merge `bcc0697ae`); `6325f81ea` gpui: Match a TV's UI family ignoring case and spaces for its line metrics; (merge `d0e064bbb`); `2e0e29dc5` gpui: Keep Tizen's UI family list for the docs only; `5c719ccbf` gpui: Stop a Tizen build that keeps the platform feature |

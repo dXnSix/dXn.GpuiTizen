@@ -3,8 +3,10 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/tv/03-dev-idiom`, head `2cb11014a`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-engine` |
+| Fork PR | dXnSix/nsh#196 (merge commit), into the fork's `main`, on the owner's go |
+| Branch | `pr/tv/03-dev-idiom`, head `cc0685a75`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-engine` |
 | Base | `pr/tv/02-category` at its head (merged in by `af909ed26`), on `upstream/main` `8c733731f`. Against `c16a70096` it conflicts in 02's `crates/nsh-core/src/prelude.rs` and `crates/nsh-platform-web/src/browser/engine.rs`, and in `crates/nsh-cli/src/test_web.rs`. Not rebased |
+| Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `2cb11014a`: `880e9dfb5`; then `cc0685a75` cli: Allow the test host's starter its options, one each ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
 | Depends on | 02 merged |
 | Size | own: 32 files, +850 −54: `nsh-cli` (`main.rs`, `run.rs` +137, `dev.rs`, `package.rs`, `test.rs`, `test_host.rs`, `test_web.rs`, `web.rs`, `web/dev.html`, the new `tests/cli/dev_idiom.rs` +408), `nsh-platform-gpui/src/app.rs` (`AppOptions::idiom`, `idiom_tests`) and `lib.rs`, `nsh-gpui-host/src/lib.rs`, the new app spec `tests/apps/tv-idiom/` (`App.tsx`, `App.test.tsx`, `nsh.json`), `docs/dev/{gpui,tooling,web}.md`, the website's cli, gpui, platform-specific, project-structure, testing-and-trace and web pages (English and zh-CN). With 02: 69 files, +1805 −158 |
 | Its commits | `694d31ba2` cli: Run apps in the TV idiom on the desktop; (merge `af909ed26` of 02); `35ce21821` cli: Run nsh test's apps in the TV idiom on the GPUI host and the web page; `2cb11014a` test: Add an app spec that runs in the TV idiom on the desktop |

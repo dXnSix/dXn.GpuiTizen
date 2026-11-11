@@ -3,8 +3,10 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/tizen-web/03-module`, head `445c2e43e`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-web` |
+| Fork PR | dXnSix/nsh#202 (merge commit), into the fork's `main`, on the owner's go |
+| Branch | `pr/tizen-web/03-module`, head `ff4735988`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-web` |
 | Base | `pr/tizen/06-module` (head, merged in last by `661d69f2d`) and `pr/tizen-web/01-package` (head, merged in by `47a342f0d`, `b28080d75`, `a59cb3ada`); on `upstream/main` `8c733731f`. Against `c16a70096` it has both parents' conflicts (`.github/workflows/gpui.yml`, `nsh-platform-gpui`'s `app.rs` and `dev.rs`, `nsh-cli`'s `package.rs` and `test_web.rs`, `crates/nsh-core/src/prelude.rs`, `crates/nsh-platform-web/src/browser/engine.rs`, `web/nsh.test.mjs`, the website's CLI and project-structure pages and `website/zh-CN/docs/gpui.md`). Not rebased |
+| Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `445c2e43e`: `4c148d064`, `7df59b2b7`, `ff4735988` ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
 | Depends on | `pr/tizen/06-module` (`nsh/tizen`) and `pr/tizen-web/01-package` (the shim, `tizen.smartHubPreview` and the preview service) merged |
 | Size | own: 14 files, +427 −26 (against the 06 and 01 it holds): the new `crates/nsh-platform-web/web/browser/tizen.js` (+87) and `tizen.test.mjs` (+123), `web/browser/runtime.js`, `nsh-cli`'s `tizen_web.rs`, `tizen_web/shim.js` (+74 −3) and `shim.test.mjs` (+75), `web.rs` (`Variant::device_scripts`), `tests/cli/tizen_web.rs`; `docs/dev/{js-modules,web}.md`, the website's web and `nsh/tizen` pages (English and zh-CN). With everything below it: 150 files, +9418 −381 |
 | Its commits | (merge `47a342f0d`); `3be0df576` web: Serve nsh/tizen in Tizen web apps from the TV's web APIs; (merges `b28080d75`, `a59cb3ada`); `54f54bc36` web: Set a Tizen web app's Smart Hub preview through its preview service; (merges `960323468`, `661d69f2d`) |

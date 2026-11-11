@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | PR | not opened (to `longbridge/nsh-compat`) |
-| Branch | `tv-idiom`, head `a5188f7`, in `/Users/dinko/work-private/projects/dXn/nsh-compat`, not pushed (no fork yet) |
+| Branch | `tv-idiom`, head `84f680f` (merges nsh-compat's `origin/main` `714e6fd`, 2026-11-11), in `/Users/dinko/work-private/projects/dXn/nsh-compat`, not pushed (no fork yet) |
 | Base | `578f574` (#40); `origin/main` is `ab2670a` (#45, one commit on, fetched 2026-11-10), onto which it merges without conflict. Not rebased |
 | Size | 2 files, +15 −10: `src/apps.rs` (the `platform` step, its docs and error), `src/values.rs` (`tv.` among the platform prefixes) |
 | Its commits | `a5188f7` compat: Run a script on a TV with `platform <os> tv` |
