@@ -97,6 +97,13 @@ With the seven in `main`, `pr/focus/06-gpui-tab-stops` (`456c69373`), `pr/focus/
 rerere's resolutions kept both sides, and on `pr/focus/07-web-tv` GPUI's Tab stays between fields and native
 components (its tree-order Tab is `pr/focus/06`'s).
 
+The owner chose a fork of nsh-compat (2026-11-11): [dXnSix/nsh-compat](https://github.com/dXnSix/nsh-compat), cloned
+at `/Users/dinko/work-private/projects/dXn/nsh/nsh-compat` (`origin` the fork, `upstream` longbridge's). Its `main`
+is longbridge's `main` (`e56ebce`, #49) with `nsh-tizen` fast-forwarded on, which merges the three companions, each
+first merging that `main` (`99ef2fc`); the companions keep their own branches for the upstream PRs. The NSH fork's
+`compat.yml` checks out `${{ github.repository_owner }}/nsh-compat` (`fork/compat-fork`, dXnSix/nsh#208), so the
+fork runs its own harness and longbridge/nsh its own. The old clone at `dXn/nsh-compat` is no longer used.
+
 The upstream PRs still go from the latest `upstream/main` ([below](#updating-a-branch-and-opening-it)): a branch's
 merge of the fork's `main` brings fork-only commits, so it is rebased (its own commits) before it is opened.
 
