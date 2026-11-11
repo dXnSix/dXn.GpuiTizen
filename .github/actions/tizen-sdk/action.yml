@@ -67,15 +67,22 @@ runs:
 
     # The package manager installs the emulator's system libraries (SDL 1.2 among them) outside
     # ~/tizen-studio, so a cache hit has the emulator without them: it then fails to start with
-    # `libSDL-1.2.so.0: cannot open shared object file`. Whatever `ldd` finds missing is installed
-    # from the Ubuntu package that ships it.
+    # `libSDL-1.2.so.0: cannot open shared object file`. The SDK ships others of its own (ICU 48,
+    # x264) that the emulator's launcher puts on the library path, so `ldd` looks in the SDK's
+    # library directories first (the rootstraps' target libraries aside), and whatever it still
+    # finds missing is installed from the Ubuntu package that ships it.
     - name: The emulator's system libraries
       if: contains(inputs.packages, 'Emulator')
       shell: bash
       run: |
         set -euo pipefail
-        missing=$(find "$HOME/tizen-studio/platforms" -path '*/emulator/bin/emulator-x86_64' -print0 |
-          xargs -0 -r ldd | awk '/not found/ {print $1}' | sort -u)
+        sdk_libs=$(find "$HOME/tizen-studio" -path '*/rootstraps' -prune -o \
+          \( -type f -o -type l \) -name '*.so*' -printf '%h\n' | sort -u | paste -sd:)
+        unresolved() {
+          find "$HOME/tizen-studio/platforms" -path '*/emulator/bin/emulator-x86_64' -print0 |
+            LD_LIBRARY_PATH="$sdk_libs" xargs -0 -r ldd | awk '/not found/ {print $1}' | sort -u
+        }
+        missing=$(unresolved)
         if [ -z "$missing" ]; then
           echo "the emulator has every library it links"
           exit 0
@@ -88,8 +95,7 @@ runs:
         echo "installing: $packages"
         # shellcheck disable=SC2086
         sudo apt-get install -y --no-install-recommends $packages
-        still=$(find "$HOME/tizen-studio/platforms" -path '*/emulator/bin/emulator-x86_64' -print0 |
-          xargs -0 -r ldd | awk '/not found/ {print $1}' | sort -u)
+        still=$(unresolved)
         if [ -n "$still" ]; then
           echo "::error::the emulator still lacks: $still"
           exit 1

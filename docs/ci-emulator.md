@@ -58,7 +58,10 @@ The package manager also installs the emulator's system libraries, SDL 1.2 among
 a run that restores the SDK from the cache has the emulator without them. Every run until 2026-11-11 had missed the
 cache; dXnSix/nsh#191's first hit failed with `libSDL-1.2.so.0: cannot open shared object file`. After the install or
 the restore, `tizen-sdk` runs `ldd` on the emulator and installs the Ubuntu package of each library it lacks
-(`apt-file`), and fails if one is still missing.
+(`apt-file`), and fails if one is still missing. The SDK ships libraries of its own (ICU 48, x264) that the emulator's
+launcher puts on the library path and no Ubuntu package has, so `ldd` runs with the SDK's library directories (the
+rootstraps' aside) on `LD_LIBRARY_PATH`; without them a fresh install failed on `libicuuc.so.48` (dXnSix/nsh#191,
+2026-11-11).
 
 ## Signing
 
