@@ -72,18 +72,25 @@ Logs: `artifacts-temp/merge-main/checks/`.
 
 The fork PRs, one per stack top, each bringing the branches below it (merge commits, on the owner's go):
 
-| PR | Branch | Brings |
-|---|---|---|
-| dXnSix/nsh#194 | `pr/engine/01-wgpu-30` | – |
-| dXnSix/nsh#195 | `pr/tizen-web/02-scrollend` | – |
-| dXnSix/nsh#196 | `pr/tv/03-dev-idiom` | `pr/tv/02-category` |
-| dXnSix/nsh#197 | `pr/tv/04-remote-keys` | `pr/tv/01-keys` |
-| dXnSix/nsh#198 | `pr/focus/03-desktop-stops` | `pr/focus/01-core` |
-| dXnSix/nsh#199 | `pr/focus/06-gpui-tab-stops` | `pr/focus/01`, `02`, `04` |
-| dXnSix/nsh#200 | `pr/focus/07-web-tv` | `pr/focus/01`, `02`, `04`, `05` |
-| dXnSix/nsh#201 | `pr/tizen/07-cli` | `pr/tv/01`, `02`, `pr/tizen/01` to `06`, `pr/tizen-web/01-package` |
-| dXnSix/nsh#202 | `pr/tizen-web/03-module` | `pr/tv/01`, `02`, `pr/tizen/01` to `04`, `06`, `pr/tizen-web/01-package` |
-| dXnSix/nsh#203 | `fork/tizen-ci` | – |
+| PR | Branch | Brings | Merged |
+|---|---|---|---|
+| dXnSix/nsh#194 | `pr/engine/01-wgpu-30` | – | merged, `57c000007` |
+| dXnSix/nsh#195 | `pr/tizen-web/02-scrollend` | – | merged, `004b31696` |
+| dXnSix/nsh#196 | `pr/tv/03-dev-idiom` | `pr/tv/02-category` | open: `compat` |
+| dXnSix/nsh#197 | `pr/tv/04-remote-keys` | `pr/tv/01-keys` | merged, `be5576011` |
+| dXnSix/nsh#198 | `pr/focus/03-desktop-stops` | `pr/focus/01-core` | merged, `8b5396171` |
+| dXnSix/nsh#199 | `pr/focus/06-gpui-tab-stops` | `pr/focus/01`, `02`, `04` | open: `compat` |
+| dXnSix/nsh#200 | `pr/focus/07-web-tv` | `pr/focus/01`, `02`, `04`, `05` | open: `compat`, `macos` rerun |
+| dXnSix/nsh#201 | `pr/tizen/07-cli` | `pr/tv/01`, `02`, `pr/tizen/01` to `06`, `pr/tizen-web/01-package` | open: `compat` |
+| dXnSix/nsh#202 | `pr/tizen-web/03-module` | `pr/tv/01`, `02`, `pr/tizen/01` to `04`, `06`, `pr/tizen-web/01-package` | open: `compat` |
+| dXnSix/nsh#203 | `fork/tizen-ci` | – | merged, `9ced98dd0` |
+| dXnSix/nsh#205 | `fork/macos-accessibility-frames` | – | merged, `c5add107a` |
+
+Merged on the owner's go (2026-11-11), each once green, #205 first so the others' macOS runs have its wait for
+the accessibility frames. The five still open fail `compat` only: the job builds this checkout's `tests/compat/` cases
+with `longbridge/nsh-compat`'s harness, which knows neither the `tv` idiom (`platform android tv`), `platform tizen`,
+nor the `focusGroup` and `autoFocus` props. Those are the three nsh-compat companions (`tv-idiom`, `focus-props`,
+`tizen-platform`), not yet anywhere the job checks out.
 
 The upstream PRs still go from the latest `upstream/main` ([below](#updating-a-branch-and-opening-it)): a branch's
 merge of the fork's `main` brings fork-only commits, so it is rebased (its own commits) before it is opened.
