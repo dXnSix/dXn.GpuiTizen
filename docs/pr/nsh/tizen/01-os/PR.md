@@ -16,8 +16,10 @@ TV by default.
 - Its idiom is the TV's: `Idiom::default_on(os)` (a desktop OS's `Desktop`, Tizen's `Tv`, else `Phone`), which
   `Environment::default` and `Idiom::reported_on` use: `Idiom::Desktop` reads as the OS's own idiom where it does not
   apply. So desktop behaviour never applies on Tizen but in a terminal, and `platform.tv` follows the idiom as reported.
-- A Tizen build is `target_os = "linux"` with `target_vendor = "tizen"`: `Os::default` checks the vendor first, and both
-  workspaces declare it to `unexpected_cfgs`. The GPUI and terminal backends check it before falling back to Linux, and
+- A Tizen build is `target_os = "linux"` with `target_vendor = "tizen"`: `Os::default` checks the vendor first, and the
+  three places that read it allow it for `unexpected_cfgs` (the GPUI workspace declares it in its lints). The main
+  workspace's lints stay as they are: declaring it there rebuilds every crate, and on Windows the dev host's rebuild of
+  `nsh-base` then passes `rustc` a command line longer than the system takes. The GPUI and terminal backends check it before falling back to Linux, and
   GPUI's environment takes the OS's default idiom; the agent's keystrokes parse for the same OS.
 - A Tizen web app (`.wgt`) stays `Os::Web`, a TV by what its page tells the player (#(pr/tv/02-category)).
 
