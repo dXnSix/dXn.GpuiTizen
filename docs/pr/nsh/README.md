@@ -92,6 +92,11 @@ with `longbridge/nsh-compat`'s harness, which knows neither the `tv` idiom (`pla
 nor the `focusGroup` and `autoFocus` props. Those are the three nsh-compat companions (`tv-idiom`, `focus-props`,
 `tizen-platform`), not yet anywhere the job checks out.
 
+With the seven in `main`, `pr/focus/06-gpui-tab-stops` (`456c69373`), `pr/focus/07-web-tv` (`9d5ad246c`) and
+`feat/tizen` (`c5412f405`) merged it again: only `docs/dev/elements.md` and `website/{,zh-CN/}docs/web.md` conflicted,
+rerere's resolutions kept both sides, and on `pr/focus/07-web-tv` GPUI's Tab stays between fields and native
+components (its tree-order Tab is `pr/focus/06`'s).
+
 The upstream PRs still go from the latest `upstream/main` ([below](#updating-a-branch-and-opening-it)): a branch's
 merge of the fork's `main` brings fork-only commits, so it is rebased (its own commits) before it is opened.
 
