@@ -54,6 +54,12 @@ job runs needs it. So `.github/actions/tizen-sdk` installs empty stand-in packag
 `install`. The installer's repository URL is `http://`, which the mirror answers with 403, so the action switches it
 to `https://` ([`setup.md`](setup.md), step 4).
 
+The package manager also installs the emulator's system libraries, SDL 1.2 among them, outside `~/tizen-studio`, so
+a run that restores the SDK from the cache has the emulator without them. Every run until 2026-11-11 had missed the
+cache; dXnSix/nsh#191's first hit failed with `libSDL-1.2.so.0: cannot open shared object file`. After the install or
+the restore, `tizen-sdk` runs `ldd` on the emulator and installs the Ubuntu package of each library it lacks
+(`apt-file`), and fails if one is still missing.
+
 ## Signing
 
 The Samsung TV emulator trusts only Samsung's distributor roots, like a TV. Runs 42917352601 and 42919211444
@@ -124,6 +130,7 @@ package. It launches with `sdb shell 0 execute <app id>`.
 | Symptom | Cause | Fix |
 | --- | --- | --- |
 | `Failed to install the following packages automatically` with `python3.8` | the prerequisite check above | the stand-in packages in `tizen-sdk` |
+| `error while loading shared libraries: libSDL-1.2.so.0` in the emulator's log, `Failed to start this VM` | the SDK restored from the cache, without the system libraries its install put outside it | `tizen-sdk`'s "The emulator's system libraries" step |
 | `No space left on device` in `tizen-sdk` | the runner image's preinstalled tools | the Free disk space step; remove more there if it happens again |
 | `wrong crypted size` from `tz pack` | a `profiles.xml` with a plain password | let `tz security-profiles add` write the profile |
 | `is not a valid project` from `tz pack` | `tz pack` given a directory | `cargo xtask package --sign` does the zip and `-b` |
