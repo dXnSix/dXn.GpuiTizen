@@ -20,16 +20,18 @@ host; the CLI adds it the first time a command needs it.
 
 **`nsh package --target tizen [--arch armv7l,aarch64,x86_64] [--sign <profile>] [--run]`** stages the TPK (the host,
 the release library, the bundle, capabilities, `app.json` and assets in `res/nsh/`, the icon, a `tizen-manifest.xml`
-made from `nsh.json`) and signs it with `tz pack -t tpk -s <profile>` into `<out>/<name>.tpk`; without a profile it
+made from `nsh.json`) and signs a zip of it with `tz pack -t tpk -s <profile> -b <unsigned> -o <out>/<name>.tpk` (`tz pack` signs no
+plain directory); without a profile it
 refuses, saying how to make one. With several architectures each package gets the fourth version number (armv7l 1,
 aarch64 2, x86_64 3) and its CPU feature, and the TVs' packages (armv7l, aarch64; not the emulator's x86_64) go into
 the multi-architecture `<package>-<version>.zip` for Samsung's Seller Office. `--run` installs and launches the TV's
 architecture's package.
 
 **`nsh run --target tizen [--device <serial>]`** builds and signs the development TPK when the runtime changed,
-installs it with `sdb install` when the device lacks this build, maps the TV's port 8790 to the dev server with `sdb
-reverse` (else `sdb forward` to its 8791 and a relay) and launches it (`0 execute` on a TV, `app_launcher` on the
-emulator); the run ends stopping it and removing the mappings. **`nsh test --target tizen [--device <serial>]`**
+installs it with `tz install` when the device lacks this build (a TV has no `pkgcmd`, and `sdb install` hands a
+`.tpk` to the web-app installer, which rejects it while `sdb` exits 0), maps the TV's port 8790 to the dev server with `sdb
+reverse` (else `sdb forward` to its 8791 and a relay) and launches it (`0 execute` on a device that reports `secure_protocol`: a TV, and the
+Samsung TV emulator; `app_launcher` on one without it); the run ends stopping it and removing the mappings. **`nsh test --target tizen [--device <serial>]`**
 installs the same package and runs each app a test opens there over the dev protocol, one at a time (`open`'s width
 and height are refused: the app fills the screen). Both start the runtime through the same typed steps with their
 failure policy (`tizen::open_sequence`: a stop that fails is fine, a refused `sdb reverse` falls back to `sdb forward`

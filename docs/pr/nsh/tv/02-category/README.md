@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/tv/02-category`, head `a8f7ad63c`, local in `nsh-wt/tizen`, not pushed |
+| Branch | `pr/tv/02-category`, head `a8f7ad63c`, pushed to `dXnSix/nsh` |
 | Base | `upstream/main` `8c733731f`. Against `c16a70096` it conflicts in `crates/nsh-core/src/prelude.rs` and `crates/nsh-platform-web/src/browser/engine.rs`. Not rebased |
 | Depends on | nothing in NSH; nsh-compat [`tv-idiom`](../../compat/tv-idiom/) merged first (`platform android tv` in `tests/compat/cases/tv/script.txt`) |
 | Size | 42 files, +957 −106: `nsh-core` (`platform.rs`, `element/ambient.rs`, `js/host.rs`, `prelude.rs`), `nsh-js` (`declarations.rs`, `dom.rs`, `env.rs` and the new `env/tests.rs` +131, `host.rs`), `nsh-platform-web` (`src/lib.rs`, `src/browser/engine.rs`, `fixtures.rs`, `web/browser/{bootstrap,dom,environment}.js`, the new `web/browser/tv.test.mjs` +237, `web/index.html`, `web/nsh.js`), `nsh-base`'s new `tests/base/tv_props.rs` (+183), the compat domain `tests/compat/cases/tv/` (new), `docs/dev/{api-naming,compatibility,components,elements,js-modules,native-pipeline,web}.md`, the website's device-and-environment, platform-specific, web, elements index and `nsh` module pages (English and zh-CN) |

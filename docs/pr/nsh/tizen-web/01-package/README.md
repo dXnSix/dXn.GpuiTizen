@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/tizen-web/01-package`, head `0294d0204`, local in `nsh-wt/tizen`, not pushed |
+| Branch | `pr/tizen-web/01-package`, head `0294d0204`, pushed to `dXnSix/nsh` |
 | Base | `pr/tv/02-category` (head), with `pr/tv/01-keys` (head) merged in (`32bdc715b`); on `upstream/main` `8c733731f`. Against `c16a70096` it conflicts in `nsh-cli`'s `package.rs` and `test_web.rs`, `crates/nsh-core/src/prelude.rs`, `crates/nsh-platform-web/src/browser/engine.rs`, `web/nsh.test.mjs`, the website's CLI and project-structure pages (English and zh-CN). Not rebased |
 | Depends on | `pr/tv/01-keys` (Samsung's key codes in `nsh.js`) and `pr/tv/02-category` (`idiom: "tv"`) merged; the loader probe's results on a TV (`DEV-6`, [../README.md](../README.md#the-loader-probe-dev-6)) |
 | Size | own: 35 files, +2863 −66: `nsh-cli` (the new `src/tizen_web.rs` +861, `tizen_web/dev.html`, `tizen_web/shim.js` +189 and `shim.test.mjs` +281, the new `tizen_web/preview-service.js` +62, the probe's `tizen_web/probe/` files with `csp.html`, `web.rs`, `web/dev.html`, `web/index.html`, `dev.rs`, `main.rs`, `package.rs`, `run.rs`, `test_host.rs`, `test_web.rs`, `Cargo.toml`, the new `tests/cli/tizen_web.rs` +718), `AGENTS.md`, `docs/dev/{compatibility,web}.md`, the website's CLI, platforms, project-structure and web pages (English and zh-CN). With `pr/tv/01` and `02`: 88 files, +4560 −199 |

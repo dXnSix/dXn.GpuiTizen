@@ -12,7 +12,7 @@ of recorded meaning on every desktop, the maintainers' call before 03 and 06 are
 
 ## The PRs, in order
 
-All local in `nsh-wt/tizen`, not pushed. Own size: the branch against the parents it holds; total: against
+All pushed to `dXnSix/nsh` (2026-11-10), worked on in `nsh-wt/tizen`. Own size: the branch against the parents it holds; total: against
 `41100f2bf`.
 
 | # | Folder | Branch | Built on | Title | Own size | Needs | Status |

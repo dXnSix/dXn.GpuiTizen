@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/tv/04-remote-keys`, head `aa20e0e58`, local, checked out in `nsh-wt/tizen-remote-keys`, not pushed |
+| Branch | `pr/tv/04-remote-keys`, head `aa20e0e58`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-remote-keys` |
 | Base | `pr/tv/01-keys` at its head (merged in by `a0b3f29da`), on `upstream/main` `8c733731f`. Against `c16a70096` it conflicts in `crates/nsh-platform-web/web/nsh.test.mjs` (01's), `website/docs/testing-and-trace.md` and its zh-CN page. Not rebased |
 | Depends on | 01 merged |
 | Size | own: 21 files, +768 −11: `nsh-testing` (the new `remote.rs` +148, `agent.rs` +118, `driver.rs`, `headless/keyboard.rs`, `module.rs`, `lib.rs`, the new test app `tests/testing/remote/` and `tests/testing/remote_keys.rs`), the agents of GPUI (`agent.rs` +52), the terminal (`agent.rs`, `tests/tui/remote_keys.rs`), iOS and Windows; `nsh-cli/src/test_web.rs` (+125), `nsh-dev/src/protocol.rs`; `docs/dev/tooling.md`, the website's testing page (English and zh-CN). With 01: 41 files, +1508 −38 |

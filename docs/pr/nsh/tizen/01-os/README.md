@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/tizen/01-os`, head `5c1bfe2fe`, local in `nsh-wt/tizen`, not pushed |
+| Branch | `pr/tizen/01-os`, head `5c1bfe2fe`, pushed to `dXnSix/nsh` |
 | Base | `pr/tv/02-category` at its head (cut from it at `f2eccf9c3`, its last two commits merged in by `5c1bfe2fe`), on `upstream/main` `8c733731f`. Against `c16a70096` it conflicts in `crates/nsh-core/src/prelude.rs` and `crates/nsh-platform-web/src/browser/engine.rs` (as `pr/tv/02-category`). Not rebased |
 | Depends on | `pr/tv/02-category` merged; nsh-compat [`tizen-platform`](../../compat/tizen-platform/) merged first (`platform tizen` in `tests/compat/cases/tizen/script.txt`) |
 | Size | own: 28 files, +374 −80: `nsh-core` (`platform.rs` +144 with the `tizen` tests, `element/ambient.rs`, `element/env.rs`, `keymap.rs`), `nsh-js` (`declarations.rs`, `env.rs`, `env/tests.rs` +83), `nsh-platform-gpui` (`agent.rs`, `app.rs`, `keymap.rs`), `nsh-platform-tui/src/app.rs`, `Cargo.toml` and `crates/gpui/Cargo.toml` (`target_vendor = "tizen"` in `unexpected_cfgs`), the compat domain `tests/compat/cases/tizen/` (new), `docs/dev/{api-naming,compatibility,elements,js-modules,platforms}.md`, the website's device-and-environment, platform-specific and `nsh` module pages (English and zh-CN). With `pr/tv/02-category`: 55 files, +1303 −158 |

@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/tizen-web/03-module`, head `661d69f2d`, local, checked out in `nsh-wt/tizen-web`, not pushed |
+| Branch | `pr/tizen-web/03-module`, head `445c2e43e`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-web` |
 | Base | `pr/tizen/06-module` (head, merged in last by `661d69f2d`) and `pr/tizen-web/01-package` (head, merged in by `47a342f0d`, `b28080d75`, `a59cb3ada`); on `upstream/main` `8c733731f`. Against `c16a70096` it has both parents' conflicts (`.github/workflows/gpui.yml`, `nsh-platform-gpui`'s `app.rs` and `dev.rs`, `nsh-cli`'s `package.rs` and `test_web.rs`, `crates/nsh-core/src/prelude.rs`, `crates/nsh-platform-web/src/browser/engine.rs`, `web/nsh.test.mjs`, the website's CLI and project-structure pages and `website/zh-CN/docs/gpui.md`). Not rebased |
 | Depends on | `pr/tizen/06-module` (`nsh/tizen`) and `pr/tizen-web/01-package` (the shim, `tizen.smartHubPreview` and the preview service) merged |
 | Size | own: 14 files, +427 −26 (against the 06 and 01 it holds): the new `crates/nsh-platform-web/web/browser/tizen.js` (+87) and `tizen.test.mjs` (+123), `web/browser/runtime.js`, `nsh-cli`'s `tizen_web.rs`, `tizen_web/shim.js` (+74 −3) and `shim.test.mjs` (+75), `web.rs` (`Variant::device_scripts`), `tests/cli/tizen_web.rs`; `docs/dev/{js-modules,web}.md`, the website's web and `nsh/tizen` pages (English and zh-CN). With everything below it: 150 files, +9418 −381 |

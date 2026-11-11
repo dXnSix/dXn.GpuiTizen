@@ -13,18 +13,20 @@ Fork-only: it adds only its own file and never goes upstream (upstream has no Ti
   gpui --idiom tv`, and `tests/apps/pressable-focus`'s arrow steps with `--idiom tv --filter arrows`) and as a Tizen web
   app in headless Chromium with the TV shim (`tests/apps/tv-idiom` and `examples/counter`, `--target tizen-web`; the
   job installs the wasm32 target and `llvm-ar` for the web runtime).
-- **`emulator`** (run by hand, `emulator: true`): the counter's spec on the Samsung TV emulator on a KVM runner
-  (`nsh test examples/counter --target tizen`), under an Xvfb of the job's own and once `sdb shell` answers, signed
-  with the certificate profile in the repository's secrets (`TIZEN_AUTHOR_P12`, `TIZEN_DISTRIBUTOR_P12`,
-  `TIZEN_AUTHOR_PASSWORD`, `TIZEN_DISTRIBUTOR_PASSWORD`, `TIZEN_PROFILES_XML`; written `0600` as `author.p12` and
-  `distributor.p12` under the profile's `@CERT_DIR@`, removed afterwards), with the emulator's log printed.
+- **`emulator`** (by hand with `emulator: true`, or on a PR labelled `ci:tizen-emulator`): the counter's spec on
+  the Samsung TV emulator on a KVM runner (`nsh test examples/counter --target tizen`). It starts Xvfb with GLX
+  before `em-cli create`, because without a display the TV tuner device stops the VM. It waits until `sdb capability`
+  answers, because the TV emulator's shell runs no plain commands. It signs with a Samsung certificate profile
+  added by `tz security-profiles add` from the secrets `TIZEN_AUTHOR_P12`, `TIZEN_DISTRIBUTOR_P12`,
+  `TIZEN_AUTHOR_PASSWORD` and `TIZEN_DISTRIBUTOR_PASSWORD`, with the passwords in a keyring and everything removed
+  afterwards. The Samsung TV emulator trusts only Samsung's distributor roots. Without the secrets the job boots the
+  emulator and skips the spec.
 
 The workflow's header lists the secrets, the repositories the fork's token must read (`dXnSix/dXn.GpuiTizen`,
 `dXnSix/gpui-fast`, `dXnSix/wgpu`) and that installing the Tizen SDK accepts Samsung's licence on the runner. Runs are
-grouped per event, so a push to `main` never cancels a manual emulator run.
-
-Until `crates/gpui` commits the gpui-fast and wgpu forks' git patch, the jobs check out `dXnSix/gpui-fast`
-(`tizen-release`) and `dXnSix/wgpu` (`v30-tizen`) and pass dXn.GpuiTizen's patch config.
+grouped per event and label, so a push to `main` never cancels a manual emulator run, and one label's run never
+cancels another's. Drafts run `cross` and `tv-specs` only when labelled `ci:tizen`. The gpui-fast and wgpu forks come
+from `crates/gpui`'s git patch.
 
 ## How to Test
 
@@ -32,5 +34,5 @@ Until `crates/gpui` commits the gpui-fast and wgpu forks' git patch, the jobs ch
 - Locally, each `tv-specs` command: `nsh test tests/apps/tv-idiom --target gpui --idiom tv` (2 passed),
   `nsh test tests/apps/pressable-focus --target gpui --idiom tv --filter arrows` (1 passed), `nsh test
   tests/apps/tv-idiom --target tizen-web` (2 passed), `nsh test examples/counter --target tizen-web` (1 passed).
-- This PR's own run: `cross` and `tv-specs` green; `emulator` once by hand (`gh workflow run fork-tizen.yml -f
-  emulator=true`).
+- This PR's own run: `cross` and `tv-specs` green. For the emulator job, label the PR `ci:tizen-emulator`: it boots
+  the emulator, and it runs the spec when the Samsung secrets are set.

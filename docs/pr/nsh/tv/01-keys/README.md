@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/tv/01-keys`, head `f908ff626`, local in `nsh-wt/tizen` (checked out nowhere; `nsh-wt/tizen-engine` has `pr/tv/03-dev-idiom` now), not pushed |
+| Branch | `pr/tv/01-keys`, head `f908ff626`, pushed to `dXnSix/nsh` (checked out nowhere; `nsh-wt/tizen-engine` has `pr/tv/03-dev-idiom` now) |
 | Base | `upstream/main` `8c733731f` (#1135, 2026-11-09). Against `c16a70096` (161 commits on) it conflicts in `crates/nsh-platform-web/web/nsh.test.mjs`. Not rebased |
 | Depends on | nothing |
 | Size | 22 files, +740 −27: `nsh-core/src/keymap.rs` (+306), `nsh-js/src/keymap.rs` (the TS names), `nsh-platform-gpui`'s `keys.rs` (+113), `keymap.rs`, `agent.rs`; `nsh-platform-web`'s `src/lib.rs`, `web/nsh.js`, `web/nsh.test.mjs`; `nsh-platform-linux`'s `agent.rs`, `keymap.rs`, `xtest.rs`; `nsh-platform-macos/src/agent.rs`; `nsh-platform-tui/src/app.rs`; `nsh-cli/src/test_web.rs`; compat case `modules/mod-keymap-tv.tsx`; `docs/dev/{elements,gpui,web}.md`; `website/modules/nsh.md` (English and zh-CN) |

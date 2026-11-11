@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/tizen/03-gpui-tizen-cfg`, head `5c719ccbf`, local in `nsh-wt/tizen`, not pushed |
+| Branch | `pr/tizen/03-gpui-tizen-cfg`, head `5c719ccbf`, pushed to `dXnSix/nsh` |
 | Base | `pr/tizen/02-gpui-platform-optional` at its head (merged in twice: `bcc0697ae`, `d0e064bbb`), on `upstream/main` `8c733731f`. Against `c16a70096` it conflicts in `website/zh-CN/docs/gpui.md` (02's); upstream's #1439 changes the same web view path (below). Not rebased |
 | Depends on | 02 merged |
 | Size | own: 18 files, +645 −62: `nsh-platform-gpui`'s `Cargo.toml` (target tables without the vendor), `src/lib.rs` (the `compile_error!`), `src/app.rs` (the new setters), the new `src/host_settings.rs` (+74), `src/system.rs` (+89: the TV's), `src/text.rs` (+105) and the new `src/text/tv.rs` (+158), `src/native.rs`, `src/native/video.rs`, `src/native/web.rs` (+112: the placeholder), `src/image.rs`, `src/surface.rs`, `src/synth.rs`; `crates/gpui/Cargo.toml` (`unexpected_cfgs`); `docs/dev/{embedding,gpui}.md`, the website's GPUI page (English and zh-CN). With 02: 19 files, +679 −78 |

@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/tv/03-dev-idiom`, head `2cb11014a`, local, checked out in `nsh-wt/tizen-engine`, not pushed |
+| Branch | `pr/tv/03-dev-idiom`, head `2cb11014a`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-engine` |
 | Base | `pr/tv/02-category` at its head (merged in by `af909ed26`), on `upstream/main` `8c733731f`. Against `c16a70096` it conflicts in 02's `crates/nsh-core/src/prelude.rs` and `crates/nsh-platform-web/src/browser/engine.rs`, and in `crates/nsh-cli/src/test_web.rs`. Not rebased |
 | Depends on | 02 merged |
 | Size | own: 32 files, +850 −54: `nsh-cli` (`main.rs`, `run.rs` +137, `dev.rs`, `package.rs`, `test.rs`, `test_host.rs`, `test_web.rs`, `web.rs`, `web/dev.html`, the new `tests/cli/dev_idiom.rs` +408), `nsh-platform-gpui/src/app.rs` (`AppOptions::idiom`, `idiom_tests`) and `lib.rs`, `nsh-gpui-host/src/lib.rs`, the new app spec `tests/apps/tv-idiom/` (`App.tsx`, `App.test.tsx`, `nsh.json`), `docs/dev/{gpui,tooling,web}.md`, the website's cli, gpui, platform-specific, project-structure, testing-and-trace and web pages (English and zh-CN). With 02: 69 files, +1805 −158 |

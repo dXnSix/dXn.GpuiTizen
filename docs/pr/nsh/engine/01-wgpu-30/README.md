@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/engine/01-wgpu-30`, head `c5a018805`, local in `nsh-wt/tizen`, not pushed |
+| Branch | `pr/engine/01-wgpu-30`, head `c5a018805`, pushed to `dXnSix/nsh` |
 | Base | `upstream/main` `8c733731f`. Against `c16a70096` it merges without conflict (`git merge-tree`), lockfiles included. Not rebased |
 | Depends on | nothing |
 | Size | 6 files, +96 −322: `Cargo.toml` (`wgpu` and `naga` 29 → 30), `Cargo.lock`, `crates/gpui/Cargo.toml` (a comment), `crates/gpui/Cargo.lock` (−290: one wgpu stack instead of two), `crates/nsh-engine/src/shader.rs`, `shader_surfaces.rs` |

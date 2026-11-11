@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/focus/01-core`, head `ce993fd21`, local in `nsh-wt/tizen`, not pushed |
+| Branch | `pr/focus/01-core`, head `ce993fd21`, pushed to `dXnSix/nsh` |
 | Base | `upstream/main` `41100f2bf` (#1158, 2026-11-09). `upstream/main` is `c16a70096` (162 commits on); the branch merges onto it without conflict (`git merge-tree`). Not rebased |
 | Depends on | nothing; the first of the `focus` stack (02, 03, 05 build on it) |
 | Size | 8 files, +1353 −294: `crates/nsh-core/src/focus.rs` (+533) and `focus/tests.rs` (+464), `lib.rs` (+1); `nsh-platform-tui`'s `keyboard.rs` (+181 −286), `navigation.rs` (+2 −6), the new `tests/tui/focus_cell_size.rs` (+165); `docs/dev/tui.md` |

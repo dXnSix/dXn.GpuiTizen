@@ -24,8 +24,9 @@ docs/pr/nsh/<area>/issue*.md      the issues that come before the area's PRs
 | `tizen-web` | [tizen-web/README.md](tizen-web/README.md) | `pr/tizen-web/01-package` … `03-module` (three) | the `tizen` issue |
 | `fork` | [fork/README.md](fork/README.md) | `fork/tizen-ci` (a fork PR to `dXnSix/nsh` `main`, never upstream) | – |
 
-Every branch: **not opened, not pushed** (`origin` has none of them, 2026-11-10 19:30 CET). Heads as of then; the
-branch READMEs list them.
+Every branch is **pushed to `dXnSix/nsh`** (2026-11-10), and none is opened upstream. The branch READMEs list the heads
+on `origin` as of 2026-11-11. `feat/tizen` runs the fork's Tizen CI in the draft dXnSix/nsh#191, against
+`ci/tizen-base` (`8c733731f`): CI only, never merged ([fork/tizen-ci/README.md](fork/tizen-ci/README.md)).
 
 ## Where things are
 

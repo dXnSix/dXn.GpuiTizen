@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/tizen/06-module`, head `8f55629e3`, local in `nsh-wt/tizen`, not pushed |
+| Branch | `pr/tizen/06-module`, head `84758b656`, pushed to `dXnSix/nsh` |
 | Base | `pr/tizen/04-platform` at its head (merged in five times: `aac49042f`, `4638db353`, `5a7c09c19`, `78692dd6a`, `8f55629e3`), on `upstream/main` `8c733731f`. Against `c16a70096` it has 04's conflicts. Not rebased |
 | Depends on | 04 merged; nsh-compat [`tv-idiom`](../../compat/tv-idiom/) (its case is in the `tv` domain) |
 | Size | own: 17 files, +790 −7: `nsh-core` (the new `runtime/tizen.rs` +324, `runtime/mod.rs`, `element/ambient.rs`), `nsh-js/src/declarations.rs` (+40), `nsh-platform-tizen` (the new `src/tv.rs` +160, `keys.rs`, `lib.rs`, `tizen.rs`), compat case `tv/mod-tizen.tsx`, `docs/dev/{js-modules,tizen}.md`, the website's new `nsh/tizen` module page and the modules index (English and zh-CN). With 04 and below: 118 files, +6154 −315 |

@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/focus/02-gpui`, head `a44434c87`, local in `nsh-wt/tizen`, not pushed |
+| Branch | `pr/focus/02-gpui`, head `a44434c87`, pushed to `dXnSix/nsh` |
 | Base | `pr/focus/01-core` (`ce993fd21`), on `upstream/main` `41100f2bf`. Against `upstream/main` `c16a70096` it conflicts in `crates/gpui/nsh-platform-gpui/src/input.rs`, `mount.rs` and `text_input.rs` (#1545, below). Not rebased |
 | Depends on | 01 (`pr/focus/01-core`) merged; then moved onto `upstream/main` alone |
 | Size | own: 14 files, +1235 −23: `nsh-platform-gpui`'s new `focus.rs` (+664) and `focus/directional_focus.rs` (+500, the tests), hooks in `events.rs`, `input.rs`, `lib.rs`, `mount.rs`, `navigation.rs`, `surface.rs`, `text_input.rs`; `nsh-core/src/focus.rs` (+2 −1); `docs/dev/elements.md`, `docs/dev/gpui.md`, `website/docs/gpui.md`, `website/zh-CN/docs/gpui.md`. With 01: 21 files, +2587 −316 |

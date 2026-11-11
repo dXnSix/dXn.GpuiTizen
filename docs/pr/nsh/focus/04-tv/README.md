@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/focus/04-tv`, head `a662232f0`, local in `nsh-wt/tizen`, not pushed |
+| Branch | `pr/focus/04-tv`, head `a662232f0`, pushed to `dXnSix/nsh` |
 | Base | `pr/focus/02-gpui` (`a44434c87`, merged in by `a7be4eb01`), on `upstream/main` `41100f2bf`. Against `c16a70096` it conflicts in `nsh-platform-gpui`'s `input.rs`, `mount.rs`, `text_input.rs` (02's, #1545), `nsh-core/src/core/tests.rs`, `element/builder.rs`, `element/mod.rs`, `website/elements/view.md` and its zh-CN page. Not rebased |
 | Depends on | 02 merged (and so 01); nsh-compat [`focus-props`](../../compat/focus-props/) merged first |
 | Size | own: 45 files, +3091 −88: `nsh-core` (`focus.rs` +367 and its tests +303, `core/directional.rs` +274 new, `core/mod.rs`, `core/list.rs`, `core/tests.rs` +487, `element/builder.rs`, `element/element_ref.rs`, `props.rs`, `ops.rs`, `js/host_values.rs`), `nsh-engine/src/lib.rs`, `nsh-base`'s `focus_group.rs` (new) and its tests, `nsh-platform-gpui` (`focus.rs`, the new `focus/tv_focus.rs` +310, `scroll.rs`, `mount.rs`, `surface.rs`), compat cases `props/props-view-focus.tsx`, `base/base-focus-group.tsx`, docs (`AGENTS.md`, `docs/dev/{api-naming,components,elements,gpui}.md`) and the website (the new `FocusGroup` page and demo, elements index, view, nsh-base, gpui; English and zh-CN). With 01 and 02: 56 files, +5626 −352 |

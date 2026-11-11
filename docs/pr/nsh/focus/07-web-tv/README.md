@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/focus/07-web-tv`, head `f69c8f57c`, local, checked out in `nsh-wt/tizen-web-tv`, not pushed |
+| Branch | `pr/focus/07-web-tv`, head `f69c8f57c`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-web-tv` |
 | Base | `pr/focus/04-tv` at its head (`a662232f0`, merged in by `f69c8f57c`) with `pr/focus/05-web` merged in (`0bd2092b9`); on `upstream/main` `41100f2bf`. Against `c16a70096` it has 04's and 05's conflicts (`nsh-platform-gpui`'s `input.rs`, `mount.rs`, `text_input.rs`; `nsh-core`'s `core/tests.rs`, `element/builder.rs`, `element/mod.rs`; `nsh-platform-web/web/nsh.js`; `docs/dev/web.md`; the website's web and view pages, English and zh-CN). Not rebased |
 | Depends on | 04 and 05 merged |
 | Size | own: 12 files, +984 −92 (against the 04 and 05 it holds): `nsh-platform-web`'s `src/focus.rs` (+318 −62), `src/lib.rs` (+44: `nsh_focus_auto`, `nsh_focus_past`), `src/encode.rs`, `web/nsh.js` (+183 −27), the new `tests/text/focus_moves/tv.rs` (+288), `focus_moves.rs`, `web/browser/focus.test.mjs` (+181); `docs/dev/web.md`, the website's web and `FocusGroup` pages (English and zh-CN). With 01, 02, 04 and 05: 67 files, +7512 −362 |

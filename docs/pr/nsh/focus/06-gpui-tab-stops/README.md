@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/focus/06-gpui-tab-stops`, head `b4a0181c9`, local, checked out in `nsh-wt/tizen-gpui02`, not pushed |
+| Branch | `pr/focus/06-gpui-tab-stops`, head `b4a0181c9`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-gpui02` |
 | Base | `pr/focus/02-gpui`, with `pr/focus/04-tv` merged in (`def3cb5d5`); both at their heads. On `upstream/main` `41100f2bf`; against `c16a70096` it has 04's conflicts. Not rebased |
 | Depends on | 04 merged (which holds 02 and 01); the desktop issue answered (Tab on GPUI changes) |
 | Size | own: 8 files, +258 −63: `nsh-platform-gpui`'s new `focus/tab_stops.rs` (+188, with its tests), `focus.rs`, `focus/directional_focus.rs`, `input.rs`, `app.rs`; `docs/dev/gpui.md`, the website's GPUI page (English and zh-CN). With 01, 02 and 04: 58 files, +5877 −408 |

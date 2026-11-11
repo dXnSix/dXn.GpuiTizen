@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/tizen/05-video`, head `d15dae74b`, local in `nsh-wt/tizen`, not pushed |
+| Branch | `pr/tizen/05-video`, head `42a6cd56c`, pushed to `dXnSix/nsh` |
 | Base | `pr/tizen/04-platform` at its head (merged in five times: `4fc06489c`, `3a199f3dc`, `e3af1acf0`, `274cd2c3a`, `d15dae74b`), on `upstream/main` `8c733731f`. Against `c16a70096` it has 04's conflicts. Not rebased |
 | Depends on | 04 merged |
 | Size | own: 9 files, +1706 −131: the new `crates/gpui/nsh-platform-gpui/src/native/video/tizen.rs` (+1496, with its tests), `native/video.rs` (the control bar shared with GStreamer's player), `native.rs`, `nsh-platform-gpui/Cargo.toml` (`dxn_gpui_tizen` for `cfg(target_vendor = "tizen")`), `crates/gpui/Cargo.lock`; `docs/dev/{gpui,tizen}.md`, the website's GPUI page (English and zh-CN). With 04 and below: 111 files, +7055 −424 |

@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/focus/03-desktop-stops`, head `8d563c338`, local, checked out in `nsh-wt/tizen-desktop`, not pushed |
+| Branch | `pr/focus/03-desktop-stops`, head `8d563c338`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-desktop` |
 | Base | `pr/focus/01-core` (`ce993fd21`), on `upstream/main` `41100f2bf`. Against `c16a70096` it conflicts in `docs/dev/elements.md` and `docs/dev/windows.md`; `nsh-platform-windows/src/text_input.rs` merges textually with #1475 (RichEdit text inputs) but must be rebuilt and checked. Not rebased |
 | Depends on | 01 merged; the desktop issue ([../issue-desktop-tab.md](../issue-desktop-tab.md)) answered: it changes Tab's order on macOS and Linux, Tab on Windows, and the arrows on all three |
 | Size | own: 36 files, +2501 −170: `nsh-platform-macos` (`focus.rs` +389 new, `input.rs`, `text_input.rs`, `view.rs`), `nsh-platform-linux` (`key_focus.rs` +855, `navigation.rs`, `scroll.rs`, `text_input.rs`), `nsh-platform-windows` (`focus.rs` +692 new, `input.rs`, `mount.rs`, `navigation.rs`, `surface.rs`, `text_input.rs`), `nsh-testing`'s headless keyboard, the app spec `tests/apps/pressable-focus/`, `AGENTS.md`, `docs/dev/{elements,linux,macos,windows}.md`, the website's forms-and-keyboard, linux, macos, windows and elements pages (English and zh-CN). With 01: 44 files, +3854 −464 |

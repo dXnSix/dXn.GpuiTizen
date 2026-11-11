@@ -9,7 +9,7 @@ need an nsh-compat PR merged before them ([../compat/README.md](../compat/README
 
 ## The PRs, in order
 
-All local in `nsh-wt/tizen`, not pushed; 01 and 02 are cut from `upstream/main` `8c733731f` on their own.
+All pushed to `dXnSix/nsh` (2026-11-10), worked on in `nsh-wt/tizen`; 01 and 02 are cut from `upstream/main` `8c733731f` on their own.
 
 | # | Folder | Branch | Built on | Title | Own size | Needs | Status |
 |---|---|---|---|---|---|---|---|

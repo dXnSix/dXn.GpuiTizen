@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/tizen-web/02-scrollend`, head `53670ef6a`, local in `nsh-wt/tizen`, not pushed |
+| Branch | `pr/tizen-web/02-scrollend`, head `53670ef6a`, pushed to `dXnSix/nsh` |
 | Base | `upstream/main` `8c733731f`. Against `c16a70096` it conflicts in `website/docs/web.md` and `website/zh-CN/docs/web.md`. Not rebased |
 | Depends on | nothing |
 | Size | 5 files, +158 −4: `crates/nsh-platform-web/web/nsh.js` (+22 −1), the new `web/browser/scrollend.test.mjs` (+130), `docs/dev/web.md`, the website's web page (English and zh-CN) |

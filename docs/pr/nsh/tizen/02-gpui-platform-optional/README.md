@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Upstream PR | not opened |
-| Branch | `pr/tizen/02-gpui-platform-optional`, head `c22f7a995`, local in `nsh-wt/tizen`, not pushed |
+| Branch | `pr/tizen/02-gpui-platform-optional`, head `c22f7a995`, pushed to `dXnSix/nsh` |
 | Base | `upstream/main` `8c733731f`. Against `c16a70096` it conflicts in `website/zh-CN/docs/gpui.md`. Not rebased |
 | Depends on | nothing |
 | Size | 8 files, +35 −17: `nsh-platform-gpui`'s `Cargo.toml` (the `platform` feature), `src/app.rs`, `src/lib.rs`, `src/text.rs`; `nsh-gpui-host/Cargo.toml` (turns it on); `docs/dev/gpui.md`, the website's GPUI page (English and zh-CN) |

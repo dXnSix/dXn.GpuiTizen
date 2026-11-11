@@ -8,7 +8,7 @@ which the issue raises first ([issue.md](issue.md)).
 
 ## The PRs, in order
 
-All local in `nsh-wt/tizen`, not pushed; built on `upstream/main` `8c733731f`. Own size: the branch against the parents
+All pushed to `dXnSix/nsh` (2026-11-10), worked on in `nsh-wt/tizen`; built on `upstream/main` `8c733731f`. Own size: the branch against the parents
 it holds; total: against `8c733731f`.
 
 | # | Folder | Branch | Built on | Title | Own size | Needs | Status |
