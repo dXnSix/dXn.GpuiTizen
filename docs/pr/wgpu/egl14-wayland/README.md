@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Upstream PR | ready, not opened (the owner opens it; [../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
+| Upstream PR | ready, not opened: the owner opens it after the code has run on a real TV (`s25-owner-devices`), with that run in the PR's Testing section ([../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
 | Issue | [gfx-rs/wgpu#10708](https://github.com/gfx-rs/wgpu/issues/10708) (open, by zhangzhaohong-dev, 2026-10-22): Mali-G76, EGL 1.4 on Wayland, adapter found but not presentable |
 | Branch | `egl14-wayland` on `dXnSix/wgpu`, head `ef3af726c`, pushed 2026-11-12 (rebased from `01f93a569`) |
 | Base | `upstream/trunk` `c92258fca` (#10889, fetched 2026-11-12); the 13 commits since `b672a5400` touch neither `egl.rs` nor the changelog entry, and the rebase was clean |

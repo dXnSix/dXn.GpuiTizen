@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Upstream PR | ready, not opened (the owner opens it; [../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
+| Upstream PR | ready, not opened: the owner opens it after the code has run on a real TV (`s25-owner-devices`), with that run in the PR's Testing section ([../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
 | Branch | `gles-program-binaries` on `dXnSix/wgpu`, head `8a00e91e2`, pushed 2026-11-12 (rebased from `03cab4b4b`) |
 | Base | `upstream/trunk` `c92258fca` (#10889, fetched 2026-11-12). The rebase from `b672a5400` was clean, #10293's `adapter.rs` and `CHANGELOG.md` lines and #8014's GLES changes included; the entry stays under GLES in New Features |
 | Size | 8 files, +752 −42: `wgpu-hal/src/gles/pipeline_cache.rs` (new: keys, the data format, its tests), `gles/device.rs`, `gles/adapter.rs`, `gles/mod.rs`, `wgpu-core/src/pipeline_cache.rs` (a GL adapter key and its test), `wgpu/src/util/mod.rs` (`pipeline_cache_key` for GL), `tests/tests/wgpu-gpu/pipeline_cache.rs` (a GL GPU test), `CHANGELOG.md` (+1) |
