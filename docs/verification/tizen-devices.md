@@ -13,6 +13,7 @@ The owner turned GitHub Actions off on `dXnSix/gpui-fast` and `dXnSix/wgpu` and 
 | `dXnSix/gpui-fast` | `gles-instance-path`, `wgpu-backend-env`, `pipeline-cache`, `scene-damage`, `external-target`, `video-hole` | the PR branches of `docs/pr/gpui-fast/` |
 | `dXnSix/wgpu` | `v30-tizen` | 4e3d80d5d |
 | `dXnSix/wgpu` | `egl14-wayland`, `gles-program-binaries` | the PR branches of `docs/pr/wgpu/` |
+| `dXnSix/wgpu` | `v30-egl14`, `v30-gles-program-binaries` | 66e825217, de226d2fa: the v30 ports `v30-tizen` merges, pushed 2026-11-12 (the s23 review's `s23-dev1-wgpu-v30-branches`) |
 | `dXnSix/dXn.GpuiTizen` | `main` | 9cd8fa3, then f1fa54d (the git patch below) |
 | `dXnSix/nsh` | `feat/tizen`, `fork/tizen-ci` and every `pr/{focus,tv,engine,tizen,tizen-web}/*` branch | `feat/tizen` 7c5cd1c13, then 289fcd8ff with the six branches the git patch below changed |
 
