@@ -17,7 +17,7 @@ merge with each other cleanly (`git merge-tree`). Either can be opened first. Si
 
 | # | Folder | Branch | Base | Title | Size | Connections | Status |
 |---|---|---|---|---|---|---|---|
-| 01 | [egl14-wayland/](egl14-wayland/) | `egl14-wayland` | `b672a5400` | [gles] Support EGL 1.4 drivers on Wayland | 2 files, +406 −97 | fixes [#10708](https://github.com/gfx-rs/wgpu/issues/10708) | not opened |
+| 01 | [egl14-wayland/](egl14-wayland/) | `egl14-wayland` | `c92258fca` | [gles] Support EGL 1.4 drivers on Wayland | 2 files, +406 −97 | fixes [#10708](https://github.com/gfx-rs/wgpu/issues/10708) | ready, not opened: rebased, checked and pushed 2026-11-12 (`ef3af726c`) |
 | 02 | [gles-program-binaries/](gles-program-binaries/) | `gles-program-binaries` | `b672a5400` | [gles] Implement PipelineCache with program binaries | 8 files, +752 −42 | gpui-fast's `pipeline-cache` uses it on GL ([../gpui-fast/pipeline-cache/](../gpui-fast/pipeline-cache/)) | not opened |
 
 ### The base (2026-11-10)

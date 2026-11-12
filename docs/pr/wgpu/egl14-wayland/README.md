@@ -2,12 +2,12 @@
 
 | | |
 |---|---|
-| Upstream PR | not opened |
+| Upstream PR | ready, not opened (the owner opens it; [../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
 | Issue | [gfx-rs/wgpu#10708](https://github.com/gfx-rs/wgpu/issues/10708) (open, by zhangzhaohong-dev, 2026-10-22): Mali-G76, EGL 1.4 on Wayland, adapter found but not presentable |
-| Branch | `egl14-wayland`, local in `/Users/dinko/work-private/projects/dXn/wgpu`, not pushed |
-| Base | `upstream/trunk` `b672a5400` (2026-11-06, #10311), as last fetched; live `trunk` is `6838055e0`, two commits more, neither touching `egl.rs`. Not rebased |
+| Branch | `egl14-wayland` on `dXnSix/wgpu`, head `ef3af726c`, pushed 2026-11-12 (rebased from `01f93a569`) |
+| Base | `upstream/trunk` `c92258fca` (#10889, fetched 2026-11-12); the 13 commits since `b672a5400` touch neither `egl.rs` nor the changelog entry, and the rebase was clean |
 | Size | 2 files, +406 −97: `wgpu-hal/src/gles/egl.rs` (code and its tests), `CHANGELOG.md` (+1) |
-| Its commits | `01f93a569` [gles] Support EGL 1.4 drivers on Wayland |
+| Its commits | `ef3af726c` [gles] Support EGL 1.4 drivers on Wayland |
 | Text | [PR.md](PR.md) |
 | From v30 | `66e825217` on `v30-egl14`, merged into `v30-tizen` |
 | Needs | nothing; no public API |
@@ -44,18 +44,19 @@ Cherry-picked from `66e825217`; adapted to `trunk`:
 
 ## Checks
 
-Run 2026-11-10 on `01f93a569`, in the Lima VM (see [../README.md](../README.md#checks)), from the worktree:
+Run 2026-11-12 on `ef3af726c`, in the Lima VM (see [../README.md](../README.md#checks)), from the worktree:
 
 ```bash
 cd /Users/dinko/work-private/projects/dXn/wgpu-wt/trunk      # egl14-wayland checked out
 /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/scripts/lima-run.sh cargo test -p wgpu-hal --features gles --lib
-#   test result: ok. 6 passed; 0 failed  (gles::egl::tests::display_path, ::config_tiers, ::render_buffer, and three existing)
+#   test result: ok. 9 passed; 0 failed  (gles::egl::tests::display_path, ::config_tiers, ::render_buffer, and six existing)
 /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/scripts/lima-run.sh cargo clippy -p wgpu-hal --features gles --all-targets -- -D warnings
 #   passed
 cargo fmt --check -p wgpu-hal                                # on the Mac: clean
 ```
 
-Logs: `artifacts-temp/agentx/tizen-gpui-platform/t22-wgpu-egl-lib.log`, `t22-wgpu-egl-clippy.log`.
+Logs: `artifacts-temp/agentx/tizen-gpui-platform/t25-wgpu-egl-lib.log`, `t25-wgpu-egl-clippy.log`,
+`t25-wgpu-egl-fmt.log`. The first run (2026-11-10, on `01f93a569` over `b672a5400`) passed the same: 6 tests then.
 
 Not run: on an EGL 1.4 driver (Mali on Wayland, a Tizen TV) from this branch. Mesa in the VM is EGL 1.5, so a Wayland
 run there (`scripts/lima-run.sh --weston`) takes the `eglGetPlatformDisplay` path and does not reach the EGL 1.4
@@ -73,9 +74,8 @@ cd /Users/dinko/work-private/projects/dXn/wgpu
 git fetch upstream origin
 git worktree add ../wgpu-wt/trunk egl14-wayland 2>/dev/null || git -C ../wgpu-wt/trunk switch egl14-wayland
 cd ../wgpu-wt/trunk
-git rebase upstream/trunk
-# the checks above, then
-git push -u origin egl14-wayland
+git rebase upstream/trunk          # only if trunk moved again since c92258fca; then the checks above and
+git push --force-with-lease origin egl14-wayland
 # owner runs this
 gh pr create --repo gfx-rs/wgpu --base trunk --head dXnSix:egl14-wayland \
   --title "$(head -1 /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/wgpu/egl14-wayland/PR.md | sed 's/^# //')" \

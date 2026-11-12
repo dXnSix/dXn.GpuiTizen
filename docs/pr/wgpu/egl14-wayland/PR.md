@@ -6,45 +6,40 @@ Fixes #10708.
 
 ## Description
 
-On an EGL 1.4 driver on Wayland (the Mali-G76 of #10708; Samsung's Tizen TVs are the same case), the GLES backend
-finds the adapter but cannot present to a window, for the three reasons the issue lists:
+We run wgpu's GLES backend on Samsung TVs (Tizen), which have the same driver situation as #10708: EGL 1.4 on
+Wayland. wgpu finds the adapter there but cannot present to the window. The issue lists three causes, and this PR
+fixes all three in `wgpu-hal/src/gles/egl.rs`.
 
-1. The Wayland arm of `Instance::init` needs `upcast::<EGL1_5>()`, which needs the `eglGetPlatformDisplay` symbol.
-   EGL 1.4 does not export it, so init falls back to `eglGetDisplay(EGL_DEFAULT_DISPLAY)` with `WindowKind::Unknown`,
-   and `Surface::configure` refuses the Wayland window ("incompatible window kind").
-2. Every config has `EGL_WINDOW_BIT` but `EGL_NATIVE_RENDERABLE = 0`. On desktop Linux only the "native-render" tier
-   counts as presentable, so `surface_capabilities` returns `None`.
-3. `configure` asks for `EGL_RENDER_BUFFER = EGL_SINGLE_BUFFER`, which some EGL 1.4 drivers refuse in
-   `eglCreateWindowSurface`.
+1. **Display.** The Wayland path called `eglGetPlatformDisplay`, which only exists in EGL 1.5. On EGL 1.4 the
+   instance fell back to `eglGetDisplay(EGL_DEFAULT_DISPLAY)` with an unknown window kind, so
+   `Surface::configure` later rejected the Wayland window. Now, when `eglGetPlatformDisplay` is missing, it uses
+   `eglGetPlatformDisplayEXT` if the client extensions include `EGL_EXT_platform_base` and `EGL_EXT_platform_wayland`,
+   and otherwise `eglGetDisplay` on the `wl_display`. In all three cases the window kind is Wayland. With EGL 1.5
+   nothing changes.
+2. **Config.** These drivers report `EGL_NATIVE_RENDERABLE = 0` on every config, and on Linux wgpu only counted
+   natively renderable configs as presentable. On Wayland the window's buffers come from `wl_egl_window`, so a config
+   with `EGL_WINDOW_BIT` is enough, as it already is on Android, Windows and OHOS. X11 keeps the old requirement.
+3. **Render buffer.** Some EGL 1.4 drivers refuse `EGL_RENDER_BUFFER = EGL_SINGLE_BUFFER` when creating the window
+   surface. If that fails with `EGL_BAD_ATTRIBUTE` or `EGL_BAD_MATCH`, the surface is created once more with
+   `EGL_BACK_BUFFER`.
 
-This PR fixes each one. The choice is made in a small pure function, with unit tests:
+Each decision is a small function (`wayland_display_path`, `presentable_tier` with `choose_tier`, and
+`render_buffer_retry`), so it can be unit tested without a driver. `choose_tier` keeps #10048's single
+`SURFACE_TYPE` attribute.
 
-- `wayland_display_path`: EGL 1.5's `eglGetPlatformDisplay` when it exists (as before). Otherwise
-  `eglGetPlatformDisplayEXT` when the client extensions have `EGL_EXT_platform_base` and `EGL_EXT_platform_wayland`
-  (matched as whole names). Otherwise `eglGetDisplay` on the `wl_display`. All three give `WindowKind::Wayland`. With
-  EGL 1.5 and no `EGL_EXT_platform_wayland`, the other arms decide, as before.
-- `presentable_tier`: on Wayland the "presentation" tier (`EGL_WINDOW_BIT`) is enough, as it already is on Android,
-  Windows and OHOS. The window's buffers come from `wl_egl_window`, so native renderability says nothing about
-  presenting. X11 and unknown windows still require the "native-render" tier. `choose_config`'s tier loop becomes
-  `choose_tier`, which keeps #10048's single `SURFACE_TYPE` attribute.
-- `render_buffer_retry`: when `EGL_SINGLE_BUFFER` is refused with `EGL_BAD_ATTRIBUTE` or `EGL_BAD_MATCH`, the window
-  surface is created once more with `EGL_BACK_BUFFER`, and an info line is logged. Other errors are returned as
-  before.
-
-Not changed: the surfaceless arm still requires EGL 1.5 (the `TODO` the issue quotes). That arm only runs without a
-window system.
+Not changed: the surfaceless path still requires EGL 1.5 (the `TODO` quoted in the issue), because it only runs
+without a window system.
 
 ## Testing
 
-- New unit tests in `wgpu-hal/src/gles/egl.rs` (`gles::egl::tests`):
-  - `display_path`: the path for EGL 1.5 and 1.4 with and without the extensions, and whole-name matching.
-  - `config_tiers`: `choose_tier` with fake configs (Mesa-like, the issue's Mali-like, pbuffer-only, no alpha). Each
-    attribute list has one `SURFACE_TYPE`. Wayland presents from the presentation tier and X11 does not.
-  - `render_buffer`: which errors lead to the retry, and that it happens only once.
-- `cargo test -p wgpu-hal --features gles --lib` on Linux (aarch64, Mesa 25.2.8): 6 passed.
+- New unit tests in `gles::egl::tests`: `display_path` (EGL 1.5 and 1.4, with and without the extensions, extension
+  names matched whole), `config_tiers` (fake Mesa-like and Mali-like configs; Wayland presents from the
+  window-capable tier and X11 does not; each attribute list has one `SURFACE_TYPE`) and `render_buffer` (which errors
+  retry, and only once).
+- `cargo test -p wgpu-hal --features gles --lib` on aarch64 Linux with Mesa 25.2.8: 9 passed.
 - `cargo clippy -p wgpu-hal --features gles --all-targets -- -D warnings` and `cargo fmt --check -p wgpu-hal`.
-- Not run on an EGL 1.4 driver from this branch. Mesa is EGL 1.5, so on Mesa the Wayland path is the one used
-  before (`eglGetPlatformDisplay`). _(Owner: add the TV or Mali run here if there is one.)_
+- Mesa is EGL 1.5, so on Mesa the Wayland path is the same as before. [OWNER: say here whether you ran it on a TV or
+another EGL 1.4 driver from this branch; if not, say so plainly.]
 
 ## Squash or Rebase?
 
@@ -52,7 +47,11 @@ One commit; ready to rebase as it is.
 
 ## LLM Use?
 
-_(The owner writes this section.)_
+[OWNER: rewrite in your own words and keep only what is true.] I used an AI coding agent (Claude Code) for most of
+this PR. It wrote the code and the tests from my direction, first on our v30 fork for the TV build and then ported
+to `trunk`, and it drafted this description. I reviewed the diff, checked the three changes against the issue and
+the EGL 1.4 and EGL_EXT_platform_wayland specs, and rewrote the description. I understand every change and will
+answer review comments myself.
 
 <!--
 Thanks for filing! Reviewers are assigned for non-draft PRs in the weekly wgpu maintainers meetings.
@@ -76,5 +75,5 @@ person(s) who reviewed your changes. This will make sure it gets re-added to the
 
 <!-- Agentic agents creating a PR, please add the following to the list and fill it out accurately. Checking this does not automatically invalidate the PR.
 - [ ] This PR was automatically created by an Agent.
-- [ ] The description was automatically written by an Agent.
+- [ ] The description was automatically written by an Agent. [OWNER: tick this if you keep the draft mostly as it is]
       -->
