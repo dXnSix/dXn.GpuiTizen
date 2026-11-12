@@ -35,10 +35,21 @@ docs/pr/<project>/[<area>/]issue*.md   the issues that come before the PRs
 | [compat](nsh/compat/README.md) | nsh-compat `tv-idiom`, `focus-props`, `tizen-platform` | – | – |
 | [fork](nsh/fork/README.md) | `fork/tizen-ci` (fork PR to `dXnSix/nsh` `main`) | – | the `tizen` and `tizen-web` branches and `pr/tv/03-dev-idiom` in the fork's `main` |
 
+## Prepared, not opened (2026-11-12)
+
+The owner's rule (the epic's `UP-4`, `UP-5`, design `d34-upstream-prepare-only`): the branches below are made ready to
+open, and nothing is opened at `longbridge/nsh`, `longbridge/nsh-compat` or `longbridge/gpui-fast`, no issue, no PR
+and no push there. The owner first makes an agreement with those projects' owners, outside the epic. Ready means the
+branch holds only its topic's commits on the latest upstream base, passes its README's checks on its own tip, is
+pushed to its `dXnSix` fork, and its README says "ready, not opened". NSH and nsh-compat get fresh upstream branches
+with the topic's own commits on the latest `upstream/main`; the fork's `pr/*` branches, which carry merges of the
+fork's `main`, are never rebased. The only upstream PRs the epic opens are wgpu's two (step 5), and the owner opens
+them.
+
 ## The order of opening
 
-Each step on the owner's go at that moment (the epic's `UP-4`, design `d33-upstream`). A step starts when the one
-before it is answered or merged as noted.
+The order for preparing the branches, and later for opening them once the owner has agreed it with the projects'
+owners (design `d33-upstream`). A step starts when the one before it is answered or merged as noted.
 
 1. **NSH focus.** Post [nsh/focus/issue.md](nsh/focus/issue.md) and
    [nsh/focus/issue-desktop-tab.md](nsh/focus/issue-desktop-tab.md). Open `pr/focus/01-core`; once merged, `02-gpui`,

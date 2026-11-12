@@ -59,8 +59,8 @@ gpui-fast moves to it, the fork's patch goes away.
   comments beyond what the code needs.
 - **wgpu's policy on LLM use.** `AGENTS.md` says fully agentic PRs are not allowed and the contributor must
   understand and vouch for every change; the PR template asks "LLM Use?" and that significant descriptions be
-  written by hand. The `PR.md` texts here are drafts: the owner rewrites the description in his own words, fills in
-  the "LLM Use?" section himself and decides the template's disclosure items before opening.
+  written by hand. The `PR.md` texts here are drafts: the owner rewrites the description in their own words, fills in
+  the "LLM Use?" section themselves and decides the template's disclosure items before opening.
 - No AI attribution in commits, PR texts or comments.
 
 ## Checks

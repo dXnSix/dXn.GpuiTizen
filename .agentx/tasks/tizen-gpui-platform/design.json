@@ -558,6 +558,26 @@
           "path": "crates/dxn_gpui_tizen/src/tizen/window.rs"
         }
       ]
+    },
+    {
+      "id": "d34-upstream-prepare-only",
+      "requirementIds": [
+        "UP"
+      ],
+      "descriptionMarkdown": "The owner's rule (2026-11-12), narrowing `d33-upstream`: the agent prepares every upstream branch and its texts and opens nothing at `longbridge/nsh`, `longbridge/nsh-compat` or `longbridge/gpui-fast`, no issue and no PR; the owner first makes an agreement with those projects' owners, outside this epic. A prepared branch holds only its topic's commits on the latest upstream base, passes its README's checks on its own tip, is pushed to its `dXnSix` fork and is recorded \"ready, not opened\" in its `docs/pr/` folder. NSH and nsh-compat get fresh upstream branches with the topic's own commits on the latest `upstream/main`, because the fork's `pr/*` branches carry merges of the fork's `main` and are never rebased or force-pushed. The only upstream PRs opened in the epic are gfx-rs/wgpu's two (`egl14-wayland`, `gles-program-binaries`), by the owner on their go, with the description and \"LLM Use?\" in their own words.",
+      "rationaleMarkdown": "The owner: \"First I need to make a deal with owners of nsh and gpui-fast\" and \"The only PR I would open is on gfx-rs/wgpu.\" `d33-upstream`'s order and its \"each issue and PR waits for the owner's go\" stand; this records that for `longbridge/*` the go does not come within the epic.",
+      "memoryDecisionRefs": [
+        {
+          "repositoryId": "nsh-root",
+          "path": ".agentx/memory/decisions/workspace/agentx-memory/2026-10-23-workspace-agentx-memory-taxonomy.md"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "repositoryId": "nsh-root",
+          "path": "upstream-pr/README.md"
+        }
+      ]
     }
   ]
 }

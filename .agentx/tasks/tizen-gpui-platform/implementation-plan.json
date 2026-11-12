@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 59,
+  "revision": 60,
   "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
   "repositories": [
     {
@@ -6130,7 +6130,7 @@
     },
     {
       "id": "s24-owner-upstream",
-      "title": "Owner-run: upstream issues and PRs that need no TV",
+      "title": "Upstream branches ready to open that need no TV; the owner opens the wgpu PRs",
       "dependsOn": [
         "s23-owner-devices"
       ],
@@ -6138,13 +6138,14 @@
       "tasks": [
         {
           "id": "t25-upstream",
-          "title": "Open the upstream issues and PRs that need no TV, in order (owner)",
-          "descriptionMarkdown": "`UP-4`, each on the owner's explicit go, updating the PR folders under `docs/pr/` with links and states. Before opening each PR: rebase its branch onto the latest `upstream/main` (the README lists the conflicts) and run the checks its README lists on that branch alone; record the run in its folder.",
+          "title": "Prepare the upstream branches that need no TV; the owner opens gfx-rs/wgpu's",
+          "descriptionMarkdown": "`UP-4`. Agent: for each branch in `d33-upstream`'s order (NSH focus, TV keys and category with the nsh-compat companions, one wgpu, gpui-fast's six and the issue, wgpu's two), put the topic's commits on the latest upstream base (NSH and nsh-compat on fresh branches, never rebasing a pushed `pr/*` branch), run the checks its README lists on its own tip, push it to the `dXnSix` fork, and record base, run, push and \"ready, not opened\" in its folder under `docs/pr/`. Nothing is opened or pushed at `longbridge/*` (the owner's agreement with its owners comes first, outside this epic). Owner: opens the gfx-rs/wgpu PRs on their go, with the description and \"LLM Use?\" in their own words; the agent records the links and states.",
           "criterionIds": [
             "UP-4"
           ],
           "designIds": [
             "d33-upstream",
+            "d34-upstream-prepare-only",
             "d21-owner-acceptance"
           ],
           "dependsOn": [],
@@ -6274,7 +6275,7 @@
     },
     {
       "id": "s26-owner-store-upstream",
-      "title": "Owner-run: store submission, the remaining upstream PRs and crates.io",
+      "title": "Owner-run: store submission, the after-device upstream branches and crates.io",
       "dependsOn": [
         "s25-owner-devices"
       ],
@@ -6296,13 +6297,14 @@
         },
         {
           "id": "t26-upstream-after-devices",
-          "title": "Open the upstream issues and PRs that need the devices' results (owner)",
-          "descriptionMarkdown": "`UP-5`, the same way as `t25-upstream`: the gpui-fast issue and PRs with the `DEV-3` numbers in their tables, then the NSH `Os::Tizen` and Tizen targets issue and PRs once gpui-fast has released and `dXn.GpuiTizen` is on crates.io, and the `tizen-web` PR after `DEV-6`'s loader check.",
+          "title": "Prepare the upstream branches that need the devices' results",
+          "descriptionMarkdown": "`UP-5`, the same way as `t25-upstream`, opening nothing: the gpui-fast issue and PR texts with the `DEV-3` numbers and their branches ready again on the latest `upstream/main`; the NSH `Os::Tizen` and Tizen targets branches and issue, and the `tizen-web` branch after `DEV-6`'s loader check, ready, their folders naming what they wait for.",
           "criterionIds": [
             "UP-5"
           ],
           "designIds": [
             "d33-upstream",
+            "d34-upstream-prepare-only",
             "d21-owner-acceptance"
           ],
           "dependsOn": [],
