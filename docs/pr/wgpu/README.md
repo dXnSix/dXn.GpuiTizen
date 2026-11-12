@@ -10,25 +10,23 @@ Each folder holds the branch's `README.md` (status, base, commits, checks, how t
 
 ## The PRs, in order
 
-Both on the fork `dXnSix/wgpu` (checkout `/Users/dinko/work-private/projects/dXn/wgpu`), local only: `origin` has
-only `trunk` as of the last fetch. Each is cut from `upstream/trunk` on its own; they touch different files and
+Both on the fork `dXnSix/wgpu` (checkout `/Users/dinko/work-private/projects/dXn/wgpu`), rebased onto `upstream/trunk`
+`c92258fca`, checked and pushed on 2026-11-12; the owner opens them. Each is cut from `upstream/trunk` on its own; they touch different files and
 merge with each other cleanly (`git merge-tree`). Either can be opened first. Sizes are
 `git diff --stat upstream/trunk <branch>`.
 
 | # | Folder | Branch | Base | Title | Size | Connections | Status |
 |---|---|---|---|---|---|---|---|
 | 01 | [egl14-wayland/](egl14-wayland/) | `egl14-wayland` | `c92258fca` | [gles] Support EGL 1.4 drivers on Wayland | 2 files, +406 −97 | fixes [#10708](https://github.com/gfx-rs/wgpu/issues/10708) | ready, not opened: rebased, checked and pushed 2026-11-12 (`ef3af726c`) |
-| 02 | [gles-program-binaries/](gles-program-binaries/) | `gles-program-binaries` | `b672a5400` | [gles] Implement PipelineCache with program binaries | 8 files, +752 −42 | gpui-fast's `pipeline-cache` uses it on GL ([../gpui-fast/pipeline-cache/](../gpui-fast/pipeline-cache/)) | not opened |
+| 02 | [gles-program-binaries/](gles-program-binaries/) | `gles-program-binaries` | `c92258fca` | [gles] Implement PipelineCache with program binaries | 8 files, +752 −42 | gpui-fast's `pipeline-cache` uses it on GL ([../gpui-fast/pipeline-cache/](../gpui-fast/pipeline-cache/)) | ready, not opened: rebased, checked and pushed 2026-11-12 (`8a00e91e2`) |
 
-### The base (2026-11-10)
+### The base (2026-11-12)
 
-- `b672a5400` is "[naga] HitObject support (#10311)", 2026-11-06, `upstream/trunk` as last fetched. Nothing was
-  fetched for this work.
-- The live `gfx-rs/wgpu` `trunk` is `6838055e0` (`gh api`, not fetched): two commits more, #9624 (NV12 and P010 on
-  Metal) and #10293 (`Features::CORE_FEATURES_AND_LIMITS`). #10293 edits `wgpu-hal/src/gles/adapter.rs` a few lines
-  from where `gles-program-binaries` adds `program_binaries` to `AdapterShared`, and both add to `CHANGELOG.md`;
-  expect a small conflict there when rebasing (keep both). `egl14-wayland` touches neither.
-- **Rebase each branch onto the latest `upstream/trunk` before opening it**, then rerun its checks.
+- `c92258fca` is "Update Cargo.lock (#10889)", `upstream/trunk` fetched 2026-11-12. Both branches were rebased onto it
+  from `b672a5400` (2026-11-06, #10311) without conflicts, #10293's and #8014's GLES changes included, and their checks
+  ran again on the new tips.
+- **If `trunk` moves again before a PR is opened, rebase that branch once more**, rerun its checks and push with
+  `--force-with-lease` (the fork's wgpu branches are not shared, so rewriting them is fine before opening).
 
 ## The v30 fork and these branches
 
