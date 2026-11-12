@@ -7,7 +7,7 @@
 | Branch | `video-hole` on `dXnSix/gpui-fast`, head `db4848b0f`, pushed 2026-11-12 (rebased from `60ba887`) |
 | Base | `upstream/main` `d1d6286` (#139, fetched 2026-11-12); rebased onto it without conflicts in its own files |
 | Size | 10 files, +477 −1: `crates/gpui/src/fast/hole.rs` (+125), `crates/gpui/src/fast/tests/hole.rs` (+53), two `mod` lines in `gpui`; `crates/gpui_wgpu/src/fast/hole.rs` (+141), `fast/hole/tests.rs` (+126), `fast/frame.rs` (+13, the batch arm), `fast/mod.rs` (+1), `wgpu_renderer.rs` (+5 −1, three hooks); `docs/upstream-sync.md` (+11) |
-| Its commits | `db4848b` pui, gpui_wgpu: paint holes that replace the window's pixels with transparent black |
+| Its commits | `db4848b` gpui, gpui_wgpu: paint holes that replace the window's pixels with transparent black |
 | Text | [PR.md](PR.md) |
 | On `tizen` | `aecc769` (`fast/hole*` identical) |
 | Needs | the maintainers' answer on the API exception (issue, question 2); the issue ([../issue.md](../issue.md)). If `pipeline-cache` merges first, the hole pipeline gets the cache ([../pipeline-cache/README.md](../pipeline-cache/README.md)) |

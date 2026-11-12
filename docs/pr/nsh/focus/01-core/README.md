@@ -52,15 +52,17 @@ tests (on today's `feat/tizen` it also selects 04's `focus::tests::tv`). Not run
 
 ## Updating and opening
 
+Nothing is opened before the owner's agreement with NSH's owners ([../../../README.md](../../../README.md#prepared-not-opened-2026-11-12)).
+The branch that opens is `up/focus/01-core`, never `pr/focus/01-core`, which stays as the epic's records name it.
+Before opening, rebuild `up/focus/01-core` on the newest `upstream/main` (or its parent's `up/` branch, once that has
+merged upstream) as [../../README.md](../../README.md#updating-a-branch-and-opening-it) says, and run the checks
+above on its tip. Then (owner runs this):
+
 ```bash
 cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen
-git fetch upstream origin
-git tag epic/focus/01-core pr/focus/01-core
-git rebase --onto upstream/main 41100f2bf pr/focus/01-core
-# the checks above and the pre-open checks, then (owner runs this)
-git push -u origin pr/focus/01-core
+git push --force-with-lease origin up/focus/01-core
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/focus/01-core
-gh pr create --repo longbridge/nsh --base main --head dXnSix:pr/focus/01-core \
+gh pr create --repo longbridge/nsh --base main --head dXnSix:up/focus/01-core \
   --title "core: Decide directional focus moves in nsh_core::focus" --body "$(sed '1,2d' PR.md)"
 ```
 

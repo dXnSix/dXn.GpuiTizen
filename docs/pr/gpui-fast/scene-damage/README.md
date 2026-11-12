@@ -7,7 +7,7 @@
 | Branch | `scene-damage` on `dXnSix/gpui-fast`, head `7cccca940`, pushed 2026-11-12 (rebased from `6b15d78`) |
 | Base | `upstream/main` `d1d6286` (#139, fetched 2026-11-12); rebased onto it without conflicts in its own files |
 | Size | 5 files, +1050 −0: `crates/gpui_wgpu/src/fast/damage.rs` (+533), `fast/damage/tests.rs` (+380), `fast/mod.rs` (+1); `crates/gpui/src/fast/scene_padding.rs` (+135, tests only), `crates/gpui/src/fast/mod.rs` (+1). No upstream file |
-| Its commits | `21414f8` pui_wgpu: compute scene damage between frames; `1858415` pui_wgpu: bound damage merging and key layer tiles and clip groups by what draws them; `7cccca9` pui: Prove the primitives partial redraws hash carry no padding |
+| Its commits | `21414f8` gpui_wgpu: compute scene damage between frames; `1858415` gpui_wgpu: bound damage merging and key layer tiles and clip groups by what draws them; `7cccca9` gpui: Prove the primitives partial redraws hash carry no padding |
 | Text | [PR.md](PR.md) |
 | On `tizen` | `3a04ba6`, `9099eaa` (with `external-target`'s `79b5148`), `d87f521`, `e392162` (`6b15d78`); `fast/damage*` identical to `external-target`'s, `fast/scene_padding.rs` identical to this branch's |
 | On `external-target` | `f6cab52` (same tree as `c60d3bd`) and `7567428` (same change as `8e546fd`); not `6b15d78` (see [../external-target/README.md](../external-target/README.md#rebasing-once-scene-damage-has-merged)) |

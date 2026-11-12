@@ -35,16 +35,16 @@ the pre-open checks, a video on a TV or the emulator (the owner's `t23-video`).
 
 ## Updating and opening
 
-After 04 has merged:
+Nothing is opened before the owner's agreement with NSH's owners ([../../../README.md](../../../README.md#prepared-not-opened-2026-11-12)).
+The branch that opens is `up/tizen/05-video`, never `pr/tizen/05-video`, which stays as the epic's records name it.
+Before opening, rebuild `up/tizen/05-video` on the newest `upstream/main` (or its parent's `up/` branch, once that has
+merged upstream) as [../../README.md](../../README.md#updating-a-branch-and-opening-it) says, and run the checks
+above on its tip. Then (owner runs this):
 
 ```bash
 cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen
-git fetch upstream origin
-git tag epic/tizen/05-video pr/tizen/05-video
-git rebase --onto upstream/main pr/tizen/04-platform pr/tizen/05-video
-# the checks above and the pre-open checks, then (owner runs this)
-git push -u origin pr/tizen/05-video
+git push --force-with-lease origin up/tizen/05-video
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/tizen/05-video
-gh pr create --repo longbridge/nsh --base main --head dXnSix:pr/tizen/05-video \
+gh pr create --repo longbridge/nsh --base main --head dXnSix:up/tizen/05-video \
   --title "gpui: Play videos on Samsung TVs through the TV's player" --body "$(sed '1,2d' PR.md)"
 ```

@@ -28,10 +28,11 @@ Checks on its tip `0bea951a0` (logs under `artifacts-temp/agentx/tizen-gpui-plat
 
 ## Before opening
 
-- Its two parents are 02 and 04; 04 holds 02, so after 04 has merged, `git rebase --onto upstream/main pr/focus/04-tv`
-  keeps only the three commits above (the merges go).
-- `b4a0181c9` drops a note about `focus()` on views that #1545 upstream already made false; after the move onto
-  `upstream/main` it may be empty or need rewording.
+- `up/focus/06-gpui-tab-stops` is built on `up/focus/04-tv` (which holds 02): its own commits are the three of its
+  "upstream branch" section, the merges gone. Once 04 has merged upstream, rebuild it on the newest `upstream/main`
+  by cherry-picking those three.
+- `pr/focus/06-gpui-tab-stops`'s `b4a0181c9` (dropping the note that GPUI does not follow `focus()` on views) has no
+  copy on the `up/` branch: upstream's text there no longer has the note, so the pick was empty.
 
 ## Checks
 
@@ -45,16 +46,16 @@ heads, and its `focus` module is `feat/tizen`'s. Not run: the pre-open checks.
 
 ## Updating and opening
 
-After 04 has merged and the desktop issue is answered:
+Nothing is opened before the owner's agreement with NSH's owners ([../../../README.md](../../../README.md#prepared-not-opened-2026-11-12)).
+The branch that opens is `up/focus/06-gpui-tab-stops`, never `pr/focus/06-gpui-tab-stops`, which stays as the epic's records name it.
+Before opening, rebuild `up/focus/06-gpui-tab-stops` on the newest `upstream/main` (or its parent's `up/` branch, once that has
+merged upstream) as [../../README.md](../../README.md#updating-a-branch-and-opening-it) says, and run the checks
+above on its tip. Then (owner runs this):
 
 ```bash
-cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen-gpui02
-git fetch upstream origin
-git tag epic/focus/06-gpui-tab-stops pr/focus/06-gpui-tab-stops
-git rebase --onto upstream/main pr/focus/04-tv pr/focus/06-gpui-tab-stops
-# the checks above and the pre-open checks, then (owner runs this)
-git push -u origin pr/focus/06-gpui-tab-stops
+cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen
+git push --force-with-lease origin up/focus/06-gpui-tab-stops
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/focus/06-gpui-tab-stops
-gh pr create --repo longbridge/nsh --base main --head dXnSix:pr/focus/06-gpui-tab-stops \
+gh pr create --repo longbridge/nsh --base main --head dXnSix:up/focus/06-gpui-tab-stops \
   --title "gpui: Stop Tab at pressables and focusable views, in tree order" --body "$(sed '1,2d' PR.md)"
 ```

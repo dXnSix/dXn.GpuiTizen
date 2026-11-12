@@ -54,17 +54,16 @@ run: the pre-open checks.
 
 ## Updating and opening
 
-After 02 has merged and nsh-compat's `focus-props` PR has merged:
+Nothing is opened before the owner's agreement with NSH's owners ([../../../README.md](../../../README.md#prepared-not-opened-2026-11-12)).
+The branch that opens is `up/focus/04-tv`, never `pr/focus/04-tv`, which stays as the epic's records name it.
+Before opening, rebuild `up/focus/04-tv` on the newest `upstream/main` (or its parent's `up/` branch, once that has
+merged upstream) as [../../README.md](../../README.md#updating-a-branch-and-opening-it) says, and run the checks
+above on its tip. Then (owner runs this):
 
 ```bash
 cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen
-git fetch upstream origin
-git tag epic/focus/04-tv pr/focus/04-tv
-git rebase --onto upstream/main pr/focus/02-gpui pr/focus/04-tv
-# the checks above and the pre-open checks (cargo xtask compat against nsh-compat main), then (owner runs this)
-git push -u origin pr/focus/04-tv
+git push --force-with-lease origin up/focus/04-tv
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/focus/04-tv
-gh pr create --repo longbridge/nsh --base main --head dXnSix:pr/focus/04-tv \
-  --title "core: Let views name where the arrows take the focus, with FocusGroup for TVs" \
-  --body "$(sed '1,2d' PR.md)"
+gh pr create --repo longbridge/nsh --base main --head dXnSix:up/focus/04-tv \
+  --title "core: Let views name where the arrows take the focus, with FocusGroup for TVs" --body "$(sed '1,2d' PR.md)"
 ```

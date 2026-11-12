@@ -39,16 +39,16 @@ with `tv/mod-tizen`.
 
 ## Updating and opening
 
-After 04 has merged:
+Nothing is opened before the owner's agreement with NSH's owners ([../../../README.md](../../../README.md#prepared-not-opened-2026-11-12)).
+The branch that opens is `up/tizen/06-module`, never `pr/tizen/06-module`, which stays as the epic's records name it.
+Before opening, rebuild `up/tizen/06-module` on the newest `upstream/main` (or its parent's `up/` branch, once that has
+merged upstream) as [../../README.md](../../README.md#updating-a-branch-and-opening-it) says, and run the checks
+above on its tip. Then (owner runs this):
 
 ```bash
 cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen
-git fetch upstream origin
-git tag epic/tizen/06-module pr/tizen/06-module
-git rebase --onto upstream/main pr/tizen/04-platform pr/tizen/06-module
-# the checks above, cargo xtask compat, and the pre-open checks, then (owner runs this)
-git push -u origin pr/tizen/06-module
+git push --force-with-lease origin up/tizen/06-module
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/tizen/06-module
-gh pr create --repo longbridge/nsh --base main --head dXnSix:pr/tizen/06-module \
+gh pr create --repo longbridge/nsh --base main --head dXnSix:up/tizen/06-module \
   --title "core: Add nsh/tizen, what Samsung TVs have" --body "$(sed '1,2d' PR.md)"
 ```

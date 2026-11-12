@@ -50,14 +50,16 @@ shader demos.
 
 ## Updating and opening
 
+Nothing is opened before the owner's agreement with NSH's owners ([../../../README.md](../../../README.md#prepared-not-opened-2026-11-12)).
+The branch that opens is `up/engine/01-wgpu-30`, never `pr/engine/01-wgpu-30`, which stays as the epic's records name it.
+Before opening, rebuild `up/engine/01-wgpu-30` on the newest `upstream/main` (or its parent's `up/` branch, once that has
+merged upstream) as [../../README.md](../../README.md#updating-a-branch-and-opening-it) says, and run the checks
+above on its tip. Then (owner runs this):
+
 ```bash
 cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen
-git fetch upstream origin
-git tag epic/engine/01-wgpu-30 pr/engine/01-wgpu-30
-git rebase --onto upstream/main 8c733731f pr/engine/01-wgpu-30
-# the checks above and the pre-open checks, then (owner runs this)
-git push -u origin pr/engine/01-wgpu-30
+git push --force-with-lease origin up/engine/01-wgpu-30
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/engine/01-wgpu-30
-gh pr create --repo longbridge/nsh --base main --head dXnSix:pr/engine/01-wgpu-30 \
+gh pr create --repo longbridge/nsh --base main --head dXnSix:up/engine/01-wgpu-30 \
   --title "engine: Move the shader renderer to wgpu 30" --body "$(sed '1,2d' PR.md)"
 ```

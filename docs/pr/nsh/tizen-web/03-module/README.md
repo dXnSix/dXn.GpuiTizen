@@ -37,17 +37,16 @@ The s20 runs came after `54f54bc36` (17:44 UTC).
 
 ## Updating and opening
 
-After `pr/tizen/06-module` and `pr/tizen-web/01-package` have merged:
+Nothing is opened before the owner's agreement with NSH's owners ([../../../README.md](../../../README.md#prepared-not-opened-2026-11-12)).
+The branch that opens is `up/tizen-web/03-module`, never `pr/tizen-web/03-module`, which stays as the epic's records name it.
+Before opening, rebuild `up/tizen-web/03-module` on the newest `upstream/main` (or its parent's `up/` branch, once that has
+merged upstream) as [../../README.md](../../README.md#updating-a-branch-and-opening-it) says, and run the checks
+above on its tip. Then (owner runs this):
 
 ```bash
-cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen-web
-git fetch upstream origin
-git tag epic/tizen-web/03-module pr/tizen-web/03-module
-git reset --hard upstream/main
-git cherry-pick 3be0df576 54f54bc36
-# the checks above and the pre-open checks, then (owner runs this)
-git push --force-with-lease -u origin pr/tizen-web/03-module
+cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen
+git push --force-with-lease origin up/tizen-web/03-module
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/tizen-web/03-module
-gh pr create --repo longbridge/nsh --base main --head dXnSix:pr/tizen-web/03-module \
+gh pr create --repo longbridge/nsh --base main --head dXnSix:up/tizen-web/03-module \
   --title "web: Serve nsh/tizen in Tizen web apps from the TV's web APIs" --body "$(sed '1,2d' PR.md)"
 ```

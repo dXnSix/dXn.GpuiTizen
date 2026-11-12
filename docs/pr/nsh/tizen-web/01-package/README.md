@@ -44,18 +44,16 @@ here `chk-nsh-test-tizen-web` checks `--target tizen-web`. Not run: the pre-open
 
 ## Updating and opening
 
-After `pr/tv/01-keys` and `pr/tv/02-category` have merged and the probe has run on a TV:
+Nothing is opened before the owner's agreement with NSH's owners ([../../../README.md](../../../README.md#prepared-not-opened-2026-11-12)).
+The branch that opens is `up/tizen-web/01-package`, never `pr/tizen-web/01-package`, which stays as the epic's records name it.
+Before opening, rebuild `up/tizen-web/01-package` on the newest `upstream/main` (or its parent's `up/` branch, once that has
+merged upstream) as [../../README.md](../../README.md#updating-a-branch-and-opening-it) says, and run the checks
+above on its tip. Then (owner runs this):
 
 ```bash
 cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen
-git fetch upstream origin
-git switch pr/tizen-web/01-package
-git tag epic/tizen-web/01-package pr/tizen-web/01-package
-git reset --hard upstream/main
-git cherry-pick 5ef50b12e 12834794f d74ce6fcd bfd4b7d9b 6bfecf051 6f0005235 1fd94197c 0294d0204
-# the checks above and the pre-open checks, then (owner runs this)
-git push --force-with-lease -u origin pr/tizen-web/01-package
+git push --force-with-lease origin up/tizen-web/01-package
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/tizen-web/01-package
-gh pr create --repo longbridge/nsh --base main --head dXnSix:pr/tizen-web/01-package \
+gh pr create --repo longbridge/nsh --base main --head dXnSix:up/tizen-web/01-package \
   --title "cli: Package, run and test apps as Tizen web apps" --body "$(sed '1,2d' PR.md)"
 ```

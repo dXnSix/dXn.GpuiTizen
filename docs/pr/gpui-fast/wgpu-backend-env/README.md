@@ -7,7 +7,7 @@
 | Branch | `wgpu-backend-env` on `dXnSix/gpui-fast`, head `dd0d50884`, pushed 2026-11-12 (rebased from `54a64d3`) |
 | Base | `upstream/main` `d1d6286` (#139, fetched 2026-11-12); rebased onto it without conflicts in its own files |
 | Size | 3 files, +66 −1: `crates/gpui_wgpu/src/fast/gles.rs` (new, with its tests), `fast/mod.rs` (+1), `wgpu_context.rs` (+1 −1, one hook) |
-| Its commits | `dd0d508` ast: let WGPU_BACKEND choose the native backends |
+| Its commits | `dd0d508` fast: let WGPU_BACKEND choose the native backends |
 | Text | [PR.md](PR.md) |
 | On `tizen` | `fee7e2c` |
 | Needs | the issue ([../issue.md](../issue.md)); no new API. If `gles-instance-path` merges first, a rebase: both create `fast/gles.rs` and add `pub(crate) mod gles;` |

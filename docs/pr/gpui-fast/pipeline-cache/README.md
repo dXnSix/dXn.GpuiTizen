@@ -7,7 +7,7 @@
 | Branch | `pipeline-cache` on `dXnSix/gpui-fast`, head `41a8bfc83`, pushed 2026-11-12 (rebased from `9864e93`) |
 | Base | `upstream/main` `d1d6286` (#139, fetched 2026-11-12); rebased onto it without conflicts in its own files |
 | Size | 4 files, +279 −1: `crates/gpui_wgpu/src/fast/pipeline_cache.rs` (new, with its tests), `fast/mod.rs` (+1), `wgpu_context.rs` (+2, two hooks), `wgpu_renderer.rs` (+3 −1, three hooks) |
-| Its commits | `83edd9f` ast: keep compiled pipelines in a cache on disk; `e5c505b` ast: drop the previous device's pipeline cache when opening a new one; `41a8bfc` ast: keep the pipeline cache slot on the main thread |
+| Its commits | `83edd9f` fast: keep compiled pipelines in a cache on disk; `e5c505b` fast: drop the previous device's pipeline cache when opening a new one; `41a8bfc` fast: keep the pipeline cache slot on the main thread |
 | Text | [PR.md](PR.md) |
 | On `tizen` | `6b5f88c`, `8e88253`, `3b6ea11` (`fast/pipeline_cache.rs` identical) |
 | Needs | the issue ([../issue.md](../issue.md)); no new API. If `video-hole` merges first, pass the cache to the hole pipeline too (see below) |

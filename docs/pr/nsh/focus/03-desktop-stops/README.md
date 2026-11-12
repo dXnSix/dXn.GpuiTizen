@@ -4,7 +4,7 @@
 |---|---|
 | Upstream PR | ready, not opened: nothing goes to `longbridge/nsh` before the owner's agreement with its owners ([../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
 | Fork PR | dXnSix/nsh#198 (merge commit), into the fork's `main`, on the owner's go |
-| Upstream branch | `up/focus/03-desktop-stops` on `dXnSix/nsh`, head `681ae0333`, pushed 2026-11-12: `up/focus/01-core`, on `upstream/main` `ca7e70e51` (#1789); see below |
+| Upstream branch | `up/focus/03-desktop-stops` on `dXnSix/nsh`, head `cfe38ef44`, pushed 2026-11-12 (rebuilt from `681ae0333`): `upstream/main` `092438e52` (#1836), with 01's commits picked under its own (01's `up/` branch stays on `ca7e70e51`, under 02 to 07); see below |
 | Branch | `pr/focus/03-desktop-stops`, head `21b962ece`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-desktop` |
 | Base | `pr/focus/01-core` (`ce993fd21`), on `upstream/main` `41100f2bf`. Against `c16a70096` it conflicts in `docs/dev/elements.md` and `docs/dev/windows.md`; `nsh-platform-windows/src/text_input.rs` merges textually with #1475 (RichEdit text inputs) but must be rebuilt and checked. Not rebased |
 | Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `8d563c338`: `2168706bf`; then `21b962ece` windows: Keep a text's links in their place when Tab follows the overlays ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
@@ -19,14 +19,12 @@
 
 ## The upstream branch (2026-11-12)
 
-`up/focus/03-desktop-stops` holds this branch's own commits on `up/focus/01-core`, cherry-picked (the `pr/*` branch, which carries
-merges of the fork's `main`, stays as it is): `273341fad` macos: Move Tab through the stops in tree order; `389bdd355` linux: Move Tab through the stops in tree order; `6b3ba1748` windows: Stop Tab at pressables, in tree order; `bee7c16c8` windows: Move focus with the arrows through nsh_core::focus; `2c05f9af4` linux: Report a field's blur before the next view's focus; `d658aba70` macos: Move focus with the arrows through nsh_core::focus; `a85ae0ea9` linux: Move focus with the arrows through nsh_core::focus; `7768c47c5` windows: Name the app spec that checks the keyboard focus; `681ae0333` windows: Keep a text's links in their place when Tab follows the overlays.
+`up/focus/03-desktop-stops` holds this branch's own commits on `upstream/main` `092438e52` (#1836), with 01's commits picked under its own (01's `up/` branch stays on `ca7e70e51`, under 02 to 07), cherry-picked (the `pr/*` branch, which carries merges of the
+fork's `main`, stays as it is): `01b3c8d4b` core: Decide directional focus moves in nsh_core::focus; `396ef2e58` tui: Take focus moves from nsh_core::focus; `97071de70` tui: Give the focus core its Cells one point each; `e7bb4aeb0` core: Let focus frames be in any unit scaled per axis; `33b3a3dbb` macos: Move Tab through the stops in tree order; `d8588f18e` linux: Move Tab through the stops in tree order; `c845aaf5d` windows: Stop Tab at pressables, in tree order; `3fbed4fa7` windows: Move focus with the arrows through nsh_core::focus; `f0c812d19` linux: Report a field's blur before the next view's focus; `9329c4df0` macos: Move focus with the arrows through nsh_core::focus; `e2972b8ea` linux: Move focus with the arrows through nsh_core::focus; `3b21ae481` windows: Name the app spec that checks the keyboard focus; `cfe38ef44` windows: Keep a text's links in their place when Tab follows the overlays.
 
-macOS's Tab is this branch's tree-order walk; upstream's #1832 (2026-11-12) keeps hidden views out of the key view loop, so the walk takes fields and hosted views only where their view is seen (`seen_by_keys`) and `held_seen` goes. Windows' `focus.rs` orders Tab with `nsh_core::input::tab_order` (#1616), as the fork's merge did. The docs keep upstream's `FOCUS_VISIBLE` and overlay text.
+macOS's Tab is this branch's tree-order walk; upstream's #1832 (2026-11-12) keeps hidden views out of the key view loop, so the walk takes fields and hosted views only where their view is seen (`seen_by_keys`) and `held_seen` goes. Windows' `focus.rs` orders Tab with `nsh_core::input::tab_order` (#1616), as the fork's merge did. The docs keep upstream's `FOCUS_VISIBLE` and overlay text. On the newer `main`, #1851 clears the screen reader's focus when the keyboard focus moves: in Linux's `key_focus.rs` that is now the first focus handler, before this branch's blur (`left`), as it was before the one handler upstream has.
 
-Checks on its tip `681ae0333` (logs under `artifacts-temp/agentx/tizen-gpui-platform/t25-nsh/`): `tests/apps/pressable-focus --target macos`, `focus::tests` (macOS) 2 passed, Linux's `pressable-focus` and `key_focus::` 7 in the Lima VM, Windows' check-only clippy, fmt, the macOS clippy.
-
-`upstream/main` moved on the same day (`092438e52`, #1836); against it the branch has a conflict in `nsh-platform-linux/src/key_focus.rs` (#1851): rebuild it on the newest `upstream/main` before opening.
+Checks on its tip `cfe38ef44` (`artifacts-temp/agentx/tizen-gpui-platform/t25-nsh/focus-03-desktop-stops-final.log`): `tests/apps/pressable-focus --target macos`, `focus::tests` (macOS) 2 passed, Linux's `pressable-focus` and `key_focus::` 7 in the Lima VM, Windows' check-only clippy (a fresh `CHECK_ONLY_TARGET_DIR`: the shared one had a stale `quickjs-jit-sys` build), fmt, the macOS clippy.
 
 ## Before opening
 
@@ -55,17 +53,16 @@ this branch's. Not run: Windows' tests, the pre-open checks.
 
 ## Updating and opening
 
-After 01 has merged and the desktop issue is answered:
+Nothing is opened before the owner's agreement with NSH's owners ([../../../README.md](../../../README.md#prepared-not-opened-2026-11-12)).
+The branch that opens is `up/focus/03-desktop-stops`, never `pr/focus/03-desktop-stops`, which stays as the epic's records name it.
+Before opening, rebuild `up/focus/03-desktop-stops` on the newest `upstream/main` (or its parent's `up/` branch, once that has
+merged upstream) as [../../README.md](../../README.md#updating-a-branch-and-opening-it) says, and run the checks
+above on its tip. Then (owner runs this):
 
 ```bash
-cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen-desktop
-git fetch upstream origin
-git tag epic/focus/03-desktop-stops pr/focus/03-desktop-stops
-git rebase --onto upstream/main pr/focus/01-core pr/focus/03-desktop-stops
-# the checks above and the pre-open checks, then (owner runs this)
-git push -u origin pr/focus/03-desktop-stops
+cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen
+git push --force-with-lease origin up/focus/03-desktop-stops
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/focus/03-desktop-stops
-gh pr create --repo longbridge/nsh --base main --head dXnSix:pr/focus/03-desktop-stops \
-  --title "desktop: Stop Tab at pressables in tree order, and move focus with the arrows" \
-  --body "$(sed '1,2d' PR.md)"
+gh pr create --repo longbridge/nsh --base main --head dXnSix:up/focus/03-desktop-stops \
+  --title "desktop: Stop Tab at pressables in tree order, and move focus with the arrows" --body "$(sed '1,2d' PR.md)"
 ```

@@ -57,19 +57,16 @@ on a TV or the emulator (the owner's `DEV` runs), `dotnet build` of the host.
 
 ## Updating and opening
 
-After 01, 03 and `pr/tv/01-keys` have merged, dXn.GpuiTizen is on crates.io and the dependency lines are changed:
+Nothing is opened before the owner's agreement with NSH's owners ([../../../README.md](../../../README.md#prepared-not-opened-2026-11-12)).
+The branch that opens is `up/tizen/04-platform`, never `pr/tizen/04-platform`, which stays as the epic's records name it.
+Before opening, rebuild `up/tizen/04-platform` on the newest `upstream/main` (or its parent's `up/` branch, once that has
+merged upstream) as [../../README.md](../../README.md#updating-a-branch-and-opening-it) says, and run the checks
+above on its tip. Then (owner runs this):
 
 ```bash
 cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen
-git fetch upstream origin
-git switch pr/tizen/04-platform
-git tag epic/tizen/04-platform pr/tizen/04-platform
-git reset --hard upstream/main
-git cherry-pick 832c3fe4f affb03293 83a99e7c9 9109e7ac3 23af6e7f0 339182cda 384758c3c a1225fec5 ce04c6d13 \
-  6310504d6 cb6aa2573 e752c035f
-# the crates.io dependency, the checks above and the pre-open checks, then (owner runs this)
-git push --force-with-lease -u origin pr/tizen/04-platform
+git push --force-with-lease origin up/tizen/04-platform
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/tizen/04-platform
-gh pr create --repo longbridge/nsh --base main --head dXnSix:pr/tizen/04-platform \
+gh pr create --repo longbridge/nsh --base main --head dXnSix:up/tizen/04-platform \
   --title "tizen: Add nsh-platform-tizen, the Samsung TV backend" --body "$(sed '1,2d' PR.md)"
 ```

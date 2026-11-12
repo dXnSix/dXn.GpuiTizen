@@ -58,19 +58,16 @@ architectures (one armv7l build is reported in `ef365beaa`: 4m 48s, a 41 MB stri
 
 ## Updating and opening
 
-After 05, 06 and `pr/tizen-web/01-package` have merged:
+Nothing is opened before the owner's agreement with NSH's owners ([../../../README.md](../../../README.md#prepared-not-opened-2026-11-12)).
+The branch that opens is `up/tizen/07-cli`, never `pr/tizen/07-cli`, which stays as the epic's records name it.
+Before opening, rebuild `up/tizen/07-cli` on the newest `upstream/main` (or its parent's `up/` branch, once that has
+merged upstream) as [../../README.md](../../README.md#updating-a-branch-and-opening-it) says, and run the checks
+above on its tip. Then (owner runs this):
 
 ```bash
-cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen-os
-git fetch upstream origin
-git tag epic/tizen/07-cli pr/tizen/07-cli
-git reset --hard upstream/main
-git cherry-pick 5cea54e4b 1ca68cd89 ef365beaa a38dcbeca 22c48fe78 fdcb28185 5c22de690 9244408df a5857a017 7cb4e3fb2 \
-  55f2d6e7f
-# (20404bb35 is left out: 04's 384758c3c is the same patch)
-# the checks above and the pre-open checks, then (owner runs this)
-git push --force-with-lease -u origin pr/tizen/07-cli
+cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen
+git push --force-with-lease origin up/tizen/07-cli
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/tizen/07-cli
-gh pr create --repo longbridge/nsh --base main --head dXnSix:pr/tizen/07-cli \
+gh pr create --repo longbridge/nsh --base main --head dXnSix:up/tizen/07-cli \
   --title "cli: Run, package and test apps natively on Samsung TVs" --body "$(sed '1,2d' PR.md)"
 ```

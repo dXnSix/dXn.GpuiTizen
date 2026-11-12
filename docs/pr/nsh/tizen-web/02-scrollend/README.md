@@ -30,14 +30,16 @@ loaded `feat/tizen`'s `nsh.js`, with the focus and TV branches' changes. Not run
 
 ## Updating and opening
 
+Nothing is opened before the owner's agreement with NSH's owners ([../../../README.md](../../../README.md#prepared-not-opened-2026-11-12)).
+The branch that opens is `up/tizen-web/02-scrollend`, never `pr/tizen-web/02-scrollend`, which stays as the epic's records name it.
+Before opening, rebuild `up/tizen-web/02-scrollend` on the newest `upstream/main` (or its parent's `up/` branch, once that has
+merged upstream) as [../../README.md](../../README.md#updating-a-branch-and-opening-it) says, and run the checks
+above on its tip. Then (owner runs this):
+
 ```bash
 cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen
-git fetch upstream origin
-git tag epic/tizen-web/02-scrollend pr/tizen-web/02-scrollend
-git rebase --onto upstream/main 8c733731f pr/tizen-web/02-scrollend
-# the check above and the pre-open checks, then (owner runs this)
-git push -u origin pr/tizen-web/02-scrollend
+git push --force-with-lease origin up/tizen-web/02-scrollend
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/tizen-web/02-scrollend
-gh pr create --repo longbridge/nsh --base main --head dXnSix:pr/tizen-web/02-scrollend \
+gh pr create --repo longbridge/nsh --base main --head dXnSix:up/tizen-web/02-scrollend \
   --title "web: End scrolls without scrollend" --body "$(sed '1,2d' PR.md)"
 ```

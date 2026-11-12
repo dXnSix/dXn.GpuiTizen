@@ -39,7 +39,7 @@ longbridge's `main` `e56ebce` (#49); `focus-props` keeps both sides of `build.rs
 `nsh_has_accessibility_description`). `tizen-platform` waits for `UP-5`; on that `main` it conflicts the same way in
 `build.rs`, and its `nsh_has_tizen` lines need `cargo fmt`.
 
-Checks (logs under `artifacts-temp/agentx/tizen-gpui-platform/t25-compat/`): `cargo fmt --check` on both; `cargo test`
+Checks (logs under `artifacts-temp/agentx/tizen-gpui-platform/t25-compat/`): `cargo fmt --check` on both (`<branch>-fmt.log`); `cargo test`
 against the fork's `main` (`../nsh` at `4d5dd4f0f`) with the three companions together: 39 passed. Each alone fails
 only `checkout_apps_run` on the cases the others serve (`focusGroup`; `platform tizen`, `platform android tv`), as the
 fork's `main` has all three. From NSH, `cargo xtask compat` passed on `up/tv/02-category` with `up/tv-idiom` and on

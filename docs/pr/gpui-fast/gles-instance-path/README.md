@@ -7,7 +7,7 @@
 | Branch | `gles-instance-path` on `dXnSix/gpui-fast`, head `9906814ad`, pushed 2026-11-12 (rebased from `fbd3ed9`) |
 | Base | `upstream/main` `d1d6286` (#139, fetched 2026-11-12); rebased onto it without conflicts in its own files |
 | Size | 3 files, +215 −1: `crates/gpui_wgpu/src/fast/gles.rs` (new, with its tests), `fast/mod.rs` (+1), `wgpu_context.rs` (+5 −1, three hooks) |
-| Its commits | `9906814` ast: draw GL ES 3.0 devices through the instance-texture path |
+| Its commits | `9906814` fast: draw GL ES 3.0 devices through the instance-texture path |
 | Text | [PR.md](PR.md) |
 | On `tizen` | `25fc4a9` |
 | Needs | the issue ([../issue.md](../issue.md)); no new API |

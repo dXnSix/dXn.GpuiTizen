@@ -54,14 +54,16 @@ too).
 
 ## Updating and opening
 
+Nothing is opened before the owner's agreement with NSH's owners ([../../../README.md](../../../README.md#prepared-not-opened-2026-11-12)).
+The branch that opens is `up/tv/01-keys`, never `pr/tv/01-keys`, which stays as the epic's records name it.
+Before opening, rebuild `up/tv/01-keys` on the newest `upstream/main` (or its parent's `up/` branch, once that has
+merged upstream) as [../../README.md](../../README.md#updating-a-branch-and-opening-it) says, and run the checks
+above on its tip. Then (owner runs this):
+
 ```bash
 cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen
-git fetch upstream origin
-git tag epic/tv/01-keys pr/tv/01-keys
-git rebase --onto upstream/main 8c733731f pr/tv/01-keys
-# the checks above and the pre-open checks, then (owner runs this)
-git push -u origin pr/tv/01-keys
+git push --force-with-lease origin up/tv/01-keys
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/tv/01-keys
-gh pr create --repo longbridge/nsh --base main --head dXnSix:pr/tv/01-keys \
+gh pr create --repo longbridge/nsh --base main --head dXnSix:up/tv/01-keys \
   --title "keymap: Name the media and TV remote keys" --body "$(sed '1,2d' PR.md)"
 ```

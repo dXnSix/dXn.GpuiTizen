@@ -46,16 +46,16 @@ run: the pre-open checks.
 
 ## Updating and opening
 
-After 02 has merged:
+Nothing is opened before the owner's agreement with NSH's owners ([../../../README.md](../../../README.md#prepared-not-opened-2026-11-12)).
+The branch that opens is `up/tizen/03-gpui-tizen-cfg`, never `pr/tizen/03-gpui-tizen-cfg`, which stays as the epic's records name it.
+Before opening, rebuild `up/tizen/03-gpui-tizen-cfg` on the newest `upstream/main` (or its parent's `up/` branch, once that has
+merged upstream) as [../../README.md](../../README.md#updating-a-branch-and-opening-it) says, and run the checks
+above on its tip. Then (owner runs this):
 
 ```bash
 cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen
-git fetch upstream origin
-git tag epic/tizen/03-gpui-tizen-cfg pr/tizen/03-gpui-tizen-cfg
-git rebase --onto upstream/main pr/tizen/02-gpui-platform-optional pr/tizen/03-gpui-tizen-cfg   # then #1439, above
-# the checks above and the pre-open checks, then (owner runs this)
-git push -u origin pr/tizen/03-gpui-tizen-cfg
+git push --force-with-lease origin up/tizen/03-gpui-tizen-cfg
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/tizen/03-gpui-tizen-cfg
-gh pr create --repo longbridge/nsh --base main --head dXnSix:pr/tizen/03-gpui-tizen-cfg \
+gh pr create --repo longbridge/nsh --base main --head dXnSix:up/tizen/03-gpui-tizen-cfg \
   --title "gpui: Build for Tizen" --body "$(sed '1,2d' PR.md)"
 ```

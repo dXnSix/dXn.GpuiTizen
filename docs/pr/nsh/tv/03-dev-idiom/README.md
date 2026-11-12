@@ -4,7 +4,7 @@
 |---|---|
 | Upstream PR | ready, not opened: nothing goes to `longbridge/nsh` before the owner's agreement with its owners ([../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
 | Fork PR | dXnSix/nsh#196 (merge commit), into the fork's `main`, on the owner's go |
-| Upstream branch | `up/tv/03-dev-idiom` on `dXnSix/nsh`, head `54f305d94`, pushed 2026-11-12: `up/tv/02-category`, on `upstream/main` `ca7e70e51` (#1789); see below |
+| Upstream branch | `up/tv/03-dev-idiom` on `dXnSix/nsh`, head `d29948463`, pushed 2026-11-12 (rebuilt from `54f305d94`): `up/tv/02-category`, on `upstream/main` `092438e52` (#1836); see below |
 | Branch | `pr/tv/03-dev-idiom`, head `cc0685a75`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-engine` |
 | Base | `pr/tv/02-category` at its head (merged in by `af909ed26`), on `upstream/main` `8c733731f`. Against `c16a70096` it conflicts in 02's `crates/nsh-core/src/prelude.rs` and `crates/nsh-platform-web/src/browser/engine.rs`, and in `crates/nsh-cli/src/test_web.rs`. Not rebased |
 | Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `2cb11014a`: `880e9dfb5`; then `cc0685a75` cli: Allow the test host's starter its options, one each ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
@@ -19,14 +19,12 @@
 
 ## The upstream branch (2026-11-12)
 
-`up/tv/03-dev-idiom` holds this branch's own commits on `up/tv/02-category`, cherry-picked (the `pr/*` branch, which carries
-merges of the fork's `main`, stays as it is): `46183499b` cli: Run apps in the TV idiom on the desktop; `f0749a16d` cli: Run nsh test's apps in the TV idiom on the GPUI host and the web page; `b35d1da18` test: Add an app spec that runs in the TV idiom on the desktop; `54f305d94` cli: Allow the test host's starter its options, one each.
+`up/tv/03-dev-idiom` holds this branch's own commits on `up/tv/02-category`, on `upstream/main` `092438e52` (#1836), cherry-picked (the `pr/*` branch, which carries merges of the
+fork's `main`, stays as it is): `7e361387c` cli: Run apps in the TV idiom on the desktop; `ab8d01e06` cli: Run nsh test's apps in the TV idiom on the GPUI host and the web page; `f46079844` test: Add an app spec that runs in the TV idiom on the desktop; `d29948463` cli: Allow the test host's starter its options, one each.
 
-Picked cleanly on `up/tv/02-category`. The test agent's Tab wrap (`48389b3f9`) is not here: it calls focus/06's `input::tab_past_ends`, so it moved to `up/focus/06-gpui-tab-stops`.
+Rebuilt on the newer `main`: #1813 (the test hosts run in the background) met this branch in `nsh-gpui-host/src/lib.rs` (both imports kept), `nsh-cli/src/test_host.rs` (the starter's doc says both; #1813's new test calls pass the `idiom` argument too) and the CLI pages (English, zh-CN: #1813's rows and the `--idiom` row). The test agent's Tab wrap (`48389b3f9`) is not here: it calls focus/06's `input::tab_past_ends`, so it moved to `up/focus/06-gpui-tab-stops`.
 
-Checks on its tip `54f305d94` (logs under `artifacts-temp/agentx/tizen-gpui-platform/t25-nsh/`): `dev_idiom::` 8 passed, `app::idiom_tests` 1, `tests/apps/tv-idiom --target gpui --idiom tv`, fmt, the `nsh-cli` and GPUI clippy. Not run here: the `tizen-web` check and the `pressable-focus` part (they need branches this one does not have).
-
-`upstream/main` moved on the same day (`092438e52`, #1836); against it the branch has conflicts in `nsh-gpui-host/src/lib.rs`, `nsh-cli/src/test_host.rs` and the CLI pages (English, zh-CN): rebuild it on the newest `upstream/main` before opening.
+Checks on its tip `d29948463` (`artifacts-temp/agentx/tizen-gpui-platform/t25-nsh/tv-03-dev-idiom-final2.log`): `dev_idiom::` 8 passed, `app::idiom_tests` 1, `test_host::` 3, `tests/apps/tv-idiom --target gpui --idiom tv`, fmt, the `nsh-cli` and GPUI clippy. Not run here: the `tizen-web` check and the `pressable-focus` part (they need branches this one does not have).
 
 ## Before opening
 
@@ -63,16 +61,16 @@ Not run: the pre-open checks.
 
 ## Updating and opening
 
-After 02 has merged:
+Nothing is opened before the owner's agreement with NSH's owners ([../../../README.md](../../../README.md#prepared-not-opened-2026-11-12)).
+The branch that opens is `up/tv/03-dev-idiom`, never `pr/tv/03-dev-idiom`, which stays as the epic's records name it.
+Before opening, rebuild `up/tv/03-dev-idiom` on the newest `upstream/main` (or its parent's `up/` branch, once that has
+merged upstream) as [../../README.md](../../README.md#updating-a-branch-and-opening-it) says, and run the checks
+above on its tip. Then (owner runs this):
 
 ```bash
 cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen
-git fetch upstream origin
-git tag epic/tv/03-dev-idiom pr/tv/03-dev-idiom
-git rebase --onto upstream/main pr/tv/02-category pr/tv/03-dev-idiom
-# the checks above and the pre-open checks, then (owner runs this)
-git push -u origin pr/tv/03-dev-idiom
+git push --force-with-lease origin up/tv/03-dev-idiom
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/tv/03-dev-idiom
-gh pr create --repo longbridge/nsh --base main --head dXnSix:pr/tv/03-dev-idiom \
+gh pr create --repo longbridge/nsh --base main --head dXnSix:up/tv/03-dev-idiom \
   --title "cli: Run apps in the TV idiom on the desktop" --body "$(sed '1,2d' PR.md)"
 ```

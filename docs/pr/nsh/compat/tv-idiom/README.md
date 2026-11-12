@@ -14,18 +14,17 @@
 
 ## Updating and opening
 
-After the fork exists ([../README.md](../README.md#where-things-are)):
+Nothing is opened before the owner's agreement with nsh-compat's owners. The branch that opens is `up/tv-idiom` on
+`dXnSix/nsh-compat`: before opening, rebuild it with its own commit on the newest longbridge `main` (`upstream`), run
+the checks in [../README.md](../README.md#checks-each-branch), then (owner runs this):
 
 ```bash
 cd /Users/dinko/work-private/projects/dXn/nsh/nsh-compat
-git fetch origin
-git rebase origin/main tv-idiom
-# the checks in ../README.md, then (owner runs this)
-git push -u origin tv-idiom
+git push --force-with-lease origin up/tv-idiom
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/compat/tv-idiom
-gh pr create --repo longbridge/nsh-compat --base main --head dXnSix:tv-idiom \
+gh pr create --repo longbridge/nsh-compat --base main --head dXnSix:up/tv-idiom \
   --title 'compat: Run a script on a TV with `platform <os> tv`' --body "$(sed '1,2d' PR.md)"
 ```
 
-Then put its number at the top of NSH's `pr/tv/02-category` `PR.md`, and rebase `tizen-platform` onto `origin/main`
+Then put its number at the top of NSH's `up/tv/02-category` `PR.md`, and rebuild `tizen-platform` on longbridge's `main`
 once it has merged.

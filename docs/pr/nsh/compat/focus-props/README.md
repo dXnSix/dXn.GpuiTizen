@@ -17,17 +17,16 @@
 
 ## Updating and opening
 
-After the fork exists ([../README.md](../README.md#where-things-are)):
+Nothing is opened before the owner's agreement with nsh-compat's owners. The branch that opens is `up/focus-props` on
+`dXnSix/nsh-compat`: before opening, rebuild it with its own commit on the newest longbridge `main` (`upstream`), run
+the checks in [../README.md](../README.md#checks-each-branch), then (owner runs this):
 
 ```bash
 cd /Users/dinko/work-private/projects/dXn/nsh/nsh-compat
-git fetch origin
-git rebase origin/main focus-props
-# the checks in ../README.md, then (owner runs this)
-git push -u origin focus-props
+git push --force-with-lease origin up/focus-props
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/compat/focus-props
-gh pr create --repo longbridge/nsh-compat --base main --head dXnSix:focus-props \
+gh pr create --repo longbridge/nsh-compat --base main --head dXnSix:up/focus-props \
   --title "compat: Report views' focus props and focus groups" --body "$(sed '1,2d' PR.md)"
 ```
 
-Then put its number at the top of NSH's `pr/focus/04-tv` `PR.md`.
+Then put its number at the top of NSH's `up/focus/04-tv` `PR.md`.

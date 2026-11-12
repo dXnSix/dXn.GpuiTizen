@@ -144,8 +144,8 @@ Two failures were real, both outside gpui-fast:
 ## The upstream branches (2026-11-12)
 
 For `UP-4` (prepared, not opened: [../README.md](../README.md#prepared-not-opened-2026-11-12)), every branch that needs no
-TV has an `up/` copy on `dXnSix/nsh`: its own commits cherry-picked onto `upstream/main` `ca7e70e51` (#1789), or onto
-its parent's `up/` branch, the `pr/*` branch untouched. `up/engine/01-wgpu-30`, `up/tv/01-keys` … `04-remote-keys`,
+TV has an `up/` copy on `dXnSix/nsh`: its own commits cherry-picked onto `upstream/main` `ca7e70e51` (#1789) or newer, or
+onto its parent's `up/` branch, the `pr/*` branch untouched. `up/engine/01-wgpu-30`, `up/tv/01-keys` … `04-remote-keys`,
 `up/focus/01-core` … `07-web-tv` (`07` on `04` with `05`'s commit picked in). Each branch README has the base, what the
 newer `upstream/main` asked of it and the checks run on its tip, all passing. What the base asked beyond conflicts:
 
@@ -156,9 +156,10 @@ newer `upstream/main` asked of it and the checks run on its tip, all passing. Wh
 - The test agent's Tab wrap moved from `tv/03` to `up/focus/06-gpui-tab-stops`, the branch that has `tab_past_ends`.
 
 The nsh-compat companions have `up/tv-idiom` and `up/focus-props` on `dXnSix/nsh-compat` ([compat/README.md](compat/README.md#the-upstream-branches-2026-11-12)).
-`upstream/main` moved on the same day to `092438e52` (#1836): `up/tv/03-dev-idiom` and `up/focus/03-desktop-stops`
-conflict with it (their READMEs say where); the rest merge onto it cleanly. Rebuild a branch on the newest
-`upstream/main` before it is opened.
+`upstream/main` moved on the same day: `up/tv/02-category`, `up/tv/03-dev-idiom` and `up/focus/03-desktop-stops` were
+rebuilt on `092438e52` (#1836; 03 with 01's commits under its own), and at `04518afca` (#1843) every `up/` branch
+merges onto `upstream/main` without conflict (`git merge-tree`). Rebuild a branch on the newest `upstream/main` before it
+is opened.
 
 The upstream PRs still go from the latest `upstream/main` ([below](#updating-a-branch-and-opening-it)): a branch's
 merge of the fork's `main` brings fork-only commits, so it is rebased (its own commits) before it is opened.
@@ -222,39 +223,33 @@ They are nsh-root's (`/Users/dinko/work-private/projects/dXn/nsh/nsh-root/AGENTS
 
 ## Updating a branch and opening it
 
-Every check result a branch README records comes from the integration branch `feat/tizen` (with the other branches
-merged in), none from the branch alone; each README's checks section says which of its checks cannot run on the branch
-alone, and gives the command that does where there is one. So before a branch is opened (owner's step):
+The branch that opens upstream is a branch's `up/` copy ([above](#the-upstream-branches-2026-11-12)), never the
+`pr/*` branch: that one carries merges of the fork's `main`, the epic's records name its commits, and it is never
+rebased or force-pushed. Nothing is opened before the owner's agreement with NSH's owners
+([../README.md](../README.md#prepared-not-opened-2026-11-12)). Before an `up/` branch is opened (owner's step):
 
-1. **Rebase** it onto the latest `upstream/main` (commands below), resolving the conflicts its README lists (its
-   "Base" row and "Before opening").
-2. **Run its README's checks on its tip**, on that branch alone (in the worktree that has it), with the commands for
-   the branch alone where its README gives them, and the pre-open checks below.
-3. **Update the numbers and the checklist in `PR.md`**.
-
-The epic's AgentX records name these branches' commits, and the fork's rule is not to rebase a committed branch.
-Opening upstream needs a rebase all the same; keep the old head reachable first:
+1. **Rebuild it** on the newest `upstream/main`, or on its parent's `up/` branch while the parent has not merged
+   upstream (once it has, on `upstream/main`): a fresh branch with the `pr/*` branch's own commits cherry-picked
+   (`git rev-list --first-parent --no-merges --reverse pr/<area>/<topic> ^upstream/main ^<its parents' pr/ branches>`)
+   and the adaptations its README's "upstream branch" section lists, resolving what the newer `upstream/main` asks.
+2. **Run its README's checks on its tip** (in a worktree that has it), and the pre-open checks below; record the run
+   in its README.
+3. **Update the numbers and the checklist in `PR.md`**, replacing the `#(…)` placeholders with the real issue and PR
+   numbers.
 
 ```bash
 cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen      # or the worktree that has the branch
 git fetch upstream origin
-git tag epic/<area>/<topic> pr/<area>/<topic>                     # the commits the epic's records name
-git rebase --onto upstream/main <its base or merged parent> pr/<area>/<topic>
-# a branch with several parents: cherry-pick its own commits instead (its README lists them)
-```
-
-Then steps 2 and 3, replace the `#(…)` placeholders with the real issue and PR numbers, and (owner runs this):
-
-```bash
-git push -u origin pr/<area>/<topic>
+git switch -C up/<area>/<topic> upstream/main                    # or its parent's up/ branch
+git cherry-pick <its own commits, oldest first>                  # then its adaptations; see its README
+# the checks, then (owner runs this)
+git push --force-with-lease origin up/<area>/<topic>
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/<area>/<topic>
-gh pr create --repo longbridge/nsh --base main --head dXnSix:pr/<area>/<topic> \
+gh pr create --repo longbridge/nsh --base main --head dXnSix:up/<area>/<topic> \
   --title "<line 1 of PR.md without '# '>" --body "$(sed '1,2d' PR.md)"
 ```
 
-Record the PR number in the branch README, the area README and [../README.md](../README.md). The fork's `main` then
-merges the same branch through a fork PR (merge commit), as nsh-root's `upstream-pr/README.md` describes; `feat/tizen`
-stays the local mirror of that.
+Record the PR number in the branch README, the area README and [../README.md](../README.md).
 
 ## Pre-open checks (every branch)
 

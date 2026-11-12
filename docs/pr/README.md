@@ -88,18 +88,18 @@ owners (design `d33-upstream`). A step starts when the one before it is answered
   needs an nsh-compat PR names it at the top. When a PR changes under review, change `PR.md` and the PR together.
 - **Placeholders**: `#(…)` is a PR or issue number to fill in once it exists; `[OWNER: …]` is something only the owner
   can supply (device numbers, probe results, published versions, a link). Replace them before opening.
-- **Recorded checks**: every check result an NSH branch README records comes from the integration branch `feat/tizen`
-  (with the other branches merged in), none from a branch alone; each such README marks the checks that cannot run on
-  the branch alone.
+- **Recorded checks**: an NSH branch README's checks table records results from the integration branch `feat/tizen`
+  (with the other branches merged in), and marks the checks that cannot run on the branch alone; its "upstream
+  branch" section records the checks run on its `up/` branch's tip (2026-11-12).
 - **Before opening** (each branch, owner's step):
-  1. Fetch and rebase it onto the latest upstream branch (`upstream/main`; wgpu's `trunk`), resolving the conflicts
-     its README lists, and keeping the old head under an `epic/…` tag for the epic's records
-     ([nsh/README.md](nsh/README.md#updating-a-branch-and-opening-it)).
+  1. Bring it onto the newest upstream branch (`upstream/main`; wgpu's `trunk`): for NSH and nsh-compat, rebuild its
+     `up/` branch from its own commits ([nsh/README.md](nsh/README.md#updating-a-branch-and-opening-it)); the `pr/*`
+     branches are never rebased. gpui-fast's and wgpu's change branches are rebased in place.
   2. Run its README's checks on its tip, on that branch alone.
   3. Update the numbers and the checklist in `PR.md`.
 - **After opening**: put the number in the branch `README.md`, the area `README.md`, this index, and the `PR.md` of
   the PRs that depend on it. After merging: the date and the merge commit; the folder stays as the record.
-- Nothing is pushed, posted or opened without the owner's go; no AI attribution in commits, PR texts or comments.
+- Nothing is opened, posted or pushed upstream without the owner's go (the forks' branches are the agent's to push); no AI attribution in commits, PR texts or comments.
   Logs and raw output go to `artifacts-temp/`, never here.
 - nsh-root's `upstream-pr/` keeps the fork's other upstream work; this repository never writes there. When an NSH
   branch here merges into the fork's `main`, the fork-only table in nsh-root's `upstream-pr/README.md` is the owner's

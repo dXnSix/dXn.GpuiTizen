@@ -4,7 +4,7 @@
 |---|---|
 | Upstream PR | ready, not opened: nothing goes to `longbridge/nsh` before the owner's agreement with its owners ([../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
 | Fork PR | none of its own: in dXnSix/nsh#196, dXnSix/nsh#201, dXnSix/nsh#202 (its stack tops'), into the fork's `main`, on the owner's go |
-| Upstream branch | `up/tv/02-category` on `dXnSix/nsh`, head `40d27d136`, pushed 2026-11-12: `upstream/main` `ca7e70e51` (#1789); see below |
+| Upstream branch | `up/tv/02-category` on `dXnSix/nsh`, head `666ddd4f2`, pushed 2026-11-12 (rebuilt from `40d27d136`): `upstream/main` `092438e52` (#1836); see below |
 | Branch | `pr/tv/02-category`, head `fc8dc6ea8`, pushed to `dXnSix/nsh` |
 | Base | `upstream/main` `8c733731f`. Against `c16a70096` it conflicts in `crates/nsh-core/src/prelude.rs` and `crates/nsh-platform-web/src/browser/engine.rs`. Not rebased |
 | Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `a8f7ad63c`: `fc8dc6ea8` ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
@@ -19,12 +19,12 @@
 
 ## The upstream branch (2026-11-12)
 
-`up/tv/02-category` holds this branch's own commits on `upstream/main` `ca7e70e51`, cherry-picked (the `pr/*` branch, which carries
-merges of the fork's `main`, stays as it is): `cfbd8ca09` js: Add platform.tv, the tv prop group and the tv select key; `46a7cc07c` web: Let the page set the TV idiom; `c7605cf20` web: Check the TV idiom on the module itself in tv.test.mjs; `40d27d136` js: Drop the host-prop platform `tv`, which no prop uses.
+`up/tv/02-category` holds this branch's own commits on `upstream/main` `092438e52` (#1836), cherry-picked (the `pr/*` branch, which carries merges of the
+fork's `main`, stays as it is): `92742d65e` js: Add platform.tv, the tv prop group and the tv select key; `e914e6326` web: Let the page set the TV idiom; `27e51cb12` web: Check the TV idiom on the module itself in tv.test.mjs; `666ddd4f2` js: Drop the host-prop platform `tv`, which no prop uses.
 
-Two conflicts: `prelude.rs` (upstream's longer list, with `is_tv`) and the web engine's environment data, which this branch moves into `environment_data` (it now carries upstream's `shaders` and `wakeCount`).
+Rebased from `40d27d136` (on `ca7e70e51`) without conflicts, so that `up/tv/03-dev-idiom` could be rebuilt on the newer `main`.
 
-Checks on its tip `40d27d136` (logs under `artifacts-temp/agentx/tizen-gpui-platform/t25-nsh/`): `env::tests::tv` 3 passed, `tv_props::` 2, the web module's `tv.test.mjs`, fmt, the `nsh-core`/`nsh-js`/`nsh-base` clippy, and `cargo xtask compat` with nsh-compat `up/tv-idiom` (compatible with every recorded release).
+Checks on its tip `666ddd4f2` (`artifacts-temp/agentx/tizen-gpui-platform/t25-nsh/tv-02-category-final.log`): `env::tests::tv` 3 passed, `tv_props::` 2, the web module's `tv.test.mjs` 4, fmt, the `nsh-core`/`nsh-js`/`nsh-base` clippy, and `cargo xtask compat` with nsh-compat `up/tv-idiom` (compatible with every recorded release).
 
 ## Before opening
 
@@ -47,16 +47,16 @@ branch, clone nsh-compat's `tv-idiom` in its place. Not run: the pre-open checks
 
 ## Updating and opening
 
-After nsh-compat's `tv-idiom` has merged:
+Nothing is opened before the owner's agreement with NSH's owners ([../../../README.md](../../../README.md#prepared-not-opened-2026-11-12)).
+The branch that opens is `up/tv/02-category`, never `pr/tv/02-category`, which stays as the epic's records name it.
+Before opening, rebuild `up/tv/02-category` on the newest `upstream/main` (or its parent's `up/` branch, once that has
+merged upstream) as [../../README.md](../../README.md#updating-a-branch-and-opening-it) says, and run the checks
+above on its tip. Then (owner runs this):
 
 ```bash
 cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen
-git fetch upstream origin
-git tag epic/tv/02-category pr/tv/02-category
-git rebase --onto upstream/main 8c733731f pr/tv/02-category      # squash 99ec7a52d with a8f7ad63c's removal
-# the checks above and the pre-open checks, then (owner runs this)
-git push -u origin pr/tv/02-category
+git push --force-with-lease origin up/tv/02-category
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/tv/02-category
-gh pr create --repo longbridge/nsh --base main --head dXnSix:pr/tv/02-category \
+gh pr create --repo longbridge/nsh --base main --head dXnSix:up/tv/02-category \
   --title "js: Add platform.tv, the tv prop group and the tv select key" --body "$(sed '1,2d' PR.md)"
 ```

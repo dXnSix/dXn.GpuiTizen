@@ -41,16 +41,16 @@ and Windows builds of their agents.
 
 ## Updating and opening
 
-After 01 has merged:
+Nothing is opened before the owner's agreement with NSH's owners ([../../../README.md](../../../README.md#prepared-not-opened-2026-11-12)).
+The branch that opens is `up/tv/04-remote-keys`, never `pr/tv/04-remote-keys`, which stays as the epic's records name it.
+Before opening, rebuild `up/tv/04-remote-keys` on the newest `upstream/main` (or its parent's `up/` branch, once that has
+merged upstream) as [../../README.md](../../README.md#updating-a-branch-and-opening-it) says, and run the checks
+above on its tip. Then (owner runs this):
 
 ```bash
-cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen-remote-keys
-git fetch upstream origin
-git tag epic/tv/04-remote-keys pr/tv/04-remote-keys
-git rebase --onto upstream/main pr/tv/01-keys pr/tv/04-remote-keys
-# the checks above and the pre-open checks, then (owner runs this)
-git push -u origin pr/tv/04-remote-keys
+cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen
+git push --force-with-lease origin up/tv/04-remote-keys
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/tv/04-remote-keys
-gh pr create --repo longbridge/nsh --base main --head dXnSix:pr/tv/04-remote-keys \
+gh pr create --repo longbridge/nsh --base main --head dXnSix:up/tv/04-remote-keys \
   --title "test: Press TV remote keys in app tests" --body "$(sed '1,2d' PR.md)"
 ```

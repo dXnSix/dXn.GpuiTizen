@@ -38,16 +38,16 @@ ran with the other branches' compat cases and nsh-compat's `nsh-tizen`; on this 
 
 ## Updating and opening
 
-After `pr/tv/02-category` and nsh-compat's `tizen-platform` have merged:
+Nothing is opened before the owner's agreement with NSH's owners ([../../../README.md](../../../README.md#prepared-not-opened-2026-11-12)).
+The branch that opens is `up/tizen/01-os`, never `pr/tizen/01-os`, which stays as the epic's records name it.
+Before opening, rebuild `up/tizen/01-os` on the newest `upstream/main` (or its parent's `up/` branch, once that has
+merged upstream) as [../../README.md](../../README.md#updating-a-branch-and-opening-it) says, and run the checks
+above on its tip. Then (owner runs this):
 
 ```bash
 cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen
-git fetch upstream origin
-git tag epic/tizen/01-os pr/tizen/01-os
-git rebase --onto upstream/main pr/tv/02-category pr/tizen/01-os
-# the checks above and the pre-open checks, then (owner runs this)
-git push -u origin pr/tizen/01-os
+git push --force-with-lease origin up/tizen/01-os
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/tizen/01-os
-gh pr create --repo longbridge/nsh --base main --head dXnSix:pr/tizen/01-os \
+gh pr create --repo longbridge/nsh --base main --head dXnSix:up/tizen/01-os \
   --title "core: Add Os::Tizen" --body "$(sed '1,2d' PR.md)"
 ```

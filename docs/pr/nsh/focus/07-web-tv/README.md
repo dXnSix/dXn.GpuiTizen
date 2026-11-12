@@ -24,21 +24,14 @@ merges of the fork's `main`, stays as it is): `20e8aebf5` web: Move focus with t
 
 On `up/focus/04-tv` with `up/focus/05-web`'s commit picked in (no merge); the web page's keyboard paragraph (English, zh-CN) takes upstream's `focus-visible:` and adds the TV sentence.
 
-Checks on its tip `694898098` (logs under `artifacts-temp/agentx/tizen-gpui-platform/t25-nsh/`): `focus_moves` 14 passed, `focus.test.mjs` 14, fmt.
+Checks on its tip `694898098` (the web tests in `t25-nsh/focus-07-web-tv-web.log`, the rest under `t25-nsh/`): `focus_moves` 14 passed, `focus.test.mjs` 14, fmt.
 
 ## Before opening
 
-- 07 holds 04 and 05 at their heads; its own change is `6f396c490` alone. When 04 and 05 have merged, move it by
-  cherry-picking that commit. `6f396c490` still carries its older "Arrow keys and TVs" paragraph in
-  `website/elements/index.md` (English and zh-CN): on `upstream/main` with 04 merged it conflicts there again; keep
-  04's wording, as `f69c8f57c` did:
-
-  ```bash
-  git switch pr/focus/07-web-tv
-  git tag epic/focus/07-web-tv pr/focus/07-web-tv
-  git reset --hard upstream/main
-  git cherry-pick 6f396c490          # website/elements/index.md (en, zh-CN): keep upstream's (04's) paragraph
-  ```
+- `up/focus/07-web-tv` is `up/focus/04-tv` with `up/focus/05-web`'s commit picked in, then its own `6f396c490`
+  (picked; the web page's keyboard paragraph takes upstream's `focus-visible:`). Once 04 and 05 have merged upstream,
+  rebuild it by cherry-picking its own commit onto the newest `upstream/main`; `website/elements/index.md` (English,
+  zh-CN) may conflict there on "Arrow keys and TVs": keep 04's wording, as the fork's `f69c8f57c` did.
 
 ## Checks
 
@@ -52,12 +45,16 @@ heads, and its web focus files are `feat/tizen`'s. Not run: the pre-open checks.
 
 ## Updating and opening
 
-After 04 and 05 have merged, the cherry-pick above, the checks and the pre-open checks, then (owner runs this):
+Nothing is opened before the owner's agreement with NSH's owners ([../../../README.md](../../../README.md#prepared-not-opened-2026-11-12)).
+The branch that opens is `up/focus/07-web-tv`, never `pr/focus/07-web-tv`, which stays as the epic's records name it.
+Before opening, rebuild `up/focus/07-web-tv` on the newest `upstream/main` (or its parent's `up/` branch, once that has
+merged upstream) as [../../README.md](../../README.md#updating-a-branch-and-opening-it) says, and run the checks
+above on its tip. Then (owner runs this):
 
 ```bash
-cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen-web-tv
-git push --force-with-lease -u origin pr/focus/07-web-tv
+cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen
+git push --force-with-lease origin up/focus/07-web-tv
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/focus/07-web-tv
-gh pr create --repo longbridge/nsh --base main --head dXnSix:pr/focus/07-web-tv \
+gh pr create --repo longbridge/nsh --base main --head dXnSix:up/focus/07-web-tv \
   --title "web: Honor the TV's focus props and focus groups" --body "$(sed '1,2d' PR.md)"
 ```

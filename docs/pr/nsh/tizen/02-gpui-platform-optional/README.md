@@ -44,15 +44,16 @@ pre-open checks.
 
 ## Updating and opening
 
+Nothing is opened before the owner's agreement with NSH's owners ([../../../README.md](../../../README.md#prepared-not-opened-2026-11-12)).
+The branch that opens is `up/tizen/02-gpui-platform-optional`, never `pr/tizen/02-gpui-platform-optional`, which stays as the epic's records name it.
+Before opening, rebuild `up/tizen/02-gpui-platform-optional` on the newest `upstream/main` (or its parent's `up/` branch, once that has
+merged upstream) as [../../README.md](../../README.md#updating-a-branch-and-opening-it) says, and run the checks
+above on its tip. Then (owner runs this):
+
 ```bash
 cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen
-git fetch upstream origin
-git tag epic/tizen/02-gpui-platform-optional pr/tizen/02-gpui-platform-optional
-git rebase --onto upstream/main 8c733731f pr/tizen/02-gpui-platform-optional
-# the checks above (cargo test --doc -p nsh-platform-gpui --no-default-features --features js too) and the
-# pre-open checks, then (owner runs this)
-git push -u origin pr/tizen/02-gpui-platform-optional
+git push --force-with-lease origin up/tizen/02-gpui-platform-optional
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/tizen/02-gpui-platform-optional
-gh pr create --repo longbridge/nsh --base main --head dXnSix:pr/tizen/02-gpui-platform-optional \
+gh pr create --repo longbridge/nsh --base main --head dXnSix:up/tizen/02-gpui-platform-optional \
   --title "gpui: Make gpui_platform an optional default feature" --body "$(sed '1,2d' PR.md)"
 ```

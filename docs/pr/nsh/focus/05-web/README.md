@@ -24,7 +24,7 @@ merges of the fork's `main`, stays as it is): `9a20206bc` web: Move focus with t
 
 Picked cleanly; its `focus.test.mjs` events gain `composedPath`, which `keyDown` reads since upstream's #1784.
 
-Checks on its tip `9a20206bc` (logs under `artifacts-temp/agentx/tizen-gpui-platform/t25-nsh/`): `focus.test.mjs` 8 passed, `focus_moves` 7, fmt.
+Checks on its tip `9a20206bc` (the web tests in `t25-nsh/focus-05-web-web.log`, the rest under `t25-nsh/`): `focus.test.mjs` 8 passed, `focus_moves` 7, fmt.
 
 ## Before opening
 
@@ -48,16 +48,16 @@ On `feat/tizen` both files also hold 07's TV cases, so the counts are 05's and 0
 
 ## Updating and opening
 
-After 01 has merged:
+Nothing is opened before the owner's agreement with NSH's owners ([../../../README.md](../../../README.md#prepared-not-opened-2026-11-12)).
+The branch that opens is `up/focus/05-web`, never `pr/focus/05-web`, which stays as the epic's records name it.
+Before opening, rebuild `up/focus/05-web` on the newest `upstream/main` (or its parent's `up/` branch, once that has
+merged upstream) as [../../README.md](../../README.md#updating-a-branch-and-opening-it) says, and run the checks
+above on its tip. Then (owner runs this):
 
 ```bash
 cd /Users/dinko/work-private/projects/dXn/nsh/nsh-wt/tizen
-git fetch upstream origin
-git tag epic/focus/05-web pr/focus/05-web
-git rebase --onto upstream/main pr/focus/01-core pr/focus/05-web
-# the checks above and the pre-open checks, then (owner runs this)
-git push -u origin pr/focus/05-web
+git push --force-with-lease origin up/focus/05-web
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/focus/05-web
-gh pr create --repo longbridge/nsh --base main --head dXnSix:pr/focus/05-web \
+gh pr create --repo longbridge/nsh --base main --head dXnSix:up/focus/05-web \
   --title "web: Move focus with the arrows through nsh_core::focus" --body "$(sed '1,2d' PR.md)"
 ```
