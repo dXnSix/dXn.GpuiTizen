@@ -28,8 +28,9 @@ Every branch is **pushed to `dXnSix/nsh`** (2026-11-10; again 2026-11-11 with th
 is opened upstream. The branch READMEs list the heads on `origin` as of 2026-11-11. Every stack top is merged into
 the fork's `main` through its fork PR, dXnSix/nsh#194 to #203 (2026-11-11 and 2026-11-12,
 [below](#merged-into-the-forks-main-2026-11-12)), so the fork's `main` holds the whole epic's NSH work. `feat/tizen`
-ran the fork's Tizen CI in the draft dXnSix/nsh#191; all five of its Tizen jobs passed at `5e51c6411`, the emulator
-boot-only ([fork/tizen-ci/README.md](fork/tizen-ci/README.md#runs-on-the-fork-ci-3-nsh-part)).
+ran the fork's Tizen CI in dXnSix/nsh#191; all five of its Tizen jobs passed at `5e51c6411`, the emulator boot-only
+([fork/tizen-ci/README.md](fork/tizen-ci/README.md#runs-on-the-fork-ci-3-nsh-part)), and again at `2d011802b`, whose
+tree is the fork's `main` after #196; #191 merged last (`8b680f8a5`, 2026-11-12).
 
 ## The fork's `main` merged in (2026-11-11)
 
@@ -118,6 +119,7 @@ menu) not blocking them. On the way the fork's `main` took these fork-only PRs:
 | dXnSix/nsh#212 | `fork/ci-webkit-for-rust-apps` | WebKitGTK in the fork's web and Android jobs (another session's) | `ca8012e02` |
 | dXnSix/nsh#214 | `fork/revert-1687` | reverts upstream #1687 (`nsh-core` and `nsh-base` built once per Rust app), whose `describe` linked a JS engine | `64bdc6b04` |
 | dXnSix/nsh#215 | `fork/gpui-test-callers` | GPUI's `tests::windows` waits for the command to bind its keys (`keymap::bound`) | `c314e05d8` |
+| dXnSix/nsh#191 | `feat/tizen` | the integration branch, its tree `main`'s: `tv-specs`, `emulator` and the three cross builds pass on it (the rest skip, no paths changed) | `8b680f8a5`, last |
 
 Before each merge the open branches merged the new `main` (never a rebase), `rerere` carrying the earlier resolutions,
 each checked against `git merge-tree`'s raw conflict. Besides keeping both sides they decided:

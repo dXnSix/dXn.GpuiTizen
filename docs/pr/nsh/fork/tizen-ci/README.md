@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Fork PR | dXnSix/nsh#203 into `dXnSix/nsh` `main` (never to `longbridge/nsh`), merge commit, on the owner's go. Its CI also runs on `feat/tizen` in the draft dXnSix/nsh#191, now against `main` (`ci/tizen-base` `8c733731f` until 2026-11-11), labelled `ci:tizen` and `ci:tizen-emulator`: CI only, never merged |
+| Fork PR | dXnSix/nsh#203 into `dXnSix/nsh` `main` (never to `longbridge/nsh`), merge commit, on the owner's go. Its CI also runs on `feat/tizen` in dXnSix/nsh#191 against `main` (`ci/tizen-base` `8c733731f` until 2026-11-11), labelled `ci:tizen` and `ci:tizen-emulator`; once its tree was `main`'s, #191 merged last (`8b680f8a5`, 2026-11-12) |
 | Branch | `fork/tizen-ci`, head `6e719b0ca`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-ci` |
 | Base | `8c733731f`, which the fork's `main` holds (`origin/main` `8c8f96971`, 2026-11-10, not fetched since, is 707 commits on and merges the branch without conflict: `git merge-tree`). Recreated on `8c733731f` for the epic; not rebased since, and a fork branch merges, it is not rebased. Against `upstream/main` `c16a70096` it also merges cleanly |
 | Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `d5ddb90c2`: `82ebe7eba`; then `6e719b0ca` ci: Take the pull request types paths.py checks, labels with the next push ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
