@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | PR | not opened (to `longbridge/nsh-compat`) |
-| Branch | `tizen-platform`, head `c268493` (merges nsh-compat's `origin/main` `714e6fd`, 2026-11-11), in `/Users/dinko/work-private/projects/dXn/nsh-compat`, not pushed (no fork yet) |
+| Branch | `tizen-platform` on [dXnSix/nsh-compat](https://github.com/dXnSix/nsh-compat), head `fadb0a0` (merges longbridge's `main` `e56ebce`, #49, 2026-11-11), in `/Users/dinko/work-private/projects/dXn/nsh/nsh-compat` |
 | Base | `tv-idiom` (`a5188f7`), on `578f574`; `origin/main` is `ab2670a` (#45, one commit on), onto which it merges without conflict. Not rebased |
 | Depends on | `tv-idiom` merged; then rebased so it holds only its two commits |
 | Size | own: 2 files, +20 −4 (`build.rs` +8: the `nsh_has_tizen` gate; `src/apps.rs`); with `tv-idiom`: 3 files, +31 −10 |
@@ -24,11 +24,11 @@ not compile against checkouts without it. If the maintainers want another way, a
 After `tv-idiom` has merged:
 
 ```bash
-cd /Users/dinko/work-private/projects/dXn/nsh-compat
+cd /Users/dinko/work-private/projects/dXn/nsh/nsh-compat
 git fetch origin
 git rebase --onto origin/main tv-idiom tizen-platform
 # the checks in ../README.md, then (owner runs this)
-git push -u fork tizen-platform
+git push -u origin tizen-platform
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/compat/tizen-platform
 gh pr create --repo longbridge/nsh-compat --base main --head dXnSix:tizen-platform \
   --title 'compat: Run a script as a native Tizen app with `platform tizen`' --body "$(sed '1,2d' PR.md)"

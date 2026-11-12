@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | PR | not opened (to `longbridge/nsh-compat`) |
-| Branch | `focus-props`, head `72371a5` (merges nsh-compat's `origin/main` `714e6fd`, 2026-11-11), in `/Users/dinko/work-private/projects/dXn/nsh-compat`, not pushed (no fork yet) |
+| Branch | `focus-props` on [dXnSix/nsh-compat](https://github.com/dXnSix/nsh-compat), head `28b3b49` (merges longbridge's `main` `e56ebce`, #49, 2026-11-11), in `/Users/dinko/work-private/projects/dXn/nsh/nsh-compat` |
 | Base | `578f574` (#40); `origin/main` is `ab2670a` (#45, one commit on, fetched 2026-11-10), onto which it merges without conflict. Not rebased |
 | Size | 2 files, +145 −3: `build.rs` (+6: the `nsh_has_focus_routes` gate), `src/values.rs` (+142 −3: writing the props, and the test `focus_props_name_the_views_they_route_to`) |
 | Its commits | `32a1859` compat: Report views' focus props and focus groups |
@@ -19,11 +19,11 @@
 After the fork exists ([../README.md](../README.md#where-things-are)):
 
 ```bash
-cd /Users/dinko/work-private/projects/dXn/nsh-compat
+cd /Users/dinko/work-private/projects/dXn/nsh/nsh-compat
 git fetch origin
 git rebase origin/main focus-props
 # the checks in ../README.md, then (owner runs this)
-git push -u fork focus-props
+git push -u origin focus-props
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/compat/focus-props
 gh pr create --repo longbridge/nsh-compat --base main --head dXnSix:focus-props \
   --title "compat: Report views' focus props and focus groups" --body "$(sed '1,2d' PR.md)"

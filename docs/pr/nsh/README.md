@@ -25,10 +25,11 @@ docs/pr/nsh/<area>/issue*.md      the issues that come before the area's PRs
 | `fork` | [fork/README.md](fork/README.md) | `fork/tizen-ci` (a fork PR to `dXnSix/nsh` `main`, never upstream) | – |
 
 Every branch is **pushed to `dXnSix/nsh`** (2026-11-10; again 2026-11-11 with the fork's `main` merged in), and none
-is opened upstream. The branch READMEs list the heads on `origin` as of 2026-11-11. The fork PRs into the fork's `main`
-are open for the stack tops, dXnSix/nsh#194 to #203 ([below](#the-forks-main-merged-in-2026-11-11)). `feat/tizen` runs
-the fork's Tizen CI in the draft dXnSix/nsh#191, now against `main`: CI only, never merged. All five of its Tizen jobs
-passed at `5e51c6411`, the emulator boot-only ([fork/tizen-ci/README.md](fork/tizen-ci/README.md#runs-on-the-fork-ci-3-nsh-part)).
+is opened upstream. The branch READMEs list the heads on `origin` as of 2026-11-11. Every stack top is merged into
+the fork's `main` through its fork PR, dXnSix/nsh#194 to #203 (2026-11-11 and 2026-11-12,
+[below](#merged-into-the-forks-main-2026-11-12)), so the fork's `main` holds the whole epic's NSH work. `feat/tizen`
+ran the fork's Tizen CI in the draft dXnSix/nsh#191; all five of its Tizen jobs passed at `5e51c6411`, the emulator
+boot-only ([fork/tizen-ci/README.md](fork/tizen-ci/README.md#runs-on-the-fork-ci-3-nsh-part)).
 
 ## The fork's `main` merged in (2026-11-11)
 
@@ -76,18 +77,18 @@ The fork PRs, one per stack top, each bringing the branches below it (merge comm
 |---|---|---|---|
 | dXnSix/nsh#194 | `pr/engine/01-wgpu-30` | – | merged, `57c000007` |
 | dXnSix/nsh#195 | `pr/tizen-web/02-scrollend` | – | merged, `004b31696` |
-| dXnSix/nsh#196 | `pr/tv/03-dev-idiom` | `pr/tv/02-category` | open: `compat` |
+| dXnSix/nsh#196 | `pr/tv/03-dev-idiom` | `pr/tv/02-category` | merged, `cfd36de9f` (2026-11-12) |
 | dXnSix/nsh#197 | `pr/tv/04-remote-keys` | `pr/tv/01-keys` | merged, `be5576011` |
 | dXnSix/nsh#198 | `pr/focus/03-desktop-stops` | `pr/focus/01-core` | merged, `8b5396171` |
-| dXnSix/nsh#199 | `pr/focus/06-gpui-tab-stops` | `pr/focus/01`, `02`, `04` | open: `compat` |
-| dXnSix/nsh#200 | `pr/focus/07-web-tv` | `pr/focus/01`, `02`, `04`, `05` | open: `compat`, `macos` rerun |
-| dXnSix/nsh#201 | `pr/tizen/07-cli` | `pr/tv/01`, `02`, `pr/tizen/01` to `06`, `pr/tizen-web/01-package` | open: `compat` |
-| dXnSix/nsh#202 | `pr/tizen-web/03-module` | `pr/tv/01`, `02`, `pr/tizen/01` to `04`, `06`, `pr/tizen-web/01-package` | open: `compat` |
+| dXnSix/nsh#199 | `pr/focus/06-gpui-tab-stops` | `pr/focus/01`, `02`, `04` | merged, `c9e2c3242` (2026-11-12) |
+| dXnSix/nsh#200 | `pr/focus/07-web-tv` | `pr/focus/01`, `02`, `04`, `05` | merged, `d7e13e2bd` (2026-11-12) |
+| dXnSix/nsh#201 | `pr/tizen/07-cli` | `pr/tv/01`, `02`, `pr/tizen/01` to `06`, `pr/tizen-web/01-package` | merged, `fe3d9d8cd` (2026-11-12) |
+| dXnSix/nsh#202 | `pr/tizen-web/03-module` | `pr/tv/01`, `02`, `pr/tizen/01` to `04`, `06`, `pr/tizen-web/01-package` | merged, `7ef5eb28b` (2026-11-12) |
 | dXnSix/nsh#203 | `fork/tizen-ci` | – | merged, `9ced98dd0` |
 | dXnSix/nsh#205 | `fork/macos-accessibility-frames` | – | merged, `c5add107a` |
 
 Merged on the owner's go (2026-11-11), each once green, #205 first so the others' macOS runs have its wait for
-the accessibility frames. The five still open fail `compat` only: the job builds this checkout's `tests/compat/` cases
+the accessibility frames. The last five first failed `compat` only: the job builds this checkout's `tests/compat/` cases
 with `longbridge/nsh-compat`'s harness, which knows neither the `tv` idiom (`platform android tv`), `platform tizen`,
 nor the `focusGroup` and `autoFocus` props. Those are the three nsh-compat companions (`tv-idiom`, `focus-props`,
 `tizen-platform`), not yet anywhere the job checks out.
@@ -103,6 +104,40 @@ is longbridge's `main` (`e56ebce`, #49) with `nsh-tizen` fast-forwarded on, whic
 first merging that `main` (`99ef2fc`); the companions keep their own branches for the upstream PRs. The NSH fork's
 `compat.yml` checks out `${{ github.repository_owner }}/nsh-compat` (`fork/compat-fork`, dXnSix/nsh#208), so the
 fork runs its own harness and longbridge/nsh its own. The old clone at `dXn/nsh-compat` is no longer used.
+
+## Merged into the fork's `main` (2026-11-12)
+
+On the owner's go the last five merged once `compat` and their own jobs passed, failures that were only runner outages
+(the Ubuntu mirror's DNS) or known flakes (iOS gallery timeouts, `compat`'s 2-second `hitSlop` budget, GTK's context
+menu) not blocking them. On the way the fork's `main` took these fork-only PRs:
+
+| PR | Branch | What | Merged |
+|---|---|---|---|
+| dXnSix/nsh#208 | `fork/compat-fork` | `compat.yml` checks out the repository owner's nsh-compat | `f1358ccce` |
+| dXnSix/nsh#209 | `sync/upstream-7cd080165` | upstream `main` at `7cd080165` | `6146cd503` |
+| dXnSix/nsh#212 | `fork/ci-webkit-for-rust-apps` | WebKitGTK in the fork's web and Android jobs (another session's) | `ca8012e02` |
+| dXnSix/nsh#214 | `fork/revert-1687` | reverts upstream #1687 (`nsh-core` and `nsh-base` built once per Rust app), whose `describe` linked a JS engine | `64bdc6b04` |
+| dXnSix/nsh#215 | `fork/gpui-test-callers` | GPUI's `tests::windows` waits for the command to bind its keys (`keymap::bound`) | `c314e05d8` |
+
+Before each merge the open branches merged the new `main` (never a rebase), `rerere` carrying the earlier resolutions,
+each checked against `git merge-tree`'s raw conflict. Besides keeping both sides they decided:
+
+| Where | What main brought | What the merge does |
+|---|---|---|
+| `pr/tv/03-dev-idiom` | `nsh run`/`nsh dev` `--target tizen-web` and `tizen`; `with_page_host`'s third argument; `DevSession::start`'s fifth | the CLI docs' target lists are main's plus `[--idiom tv\|desktop]`; the new call sites pass `None`, and the Tizen test's two `starter` calls an eighth `None` |
+| `pr/tizen/07-cli`, `feat/tizen` | the `tizen` row of `docs/dev/project-structure.md` | the branch's wording (`--target tizen` and `tizen-web`) |
+| `pr/focus/07-web-tv` | `docs/dev/elements.md`'s GPUI line | main's: GPUI's Tab stops at every stop in tree order too |
+
+Two failures were real, both outside gpui-fast:
+
+- `tv-specs`' pressable-focus Tab test failed on `main` too: the GPUI test agent's `keystroke` sends a key through
+  `input::key`, which skips GPUI's `FocusNext`, so a Tab past the last stop went nowhere. `pr/tv/03-dev-idiom`
+  `48389b3f9` wraps an untaken Tab (`input::tab_past_ends`), as `FocusNext` does in a window with no other tab stop,
+  in `docs/dev/gpui.md` too.
+- GPUI's `tests::windows` failed on busy runners: `a_command_without_a_search_field_takes_the_keyboard_on_focus`
+  pressed keys once the platform focus moved, before the command's `onFocus` had bound them in the engine. Reproduced
+  under load (`yes > /dev/null`, twice per CPU); #215 waits for the bindings too (`keymap::bound`, test builds only)
+  and gives the wait helpers `#[track_caller]`.
 
 The upstream PRs still go from the latest `upstream/main` ([below](#updating-a-branch-and-opening-it)): a branch's
 merge of the fork's `main` brings fork-only commits, so it is rebased (its own commits) before it is opened.
@@ -123,8 +158,9 @@ merge of the fork's `main` brings fork-only commits, so it is rebased (its own c
   `nsh-wt/tizen-web-tv` (`pr/focus/07-web-tv`), `nsh-wt/tizen-engine` (`pr/tv/03-dev-idiom`),
   `nsh-wt/tizen-remote-keys` (`pr/tv/04-remote-keys`), `nsh-wt/tizen-os` (`pr/tizen/07-cli`), `nsh-wt/tizen-web`
   (`pr/tizen-web/03-module`), `nsh-wt/tizen-ci` (`fork/tizen-ci`).
-- nsh-compat: the local clone `/Users/dinko/work-private/projects/dXn/nsh-compat` (`origin` = longbridge/nsh-compat;
-  there is no `dXnSix/nsh-compat` fork yet). Its branch `nsh-tizen` merges the three companions for local runs.
+- nsh-compat: the fork's clone `/Users/dinko/work-private/projects/dXn/nsh/nsh-compat` (`origin` = dXnSix/nsh-compat,
+  `upstream` = longbridge/nsh-compat; [above](#the-forks-main-merged-in-2026-11-11)). Its branch `nsh-tizen` merges
+  the three companions for local runs.
 
 ## The bases (2026-11-10)
 
@@ -286,7 +322,7 @@ The compat checks clone the local nsh-compat branch that merges the three compan
 
 ```bash
 rm -rf target/nsh-compat/nsh-compat && mkdir -p target/nsh-compat && \
-  git clone -q --branch nsh-tizen /Users/dinko/work-private/projects/dXn/nsh-compat target/nsh-compat/nsh-compat && \
+  git clone -q --branch nsh-tizen /Users/dinko/work-private/projects/dXn/nsh/nsh-compat target/nsh-compat/nsh-compat && \
   NSH_BIN=/Users/dinko/work-private/projects/dXn/nsh/target-shared/debug/nsh cargo xtask compat
 # expects "compatible with every recorded release"
 ```

@@ -7,8 +7,11 @@ of that PR's text, as nsh-root's rules ask. Each builds against NSH checkouts wi
 
 ## The PRs, in order
 
-All in the local clone `/Users/dinko/work-private/projects/dXn/nsh-compat`, not pushed. On 2026-11-11 each merged
-nsh-compat's `origin/main` `714e6fd` (#48), which has #45's `TouchPoint::pointer_type` that NSH's `main` now needs
+Pushed to the fork [dXnSix/nsh-compat](https://github.com/dXnSix/nsh-compat) (2026-11-11), cloned at
+`/Users/dinko/work-private/projects/dXn/nsh/nsh-compat` (`origin` the fork, `upstream` longbridge's): there each
+merged longbridge's `main` `e56ebce` (#49), and the fork's `main` and `nsh-tizen` are `99ef2fc`, merging the three.
+The NSH fork's `compat` job runs that `main` ([../README.md](../README.md#the-forks-main-merged-in-2026-11-11)).
+Earlier, in the old local clone, on 2026-11-11 each merged nsh-compat's `origin/main` `714e6fd` (#48), which has #45's `TouchPoint::pointer_type` that NSH's `main` now needs
 (`build.rs`'s `rustc-check-cfg` lists kept both sides), and `nsh-tizen` merged the three again (`d576912`); before that
 their heads had not moved since s16. The text below is as of 2026-11-10. Each is cut from `578f574` (#40, 2026-11-10). `origin/main` is `ab2670a` (#45, "compat: Name the `touch`
 step's pointer a finger", 2026-11-10 22:58 +0800; fetched 2026-11-10 19:30 CET), one commit on; all three branches
@@ -20,7 +23,7 @@ merge onto it without conflict (`git merge-tree`). Rebase before opening. Sizes 
 | 02 | [focus-props/](focus-props/) | `focus-props` | compat: Report views' focus props and focus groups | 2 files, +145 −3 | [`pr/focus/04-tv`](../focus/04-tv/) (`props-view-focus`, `base-focus-group`) | not opened |
 | 03 | [tizen-platform/](tizen-platform/) | `tizen-platform` (on `tv-idiom`) | compat: Run a script as a native Tizen app with `platform tizen` | own: 2 files, +20 −4 (with 01: 3 files, +31 −10) | [`pr/tizen/01-os`](../tizen/01-os/) (domain `tizen`, `platform tizen`) | not opened |
 
-`nsh-tizen` (local only, never a PR) merges all three for the epic's compat runs (`chk-nsh-compat`,
+`nsh-tizen` (on the fork, never a PR) merges all three for the epic's compat runs (`chk-nsh-compat`,
 `chk-nsh-compat-tizen`), which clone it into NSH's `target/nsh-compat/`.
 
 The split itself is a review repair: s16's `f-s16-nsh-compat-one-thing-per-pr` (minor) found one nsh-compat branch
@@ -31,14 +34,10 @@ equals the old single branch's (resolved in `review-s16-2.json`). The same revie
 
 ## Where things are
 
-- There is **no fork** `dXnSix/nsh-compat` yet (`gh repo view` finds none, 2026-11-10), and the clone's only remote
-  is `origin` = longbridge/nsh-compat. The owner makes the fork once:
-
-  ```bash
-  gh repo fork longbridge/nsh-compat --clone=false          # owner runs this
-  git -C /Users/dinko/work-private/projects/dXn/nsh-compat remote add fork https://github.com/dXnSix/nsh-compat.git
-  ```
-- The crate depends on NSH at `../nsh` (`/Users/dinko/work-private/projects/dXn/nsh`, the fork's `main` checkout).
+- The fork `dXnSix/nsh-compat` exists (the owner's choice, 2026-11-11). Its clone is
+  `/Users/dinko/work-private/projects/dXn/nsh/nsh-compat`, with `origin` the fork, `upstream` longbridge/nsh-compat
+  and `local` the old clone `/Users/dinko/work-private/projects/dXn/nsh-compat`, no longer used.
+- The crate depends on NSH at `../nsh` (`/Users/dinko/work-private/projects/dXn/nsh/nsh`, the fork's `main` checkout).
   Its tests therefore run against whatever that checkout holds; to test against an NSH branch, use NSH's
   `cargo xtask compat` (which clones nsh-compat into `target/nsh-compat/`, next to the checkout under test).
 - nsh-compat has no PR template and no issues (`hasIssuesEnabled: false`); its PRs are a description and
@@ -47,7 +46,7 @@ equals the old single branch's (resolved in `review-s16-2.json`). The same revie
 ## Checks (each branch)
 
 ```bash
-cd /Users/dinko/work-private/projects/dXn/nsh-compat
+cd /Users/dinko/work-private/projects/dXn/nsh/nsh-compat
 git switch <branch>
 (cd ../nsh && cargo build -p nsh-cli)
 cp ../nsh/Cargo.lock . && cargo test --target-dir ../nsh/target    # against ../nsh (the fork's main)

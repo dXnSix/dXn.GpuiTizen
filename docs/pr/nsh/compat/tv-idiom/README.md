@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | PR | not opened (to `longbridge/nsh-compat`) |
-| Branch | `tv-idiom`, head `84f680f` (merges nsh-compat's `origin/main` `714e6fd`, 2026-11-11), in `/Users/dinko/work-private/projects/dXn/nsh-compat`, not pushed (no fork yet) |
+| Branch | `tv-idiom` on [dXnSix/nsh-compat](https://github.com/dXnSix/nsh-compat), head `4ab402d` (merges longbridge's `main` `e56ebce`, #49, 2026-11-11), in `/Users/dinko/work-private/projects/dXn/nsh/nsh-compat` |
 | Base | `578f574` (#40); `origin/main` is `ab2670a` (#45, one commit on, fetched 2026-11-10), onto which it merges without conflict. Not rebased |
 | Size | 2 files, +15 −10: `src/apps.rs` (the `platform` step, its docs and error), `src/values.rs` (`tv.` among the platform prefixes) |
 | Its commits | `a5188f7` compat: Run a script on a TV with `platform <os> tv` |
@@ -16,11 +16,11 @@
 After the fork exists ([../README.md](../README.md#where-things-are)):
 
 ```bash
-cd /Users/dinko/work-private/projects/dXn/nsh-compat
+cd /Users/dinko/work-private/projects/dXn/nsh/nsh-compat
 git fetch origin
 git rebase origin/main tv-idiom
 # the checks in ../README.md, then (owner runs this)
-git push -u fork tv-idiom
+git push -u origin tv-idiom
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/compat/tv-idiom
 gh pr create --repo longbridge/nsh-compat --base main --head dXnSix:tv-idiom \
   --title 'compat: Run a script on a TV with `platform <os> tv`' --body "$(sed '1,2d' PR.md)"
