@@ -21,17 +21,22 @@ not compile against checkouts without it. If the maintainers want another way, a
 
 ## Updating and opening
 
-After `tv-idiom` has merged:
+For `UP-5`, and nothing is opened before the owner's agreement with nsh-compat's owners. The branch that opens is
+`up/tizen-platform` on `dXnSix/nsh-compat`, never the pushed `tizen-platform`, which stays as it is: build it with
+this branch's own commits (`9c3cead`, `57754c4`) on `up/tv-idiom`, or on the newest longbridge `main` (`upstream`) once
+`tv-idiom` has merged. On longbridge's `main` `e56ebce` its `build.rs` conflicts with #49's `rustc-check-cfg` lines
+(keep both) and its `nsh_has_tizen` lines need `cargo fmt`. Run the checks in
+[../README.md](../README.md#checks-each-branch), then (owner runs this):
 
 ```bash
 cd /Users/dinko/work-private/projects/dXn/nsh/nsh-compat
-git fetch origin
-git rebase --onto origin/main tv-idiom tizen-platform
-# the checks in ../README.md, then (owner runs this)
-git push -u origin tizen-platform
+git switch -C up/tizen-platform up/tv-idiom          # or upstream/main once tv-idiom has merged
+git cherry-pick 9c3cead 57754c4                       # build.rs: keep both sides; then cargo fmt
+# the checks, then
+git push --force-with-lease origin up/tizen-platform
 cd /Users/dinko/work-private/projects/dXn/dXn.GpuiTizen/docs/pr/nsh/compat/tizen-platform
-gh pr create --repo longbridge/nsh-compat --base main --head dXnSix:tizen-platform \
+gh pr create --repo longbridge/nsh-compat --base main --head dXnSix:up/tizen-platform \
   --title 'compat: Run a script as a native Tizen app with `platform tizen`' --body "$(sed '1,2d' PR.md)"
 ```
 
-Then put its number at the top of NSH's `pr/tizen/01-os` `PR.md`.
+Then put its number at the top of NSH's `up/tizen/01-os` `PR.md`.

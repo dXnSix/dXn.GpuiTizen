@@ -161,8 +161,9 @@ rebuilt on `092438e52` (#1836; 03 with 01's commits under its own), and at `0451
 merges onto `upstream/main` without conflict (`git merge-tree`). Rebuild a branch on the newest `upstream/main` before it
 is opened.
 
-The upstream PRs still go from the latest `upstream/main` ([below](#updating-a-branch-and-opening-it)): a branch's
-merge of the fork's `main` brings fork-only commits, so it is rebased (its own commits) before it is opened.
+The upstream PRs go from the latest `upstream/main` ([below](#updating-a-branch-and-opening-it)): a `pr/*` branch's
+merges of the fork's `main` bring fork-only commits, so what opens is its `up/` copy, rebuilt from its own commits,
+never the `pr/*` branch itself.
 
 ## Where things are
 
@@ -197,8 +198,8 @@ merge of the fork's `main` brings fork-only commits, so it is rebased (its own c
   cleanly; every other branch has conflicts, listed in its README. Upstream also merged work that overlaps ours
   (#1545 GPUI focus on focusable views, #1519 `focus-visible:` by input modality, #1439 web views reporting they are
   unavailable, #1475 Windows' RichEdit text inputs); the branch READMEs say where.
-- **Every branch is rebased onto the latest `upstream/main` before it is opened**, and its README's checks are then run
-  on the rebased branch alone, for the first time: every result recorded so far is from `feat/tizen`
+- **What opens is each branch's `up/` copy, rebuilt on the latest `upstream/main`** (the `pr/*` branches are never
+  rebased), with its README's checks run on its tip; until 2026-11-12 every result recorded was from `feat/tizen`
   ([below](#updating-a-branch-and-opening-it)).
 
 ## Rules
