@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 378,
+  "revision": 380,
   "planRevision": 61,
   "specHashes": {
     "requirements": "b1173f7baf792a1150312abff251fb05a88bf828f424eb674222d7335cc014c8",
@@ -568,7 +568,7 @@
       "status": "pending"
     },
     "t25-upstream": {
-      "status": "implemented",
+      "status": "done",
       "workerIds": [
         "eec00bdf-648f-4be5-813b-008fb1a323d7"
       ]
@@ -10313,7 +10313,7 @@
       "criterionIds": [
         "UP-4"
       ],
-      "verdict": "failed",
+      "verdict": "passed",
       "anchors": [
         {
           "repositoryId": "gpuitizen",
@@ -10331,7 +10331,7 @@
           "criterionIds": [
             "UP-4"
           ],
-          "sha256": "bc0958d91e48c99d84e91b1b73149e2a0d923801eb084da19da236e4e644121d"
+          "sha256": "ff27ae4c4b5a7b025684671824abf86521b21b38a512c6bd099acdd16e365341"
         },
         {
           "repositoryId": "gpuitizen",
@@ -10415,7 +10415,7 @@
           "sha256": "80888538888d2eb8ea2d6825be2bee68e0da25ab62f10cf2f6b739c1b2c92fef"
         }
       ],
-      "deltaSummaryMarkdown": "I inspected dXn.GpuiTizen `7924f43` (32 `docs/pr` files), the forks, and the new logs.\n\n**Branches.**\n- `up/tv/02-category` `666ddd4f2` is on `092438e52`. `range-diff` shows its four commits identical to the old ones.\n- `up/tv/03-dev-idiom` `d29948463` is on it. The deltas resolve #1813's `--display`/`--foreground` changes, add the idiom argument to the new `starter` test call, and merge the CLI docs rows in English and zh-CN.\n- `up/focus/03-desktop-stops` `cfe38ef44` is on `092438e52`, with 01's commits picked under its own. Only the Linux blur commit changed: #1851's `clear_reader_focus` now runs in the first `connect_focus_widget_notify` handler, before `left`, which is the right place.\n- GitHub heads match locally. None of the 12 `up/` branches has a merge commit, and `git merge-tree` against the newest `upstream/main` `04518afca` (#1843) is clean for all 12.\n\n**Logs.** Each new log postdates its tip's last reflog entry:\n- tv/02 13:39 → 13:52.\n- tv/03 14:04 → 14:05, which superseded `-final.log` (that run failed with E0061 before the fixup).\n- focus/03 13:40 → 14:00.\n- The 05 and 07 web runs (8/8 and 14/14) are on unchanged tips. My own clean-export reruns also passed: 8/8 and 14/14.\n- The compat fmt logs are empty, which is what `--check` prints on success.\n\n**Records.**\n- Every NSH branch's \"Updating and opening\" block now pushes `up/...` and opens `--head dXnSix:up/...`. `docs/pr/nsh/README.md` rebuilds `up/` by cherry-pick, and `docs/pr/README.md`'s rules are updated.\n- The 06 README notes that `b4a0181c9` has no copy.\n- The five gpui-fast \"Its commits\" rows now match `git log`.\n\nFindings 1–4 are resolved. One minor residual is opened as a new finding; it is outside UP-4's branch set or in history sections.\n\nThe runtime does not accept a pass while a defect is open, so the verdict stays failed. The only open defect is the minor `s24-up4-residual-rebase-wording`.",
+      "deltaSummaryMarkdown": "I inspected dXn.GpuiTizen `03ee6d7` and `4e83234`.\n\n- **tizen-platform.** The compat README's opening block now builds and opens `up/tizen-platform` with the branch's own commits (`9c3cead`, `57754c4`, checked against `origin/tizen-platform` minus `upstream/main` and `tv-idiom`) and never rebases the pushed branch.\n- **nsh/README.md.** The two stale sentences now say the `up/` copy is rebuilt from its own commits and that `pr/*` is never rebased.\n- **tizen/README.md.** 01's note picks its commits onto the newest `upstream/main`.\n- **What remains.** No `git rebase` command is left in `docs/pr/nsh` or `docs/pr/README.md`. The remaining \"rebase\" mentions are history (\"never a rebase\") or the d34 rule.\n- **.agentx changes.** `4e83234` commits the plan revision 61 and UP-4 wording this review was already made against, so the criteria are unchanged and the snapshot is the same.\n\nAll five findings are resolved, and UP-4 is met.",
       "reattestedFrom": "2a9357aeeb116ba35790cb20bac2eba0a98284b4610bfb8559c2e1451ef6b823",
       "summaryMarkdown": "Verified on the forks and in the checkouts:\n\n- **Fork branches.** All 22 branches are on `dXnSix/*` at their recorded heads.\n- **NSH.** The 12 `up/` branches sit on `ca7e70e51` or their recorded `up/` parent, with no merge commits. Their commits match the `pr/*` branches' own commits, except the recorded changes: the key_focus fold in 02, the Tab wrap moved from tv/03 to 06, and 05's commit picked into 07. Three adaptations were spot-checked and are correct against upstream: the GPUI `focus.rs` fold of `key_focus.rs` (`focus_command`, `pointer_down`, `detached`, `on_control`, with `focus::reset` replacing `forget`), macOS Tab with #1832's `seen_by_keys`, and `tab_order` in the Windows and GPUI `focus.rs`.\n- **nsh-compat.** `up/tv-idiom` and `up/focus-props` each hold one commit on longbridge `main` `e56ebce`. The run against the fork's `main` with all three companions passed 39. Running each alone fails as disclosed.\n- **gpui-fast.** The six branches are on `d1d6286`, `external-target` on `scene-damage`. `range-diff` shows them identical to the old heads apart from the recorded `external-target` cleanup. The logs agree with the records.\n- **wgpu.** Both branches are on trunk `c92258fca`, still the latest. They differ from the old heads only in a CHANGELOG context line, and their logs pass.\n- **Nothing upstream.** No branch, PR or issue from this work exists at longbridge/nsh, nsh-compat, gpui-fast or gfx-rs/wgpu. dXnSix's other longbridge/nsh PRs, including #1769 and #1770 from 2026-11-11, are unrelated topics.\n\nThe review fails on two major findings:\n\n1. The NSH and compat opening instructions still rebase, push and open `pr/*` (07 even force-pushes) instead of `up/*`, which contradicts d34.\n2. `up/focus/03-desktop-stops` and `up/tv/03-dev-idiom` conflict with the current `upstream/main` `092438e52`, so they are not ready to open.",
       "findingIds": [
@@ -10425,10 +10425,10 @@
         "s24-up4-gpui-fast-commit-subjects-truncated",
         "s24-up4-residual-rebase-wording"
       ],
-      "recordedAt": "2026-11-12T13:08:51Z",
+      "recordedAt": "2026-11-12T13:10:08Z",
       "recordHashes": {
         "gpuitizen:docs/verification/**": "d9784fb53f759b063afe755a8a2886c92f5579ffbff3c1365472229690ab207a",
-        "gpuitizen:docs/pr/**": "4ddd15070b7d3a4f715228b572157a683e599463b68d6b0d4cfe890c3d5b64ed"
+        "gpuitizen:docs/pr/**": "ba8913387ee5149c4eeaf5d632d153499a0b1d5f03abde78abea149322b25c1c"
       }
     }
   },
@@ -10702,6 +10702,17 @@
       },
       "reviewHash": "cefde0b8846455be07c4ea0384e577e9b909b571502466c0f033a5e06f207437",
       "recordedAt": "2026-11-12T10:09:01Z"
+    },
+    "s24-owner-upstream": {
+      "snapshotId": "2a9357aeeb116ba35790cb20bac2eba0a98284b4610bfb8559c2e1451ef6b823",
+      "commits": {
+        "gpuitizen": "4e832341bcfe997020e5d2945b69287c842643ec",
+        "gpui-fast": "7047b05fdb67e4cdc0f3e5b4a420221e5bd1518a",
+        "wgpu": "4e3d80d5de97d1e66860f0f74fca92d50be70d4a",
+        "nsh": "2d011802bf7990648d073ed70e916649c7a78950"
+      },
+      "reviewHash": "7b45627b5e0e007a606d3f2da45f36a84dd8494e46bf302c7c69eb807190284e",
+      "recordedAt": "2026-11-12T13:10:24Z"
     }
   },
   "findings": [
@@ -13792,8 +13803,22 @@
         "UP-4"
       ],
       "severity": "minor",
-      "status": "open",
-      "descriptionMarkdown": "**Expected:** no record tells the owner to rebase a pushed fork branch for an upstream PR (d34). **Observed:** three places still do.\n\n1. `docs/pr/nsh/compat/tizen-platform/README.md` \"Updating and opening\" still runs `git rebase --onto origin/main tv-idiom tizen-platform` and `git push -u origin tizen-platform`, then `gh pr create --head dXnSix:tizen-platform`. That rebases the pushed fork branch `tizen-platform`. The branch is UP-5's, so not in UP-4's set, but d34 covers every nsh-compat branch.\n2. `docs/pr/nsh/README.md`, \"The bases (2026-11-10)\", still says \"Every branch is rebased onto the latest `upstream/main` before it is opened … every result recorded so far is from `feat/tizen`\".\n3. The paragraph after \"The upstream branches\" still says the branch \"is rebased (its own commits) before it is opened\".\n\nThese contradict the rewritten \"Updating a branch and opening it\" section. **Repair:** make `tizen-platform` open from a fresh `up/tizen-platform` rebuilt on longbridge `main` when UP-5 prepares it. Reword the two `nsh/README.md` sentences to point at the `up/` rebuild."
+      "status": "resolved",
+      "descriptionMarkdown": "Resolved in `03ee6d7` and `4e83234`.\n\n- `compat/tizen-platform/README.md` now builds and opens a fresh `up/tizen-platform`: the branch's own commits `9c3cead` and `57754c4`, which I checked are exactly `tizen-platform`'s own non-merge commits, on `up/tv-idiom` or the newest longbridge `main`, with `--head dXnSix:up/tizen-platform`. The pushed `tizen-platform` is left as it is.\n- The \"The bases\" bullet and the paragraph after \"The upstream branches\" in `docs/pr/nsh/README.md` say that the `up/` copy, rebuilt from its own commits, is what opens.\n- `docs/pr/nsh/tizen/README.md`'s note on 01 picks 01's commits instead of running `git rebase --onto`.\n\n`grep -rn 'git rebase' docs/pr/nsh docs/pr/README.md` finds nothing.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/compat/tizen-platform/README.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/README.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/tizen/README.md"
+        }
+      ]
     }
   ],
   "handoffMarkdown": "../wgpu egl14-wayland 01f93a569 and gles-program-binaries 2bc8346d8 + 03cab4b4b from upstream trunk b672a5400; wgpu-hal lib tests 6+6, wgpu-core pipeline_cache 13, GPU pipeline_cache 2 in the Lima VM; docs/pr/wgpu/ (owner fills LLM-use and rewrites descriptions per wgpu's AGENTS.md); ../wgpu back on v30-tizen.",
