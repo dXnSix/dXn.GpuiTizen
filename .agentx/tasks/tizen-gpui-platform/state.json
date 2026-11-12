@@ -1,12 +1,12 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 365,
-  "planRevision": 58,
+  "revision": 371,
+  "planRevision": 59,
   "specHashes": {
     "requirements": "60413f195bcf549f5b389e6c8f2dba0fa898f72a83e7e70c517f89432e4fe923",
     "design": "a3e9ab1641d598bff3fdd015bd4af4393cd6025f28b84ab7dab193dcb9794dcc",
-    "plan": "a28192103d279ad634c6f9b2fce65a5cda6b3897aa3688956278f67d8dfcb47f"
+    "plan": "469d56b2852aa4d3b09fe654825fc7b9aeecc6389ed3b6c9aca5d25c2600f08e"
   },
   "tasks": {
     "t1-workspace": {
@@ -202,7 +202,7 @@
       ]
     },
     "t9-publish": {
-      "status": "in_progress",
+      "status": "done",
       "workerIds": [
         "eec00bdf-648f-4be5-813b-008fb1a323d7"
       ]
@@ -10199,6 +10199,110 @@
         "gpuitizen:docs/verification/**": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "gpuitizen:docs/pr/**": "a4eca72485a4d3fe53235ff2ef2c01749901d8485aecdd24fc92482754c3899f"
       }
+    },
+    "s23-owner-devices": {
+      "reviewerId": "s23-reviewer-r7k2q9",
+      "snapshotId": "7f6d6c16dc91f1a5894553cc08d93e2d610c235bd96e19fb03368b6493b7e9a9",
+      "criterionIds": [
+        "DEV-1",
+        "CI-3"
+      ],
+      "verdict": "passed",
+      "anchors": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/verification/tizen-devices.md",
+          "kind": "source",
+          "criterionIds": [
+            "DEV-1",
+            "CI-3"
+          ],
+          "sha256": "3250c10c6470fabf4e24e4da103e4f82e5ab91c97f32e54058091a86d8a6e76e"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "Cargo.toml",
+          "kind": "source",
+          "criterionIds": [
+            "DEV-1"
+          ],
+          "sha256": "67136613e7a5c5426e58efd09d797e75250376a717634e45846dbb59aa8fa72e"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "Cargo.lock",
+          "kind": "source",
+          "criterionIds": [
+            "DEV-1"
+          ],
+          "sha256": "1a492540ed838f988d75a9d6a33a3dfbb8a877625e5d1d35c2375e901ccaa8c6"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "DEV-1"
+          ],
+          "sha256": "42d6a8a308797c31b39ff9749c2f93b0ea8124e2e397e93fcaa17b74e97f13d8"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/wgpu/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "DEV-1"
+          ],
+          "sha256": "71eb6cc7ef3a914656efefaf6e50fbc56cb38193c9d9962554db07a31d262264"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": "crates/gpui/Cargo.toml",
+          "kind": "source",
+          "criterionIds": [
+            "DEV-1"
+          ],
+          "sha256": "8b2c8db9267e46b6ee28b8a11870600a6c39c156f958d914072afce248892e9a"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": ".github/workflows/ci.yml",
+          "kind": "source",
+          "criterionIds": [
+            "CI-3"
+          ],
+          "sha256": "ccc48f32f56f585cc9b74660a1a1503037c3c3c8c3addd16a8009222986356b7"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": ".github/workflows/tizen-emulator.yml",
+          "kind": "source",
+          "criterionIds": [
+            "CI-3"
+          ],
+          "sha256": "e11615ca698d18b491c30a2c7773f5185575946bedb953115f56accc697799ed"
+        },
+        {
+          "repositoryId": "nsh",
+          "path": ".github/workflows/fork-tizen.yml",
+          "kind": "source",
+          "criterionIds": [
+            "CI-3"
+          ],
+          "sha256": "3fa3320bfcc0070567069c20e76c2fc60cc9c0706a87e42103741d5b443c9dd0"
+        }
+      ],
+      "deltaSummaryMarkdown": "Inspected the repair of `s23-dev1-wgpu-v30-branches`. On GitHub, `gh api repos/dXnSix/wgpu/branches/v30-egl14` returns 66e825217e16 and `.../v30-gles-program-binaries` returns de226d2fa5c6. The compare API shows `v30-tizen` ahead of both with behind_by 0, so both are ancestors of the patched branch. Actions on dXnSix/wgpu are still `enabled:false`. dXn.GpuiTizen c528186 (`docs(verification): the wgpu v30 port branches are pushed too`, local HEAD = origin/main) adds one row to the DEV-1 table in `docs/verification/tizen-devices.md` that lists both branches and their commits. It changes nothing else. The references in `docs/pr/gpui-fast/pipeline-cache/README.md` and `docs/pr/wgpu/README.md` now resolve to existing branches. DEV-1 is now met in full, and CI-3 is unchanged from the original review.",
+      "reattestedFrom": "7f6d6c16dc91f1a5894553cc08d93e2d610c235bd96e19fb03368b6493b7e9a9",
+      "summaryMarkdown": "Verified on GitHub and in the checkouts, not from the record alone. **DEV-1**: Actions are off on both forks (`enabled:false`). All eight gpui-fast branches are pushed (`tizen` 7047b05, `tizen-release` 53659f0, an orphan release tree as d05 requires). `v30-tizen` 4e3d80d5d is pushed. The dXn.GpuiTizen root manifest (origin/main) and the fork `main`'s `crates/gpui/Cargo.toml` patch all nine gpui-fast crates to `tizen-release` and the wgpu stack to `v30-tizen`, with no path patch. Cargo.lock has the 20 git sources, and `cargo tree --locked --offline -i gpui-fast` shows the fork. Fork PRs #191, #194-#203 and #205 are MERGED into `main` with two-parent merge commits, all reachable from origin/main 8b680f8a5. The only gap is finding s23-dev1-wgpu-v30-branches. **CI-3**: CI run 43152735862 (push to main 0164102) has every job successful, `gles` and `egl` included. A later docs-only run on d879d06 was still running at review time. Fork Tizen 43149590583 (PR #191) is all six jobs green, and 43152711045 (push to main) is green with `emulator` skipped by design. The emulator runs (42921473021, the #191 run) boot, but their install, report and counter-spec steps are `skipped`. The log records this honestly as a failure that needs the owner's Samsung certificate and moves it to `t9-install` (s25-owner-devices), so the criterion's recorded-failure allowance is met. Note: `t9-install` names only `tizen-emulator.yml`, not the NSH emulator job's counter spec that the record also moves there. Worth adding when s25 starts. **Plan rev 59** (`nsh:.github/workflows/release*.yml`): `release.yml` and `release-crate.yml` are byte-identical to `upstream/main` on the fork's main and on feat/tizen. Every commit touching them since `8c733731f` is an upstream commit (#1452, #1493, #1494, #1501, #1514, #1535, #1645, #1708), and no non-merge fork or epic commit touches them. `fork-release.yml` on main is unchanged apart from pre-epic fork commits. The only newer change to it is the unmerged, unrecorded fork PR #213 (`fork/release-dist-shared`), which is outside the epic's branches.",
+      "findingIds": [
+        "s23-dev1-wgpu-v30-branches"
+      ],
+      "recordedAt": "2026-11-12T10:08:40Z",
+      "recordHashes": {
+        "gpuitizen:docs/verification/**": "d9784fb53f759b063afe755a8a2886c92f5579ffbff3c1365472229690ab207a",
+        "gpuitizen:docs/pr/**": "1bb14e469804b2508139fe6bbbce41af0ffb64b40e64cd9c3ece0042090733c8"
+      }
     }
   },
   "checkpoints": {
@@ -10460,6 +10564,17 @@
       },
       "reviewHash": "26e56437a0943a8545db116252c6077e13fb80d0719672717724a03282f7762d",
       "recordedAt": "2026-11-10T19:10:25Z"
+    },
+    "s23-owner-devices": {
+      "snapshotId": "7f6d6c16dc91f1a5894553cc08d93e2d610c235bd96e19fb03368b6493b7e9a9",
+      "commits": {
+        "gpuitizen": "c5281863171e1cf57ce776af6efc5246ea796c37",
+        "gpui-fast": "7047b05fdb67e4cdc0f3e5b4a420221e5bd1518a",
+        "wgpu": "4e3d80d5de97d1e66860f0f74fca92d50be70d4a",
+        "nsh": "2d011802bf7990648d073ed70e916649c7a78950"
+      },
+      "reviewHash": "cefde0b8846455be07c4ea0384e577e9b909b571502466c0f033a5e06f207437",
+      "recordedAt": "2026-11-12T10:09:01Z"
     }
   },
   "findings": [
@@ -13430,6 +13545,22 @@
           "path": "docs/pr/gpui-fast/README.md"
         }
       ]
+    },
+    {
+      "id": "s23-dev1-wgpu-v30-branches",
+      "boundaryId": "s23-owner-devices",
+      "criterionIds": [
+        "DEV-1"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "Resolved: `v30-egl14` (66e825217) and `v30-gles-program-binaries` (de226d2fa) are pushed to dXnSix/wgpu, both are ancestors of `v30-tizen` 4e3d80d5d, and the DEV-1 table in `docs/verification/tizen-devices.md` records them (c528186).",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/verification/tizen-devices.md"
+        }
+      ]
     }
   ],
   "handoffMarkdown": "../wgpu egl14-wayland 01f93a569 and gles-program-binaries 2bc8346d8 + 03cab4b4b from upstream trunk b672a5400; wgpu-hal lib tests 6+6, wgpu-core pipeline_cache 13, GPU pipeline_cache 2 in the Lima VM; docs/pr/wgpu/ (owner fills LLM-use and rewrites descriptions per wgpu's AGENTS.md); ../wgpu back on v30-tizen.",
@@ -13447,9 +13578,8 @@
       "wgpu:.github/**": "d979309f23d7c4df2f9622d02113c369890d00036e3ad2ff7531368c846b9275"
     },
     "nsh": {
-      "nsh:.github/workflows/release-crate.yml": "646a8c5b00adc51452dd892c0021377f9b772aad20e0f968bd9dfc5de8605b48",
       "nsh:rust-toolchain.toml": "cd6dd07de5dbdf30603671584a278f9f9828c72d2b5866b09375ed14fae67267",
-      "nsh:.github/workflows/release.yml": "5df9f6c3a707b907ca0272657a390b0e5eefd503b5d8347548260c1c185728c4",
+      "nsh:.github/workflows/release*.yml": "614e33e1a3b40dfe8b8964bb00bad6d26b4c6628d99384a4f40a2c72d6800330",
       "nsh:.github/workflows/fork-release.yml": "46b66152e373d2d116e6487488c816e897ebdefa52a53692a4953f026d985c79"
     }
   }

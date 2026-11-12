@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 58,
+  "revision": 59,
   "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
   "repositories": [
     {
@@ -39,14 +39,13 @@
     ],
     "forbiddenPaths": [
       "gpuitizen:.agentx/memory/**",
-      "nsh:.github/workflows/release-crate.yml",
       "nsh:rust-toolchain.toml",
       "gpui-fast:.github/**",
       "gpui-fast:UPSTREAM",
       "gpui-fast:crates/gpui_platform/**",
       "gpui-fast:crates/gpui_linux/**",
       "wgpu:.github/**",
-      "nsh:.github/workflows/release.yml",
+      "nsh:.github/workflows/release*.yml",
       "nsh:.github/workflows/fork-release.yml"
     ]
   },
