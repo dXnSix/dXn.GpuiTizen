@@ -52,6 +52,12 @@ ran on `feat/tizen` again: all pass but the two `fmt` checks, on three files the
 itself. What each merge decided, and the PRs: `docs/pr/nsh/README.md`, "The fork's `main` merged in". The fork PRs
 merge on the owner's go; their CI is watched with auto-fix.
 
+By 2026-11-12 every fork PR had merged into the fork's `main` with a merge commit: #194, #195, #197, #198, #203 and
+#205 on 2026-11-11; #202 `7ef5eb28b`, #199 `c9e2c3242`, #201 `fe3d9d8cd`, #200 `d7e13e2bd`, #196 `cfd36de9f` and
+`feat/tizen` (#191) `8b680f8a5`, last, on 2026-11-12, with the fork-only #208, #209, #212, #214 and #215 between
+them (`docs/pr/nsh/README.md`, "Merged into the fork's `main`"). Since #202 the fork's `main` takes the nine
+gpui-fast crates from `tizen-release` and the wgpu stack from `v30-tizen` in `crates/gpui/Cargo.toml`. `DEV-1` is met.
+
 ## CI on GitHub (`CI-3`)
 
 `ci.yml` on `dXnSix/dXn.GpuiTizen`, on pushes to `main`:
@@ -91,7 +97,17 @@ The NSH fork's `fork-tizen.yml` (`fork/tizen-ci`) runs on `feat/tizen` in the dr
 | 42943752989, 42943763914 | 696b30f19 | `cross` and `emulator` could not check out `dXnSix/dXn.GpuiTizen`, then private, with the job's token; `tv-specs` lacked the GPUI host's system libraries (`glib-2.0` not found). The owner made dXn.GpuiTizen public, and `fork/tizen-ci` `d5ddb90c2` installs `gpui.yml`'s libraries |
 | 42944522991 | 5e51c6411 | all five jobs passed (2026-11-11): `cross` for armv7, x86_64 and aarch64 (`nsh-platform-tizen` release and dev, one export each, the TV clippy), `tv-specs` (the TV idiom on the GPUI host and as a Tizen web app, the counter), and `emulator` boot-only (`cpu_arch:x86_64`, `platform_version:10.0`; the counter's spec skipped without the Samsung secrets) |
 
+After the merges (2026-11-12):
+
+| Run | Where | Result |
+| --- | --- | --- |
+| 43152735862 | dXn.GpuiTizen `ci.yml`, `main` 0164102 | every job passed: `plan`, `host`, `check` and `test` (ubuntu-24.04, macos-15), `egl`, `gles`, `cross (armv7)`, `cross (x86_64)` |
+| 43149590583 | NSH `fork-tizen.yml` on dXnSix/nsh#191, `feat/tizen` 2d011802b (its tree the fork's `main` after #196) | all six jobs passed, `emulator` boot-only, with `.github/actions/tizen-sdk` as of 6171d2e (the cached SDK's emulator libraries) |
+| 43152711045 | NSH `fork-tizen.yml` on the push of the fork's `main` 8b680f8a5 | `plan`, `tv-specs` and the three `cross` jobs passed; `emulator` runs on labelled PRs only |
+
 `CI-3`, NSH part: passed, except the counter's spec on the emulator, which waits for the same Samsung certificate.
+`CI-3` is met with that recorded failure: the emulator's install, report and counter spec move to `t9-install`
+(`s25-owner-devices`) with the owner's Samsung certificate.
 
 Found while preparing the certificates (`docs/development_setup.md`): `cargo xtask package --sign` could never sign,
 because `tz pack` rejects a plain directory ("is not a valid project"). It now zips the staged tree and re-signs it
