@@ -42,8 +42,8 @@ last `tizen` one, after the loader probe ([../tizen-web/README.md](../tizen-web/
 The branches moved forward by merges only (no rebase) through the s17–s21 repairs; at 18:45 each took its parents'
 latest heads:
 
-- **01 holds the latest `pr/tv/02-category`** (merge `5c1bfe2fe`). Moving it with `git rebase --onto upstream/main
-  pr/tv/02-category pr/tizen/01-os` after 02 merges leaves `6b69e7433` and `8b3bee883`.
+- **01 holds the latest `pr/tv/02-category`** (merge `5c1bfe2fe`). Its `up/` copy, once 02 has merged upstream, is
+  `6b69e7433` and `8b3bee883` picked onto the newest `upstream/main` (the `pr/*` branch is never rebased).
 - **04 holds the latest `pr/tv/01-keys`** (merge `39e6b0c8e`: `b8bc8dee1`, `c621bc72b`, `f908ff626`, so `keys.rs` and
   the Info key's name, `info` with `xf86info` an alias, now meet on the branch), 03 at its head, and since 19:45 CET
   01 at its head (merge `a892c2d4c`, and with it the latest 02: `532345852`, `a8f7ad63c`).

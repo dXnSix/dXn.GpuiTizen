@@ -1,12 +1,12 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 373,
-  "planRevision": 60,
+  "revision": 378,
+  "planRevision": 61,
   "specHashes": {
-    "requirements": "fed13ae3c992c3ad4410f6d17cbfa2745247306be2eaa80f91c79c30f8be7acf",
+    "requirements": "b1173f7baf792a1150312abff251fb05a88bf828f424eb674222d7335cc014c8",
     "design": "86bf3a589f7fb35ce97331571607e4af3f0ffdf88a63e18494863dd0dc88ac77",
-    "plan": "db64779536a6a2cb2cf7d80885bc2a869670afbc352e6395fb42ec269c98da4a"
+    "plan": "5e63c781381de1e8240f56b1990b0449214caa1a4c35ccec06b10082c556f9e3"
   },
   "tasks": {
     "t1-workspace": {
@@ -568,7 +568,7 @@
       "status": "pending"
     },
     "t25-upstream": {
-      "status": "in_progress",
+      "status": "implemented",
       "workerIds": [
         "eec00bdf-648f-4be5-813b-008fb1a323d7"
       ]
@@ -10306,6 +10306,130 @@
         "gpuitizen:docs/verification/**": "d9784fb53f759b063afe755a8a2886c92f5579ffbff3c1365472229690ab207a",
         "gpuitizen:docs/pr/**": "1bb14e469804b2508139fe6bbbce41af0ffb64b40e64cd9c3ece0042090733c8"
       }
+    },
+    "s24-owner-upstream": {
+      "reviewerId": "s24-reviewer-7f3k9q",
+      "snapshotId": "2a9357aeeb116ba35790cb20bac2eba0a98284b4610bfb8559c2e1451ef6b823",
+      "criterionIds": [
+        "UP-4"
+      ],
+      "verdict": "failed",
+      "anchors": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-4"
+          ],
+          "sha256": "f72f988145af6f13b72c4a2760c50cde68984cf9c0f1dfb40b977134cdf37a5e"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-4"
+          ],
+          "sha256": "bc0958d91e48c99d84e91b1b73149e2a0d923801eb084da19da236e4e644121d"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/focus/02-gpui/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-4"
+          ],
+          "sha256": "e368c0d0f9da0b23cde28386ec6291732fde7af49aad3f6d42dc93540512b667"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/focus/03-desktop-stops/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-4"
+          ],
+          "sha256": "d5e20a394511ee39780f08e446d173e96b7333775aecd3b84d215c68f23d26bf"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/focus/05-web/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-4"
+          ],
+          "sha256": "f5f3ca20324de64e524dd1204f25038d0a4dae3b2137afe57f8969d3ed4db81d"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/focus/07-web-tv/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-4"
+          ],
+          "sha256": "5183b825910fd6fef227c1607ff4178fb4e823baf2c65029e1e080101f7972ec"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/tv/03-dev-idiom/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-4"
+          ],
+          "sha256": "1f3fb9816c23e2602e9f4baf8df6c5b2fad2e82f812b0978c4a31dbb7b96da12"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/compat/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-4"
+          ],
+          "sha256": "bad05274e61b14f309dd00f8e6224c9b0c9bf811344b641c3a2478e62efcfe84"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/gpui-fast/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-4"
+          ],
+          "sha256": "8e7e0e8dede986f560a9676435d3de790f77002e94195855e6b850ec89e8c1ac"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/gpui-fast/scene-damage/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-4"
+          ],
+          "sha256": "519af5d8aa908884f7c45bbf08cc49bbf01ec96beb077cdc6546dec236545f3f"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/wgpu/README.md",
+          "kind": "source",
+          "criterionIds": [
+            "UP-4"
+          ],
+          "sha256": "80888538888d2eb8ea2d6825be2bee68e0da25ab62f10cf2f6b739c1b2c92fef"
+        }
+      ],
+      "deltaSummaryMarkdown": "I inspected dXn.GpuiTizen `7924f43` (32 `docs/pr` files), the forks, and the new logs.\n\n**Branches.**\n- `up/tv/02-category` `666ddd4f2` is on `092438e52`. `range-diff` shows its four commits identical to the old ones.\n- `up/tv/03-dev-idiom` `d29948463` is on it. The deltas resolve #1813's `--display`/`--foreground` changes, add the idiom argument to the new `starter` test call, and merge the CLI docs rows in English and zh-CN.\n- `up/focus/03-desktop-stops` `cfe38ef44` is on `092438e52`, with 01's commits picked under its own. Only the Linux blur commit changed: #1851's `clear_reader_focus` now runs in the first `connect_focus_widget_notify` handler, before `left`, which is the right place.\n- GitHub heads match locally. None of the 12 `up/` branches has a merge commit, and `git merge-tree` against the newest `upstream/main` `04518afca` (#1843) is clean for all 12.\n\n**Logs.** Each new log postdates its tip's last reflog entry:\n- tv/02 13:39 → 13:52.\n- tv/03 14:04 → 14:05, which superseded `-final.log` (that run failed with E0061 before the fixup).\n- focus/03 13:40 → 14:00.\n- The 05 and 07 web runs (8/8 and 14/14) are on unchanged tips. My own clean-export reruns also passed: 8/8 and 14/14.\n- The compat fmt logs are empty, which is what `--check` prints on success.\n\n**Records.**\n- Every NSH branch's \"Updating and opening\" block now pushes `up/...` and opens `--head dXnSix:up/...`. `docs/pr/nsh/README.md` rebuilds `up/` by cherry-pick, and `docs/pr/README.md`'s rules are updated.\n- The 06 README notes that `b4a0181c9` has no copy.\n- The five gpui-fast \"Its commits\" rows now match `git log`.\n\nFindings 1–4 are resolved. One minor residual is opened as a new finding; it is outside UP-4's branch set or in history sections.\n\nThe runtime does not accept a pass while a defect is open, so the verdict stays failed. The only open defect is the minor `s24-up4-residual-rebase-wording`.",
+      "reattestedFrom": "2a9357aeeb116ba35790cb20bac2eba0a98284b4610bfb8559c2e1451ef6b823",
+      "summaryMarkdown": "Verified on the forks and in the checkouts:\n\n- **Fork branches.** All 22 branches are on `dXnSix/*` at their recorded heads.\n- **NSH.** The 12 `up/` branches sit on `ca7e70e51` or their recorded `up/` parent, with no merge commits. Their commits match the `pr/*` branches' own commits, except the recorded changes: the key_focus fold in 02, the Tab wrap moved from tv/03 to 06, and 05's commit picked into 07. Three adaptations were spot-checked and are correct against upstream: the GPUI `focus.rs` fold of `key_focus.rs` (`focus_command`, `pointer_down`, `detached`, `on_control`, with `focus::reset` replacing `forget`), macOS Tab with #1832's `seen_by_keys`, and `tab_order` in the Windows and GPUI `focus.rs`.\n- **nsh-compat.** `up/tv-idiom` and `up/focus-props` each hold one commit on longbridge `main` `e56ebce`. The run against the fork's `main` with all three companions passed 39. Running each alone fails as disclosed.\n- **gpui-fast.** The six branches are on `d1d6286`, `external-target` on `scene-damage`. `range-diff` shows them identical to the old heads apart from the recorded `external-target` cleanup. The logs agree with the records.\n- **wgpu.** Both branches are on trunk `c92258fca`, still the latest. They differ from the old heads only in a CHANGELOG context line, and their logs pass.\n- **Nothing upstream.** No branch, PR or issue from this work exists at longbridge/nsh, nsh-compat, gpui-fast or gfx-rs/wgpu. dXnSix's other longbridge/nsh PRs, including #1769 and #1770 from 2026-11-11, are unrelated topics.\n\nThe review fails on two major findings:\n\n1. The NSH and compat opening instructions still rebase, push and open `pr/*` (07 even force-pushes) instead of `up/*`, which contradicts d34.\n2. `up/focus/03-desktop-stops` and `up/tv/03-dev-idiom` conflict with the current `upstream/main` `092438e52`, so they are not ready to open.",
+      "findingIds": [
+        "s24-up4-open-commands-contradict-d34",
+        "s24-up4-two-branches-off-latest-base",
+        "s24-up4-web-focus-logs-predate-tips",
+        "s24-up4-gpui-fast-commit-subjects-truncated",
+        "s24-up4-residual-rebase-wording"
+      ],
+      "recordedAt": "2026-11-12T13:08:51Z",
+      "recordHashes": {
+        "gpuitizen:docs/verification/**": "d9784fb53f759b063afe755a8a2886c92f5579ffbff3c1365472229690ab207a",
+        "gpuitizen:docs/pr/**": "4ddd15070b7d3a4f715228b572157a683e599463b68d6b0d4cfe890c3d5b64ed"
+      }
     }
   },
   "checkpoints": {
@@ -13564,6 +13688,112 @@
           "path": "docs/verification/tizen-devices.md"
         }
       ]
+    },
+    {
+      "id": "s24-up4-open-commands-contradict-d34",
+      "boundaryId": "s24-owner-upstream",
+      "criterionIds": [
+        "UP-4"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "Resolved in `7924f43`. Every NSH branch README (focus, tv, engine, tizen, tizen-web) and `docs/pr/nsh/README.md#updating-a-branch-and-opening-it` now rebuild the `up/` copy by cherry-pick, push `up/<area>/<topic>` and open `--head dXnSix:up/<area>/<topic>`. No `pr/*` branch is rebased or force-pushed any more. The compat `tv-idiom` and `focus-props` READMEs open `dXnSix:up/tv-idiom` and `dXnSix:up/focus-props`. The Recorded checks and Before opening rules in `docs/pr/README.md` name the `up/` tip checks.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/README.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/README.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/focus/07-web-tv/README.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/compat/tv-idiom/README.md"
+        }
+      ]
+    },
+    {
+      "id": "s24-up4-two-branches-off-latest-base",
+      "boundaryId": "s24-owner-upstream",
+      "criterionIds": [
+        "UP-4"
+      ],
+      "severity": "major",
+      "status": "resolved",
+      "descriptionMarkdown": "Resolved. `up/tv/02-category` (`666ddd4f2`), `up/tv/03-dev-idiom` (`d29948463`) and `up/focus/03-desktop-stops` (`cfe38ef44`) are rebuilt on `092438e52` and pushed to `dXnSix/nsh`. The conflict resolutions are correct against #1813 and #1851. Their README checks were rerun on those tips and pass. All 12 `up/` branches merge cleanly onto the newest `upstream/main` `04518afca`, and the records say so.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/focus/03-desktop-stops/README.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/tv/03-dev-idiom/README.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/tv/02-category/README.md"
+        }
+      ]
+    },
+    {
+      "id": "s24-up4-web-focus-logs-predate-tips",
+      "boundaryId": "s24-owner-upstream",
+      "criterionIds": [
+        "UP-4"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "Resolved. New logs exist on the final tips:\n\n- `t25-nsh/focus-05-web-web.log` (8/8) and `focus-07-web-tv-web.log` (14/14).\n- `tv-03-dev-idiom-final2.log` (all of tv/03's checks on `d29948463`), `tv-02-category-final.log` and `focus-03-desktop-stops-final.log`.\n- `t25-compat/{tv-idiom,focus-props}-fmt.log`.\n\nThe READMEs cite these logs, and focus/06's README notes `b4a0181c9`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/focus/05-web/README.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/focus/07-web-tv/README.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/nsh/focus/06-gpui-tab-stops/README.md"
+        }
+      ]
+    },
+    {
+      "id": "s24-up4-gpui-fast-commit-subjects-truncated",
+      "boundaryId": "s24-owner-upstream",
+      "criterionIds": [
+        "UP-4"
+      ],
+      "severity": "minor",
+      "status": "resolved",
+      "descriptionMarkdown": "Resolved. The five \"Its commits\" rows match `git log --format=%s upstream/main..origin/<branch>`.",
+      "regressionRefs": [
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/gpui-fast/scene-damage/README.md"
+        },
+        {
+          "repositoryId": "gpuitizen",
+          "path": "docs/pr/gpui-fast/gles-instance-path/README.md"
+        }
+      ]
+    },
+    {
+      "id": "s24-up4-residual-rebase-wording",
+      "boundaryId": "s24-owner-upstream",
+      "criterionIds": [
+        "UP-4"
+      ],
+      "severity": "minor",
+      "status": "open",
+      "descriptionMarkdown": "**Expected:** no record tells the owner to rebase a pushed fork branch for an upstream PR (d34). **Observed:** three places still do.\n\n1. `docs/pr/nsh/compat/tizen-platform/README.md` \"Updating and opening\" still runs `git rebase --onto origin/main tv-idiom tizen-platform` and `git push -u origin tizen-platform`, then `gh pr create --head dXnSix:tizen-platform`. That rebases the pushed fork branch `tizen-platform`. The branch is UP-5's, so not in UP-4's set, but d34 covers every nsh-compat branch.\n2. `docs/pr/nsh/README.md`, \"The bases (2026-11-10)\", still says \"Every branch is rebased onto the latest `upstream/main` before it is opened … every result recorded so far is from `feat/tizen`\".\n3. The paragraph after \"The upstream branches\" still says the branch \"is rebased (its own commits) before it is opened\".\n\nThese contradict the rewritten \"Updating a branch and opening it\" section. **Repair:** make `tizen-platform` open from a fresh `up/tizen-platform` rebuilt on longbridge `main` when UP-5 prepares it. Reword the two `nsh/README.md` sentences to point at the `up/` rebuild."
     }
   ],
   "handoffMarkdown": "../wgpu egl14-wayland 01f93a569 and gles-program-binaries 2bc8346d8 + 03cab4b4b from upstream trunk b672a5400; wgpu-hal lib tests 6+6, wgpu-core pipeline_cache 13, GPU pipeline_cache 2 in the Lima VM; docs/pr/wgpu/ (owner fills LLM-use and rewrites descriptions per wgpu's AGENTS.md); ../wgpu back on v30-tizen.",

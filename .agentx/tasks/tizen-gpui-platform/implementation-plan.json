@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 60,
+  "revision": 61,
   "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
   "repositories": [
     {
@@ -6130,7 +6130,7 @@
     },
     {
       "id": "s24-owner-upstream",
-      "title": "Upstream branches ready to open that need no TV; the owner opens the wgpu PRs",
+      "title": "Upstream branches ready to open that need no TV",
       "dependsOn": [
         "s23-owner-devices"
       ],
@@ -6139,7 +6139,7 @@
         {
           "id": "t25-upstream",
           "title": "Prepare the upstream branches that need no TV; the owner opens gfx-rs/wgpu's",
-          "descriptionMarkdown": "`UP-4`. Agent: for each branch in `d33-upstream`'s order (NSH focus, TV keys and category with the nsh-compat companions, one wgpu, gpui-fast's six and the issue, wgpu's two), put the topic's commits on the latest upstream base (NSH and nsh-compat on fresh branches, never rebasing a pushed `pr/*` branch), run the checks its README lists on its own tip, push it to the `dXnSix` fork, and record base, run, push and \"ready, not opened\" in its folder under `docs/pr/`. Nothing is opened or pushed at `longbridge/*` (the owner's agreement with its owners comes first, outside this epic). Owner: opens the gfx-rs/wgpu PRs on their go, with the description and \"LLM Use?\" in their own words; the agent records the links and states.",
+          "descriptionMarkdown": "`UP-4`. Agent: for each branch in `d33-upstream`'s order (NSH focus, TV keys and category with the nsh-compat companions, one wgpu, gpui-fast's six and the issue, wgpu's two), put the topic's commits on the latest upstream base (NSH and nsh-compat on fresh branches, never rebasing a pushed `pr/*` branch), run the checks its README lists on its own tip, push it to the `dXnSix` fork, and record base, run, push and \"ready, not opened\" in its folder under `docs/pr/`. Nothing is opened or pushed at `longbridge/*` (the owner's agreement with its owners comes first, outside this epic). The gfx-rs/wgpu PRs are opened by the owner after the TV run (`t26-upstream-after-devices`).",
           "criterionIds": [
             "UP-4"
           ],
@@ -6298,7 +6298,7 @@
         {
           "id": "t26-upstream-after-devices",
           "title": "Prepare the upstream branches that need the devices' results",
-          "descriptionMarkdown": "`UP-5`, the same way as `t25-upstream`, opening nothing: the gpui-fast issue and PR texts with the `DEV-3` numbers and their branches ready again on the latest `upstream/main`; the NSH `Os::Tizen` and Tizen targets branches and issue, and the `tizen-web` branch after `DEV-6`'s loader check, ready, their folders naming what they wait for.",
+          "descriptionMarkdown": "`UP-5`, the same way as `t25-upstream`, opening nothing: the gpui-fast issue and PR texts with the `DEV-3` numbers and their branches ready again on the latest `upstream/main`; the NSH `Os::Tizen` and Tizen targets branches and issue, and the `tizen-web` branch after `DEV-6`'s loader check, ready, their folders naming what they wait for. Owner: after the TV run, opens the two gfx-rs/wgpu PRs on their go (the TV run in their Testing section, the description and \"LLM Use?\" in their own words); the agent rebases them onto the newest `trunk` first and records the links and states.",
           "criterionIds": [
             "UP-5"
           ],
