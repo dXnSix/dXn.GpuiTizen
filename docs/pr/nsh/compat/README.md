@@ -19,8 +19,8 @@ merge onto it without conflict (`git merge-tree`). Rebase before opening. Sizes 
 
 | # | Folder | Branch | Title | Size | NSH PR that needs it | Status |
 |---|---|---|---|---|---|---|
-| 01 | [tv-idiom/](tv-idiom/) | `tv-idiom` | compat: Run a script on a TV with `platform <os> tv` | 2 files, +15 −10 | [`pr/tv/02-category`](../tv/02-category/) (domain `tv`, `platform android tv`); later `pr/tizen/06-module` (`tv/mod-tizen`) | not opened |
-| 02 | [focus-props/](focus-props/) | `focus-props` | compat: Report views' focus props and focus groups | 2 files, +145 −3 | [`pr/focus/04-tv`](../focus/04-tv/) (`props-view-focus`, `base-focus-group`) | not opened |
+| 01 | [tv-idiom/](tv-idiom/) | `tv-idiom` | compat: Run a script on a TV with `platform <os> tv` | 2 files, +15 −10 | [`pr/tv/02-category`](../tv/02-category/) (domain `tv`, `platform android tv`); later `pr/tizen/06-module` (`tv/mod-tizen`) | ready, not opened: `up/tv-idiom` |
+| 02 | [focus-props/](focus-props/) | `focus-props` | compat: Report views' focus props and focus groups | 2 files, +145 −3 | [`pr/focus/04-tv`](../focus/04-tv/) (`props-view-focus`, `base-focus-group`) | ready, not opened: `up/focus-props` |
 | 03 | [tizen-platform/](tizen-platform/) | `tizen-platform` (on `tv-idiom`) | compat: Run a script as a native Tizen app with `platform tizen` | own: 2 files, +20 −4 (with 01: 3 files, +31 −10) | [`pr/tizen/01-os`](../tizen/01-os/) (domain `tizen`, `platform tizen`) | not opened |
 
 `nsh-tizen` (on the fork, never a PR) merges all three for the epic's compat runs (`chk-nsh-compat`,
@@ -31,6 +31,19 @@ serving three NSH PRs; it became these three topic branches, with `nsh-tizen` (`
 equals the old single branch's (resolved in `review-s16-2.json`). The same review's `f-s16-tv5-os-tizen-unmet` moved
 `Os::Tizen`'s compat case to NTZ-2 by amendment: `tizen-platform` serves `pr/tizen/01-os`, checked by s17's
 `chk-nsh-compat-tizen`. s16's re-review accepted the `tizen-platform` gate that matches `platform.rs`'s text.
+
+### The upstream branches (2026-11-12)
+
+`up/tv-idiom` (`cd0d519`) and `up/focus-props` (`856ad9d`) on `dXnSix/nsh-compat` hold each companion's own commit on
+longbridge's `main` `e56ebce` (#49); `focus-props` keeps both sides of `build.rs`'s `rustc-check-cfg` list (#49's
+`nsh_has_accessibility_description`). `tizen-platform` waits for `UP-5`; on that `main` it conflicts the same way in
+`build.rs`, and its `nsh_has_tizen` lines need `cargo fmt`.
+
+Checks (logs under `artifacts-temp/agentx/tizen-gpui-platform/t25-compat/`): `cargo fmt --check` on both; `cargo test`
+against the fork's `main` (`../nsh` at `4d5dd4f0f`) with the three companions together: 39 passed. Each alone fails
+only `checkout_apps_run` on the cases the others serve (`focusGroup`; `platform tizen`, `platform android tv`), as the
+fork's `main` has all three. From NSH, `cargo xtask compat` passed on `up/tv/02-category` with `up/tv-idiom` and on
+`up/focus/04-tv` with `up/focus-props` (compatible with every recorded release).
 
 ## Where things are
 

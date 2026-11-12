@@ -2,8 +2,9 @@
 
 | | |
 |---|---|
-| Upstream PR | not opened |
+| Upstream PR | ready, not opened: nothing goes to `longbridge/nsh` before the owner's agreement with its owners ([../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
 | Fork PR | none of its own: in dXnSix/nsh#199, dXnSix/nsh#200 (its stack tops'), into the fork's `main`, on the owner's go |
+| Upstream branch | `up/focus/04-tv` on `dXnSix/nsh`, head `98db684fe`, pushed 2026-11-12: `up/focus/02-gpui`, on `upstream/main` `ca7e70e51` (#1789); see below |
 | Branch | `pr/focus/04-tv`, head `d473e6ee0`, pushed to `dXnSix/nsh` |
 | Base | `pr/focus/02-gpui` (`a44434c87`, merged in by `a7be4eb01`), on `upstream/main` `41100f2bf`. Against `c16a70096` it conflicts in `nsh-platform-gpui`'s `input.rs`, `mount.rs`, `text_input.rs` (02's, #1545), `nsh-core/src/core/tests.rs`, `element/builder.rs`, `element/mod.rs`, `website/elements/view.md` and its zh-CN page. Not rebased |
 | Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `a662232f0`: `d473e6ee0` ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
@@ -14,6 +15,16 @@
 | In `feat/tizen` | yes; inside 06 and 07 at its head |
 | Review findings | `f-s15-list-index-coverage` (minor): `Core::focus_past` was tested on a plain vertical list only and GPUI's path to the engine not at all. `8b3d335d3` brings a list's next row in at the edge the arrow goes toward (inverted and right-to-left lists included, with tests in `core::tests::directional_focus`), `b3a7934f0` sends GPUI's `Target::Scroll` through `Surface::focus_past` with the test `an_arrow_past_a_list_s_mounted_rows_asks_the_engine_for_the_next`. `f-s15-docs-platform-claims` (minor): `a662232f0` names where the arrows move the focus (macOS, Windows, Linux, the web, GPUI, TVs) and where the TV props apply (GPUI and the web) on the website's elements index (English and zh-CN) and in `docs/dev`. Both passed in the re-review. The s16 amendment of `f-s16-tv5-os-tizen-unmet` counts 04's compat cases `props/props-view-focus` and `base/base-focus-group` for TV-5 |
 | Needs | the focus issue answered on the TV props' names and on `autoFocus` widening to every element |
+
+
+## The upstream branch (2026-11-12)
+
+`up/focus/04-tv` holds this branch's own commits on `up/focus/02-gpui`, cherry-picked (the `pr/*` branch, which carries
+merges of the fork's `main`, stays as it is): `a25778b56` core: Decide the TV's focus moves in nsh_core::focus; `10ada34db` core: Let views name where the arrows take the focus; `37b885c0f` core: Scroll a list to the row the arrows reach before it is mounted; `41ec6f6dd` focus_group: Add FocusGroup, a region the arrows enter at chosen stops; `903634af7` core: Focus the first stop of the list row the arrows reach; `989dae254` gpui: Honor the TV's focus props, focus groups and list rows; `eafeefa06` core: Let a focus group's destinations hold refs not set yet; `b9b0e9de0` compat: Check the TV's focus props and FocusGroup; `8c61f26f8` focus_group: Name FocusGroup in the layout of AGENTS.md; `1f4034489` core: Bring a list's next row in at the edge the arrow goes toward; `c2150fa45` gpui: Tell the engine through the surface when an arrow scrolls past a list's rows; `98db684fe` docs: Say where the arrows and the TV focus props apply.
+
+`Command::Focus` on a stop goes to the deferred `focus::asked`, which now also asks for the window's keyboard, and `focus_command` goes, as in the fork; the view docs (English, zh-CN) list upstream's new props with this branch's.
+
+Checks on its tip `98db684fe` (logs under `artifacts-temp/agentx/tizen-gpui-platform/t25-nsh/`): `focus::tests::tv` 11 passed, `directional_focus` 11, `focus_group::` 3, GPUI's `tv_focus` 8 and `directional_focus` 11, the GPUI tests with `shot` 248, fmt, the clippy, and `cargo xtask compat` with nsh-compat `up/focus-props`.
 
 ## Before opening
 

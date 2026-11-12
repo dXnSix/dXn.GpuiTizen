@@ -2,8 +2,9 @@
 
 | | |
 |---|---|
-| Upstream PR | not opened |
+| Upstream PR | ready, not opened: nothing goes to `longbridge/nsh` before the owner's agreement with its owners ([../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
 | Fork PR | dXnSix/nsh#200 (merge commit), into the fork's `main`, on the owner's go |
+| Upstream branch | `up/focus/07-web-tv` on `dXnSix/nsh`, head `694898098`, pushed 2026-11-12: `up/focus/04-tv`, on `upstream/main` `ca7e70e51` (#1789); see below |
 | Branch | `pr/focus/07-web-tv`, head `eb64d0a7f`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-web-tv` |
 | Base | `pr/focus/04-tv` at its head (`a662232f0`, merged in by `f69c8f57c`) with `pr/focus/05-web` merged in (`0bd2092b9`); on `upstream/main` `41100f2bf`. Against `c16a70096` it has 04's and 05's conflicts (`nsh-platform-gpui`'s `input.rs`, `mount.rs`, `text_input.rs`; `nsh-core`'s `core/tests.rs`, `element/builder.rs`, `element/mod.rs`; `nsh-platform-web/web/nsh.js`; `docs/dev/web.md`; the website's web and view pages, English and zh-CN). Not rebased |
 | Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `f69c8f57c`: `c85812a08`, `eb64d0a7f` ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
@@ -14,6 +15,16 @@
 | In `feat/tizen` | yes (merge `01be268d4`) |
 | Review findings | `f-s15-web-tv-rules` (minor): the web decided with `focus::horizontal` / `vertical` only, so on a `tizen-web` TV `preferredFocus`, `nextFocus*`, `FocusGroup`, view `autoFocus` and lists past their mounted rows did nothing. `6f396c490` sends the props (`focus::write_props`), decides with `focus::directional`, scrolls on and tells `nsh_focus_past`, and runs `nsh_focus_auto` once per stop, with `focus_moves::tv` and browser cases in `focus.test.mjs`. Passed in the re-review (`review-s15-2.json`) |
 | Needs | no nsh-compat change (04's `focus-props` covers the props) |
+
+
+## The upstream branch (2026-11-12)
+
+`up/focus/07-web-tv` holds this branch's own commits on `up/focus/04-tv`, cherry-picked (the `pr/*` branch, which carries
+merges of the fork's `main`, stays as it is): `20e8aebf5` web: Move focus with the arrows through nsh_core::focus; `694898098` web: Honor the TV's focus props and focus groups.
+
+On `up/focus/04-tv` with `up/focus/05-web`'s commit picked in (no merge); the web page's keyboard paragraph (English, zh-CN) takes upstream's `focus-visible:` and adds the TV sentence.
+
+Checks on its tip `694898098` (logs under `artifacts-temp/agentx/tizen-gpui-platform/t25-nsh/`): `focus_moves` 14 passed, `focus.test.mjs` 14, fmt.
 
 ## Before opening
 

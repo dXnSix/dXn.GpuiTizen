@@ -2,8 +2,9 @@
 
 | | |
 |---|---|
-| Upstream PR | not opened |
+| Upstream PR | ready, not opened: nothing goes to `longbridge/nsh` before the owner's agreement with its owners ([../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
 | Fork PR | dXnSix/nsh#194 (merge commit), into the fork's `main`, on the owner's go |
+| Upstream branch | `up/engine/01-wgpu-30` on `dXnSix/nsh`, head `b09109824`, pushed 2026-11-12: `upstream/main` `ca7e70e51` (#1789); see below |
 | Branch | `pr/engine/01-wgpu-30`, head `176a2bd27`, pushed to `dXnSix/nsh` |
 | Base | `upstream/main` `8c733731f`. Against `c16a70096` it merges without conflict (`git merge-tree`), lockfiles included. Not rebased |
 | Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `c5a018805`: `176a2bd27` ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
@@ -16,6 +17,16 @@
 | Needs | no issue, no nsh-compat change |
 
 `upstream/main`'s `crates/gpui/Cargo.lock` holds wgpu 29.0.4 (the engine's) and 30.0.1 (gpui-fast 0.1.13's) today.
+
+
+## The upstream branch (2026-11-12)
+
+`up/engine/01-wgpu-30` holds this branch's own commits on `upstream/main` `ca7e70e51`, cherry-picked (the `pr/*` branch, which carries
+merges of the fork's `main`, stays as it is): `0e6541994` engine: Move the shader renderer to wgpu 30; `b09109824` engine: Lock gpu-allocator on the windows crate wgpu-hal 30 takes.
+
+Cherry-picked cleanly (the lockfiles through `rerere`; `cargo metadata --locked` passes for the root workspace, and `crates/gpui/Cargo.lock` lacks only `url`, as `upstream/main`'s own does).
+
+Checks on its tip `b09109824` (logs under `artifacts-temp/agentx/tizen-gpui-platform/t25-nsh/`): `nsh-engine --test engine shader::` 5 passed; `tizen-deps --single wgpu` (one wgpu, 30.0.1, in this branch's `crates/gpui/Cargo.lock`); `cargo test -p nsh-engine --features shader` 393 passed (a first run under load failed `components::the_topmost_page_or_dialog_decides_the_status_bar` once, which passed five times alone and in the rerun); fmt; the `nsh-engine` and GPUI clippy.
 
 ## Before opening
 

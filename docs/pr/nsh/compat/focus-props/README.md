@@ -2,7 +2,8 @@
 
 | | |
 |---|---|
-| PR | not opened (to `longbridge/nsh-compat`) |
+| PR | ready, not opened (to `longbridge/nsh-compat`, after the owner's agreement with its owners) |
+| Upstream branch | `up/focus-props` on `dXnSix/nsh-compat`, head `856ad9d`, pushed 2026-11-12: this branch's own commit on longbridge's `main` `e56ebce` (#49) |
 | Branch | `focus-props` on [dXnSix/nsh-compat](https://github.com/dXnSix/nsh-compat), head `28b3b49` (merges longbridge's `main` `e56ebce`, #49, 2026-11-11), in `/Users/dinko/work-private/projects/dXn/nsh/nsh-compat` |
 | Base | `578f574` (#40); `origin/main` is `ab2670a` (#45, one commit on, fetched 2026-11-10), onto which it merges without conflict. Not rebased |
 | Size | 2 files, +145 −3: `build.rs` (+6: the `nsh_has_focus_routes` gate), `src/values.rs` (+142 −3: writing the props, and the test `focus_props_name_the_views_they_route_to`) |

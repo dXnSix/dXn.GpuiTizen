@@ -141,6 +141,25 @@ Two failures were real, both outside gpui-fast:
   under load (`yes > /dev/null`, twice per CPU); #215 waits for the bindings too (`keymap::bound`, test builds only)
   and gives the wait helpers `#[track_caller]`.
 
+## The upstream branches (2026-11-12)
+
+For `UP-4` (prepared, not opened: [../README.md](../README.md#prepared-not-opened-2026-11-12)), every branch that needs no
+TV has an `up/` copy on `dXnSix/nsh`: its own commits cherry-picked onto `upstream/main` `ca7e70e51` (#1789), or onto
+its parent's `up/` branch, the `pr/*` branch untouched. `up/engine/01-wgpu-30`, `up/tv/01-keys` … `04-remote-keys`,
+`up/focus/01-core` … `07-web-tv` (`07` on `04` with `05`'s commit picked in). Each branch README has the base, what the
+newer `upstream/main` asked of it and the checks run on its tip, all passing. What the base asked beyond conflicts:
+
+- GPUI's keyboard focus on views lives in upstream's `key_focus.rs` (#1545, #1678, #1795): `up/focus/02-gpui`'s
+  `1829d9316` folds it into the branch's `focus.rs`, as the fork's merge did for #1545.
+- macOS's Tab (#1832, hidden views) and Windows' Tab order (#1616) in `up/focus/03-desktop-stops`; the popover test
+  and `tab_order` in `up/focus/06-gpui-tab-stops`; `composedPath` (#1784) in the web focus tests of 05 and 07.
+- The test agent's Tab wrap moved from `tv/03` to `up/focus/06-gpui-tab-stops`, the branch that has `tab_past_ends`.
+
+The nsh-compat companions have `up/tv-idiom` and `up/focus-props` on `dXnSix/nsh-compat` ([compat/README.md](compat/README.md#the-upstream-branches-2026-11-12)).
+`upstream/main` moved on the same day to `092438e52` (#1836): `up/tv/03-dev-idiom` and `up/focus/03-desktop-stops`
+conflict with it (their READMEs say where); the rest merge onto it cleanly. Rebuild a branch on the newest
+`upstream/main` before it is opened.
+
 The upstream PRs still go from the latest `upstream/main` ([below](#updating-a-branch-and-opening-it)): a branch's
 merge of the fork's `main` brings fork-only commits, so it is rebased (its own commits) before it is opened.
 

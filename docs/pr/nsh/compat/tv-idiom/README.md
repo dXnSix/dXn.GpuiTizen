@@ -2,7 +2,8 @@
 
 | | |
 |---|---|
-| PR | not opened (to `longbridge/nsh-compat`) |
+| PR | ready, not opened (to `longbridge/nsh-compat`, after the owner's agreement with its owners) |
+| Upstream branch | `up/tv-idiom` on `dXnSix/nsh-compat`, head `cd0d519`, pushed 2026-11-12: this branch's own commit on longbridge's `main` `e56ebce` (#49) |
 | Branch | `tv-idiom` on [dXnSix/nsh-compat](https://github.com/dXnSix/nsh-compat), head `4ab402d` (merges longbridge's `main` `e56ebce`, #49, 2026-11-11), in `/Users/dinko/work-private/projects/dXn/nsh/nsh-compat` |
 | Base | `578f574` (#40); `origin/main` is `ab2670a` (#45, one commit on, fetched 2026-11-10), onto which it merges without conflict. Not rebased |
 | Size | 2 files, +15 −10: `src/apps.rs` (the `platform` step, its docs and error), `src/values.rs` (`tv.` among the platform prefixes) |

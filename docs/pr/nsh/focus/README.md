@@ -17,13 +17,13 @@ All pushed to `dXnSix/nsh` (2026-11-10), worked on in `nsh-wt/tizen`. Own size: 
 
 | # | Folder | Branch | Built on | Title | Own size | Needs | Status |
 |---|---|---|---|---|---|---|---|
-| 01 | [01-core/](01-core/) | `pr/focus/01-core` | `upstream/main` `41100f2bf` | core: Decide directional focus moves in nsh_core::focus | 8 files, +1353 −294 | the issue | not opened |
-| 02 | [02-gpui/](02-gpui/) | `pr/focus/02-gpui` | 01 | gpui: Move focus with the arrows through nsh_core::focus | 14 files, +1235 −23 | 01 merged; the desktop issue (arrows by default) | not opened |
-| 03 | [03-desktop-stops/](03-desktop-stops/) | `pr/focus/03-desktop-stops` | 01 | desktop: Stop Tab at pressables in tree order, and move focus with the arrows | 36 files, +2501 −170 | 01 merged; the desktop issue answered | not opened |
-| 04 | [04-tv/](04-tv/) | `pr/focus/04-tv` | 02 | core: Let views name where the arrows take the focus, with FocusGroup for TVs | 45 files, +3091 −88 | 02 merged; nsh-compat `focus-props` | not opened |
-| 05 | [05-web/](05-web/) | `pr/focus/05-web` | 01 | web: Move focus with the arrows through nsh_core::focus | 10 files, +994 −10 | 01 merged; the desktop issue (arrows by default) | not opened |
-| 06 | [06-gpui-tab-stops/](06-gpui-tab-stops/) | `pr/focus/06-gpui-tab-stops` | 02, merges 04 | gpui: Stop Tab at pressables and focusable views, in tree order | 8 files, +258 −63 | 04 merged; the desktop issue answered | not opened |
-| 07 | [07-web-tv/](07-web-tv/) | `pr/focus/07-web-tv` | 04 + 05 | web: Honor the TV's focus props and focus groups | 12 files, +984 −92 | 04 and 05 merged | not opened |
+| 01 | [01-core/](01-core/) | `pr/focus/01-core` | `upstream/main` `41100f2bf` | core: Decide directional focus moves in nsh_core::focus | 8 files, +1353 −294 | the issue | ready, not opened: `up/focus/01-core` |
+| 02 | [02-gpui/](02-gpui/) | `pr/focus/02-gpui` | 01 | gpui: Move focus with the arrows through nsh_core::focus | 14 files, +1235 −23 | 01 merged; the desktop issue (arrows by default) | ready, not opened: `up/focus/02-gpui` |
+| 03 | [03-desktop-stops/](03-desktop-stops/) | `pr/focus/03-desktop-stops` | 01 | desktop: Stop Tab at pressables in tree order, and move focus with the arrows | 36 files, +2501 −170 | 01 merged; the desktop issue answered | ready, not opened: `up/focus/03-desktop-stops` |
+| 04 | [04-tv/](04-tv/) | `pr/focus/04-tv` | 02 | core: Let views name where the arrows take the focus, with FocusGroup for TVs | 45 files, +3091 −88 | 02 merged; nsh-compat `focus-props` | ready, not opened: `up/focus/04-tv` |
+| 05 | [05-web/](05-web/) | `pr/focus/05-web` | 01 | web: Move focus with the arrows through nsh_core::focus | 10 files, +994 −10 | 01 merged; the desktop issue (arrows by default) | ready, not opened: `up/focus/05-web` |
+| 06 | [06-gpui-tab-stops/](06-gpui-tab-stops/) | `pr/focus/06-gpui-tab-stops` | 02, merges 04 | gpui: Stop Tab at pressables and focusable views, in tree order | 8 files, +258 −63 | 04 merged; the desktop issue answered | ready, not opened: `up/focus/06-gpui-tab-stops` |
+| 07 | [07-web-tv/](07-web-tv/) | `pr/focus/07-web-tv` | 04 + 05 | web: Honor the TV's focus props and focus groups | 12 files, +984 −92 | 04 and 05 merged | ready, not opened: `up/focus/07-web-tv` |
 
 ```
 01-core ──┬── 02-gpui ──── 04-tv ──┬── 06-gpui-tab-stops (also merges 02)

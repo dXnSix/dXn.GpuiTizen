@@ -6,7 +6,7 @@ GL ES device and one copy of wgpu in a 32-bit library with a memory budget; on t
 
 | # | Folder | Branch | Built on | Title | Size | Needs | Status |
 |---|---|---|---|---|---|---|---|
-| 01 | [01-wgpu-30/](01-wgpu-30/) | `pr/engine/01-wgpu-30` | `upstream/main` `8c733731f` | engine: Move the shader renderer to wgpu 30 | 6 files, +96 −322 | – | not opened |
+| 01 | [01-wgpu-30/](01-wgpu-30/) | `pr/engine/01-wgpu-30` | `upstream/main` `8c733731f` | engine: Move the shader renderer to wgpu 30 | 6 files, +96 −322 | – | ready, not opened: `up/engine/01-wgpu-30` |
 
 It needs no issue (no API, no behaviour change) and no other PR. In the order of [../../README.md](../../README.md) it
 comes after the focus and TV PRs and before gpui-fast's, because the TV build needs it and nothing else waits on it;

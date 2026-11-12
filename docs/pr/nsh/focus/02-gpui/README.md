@@ -2,8 +2,9 @@
 
 | | |
 |---|---|
-| Upstream PR | not opened |
+| Upstream PR | ready, not opened: nothing goes to `longbridge/nsh` before the owner's agreement with its owners ([../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
 | Fork PR | none of its own: in dXnSix/nsh#199, dXnSix/nsh#200 (its stack tops'), into the fork's `main`, on the owner's go |
+| Upstream branch | `up/focus/02-gpui` on `dXnSix/nsh`, head `1829d9316`, pushed 2026-11-12: `up/focus/01-core`, on `upstream/main` `ca7e70e51` (#1789); see below |
 | Branch | `pr/focus/02-gpui`, head `cf1919d5c`, pushed to `dXnSix/nsh` |
 | Base | `pr/focus/01-core` (`ce993fd21`), on `upstream/main` `41100f2bf`. Against `upstream/main` `c16a70096` it conflicts in `crates/gpui/nsh-platform-gpui/src/input.rs`, `mount.rs` and `text_input.rs` (#1545, below). Not rebased |
 | Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `a44434c87`: `cf1919d5c` ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
@@ -14,6 +15,16 @@
 | In `feat/tizen` | yes; also inside 04, 06 and 07 |
 | Review findings | `f-s15-gpui-blur-command` (major): `blur()` on a pressable or `focusable` view that had GPUI's focus left it focused (`Command::Blur` only blurred fields). `a44434c87` adds `focus::blur_command` beside `focus::asked` in `Mounter::command`, with the test `blur_takes_the_focus_off_the_focused_view`. Passed in the re-review (`review-s15-2.json`) |
 | Needs | the focus issue; the desktop issue's answer on arrows by default ([../issue-desktop-tab.md](../issue-desktop-tab.md)); no nsh-compat change |
+
+
+## The upstream branch (2026-11-12)
+
+`up/focus/02-gpui` holds this branch's own commits on `up/focus/01-core`, cherry-picked (the `pr/*` branch, which carries
+merges of the fork's `main`, stays as it is): `1e156bbee` gpui: Move focus with the arrows through nsh_core::focus; `07a827030` gpui: Take the focus off a focused view on blur(); `1829d9316` gpui: Keep focus() on views, the pointer's blur and removed views in the focus module.
+
+Upstream's GPUI keeps the keyboard focus on views in `key_focus.rs` (#1545, #1678 Return and Space before the keymap, #1795 removed views): the new commit `1829d9316` folds it into this branch's `focus.rs` (`focus_command`, `pointer_down`, `detached`, `on_control`), as the fork's merge did for #1545.
+
+Checks on its tip `1829d9316` (logs under `artifacts-temp/agentx/tizen-gpui-platform/t25-nsh/`): `directional_focus` 11 passed, the GPUI tests with `shot` 240 (#1545's and #1795's included), fmt, the GPUI clippy.
 
 ## Before opening
 

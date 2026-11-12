@@ -2,8 +2,9 @@
 
 | | |
 |---|---|
-| Upstream PR | not opened |
+| Upstream PR | ready, not opened: nothing goes to `longbridge/nsh` before the owner's agreement with its owners ([../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
 | Fork PR | dXnSix/nsh#198 (merge commit), into the fork's `main`, on the owner's go |
+| Upstream branch | `up/focus/03-desktop-stops` on `dXnSix/nsh`, head `681ae0333`, pushed 2026-11-12: `up/focus/01-core`, on `upstream/main` `ca7e70e51` (#1789); see below |
 | Branch | `pr/focus/03-desktop-stops`, head `21b962ece`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-desktop` |
 | Base | `pr/focus/01-core` (`ce993fd21`), on `upstream/main` `41100f2bf`. Against `c16a70096` it conflicts in `docs/dev/elements.md` and `docs/dev/windows.md`; `nsh-platform-windows/src/text_input.rs` merges textually with #1475 (RichEdit text inputs) but must be rebuilt and checked. Not rebased |
 | Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `8d563c338`: `2168706bf`; then `21b962ece` windows: Keep a text's links in their place when Tab follows the overlays ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
@@ -14,6 +15,18 @@
 | In `feat/tizen` | yes |
 | Review findings | `f-s15-desktop-arrows` (major): the arrows moved the focus on Windows only, while macOS and Linux still scrolled. `07eec85a1` (macOS: `focus::arrow`, a single-line field hands Up / Down over from `moveUp:` / `moveDown:`) and `48fed3f34` (Linux: `key_focus::arrow`, in the window's scroll key controller) move it through `nsh_core::focus` there too, and `tests/apps/pressable-focus` gained two arrow tests ("The arrows move the focus to the nearest stop in their direction"; "With nothing focused Down takes the first stop, and a field keeps Left and Right"), run by `chk-nsh-focus-macos` and `chk-nsh-focus-linux`; `8d563c338` names the spec in `docs/dev/windows.md`. Part of `f-s15-docs-platform-claims`: `docs/dev/{macos,linux,windows}.md` say what the arrows do. Passed in the re-review |
 | Needs | no nsh-compat change; no new API |
+
+
+## The upstream branch (2026-11-12)
+
+`up/focus/03-desktop-stops` holds this branch's own commits on `up/focus/01-core`, cherry-picked (the `pr/*` branch, which carries
+merges of the fork's `main`, stays as it is): `273341fad` macos: Move Tab through the stops in tree order; `389bdd355` linux: Move Tab through the stops in tree order; `6b3ba1748` windows: Stop Tab at pressables, in tree order; `bee7c16c8` windows: Move focus with the arrows through nsh_core::focus; `2c05f9af4` linux: Report a field's blur before the next view's focus; `d658aba70` macos: Move focus with the arrows through nsh_core::focus; `a85ae0ea9` linux: Move focus with the arrows through nsh_core::focus; `7768c47c5` windows: Name the app spec that checks the keyboard focus; `681ae0333` windows: Keep a text's links in their place when Tab follows the overlays.
+
+macOS's Tab is this branch's tree-order walk; upstream's #1832 (2026-11-12) keeps hidden views out of the key view loop, so the walk takes fields and hosted views only where their view is seen (`seen_by_keys`) and `held_seen` goes. Windows' `focus.rs` orders Tab with `nsh_core::input::tab_order` (#1616), as the fork's merge did. The docs keep upstream's `FOCUS_VISIBLE` and overlay text.
+
+Checks on its tip `681ae0333` (logs under `artifacts-temp/agentx/tizen-gpui-platform/t25-nsh/`): `tests/apps/pressable-focus --target macos`, `focus::tests` (macOS) 2 passed, Linux's `pressable-focus` and `key_focus::` 7 in the Lima VM, Windows' check-only clippy, fmt, the macOS clippy.
+
+`upstream/main` moved on the same day (`092438e52`, #1836); against it the branch has a conflict in `nsh-platform-linux/src/key_focus.rs` (#1851): rebuild it on the newest `upstream/main` before opening.
 
 ## Before opening
 

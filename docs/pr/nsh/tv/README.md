@@ -13,10 +13,10 @@ All pushed to `dXnSix/nsh` (2026-11-10), worked on in `nsh-wt/tizen`; 01 and 02 
 
 | # | Folder | Branch | Built on | Title | Own size | Needs | Status |
 |---|---|---|---|---|---|---|---|
-| 01 | [01-keys/](01-keys/) | `pr/tv/01-keys` | `upstream/main` `8c733731f` | keymap: Name the media and TV remote keys | 22 files, +740 −27 | the issue | not opened |
-| 02 | [02-category/](02-category/) | `pr/tv/02-category` | `upstream/main` `8c733731f` | js: Add platform.tv, the tv prop group and the tv select key | 42 files, +957 −106 | the issue; nsh-compat [`tv-idiom`](../compat/tv-idiom/) merged | not opened |
-| 03 | [03-dev-idiom/](03-dev-idiom/) | `pr/tv/03-dev-idiom` | 02 | cli: Run apps in the TV idiom on the desktop | 32 files, +850 −54 | 02 merged | not opened |
-| 04 | [04-remote-keys/](04-remote-keys/) | `pr/tv/04-remote-keys` | 01 | test: Press TV remote keys in app tests | 21 files, +768 −11 | 01 merged | not opened |
+| 01 | [01-keys/](01-keys/) | `pr/tv/01-keys` | `upstream/main` `8c733731f` | keymap: Name the media and TV remote keys | 22 files, +740 −27 | the issue | ready, not opened: `up/tv/01-keys` |
+| 02 | [02-category/](02-category/) | `pr/tv/02-category` | `upstream/main` `8c733731f` | js: Add platform.tv, the tv prop group and the tv select key | 42 files, +957 −106 | the issue; nsh-compat [`tv-idiom`](../compat/tv-idiom/) merged | ready, not opened: `up/tv/02-category` |
+| 03 | [03-dev-idiom/](03-dev-idiom/) | `pr/tv/03-dev-idiom` | 02 | cli: Run apps in the TV idiom on the desktop | 32 files, +850 −54 | 02 merged | ready, not opened: `up/tv/03-dev-idiom` |
+| 04 | [04-remote-keys/](04-remote-keys/) | `pr/tv/04-remote-keys` | 01 | test: Press TV remote keys in app tests | 21 files, +768 −11 | 01 merged | ready, not opened: `up/tv/04-remote-keys` |
 
 ```
 01-keys ───── 04-remote-keys

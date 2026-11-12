@@ -2,8 +2,9 @@
 
 | | |
 |---|---|
-| Upstream PR | not opened |
+| Upstream PR | ready, not opened: nothing goes to `longbridge/nsh` before the owner's agreement with its owners ([../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
 | Fork PR | dXnSix/nsh#196 (merge commit), into the fork's `main`, on the owner's go |
+| Upstream branch | `up/tv/03-dev-idiom` on `dXnSix/nsh`, head `54f305d94`, pushed 2026-11-12: `up/tv/02-category`, on `upstream/main` `ca7e70e51` (#1789); see below |
 | Branch | `pr/tv/03-dev-idiom`, head `cc0685a75`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-engine` |
 | Base | `pr/tv/02-category` at its head (merged in by `af909ed26`), on `upstream/main` `8c733731f`. Against `c16a70096` it conflicts in 02's `crates/nsh-core/src/prelude.rs` and `crates/nsh-platform-web/src/browser/engine.rs`, and in `crates/nsh-cli/src/test_web.rs`. Not rebased |
 | Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `2cb11014a`: `880e9dfb5`; then `cc0685a75` cli: Allow the test host's starter its options, one each ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
@@ -14,6 +15,18 @@
 | In `feat/tizen` | yes (merge `e7325eb31` for the last two commits) |
 | Review findings | `f-s21-gpui-spec-not-tv-idiom` (major, from the CI review): `fork/tizen-ci`'s "TV idiom on the GPUI host" step ran `tests/apps/pressable-focus` in the desktop idiom, since `nsh test` had no `--idiom` and the test hosts never resolved one. `35ce21821` gives `nsh test --target gpui` and `--target web` `--idiom tv` or `desktop` over `nsh.json` `dev.idiom` (each test's GPUI host starts with `--idiom`, the web test page gets `IDIOM`; other targets and headless runs refuse the flag, and leave `nsh.json`'s setting out with a warning); `2cb11014a` adds `tests/apps/tv-idiom`, whose two tests fail in the desktop idiom. Resolved in `review-s21-2.json`, passed in `review-s21-3.json`. s16's review (`review-s16-2.json`, passed) covered `694d31ba2` with no finding |
 | Needs | no nsh-compat change |
+
+
+## The upstream branch (2026-11-12)
+
+`up/tv/03-dev-idiom` holds this branch's own commits on `up/tv/02-category`, cherry-picked (the `pr/*` branch, which carries
+merges of the fork's `main`, stays as it is): `46183499b` cli: Run apps in the TV idiom on the desktop; `f0749a16d` cli: Run nsh test's apps in the TV idiom on the GPUI host and the web page; `b35d1da18` test: Add an app spec that runs in the TV idiom on the desktop; `54f305d94` cli: Allow the test host's starter its options, one each.
+
+Picked cleanly on `up/tv/02-category`. The test agent's Tab wrap (`48389b3f9`) is not here: it calls focus/06's `input::tab_past_ends`, so it moved to `up/focus/06-gpui-tab-stops`.
+
+Checks on its tip `54f305d94` (logs under `artifacts-temp/agentx/tizen-gpui-platform/t25-nsh/`): `dev_idiom::` 8 passed, `app::idiom_tests` 1, `tests/apps/tv-idiom --target gpui --idiom tv`, fmt, the `nsh-cli` and GPUI clippy. Not run here: the `tizen-web` check and the `pressable-focus` part (they need branches this one does not have).
+
+`upstream/main` moved on the same day (`092438e52`, #1836); against it the branch has conflicts in `nsh-gpui-host/src/lib.rs`, `nsh-cli/src/test_host.rs` and the CLI pages (English, zh-CN): rebuild it on the newest `upstream/main` before opening.
 
 ## Before opening
 

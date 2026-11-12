@@ -2,8 +2,9 @@
 
 | | |
 |---|---|
-| Upstream PR | not opened |
+| Upstream PR | ready, not opened: nothing goes to `longbridge/nsh` before the owner's agreement with its owners ([../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
 | Fork PR | none of its own: in dXnSix/nsh#196, dXnSix/nsh#201, dXnSix/nsh#202 (its stack tops'), into the fork's `main`, on the owner's go |
+| Upstream branch | `up/tv/02-category` on `dXnSix/nsh`, head `40d27d136`, pushed 2026-11-12: `upstream/main` `ca7e70e51` (#1789); see below |
 | Branch | `pr/tv/02-category`, head `fc8dc6ea8`, pushed to `dXnSix/nsh` |
 | Base | `upstream/main` `8c733731f`. Against `c16a70096` it conflicts in `crates/nsh-core/src/prelude.rs` and `crates/nsh-platform-web/src/browser/engine.rs`. Not rebased |
 | Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `a8f7ad63c`: `fc8dc6ea8` ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
@@ -14,6 +15,16 @@
 | In `feat/tizen` | yes; held at its head by `pr/tv/03-dev-idiom`, `pr/tizen/01-os` (merge `5c1bfe2fe`) and `pr/tizen-web/01-package` (and through it `pr/tizen/07-cli` and `pr/tizen-web/03-module`); `pr/tizen/04-platform` (and 05, 06) through `pr/tizen/01-os` since `a892c2d4c` |
 | Review findings | `f-s16-tv-web-test-reads-source` (minor): `tv.test.mjs` read the Rust source; `532345852` sends the page's settings to the module's own `nsh_environment` and checks what it sends back (`nsh_browser_test_environment`), run on the real browser-tests Wasm by `chk-nsh-tv-web`. `f-s16-tv-host-props-undeclared` (minor): `a8f7ad63c` drops `#[prop(tv = …)]`, `Platform::Tv` and its `declarations()` entry, which no prop used. Passed in the re-review (`review-s16-2.json`) |
 | Needs | the TV issue answered: a TV is never desktop on any OS (a desktop OS in the TV idiom included), `tv` in `platform.select` after the OS's key |
+
+
+## The upstream branch (2026-11-12)
+
+`up/tv/02-category` holds this branch's own commits on `upstream/main` `ca7e70e51`, cherry-picked (the `pr/*` branch, which carries
+merges of the fork's `main`, stays as it is): `cfbd8ca09` js: Add platform.tv, the tv prop group and the tv select key; `46a7cc07c` web: Let the page set the TV idiom; `c7605cf20` web: Check the TV idiom on the module itself in tv.test.mjs; `40d27d136` js: Drop the host-prop platform `tv`, which no prop uses.
+
+Two conflicts: `prelude.rs` (upstream's longer list, with `is_tv`) and the web engine's environment data, which this branch moves into `environment_data` (it now carries upstream's `shaders` and `wakeCount`).
+
+Checks on its tip `40d27d136` (logs under `artifacts-temp/agentx/tizen-gpui-platform/t25-nsh/`): `env::tests::tv` 3 passed, `tv_props::` 2, the web module's `tv.test.mjs`, fmt, the `nsh-core`/`nsh-js`/`nsh-base` clippy, and `cargo xtask compat` with nsh-compat `up/tv-idiom` (compatible with every recorded release).
 
 ## Before opening
 

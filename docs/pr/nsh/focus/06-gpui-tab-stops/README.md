@@ -2,8 +2,9 @@
 
 | | |
 |---|---|
-| Upstream PR | not opened |
+| Upstream PR | ready, not opened: nothing goes to `longbridge/nsh` before the owner's agreement with its owners ([../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
 | Fork PR | dXnSix/nsh#199 (merge commit), into the fork's `main`, on the owner's go |
+| Upstream branch | `up/focus/06-gpui-tab-stops` on `dXnSix/nsh`, head `0bea951a0`, pushed 2026-11-12: `up/focus/04-tv`, on `upstream/main` `ca7e70e51` (#1789); see below |
 | Branch | `pr/focus/06-gpui-tab-stops`, head `5a21e0f54`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-gpui02` |
 | Base | `pr/focus/02-gpui`, with `pr/focus/04-tv` merged in (`def3cb5d5`); both at their heads. On `upstream/main` `41100f2bf`; against `c16a70096` it has 04's conflicts. Not rebased |
 | Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `b4a0181c9`: `5a21e0f54` ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
@@ -14,6 +15,16 @@
 | In `feat/tizen` | yes |
 | Review findings | `f-s15-gpui-tab-out-keeps-focus` (major): when Tab moved the window's focus out of the view (`AppView::tab`, `leave`), only fields were blurred, so a pressable kept `FOCUSED` and never heard `onBlur`. `f-s15-gpui-tab-stop-set` (minor): Tab built its own stop list (stops under a backdrop, stops without an area, every enabled input). `7382ccca5` makes Tab go through `focus::tab_stops` (the arrows' `stops_in`) and lets go of the focus past the ends (`input::tab_past_ends`), with the tests `tab_skips_the_stops_under_a_backdrop` and `the_stop_tab_leaves_the_view_from_lets_go`; `b4a0181c9` drops the note that GPUI does not follow `focus()` on views (part of `f-s15-docs-platform-claims`). Passed in the re-review |
 | Needs | no nsh-compat change; no API |
+
+
+## The upstream branch (2026-11-12)
+
+`up/focus/06-gpui-tab-stops` holds this branch's own commits on `up/focus/04-tv`, cherry-picked (the `pr/*` branch, which carries
+merges of the fork's `main`, stays as it is): `0e10283ba` gpui: Stop Tab at pressables and focusable views, in tree order; `eaf4d2e05` gpui: Tab through the arrows' stops and let go of the focus past the ends; `0bea951a0` gpui: Wrap a test's Tab past the last stop around, as a window's FocusNext does.
+
+Tab goes through the arrows' stops in `focus::tab_stops`, ordered by `nsh_core::input::tab_order` (#1616); the popover test passes over the trigger, a stop of this Tab, as in the fork; and it now carries the test agent's Tab wrap (`48389b3f9`, from `pr/tv/03-dev-idiom`), which needs `input::tab_past_ends`.
+
+Checks on its tip `0bea951a0` (logs under `artifacts-temp/agentx/tizen-gpui-platform/t25-nsh/`): `focus::tab_stops` 6 passed, `directional_focus` 11, the GPUI tests with `shot` 254, fmt, the GPUI clippy.
 
 ## Before opening
 

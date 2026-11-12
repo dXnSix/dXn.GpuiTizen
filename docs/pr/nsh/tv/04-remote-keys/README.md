@@ -2,8 +2,9 @@
 
 | | |
 |---|---|
-| Upstream PR | not opened |
+| Upstream PR | ready, not opened: nothing goes to `longbridge/nsh` before the owner's agreement with its owners ([../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
 | Fork PR | dXnSix/nsh#197 (merge commit), into the fork's `main`, on the owner's go |
+| Upstream branch | `up/tv/04-remote-keys` on `dXnSix/nsh`, head `797d5cee0`, pushed 2026-11-12: `up/tv/01-keys`, on `upstream/main` `ca7e70e51` (#1789); see below |
 | Branch | `pr/tv/04-remote-keys`, head `72b2135f0`, pushed to `dXnSix/nsh`, checked out in `nsh-wt/tizen-remote-keys` |
 | Base | `pr/tv/01-keys` at its head (merged in by `a0b3f29da`), on `upstream/main` `8c733731f`. Against `c16a70096` it conflicts in `crates/nsh-platform-web/web/nsh.test.mjs` (01's), `website/docs/testing-and-trace.md` and its zh-CN page. Not rebased |
 | Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `aa20e0e58`: `2ebccf404`; then `72b2135f0` testing: Check a pressed key against the application menu's shortcuts by its text ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
@@ -14,6 +15,16 @@
 | In `feat/tizen` | yes |
 | Review findings | `f-s16-remote-keys-every-platform` (minor): `keyboard.remote` was not supported everywhere and the docs did not say so. `aa20e0e58` documents which keys work where (`docs/dev/tooling.md`, the website's testing page in English and zh-CN, the `Keyboard::remote` comment the declarations come from), makes Windows' and iOS' agents fail an unsupported key naming it and the platform, and tests GPUI's (`remote_virtual_key`) and the web's (`tv_key_event`) remote paths. Passed in the re-review (`review-s16-2.json`) |
 | Needs | no nsh-compat change |
+
+
+## The upstream branch (2026-11-12)
+
+`up/tv/04-remote-keys` holds this branch's own commits on `up/tv/01-keys`, cherry-picked (the `pr/*` branch, which carries
+merges of the fork's `main`, stays as it is): `c3bce6459` tui: Name the media and TV remote keys the test agent presses; `c48de6400` test: Press TV remote keys in app tests; `0f460bf2d` test: Say where each TV remote key works, and test the agents' remote keys; `797d5cee0` testing: Check a pressed key against the application menu's shortcuts by its text.
+
+On `up/tv/01-keys`; the testing page's tables (English, zh-CN) keep upstream's `press` row and add this branch's `remote` row, and the headless keyboard's docs take upstream's wording plus the `remote` paragraph.
+
+Checks on its tip `797d5cee0` (logs under `artifacts-temp/agentx/tizen-gpui-platform/t25-nsh/`): `remote_keys::` (testing, agent, TUI, GPUI, web) 1, 1, 1, 2, 2 passed, fmt, the `nsh-testing`/`nsh-platform-tui`/`nsh-cli` clippy.
 
 ## Checks
 

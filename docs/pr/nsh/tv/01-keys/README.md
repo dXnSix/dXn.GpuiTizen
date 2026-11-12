@@ -2,8 +2,9 @@
 
 | | |
 |---|---|
-| Upstream PR | not opened |
+| Upstream PR | ready, not opened: nothing goes to `longbridge/nsh` before the owner's agreement with its owners ([../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
 | Fork PR | none of its own: in dXnSix/nsh#197, dXnSix/nsh#201, dXnSix/nsh#202 (its stack tops'), into the fork's `main`, on the owner's go |
+| Upstream branch | `up/tv/01-keys` on `dXnSix/nsh`, head `cd833440e`, pushed 2026-11-12: `upstream/main` `ca7e70e51` (#1789); see below |
 | Branch | `pr/tv/01-keys`, head `7a5edc941`, pushed to `dXnSix/nsh` (checked out nowhere; `nsh-wt/tizen-engine` has `pr/tv/03-dev-idiom` now) |
 | Base | `upstream/main` `8c733731f` (#1135, 2026-11-09). Against `c16a70096` (161 commits on) it conflicts in `crates/nsh-platform-web/web/nsh.test.mjs`. Not rebased |
 | Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `f908ff626`: `7a5edc941` ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
@@ -14,6 +15,16 @@
 | In `feat/tizen` | yes; merged at its head into `pr/tv/04-remote-keys`, `pr/tizen/04-platform` (since `39e6b0c8e`) and `pr/tizen-web/01-package` |
 | Review findings | `f-s16-macos-agent-key-match` (major): macOS' test agent matched the keys exhaustively and could not press the new ones; `b8bc8dee1` fails the 15 media and TV keys with an error naming the key and macOS (on a Mac they are NX events, never app key events), checked by `chk-nsh-keys-macos-build`. `f-s16-tv-keycode-fallback-narrow` (minor): `c621bc72b` applies Samsung's key codes in the TV idiom to any key `nsh.js` does not name (empty, missing, `Pause` for 19, `XF86PlayBack`), with two "TV remote" tests. `f-s16-gpui-info-key-name` (minor): `f908ff626` says Info is `info`, `xf86info` an alias (dXn.GpuiTizen `e8e5693` names it so). Passed in the re-review (`review-s16-2.json`) |
 | Needs | the TV issue ([../issue.md](../issue.md)); no nsh-compat change (the compat case uses existing `key` steps) |
+
+
+## The upstream branch (2026-11-12)
+
+`up/tv/01-keys` holds this branch's own commits on `upstream/main` `ca7e70e51`, cherry-picked (the `pr/*` branch, which carries
+merges of the fork's `main`, stays as it is): `63254f724` keymap: Name the media and TV remote keys; `835e95391` web: Map the media and TV remote keys, by Samsung TVs' key codes too; `387d81361` gpui: Map the Tizen platform's TV remote key names; `d9d94ed36` macos: Fail clearly on the media and TV remote keys in the test agent; `e273c3585` web: Read TV remote keys by Samsung's key codes whenever the TV idiom's key is unnamed; `cd833440e` gpui: Say the Tizen platform names Info `info`, with `xf86info` an alias.
+
+One conflict: `nsh.test.mjs`, where upstream's clipboard tests and this branch's remote-key test both end the file (both kept).
+
+Checks on its tip `cd833440e` (logs under `artifacts-temp/agentx/tizen-gpui-platform/t25-nsh/`): `keymap::tests::tv` 7 passed, GPUI's `keys::tests::tv` and `keymap::tests::tv_keys` 3, the web's `TV remote` tests, the macOS clippy (`--features dev`), fmt.
 
 ## Before opening
 

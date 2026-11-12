@@ -2,8 +2,9 @@
 
 | | |
 |---|---|
-| Upstream PR | not opened |
+| Upstream PR | ready, not opened: nothing goes to `longbridge/nsh` before the owner's agreement with its owners ([../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
 | Fork PR | none of its own: in dXnSix/nsh#198, dXnSix/nsh#199, dXnSix/nsh#200 (its stack tops'), into the fork's `main`, on the owner's go |
+| Upstream branch | `up/focus/01-core` on `dXnSix/nsh`, head `57dcb08e1`, pushed 2026-11-12: `upstream/main` `ca7e70e51` (#1789); see below |
 | Branch | `pr/focus/01-core`, head `51a37b870`, pushed to `dXnSix/nsh` |
 | Base | `upstream/main` `41100f2bf` (#1158, 2026-11-09). `upstream/main` is `c16a70096` (162 commits on); the branch merges onto it without conflict (`git merge-tree`). Not rebased |
 | Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `ce993fd21`: `51a37b870` ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
@@ -19,6 +20,16 @@ The TUI's rules move from its `keyboard.rs` (over Cells) into `nsh_core::focus` 
 first user with no change in behaviour: its `focus_navigation`, `modal_focus`, `keyboard`, `popup` and `navigation`
 tests pass unchanged. `ad514bb85` gives the core each Cell as one point (the first conversion by Cell size missed by
 a float on sizes like 8.4×16.8), and `ce993fd21` makes "frames in any unit scaled per axis" the module's contract.
+
+
+## The upstream branch (2026-11-12)
+
+`up/focus/01-core` holds this branch's own commits on `upstream/main` `ca7e70e51`, cherry-picked (the `pr/*` branch, which carries
+merges of the fork's `main`, stays as it is): `374e3dab6` core: Decide directional focus moves in nsh_core::focus; `c431ba44e` tui: Take focus moves from nsh_core::focus; `e37d3a02f` tui: Give the focus core its Cells one point each; `57dcb08e1` core: Let focus frames be in any unit scaled per axis.
+
+Cherry-picked cleanly.
+
+Checks on its tip `57dcb08e1` (logs under `artifacts-temp/agentx/tizen-gpui-platform/t25-nsh/`): `focus::tests` 13 passed, the TUI's focus groups 89, fmt, the `nsh-core`/`nsh-platform-tui` clippy.
 
 ## Before opening
 

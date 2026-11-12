@@ -2,8 +2,9 @@
 
 | | |
 |---|---|
-| Upstream PR | not opened |
+| Upstream PR | ready, not opened: nothing goes to `longbridge/nsh` before the owner's agreement with its owners ([../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
 | Fork PR | none of its own: in dXnSix/nsh#200 (its stack tops'), into the fork's `main`, on the owner's go |
+| Upstream branch | `up/focus/05-web` on `dXnSix/nsh`, head `9a20206bc`, pushed 2026-11-12: `up/focus/01-core`, on `upstream/main` `ca7e70e51` (#1789); see below |
 | Branch | `pr/focus/05-web`, head `55b534f2c`, pushed to `dXnSix/nsh` |
 | Base | `pr/focus/01-core` (`ce993fd21`), on `upstream/main` `41100f2bf`. Against `c16a70096` it conflicts in `crates/nsh-platform-web/web/nsh.js`, `docs/dev/web.md`, `website/docs/web.md` and its zh-CN page. Not rebased |
 | Fork's `main` | `7f5084268` merged on 2026-11-11, by merges (no rebase), from `0d23c931c`: `55b534f2c` ([the merge](../../README.md#the-forks-main-merged-in-2026-11-11)) |
@@ -14,6 +15,16 @@
 | In `feat/tizen` | yes; inside 07 |
 | Review findings | none of its own. `f-s15-arrow-default-change` (minor: with nothing focused an arrow now focuses a stop where it scrolled, `arrowFocus` before `scrollKey` in `nsh.js`) is answered by the desktop issue ([../issue-desktop-tab.md](../issue-desktop-tab.md)), which names the web too |
 | Needs | the desktop issue's answer on the arrows by default (the web does the same); no nsh-compat change |
+
+
+## The upstream branch (2026-11-12)
+
+`up/focus/05-web` holds this branch's own commits on `up/focus/01-core`, cherry-picked (the `pr/*` branch, which carries
+merges of the fork's `main`, stays as it is): `9a20206bc` web: Move focus with the arrows through nsh_core::focus.
+
+Picked cleanly; its `focus.test.mjs` events gain `composedPath`, which `keyDown` reads since upstream's #1784.
+
+Checks on its tip `9a20206bc` (logs under `artifacts-temp/agentx/tizen-gpui-platform/t25-nsh/`): `focus.test.mjs` 8 passed, `focus_moves` 7, fmt.
 
 ## Before opening
 
