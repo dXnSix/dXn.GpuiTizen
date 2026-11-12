@@ -40,7 +40,7 @@ All on the fork `dXnSix/gpui-fast` (checkout `/Users/dinko/work-private/projects
 | 05 | [external-target/](external-target/) | `external-target` | `scene-damage` | fast: draw into a target the caller supplies, with partial redraws | 11 files, +2089 −5 (own part: 9 files, +1184 −5) | yes: `WgpuExternalRenderer`, `WgpuFrameDamage` | 04 merged; the maintainers' answer on the API | ready, not opened |
 | 06 | [video-hole/](video-hole/) | `video-hole` | `d1d6286` | fast: paint holes that replace the window's pixels with transparent black | 10 files, +477 −1 | yes: `Window::paint_hole`, `Scene::has_holes`, `AtlasTextureId::hole` / `is_hole` | the maintainers' answer on the API | ready, not opened |
 
-Until 2026-11-12 the bases were `fb8cf94`, "fast: count tab stops only when the accessibility tree is dumped (#118)", 2026-11-08; `a427a7d`
+Until 2026-11-12 the bases were `fb8cf94`, "fast: count tab stops only when the accessibility tree is dumped (#118)", 2026-11-08,
 and `a427a7d`, "chore: Sync GPUI upstream d2a4fb6ded (#123)", 2026-11-09.
 
 ### The base (2026-11-12)

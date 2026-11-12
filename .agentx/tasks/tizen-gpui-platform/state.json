@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 372,
+  "revision": 373,
   "planRevision": 60,
   "specHashes": {
     "requirements": "fed13ae3c992c3ad4410f6d17cbfa2745247306be2eaa80f91c79c30f8be7acf",
@@ -568,7 +568,10 @@
       "status": "pending"
     },
     "t25-upstream": {
-      "status": "pending"
+      "status": "in_progress",
+      "workerIds": [
+        "eec00bdf-648f-4be5-813b-008fb1a323d7"
+      ]
     },
     "t25-crates": {
       "status": "pending"
