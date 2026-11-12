@@ -3,9 +3,9 @@
 | | |
 |---|---|
 | Change | 5, second half: drawing into a target the caller supplies, with partial redraws |
-| Upstream PR | not opened; after `scene-damage` has merged |
-| Branch | `external-target`, local in `/Users/dinko/work-private/projects/dXn/gpui-fast`, not pushed |
-| Base | `upstream/main` `a427a7d` (2026-11-09, #123), the fetched `upstream/main`; 4 commits behind live `main` `c2bec823e` (2026-11-10: #129, #132, #131, #130), none of which touches a file of this branch (GitHub API; live `main` not fetched). Merges onto `a427a7d` without conflict. Not rebased |
+| Upstream PR | ready, not opened: nothing is opened at `longbridge/gpui-fast` before the owner's agreement with its owners ([../../README.md](../../README.md#prepared-not-opened-2026-11-12)); after `scene-damage` has merged |
+| Branch | `external-target` on `dXnSix/gpui-fast`, head `ee9632b09`, pushed 2026-11-12 (rebased from `5ee78d5`) |
+| Base | `scene-damage` (`7cccca9`), on `upstream/main` `d1d6286` (#139, fetched 2026-11-12); rebased onto it without conflicts in its own files |
 | Size | 11 files, +2089 −5, of which `scene-damage`'s `fast/damage.rs` and `fast/damage/tests.rs` are 905 lines. Its own part: 9 files, +1184 −5: `fast/external_target.rs` (+600), `fast/external_target/tests.rs` (+527), `fast/frame.rs` (+23 −2, the scissor and its comment), `fast/layers/raster.rs` (+1), `fast/mod.rs` (+3), `gpui_wgpu.rs` (+2, the export), `wgpu_context.rs` (+5 −2, two visibility bumps), `wgpu_renderer.rs` (+2 −1, one visibility bump), `docs/upstream-sync.md` (+21) |
 | Text | [PR.md](PR.md) |
 | On `tizen` | `905aad7`, `3868577`, `9099eaa` (with `scene-damage`'s `8e546fd`), `9d9b1f2`, `e6ae34b`, `7047b05` (`5ee78d5`), and `e4960b0` (only for the 0.1.13 base); `fast/external_target*` and `fast/damage.rs` identical |
@@ -13,21 +13,24 @@
 
 ## Its commits
 
-Oldest first. Two are `scene-damage`'s, carried because the branch cannot build without them:
+Oldest first, on `scene-damage` (rebased 2026-11-12: the old head carried its own copies of two `scene-damage`
+commits; those went, the renderer hooks the first copy added never come, and `damage.rs`'s `allow(dead_code)` goes
+in the commit that starts reading the tracker):
 
 | Commit | Subject | Whose |
 |---|---|---|
-| `f6cab52` | gpui_wgpu: compute scene damage between frames | `scene-damage` (`c60d3bd`, same tree) |
-| `e3b98d1` | gpui_wgpu: draw into a target the caller supplies, with partial redraws | this branch |
-| `7a40e00` | gpui_wgpu: move the headless context's parts into the external target test | this branch |
-| `7567428` | gpui_wgpu: bound damage merging and key layer tiles and clip groups by what draws them | `scene-damage` (`8e546fd`, same change) |
-| `79b5148` | gpui_wgpu: clear partial rectangles, hand damage over before drawing, recover from failed frames | this branch |
-| `0d26380` | gpui_wgpu: free the external target's target-sized textures on release | this branch |
-| `987917f` | gpui_wgpu: give the external target's context to dynamic textures | this branch |
-| `5ee78d5` | gpui_wgpu: Put begin_main_pass's comment on it, count the exceptions right | this branch |
+| `21414f8` | gpui_wgpu: compute scene damage between frames | `scene-damage` |
+| `1858415` | gpui_wgpu: bound damage merging and key layer tiles and clip groups by what draws them | `scene-damage` |
+| `7cccca9` | gpui: Prove the primitives partial redraws hash carry no padding | `scene-damage` |
+| `8f97ead` | gpui_wgpu: draw into a target the caller supplies, with partial redraws | this branch |
+| `707976f` | gpui_wgpu: move the headless context's parts into the external target test | this branch |
+| `c24f70b` | gpui_wgpu: clear partial rectangles, hand damage over before drawing, recover from failed frames | this branch |
+| `f3ebe04` | gpui_wgpu: free the external target's target-sized textures on release | this branch |
+| `79e3264` | gpui_wgpu: give the external target's context to dynamic textures | this branch |
+| `ee9632b` | gpui_wgpu: Put begin_main_pass's comment on it, count the exceptions right | this branch |
 
-The two kinds are interleaved, and `7567428` also removes the renderer hooks `f6cab52` added. `git diff scene-damage
-external-target` is this branch's own change: the files above plus the removal of `damage.rs`'s `allow(dead_code)`.
+`git diff scene-damage external-target` is this branch's own change; every file it touches is byte-for-byte what the
+old head `5ee78d5` had.
 
 ## What it adds
 
@@ -104,7 +107,7 @@ cargo test -p gpui_wgpu --features test-support --lib fast::dynamic_textures    
 script/check-upstream
 cargo fmt -p gpui_wgpu -- --check
 cargo clippy -p gpui_wgpu --lib --features test-support -- -D warnings
-cargo check -p gpui_web --lib --target wasm32-unknown-unknown                       # as release.yml does; the module is left out on the web
+cargo +nightly check -p gpui_web --lib --target wasm32-unknown-unknown                    # as release.yml does; the module is left out on the web
 ```
 
 What has run (dXn.GpuiTizen's epic checks, in `../gpui-fast` on `tizen`, macOS Metal; nothing recorded on this branch
@@ -121,6 +124,11 @@ itself):
 - dXn.GpuiTizen's EGL platform draws through this renderer; its TV libraries linked for armv7 and x86_64 against the
   release workspace on 2026-11-09. Frames on a TV are the owner's `DEV-3` measurements.
 - Not run: the upstream CI steps, the wasm check.
+
+
+### Run on the rebased tip (2026-11-12)
+
+On `ee9632b09`, macOS (`../gpui-fast-wt/pr`): `fast::external_target::tests` 13 passed (macOS Metal), `fast::damage::tests` 13, `fast::dynamic_textures` 1, `script/check-upstream`, `cargo fmt`, the `gpui_wgpu` clippy, and the web check on nightly (`cargo +nightly check -p gpui_web --lib --target wasm32-unknown-unknown`, as upstream's `release.yml` does). Logs: `artifacts-temp/agentx/tizen-gpui-platform/t25-gf/external-target.log`.
 
 ## Opening
 

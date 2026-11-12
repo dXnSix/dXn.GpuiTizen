@@ -27,37 +27,29 @@ hole (`VID-1`) came after it.
 
 ## The PRs, in order
 
-All on the fork `dXnSix/gpui-fast` (checkout `/Users/dinko/work-private/projects/dXn/gpui-fast`), local only: `origin`
-has only `main` as of the last fetch. Sizes are `git diff --stat $(git merge-base upstream/main <branch>) <branch>`.
+All on the fork `dXnSix/gpui-fast` (checkout `/Users/dinko/work-private/projects/dXn/gpui-fast`), rebased onto
+`upstream/main` `d1d6286` (#139), checked on their tips and pushed on 2026-11-12. Sizes are
+`git diff --stat $(git merge-base upstream/main <branch>) <branch>`.
 
 | # | Folder | Branch | Base | Title | Size | New API | Needs | Status |
 |---|---|---|---|---|---|---|---|---|
-| 01 | [gles-instance-path/](gles-instance-path/) | `gles-instance-path` | `fb8cf94` | fast: draw GL ES 3.0 devices through the instance-texture path | 3 files, +215 −1 | no | the issue | not opened |
-| 02 | [wgpu-backend-env/](wgpu-backend-env/) | `wgpu-backend-env` | `fb8cf94` | fast: let WGPU_BACKEND choose the native backends | 3 files, +66 −1 | no | the issue; a rebase if 01 merges first (both create `fast/gles.rs`) | not opened |
-| 03 | [pipeline-cache/](pipeline-cache/) | `pipeline-cache` | `fb8cf94` | fast: keep compiled pipelines in a cache on disk | 4 files, +279 −1 | no | the issue | not opened |
-| 04 | [scene-damage/](scene-damage/) | `scene-damage` | `a427a7d` | fast: compute scene damage between frames | 5 files, +1050 −0 | no | the issue (unused until 05) | not opened |
-| 05 | [external-target/](external-target/) | `external-target` | `a427a7d` | fast: draw into a target the caller supplies, with partial redraws | 11 files, +2089 −5 (own part: 9 files, +1184 −5) | yes: `WgpuExternalRenderer`, `WgpuFrameDamage` | 04 merged; the maintainers' answer on the API | not opened |
-| 06 | [video-hole/](video-hole/) | `video-hole` | `a427a7d` | fast: paint holes that replace the window's pixels with transparent black | 10 files, +477 −1 | yes: `Window::paint_hole`, `Scene::has_holes`, `AtlasTextureId::hole` / `is_hole` | the maintainers' answer on the API | not opened |
+| 01 | [gles-instance-path/](gles-instance-path/) | `gles-instance-path` | `d1d6286` | fast: draw GL ES 3.0 devices through the instance-texture path | 3 files, +215 −1 | no | the issue | ready, not opened |
+| 02 | [wgpu-backend-env/](wgpu-backend-env/) | `wgpu-backend-env` | `d1d6286` | fast: let WGPU_BACKEND choose the native backends | 3 files, +66 −1 | no | the issue; a rebase if 01 merges first (both create `fast/gles.rs`) | ready, not opened |
+| 03 | [pipeline-cache/](pipeline-cache/) | `pipeline-cache` | `d1d6286` | fast: keep compiled pipelines in a cache on disk | 4 files, +279 −1 | no | the issue | ready, not opened |
+| 04 | [scene-damage/](scene-damage/) | `scene-damage` | `d1d6286` | fast: compute scene damage between frames | 5 files, +1050 −0 | no | the issue (unused until 05) | ready, not opened |
+| 05 | [external-target/](external-target/) | `external-target` | `scene-damage` | fast: draw into a target the caller supplies, with partial redraws | 11 files, +2089 −5 (own part: 9 files, +1184 −5) | yes: `WgpuExternalRenderer`, `WgpuFrameDamage` | 04 merged; the maintainers' answer on the API | ready, not opened |
+| 06 | [video-hole/](video-hole/) | `video-hole` | `d1d6286` | fast: paint holes that replace the window's pixels with transparent black | 10 files, +477 −1 | yes: `Window::paint_hole`, `Scene::has_holes`, `AtlasTextureId::hole` / `is_hole` | the maintainers' answer on the API | ready, not opened |
 
-Bases: `fb8cf94` is "fast: count tab stops only when the accessibility tree is dumped (#118)", 2026-11-08; `a427a7d`
-is "chore: Sync GPUI upstream d2a4fb6ded (#123)", 2026-11-09, the fork's `upstream/main` as last fetched.
+Until 2026-11-12 the bases were `fb8cf94`, "fast: count tab stops only when the accessibility tree is dumped (#118)", 2026-11-08; `a427a7d`
+and `a427a7d`, "chore: Sync GPUI upstream d2a4fb6ded (#123)", 2026-11-09.
 
-### Are the bases current? (2026-11-10, 19:30 CET)
+### The base (2026-11-12)
 
-- `upstream/main` in the checkout is `a427a7d` (not fetched for this refresh). The live `longbridge/gpui-fast` `main`
-  is `c2bec823e` (`git ls-remote`), 4 commits on (GitHub's compare API): #129 "fast: measure a measure_all list over
-  later frames after a width change" (`820088284`, 2026-11-09), #132 "fast: Fit truncated text to its shaped width",
-  #131 "fast: give Windows a dynamic texture backend", #130 "composition: keep GPUI-started mouse drags on GPUI" (all
-  2026-11-10). They touch `crates/gpui` (`elements/list.rs`, `fast/list_measure.rs`, `fast/truncation.rs`, `fast/text.rs`,
-  `text_system/line_wrapper.rs`, the two `mod` lists in `fast/mod.rs` and `fast/tests/mod.rs`), `gpui_apple`,
-  `gpui_macos`, `gpui_windows` and `script/upstream-allowlist`; none touches `crates/gpui_wgpu` or
-  `docs/upstream-sync.md`.
-- 01–03 are 7 commits behind `a427a7d` (11 behind live `main`). None of those commits touches `crates/gpui_wgpu`, and
-  each branch merges onto `a427a7d` without conflict (`git merge-tree`).
-- 04–06 are cut from `a427a7d`, 4 commits behind live `main`. #129 and #132 add `mod list_measure;` and
-  `mod truncation;` to the two `mod` lists where 06 adds `mod hole;` and 04 (since `6b15d78`) `mod scene_padding;`, in
-  other hunks (lines apart, compared through the API). `git merge-tree` against live `main` has not run (not fetched).
-- Nothing was rebased. Rebase each one onto the fresh `upstream/main` when it is opened.
+- All six were rebased onto `upstream/main` `d1d6286` ("macos: Avoid deadlocking on unknown menu items (#139)"),
+  `external-target` onto the rebased `scene-damage`; none conflicted in its own files, and each passed its checks on
+  its tip (its README, "Run on the rebased tip"). They were pushed to `dXnSix/gpui-fast` with `--force-with-lease`.
+- Nothing is opened at `longbridge/gpui-fast` until the owner has agreed it with the project's owners
+  ([../README.md](../README.md#prepared-not-opened-2026-11-12)). If `main` moves before then, rebase again and rerun.
 
 ### Between the branches
 

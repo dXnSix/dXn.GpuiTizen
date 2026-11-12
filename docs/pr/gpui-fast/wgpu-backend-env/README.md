@@ -3,11 +3,11 @@
 | | |
 |---|---|
 | Change | 2, GL on request |
-| Upstream PR | not opened |
-| Branch | `wgpu-backend-env`, local in `/Users/dinko/work-private/projects/dXn/gpui-fast`, not pushed |
-| Base | `upstream/main` `fb8cf94` (2026-11-08, #118). 7 commits behind the fetched `upstream/main` `a427a7d`, 11 behind live `main` `c2bec823e` (2026-11-10, #130); none of them touches `crates/gpui_wgpu`, and the branch merges onto `a427a7d` without conflict (`git merge-tree`; live `main` is not fetched). Not rebased |
+| Upstream PR | ready, not opened: nothing is opened at `longbridge/gpui-fast` before the owner's agreement with its owners ([../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
+| Branch | `wgpu-backend-env` on `dXnSix/gpui-fast`, head `dd0d50884`, pushed 2026-11-12 (rebased from `54a64d3`) |
+| Base | `upstream/main` `d1d6286` (#139, fetched 2026-11-12); rebased onto it without conflicts in its own files |
 | Size | 3 files, +66 −1: `crates/gpui_wgpu/src/fast/gles.rs` (new, with its tests), `fast/mod.rs` (+1), `wgpu_context.rs` (+1 −1, one hook) |
-| Its commits | `54a64d3` fast: let WGPU_BACKEND choose the native backends |
+| Its commits | `dd0d508` ast: let WGPU_BACKEND choose the native backends |
 | Text | [PR.md](PR.md) |
 | On `tizen` | `fee7e2c` |
 | Needs | the issue ([../issue.md](../issue.md)); no new API. If `gles-instance-path` merges first, a rebase: both create `fast/gles.rs` and add `pub(crate) mod gles;` |
@@ -48,6 +48,11 @@ itself):
 - 2026-11-09 00:38 and 02:08 UTC: the examples' `gles_smoke` tests in the Linux VM ran with `WGPU_BACKEND=gl` and
   drew through GL, against the release workspace generated from `tizen`.
 - Not run: the upstream CI steps on Linux and Windows.
+
+
+### Run on the rebased tip (2026-11-12)
+
+On `dd0d50884`, macOS (`../gpui-fast-wt/pr`): `fast::gles::tests::backends` 3 passed, `cargo test -p gpui --features test-support` 842, `script/check-upstream`, `cargo fmt`, the `gpui_wgpu` clippy. Logs: `artifacts-temp/agentx/tizen-gpui-platform/t25-gf/wgpu-backend-env.log`.
 
 ## Updating and opening
 

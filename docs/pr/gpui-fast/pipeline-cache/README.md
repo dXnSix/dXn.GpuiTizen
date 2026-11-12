@@ -3,11 +3,11 @@
 | | |
 |---|---|
 | Change | 3, a pipeline cache on disk |
-| Upstream PR | not opened |
-| Branch | `pipeline-cache`, local in `/Users/dinko/work-private/projects/dXn/gpui-fast`, not pushed |
-| Base | `upstream/main` `fb8cf94` (2026-11-08, #118). 7 commits behind the fetched `upstream/main` `a427a7d`, 11 behind live `main` `c2bec823e` (2026-11-10, #130); none of them touches `crates/gpui_wgpu`, and the branch merges onto `a427a7d` without conflict (`git merge-tree`; live `main` is not fetched). Not rebased |
+| Upstream PR | ready, not opened: nothing is opened at `longbridge/gpui-fast` before the owner's agreement with its owners ([../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
+| Branch | `pipeline-cache` on `dXnSix/gpui-fast`, head `41a8bfc83`, pushed 2026-11-12 (rebased from `9864e93`) |
+| Base | `upstream/main` `d1d6286` (#139, fetched 2026-11-12); rebased onto it without conflicts in its own files |
 | Size | 4 files, +279 −1: `crates/gpui_wgpu/src/fast/pipeline_cache.rs` (new, with its tests), `fast/mod.rs` (+1), `wgpu_context.rs` (+2, two hooks), `wgpu_renderer.rs` (+3 −1, three hooks) |
-| Its commits | `a21267e` fast: keep compiled pipelines in a cache on disk; `5fa71b0` fast: drop the previous device's pipeline cache when opening a new one; `9864e93` fast: keep the pipeline cache slot on the main thread |
+| Its commits | `83edd9f` ast: keep compiled pipelines in a cache on disk; `e5c505b` ast: drop the previous device's pipeline cache when opening a new one; `41a8bfc` ast: keep the pipeline cache slot on the main thread |
 | Text | [PR.md](PR.md) |
 | On `tizen` | `6b5f88c`, `8e88253`, `3b6ea11` (`fast/pipeline_cache.rs` identical) |
 | Needs | the issue ([../issue.md](../issue.md)); no new API. If `video-hole` merges first, pass the cache to the hole pipeline too (see below) |
@@ -72,6 +72,11 @@ itself):
   (`3b6ea11`) went into the release workspace checked at 00:38 and 02:08 UTC; the unit tests were not run again.
 - Not run: the end-to-end run on Linux with Vulkan (macOS has no pipeline cache feature, so nothing is written there),
   the upstream CI steps on Linux and Windows.
+
+
+### Run on the rebased tip (2026-11-12)
+
+On `41a8bfc83`, macOS (`../gpui-fast-wt/pr`): `fast::pipeline_cache::tests` 5 passed, `cargo test -p gpui --features test-support` 842, `script/check-upstream`, `cargo fmt`, the `gpui_wgpu` clippy. Not run: the two `hello_world` runs that show the cache saved and loaded (a window to open and close by hand). Logs: `artifacts-temp/agentx/tizen-gpui-platform/t25-gf/pipeline-cache.log`.
 
 ## Updating and opening
 

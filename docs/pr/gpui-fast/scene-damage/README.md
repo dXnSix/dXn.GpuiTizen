@@ -3,11 +3,11 @@
 | | |
 |---|---|
 | Change | 5, first half: the damage `external-target` draws partial frames with |
-| Upstream PR | not opened |
-| Branch | `scene-damage`, local in `/Users/dinko/work-private/projects/dXn/gpui-fast`, not pushed |
-| Base | `upstream/main` `a427a7d` (2026-11-09, #123), the fetched `upstream/main`; 4 commits behind live `main` `c2bec823e` (2026-11-10: #129, #132, #131, #130). Only #129 and #132 touch a file of this branch, `crates/gpui/src/fast/mod.rs` (`mod list_measure;`, `mod truncation;`), in other hunks than its `mod scene_padding;` (compared through the GitHub API; live `main` is not fetched, so `git merge-tree` against it has not run). Merges onto `a427a7d` without conflict. Not rebased |
+| Upstream PR | ready, not opened: nothing is opened at `longbridge/gpui-fast` before the owner's agreement with its owners ([../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
+| Branch | `scene-damage` on `dXnSix/gpui-fast`, head `7cccca940`, pushed 2026-11-12 (rebased from `6b15d78`) |
+| Base | `upstream/main` `d1d6286` (#139, fetched 2026-11-12); rebased onto it without conflicts in its own files |
 | Size | 5 files, +1050 −0: `crates/gpui_wgpu/src/fast/damage.rs` (+533), `fast/damage/tests.rs` (+380), `fast/mod.rs` (+1); `crates/gpui/src/fast/scene_padding.rs` (+135, tests only), `crates/gpui/src/fast/mod.rs` (+1). No upstream file |
-| Its commits | `c60d3bd` gpui_wgpu: compute scene damage between frames; `8e546fd` gpui_wgpu: bound damage merging and key layer tiles and clip groups by what draws them; `6b15d78` gpui: Prove the primitives partial redraws hash carry no padding |
+| Its commits | `21414f8` pui_wgpu: compute scene damage between frames; `1858415` pui_wgpu: bound damage merging and key layer tiles and clip groups by what draws them; `7cccca9` pui: Prove the primitives partial redraws hash carry no padding |
 | Text | [PR.md](PR.md) |
 | On `tizen` | `3a04ba6`, `9099eaa` (with `external-target`'s `79b5148`), `d87f521`, `e392162` (`6b15d78`); `fast/damage*` identical to `external-target`'s, `fast/scene_padding.rs` identical to this branch's |
 | On `external-target` | `f6cab52` (same tree as `c60d3bd`) and `7567428` (same change as `8e546fd`); not `6b15d78` (see [../external-target/README.md](../external-target/README.md#rebasing-once-scene-damage-has-merged)) |
@@ -70,6 +70,11 @@ itself):
   `cargo test -p gpui --lib fast::scene_padding` in `../gpui-fast`, on `scene-damage` and on `tizen`: 3 passed each.
   No log file and no epic check records it.
 - Not run: the upstream CI steps.
+
+
+### Run on the rebased tip (2026-11-12)
+
+On `7cccca940`, macOS (`../gpui-fast-wt/pr`): `fast::damage::tests` 13 passed, `fast::scene_padding` 3, `script/check-upstream`, `cargo fmt`, the `gpui_wgpu` clippy and the `gpui` clippy (`--all-targets`). Logs: `artifacts-temp/agentx/tizen-gpui-platform/t25-gf/scene-damage.log`.
 
 ## Updating and opening
 

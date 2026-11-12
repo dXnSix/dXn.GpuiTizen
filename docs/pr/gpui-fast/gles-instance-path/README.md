@@ -3,11 +3,11 @@
 | | |
 |---|---|
 | Change | 1, GL ES 3.0 devices |
-| Upstream PR | not opened |
-| Branch | `gles-instance-path`, local in `/Users/dinko/work-private/projects/dXn/gpui-fast`, not pushed |
-| Base | `upstream/main` `fb8cf94` (2026-11-08, #118). 7 commits behind the fetched `upstream/main` `a427a7d`, 11 behind live `main` `c2bec823e` (2026-11-10, #130); none of them touches `crates/gpui_wgpu`, and the branch merges onto `a427a7d` without conflict (`git merge-tree`; live `main` is not fetched). Not rebased |
+| Upstream PR | ready, not opened: nothing is opened at `longbridge/gpui-fast` before the owner's agreement with its owners ([../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
+| Branch | `gles-instance-path` on `dXnSix/gpui-fast`, head `9906814ad`, pushed 2026-11-12 (rebased from `fbd3ed9`) |
+| Base | `upstream/main` `d1d6286` (#139, fetched 2026-11-12); rebased onto it without conflicts in its own files |
 | Size | 3 files, +215 −1: `crates/gpui_wgpu/src/fast/gles.rs` (new, with its tests), `fast/mod.rs` (+1), `wgpu_context.rs` (+5 −1, three hooks) |
-| Its commits | `fbd3ed9` fast: draw GL ES 3.0 devices through the instance-texture path |
+| Its commits | `9906814` ast: draw GL ES 3.0 devices through the instance-texture path |
 | Text | [PR.md](PR.md) |
 | On `tizen` | `25fc4a9` |
 | Needs | the issue ([../issue.md](../issue.md)); no new API |
@@ -37,7 +37,7 @@ script/check-upstream
 cargo fmt -p gpui_wgpu -- --check
 cargo clippy -p gpui_wgpu --lib --features test-support -- -D warnings
 cargo test -p gpui --features test-support                                        # upstream CI's test step
-cargo check -p gpui_web --lib --target wasm32-unknown-unknown                     # the web path goes through fast/gles.rs too
+cargo +nightly check -p gpui_web --lib --target wasm32-unknown-unknown                  # the web path goes through fast/gles.rs too
 ```
 
 On Linux, the GL ES path end to end (Mesa, no storage buffers; `WGPU_BACKEND` needs change 2, or a machine without a
@@ -59,6 +59,11 @@ itself):
   storage buffers hidden) drew 60 frames each and logged the instance-texture path, against the release workspace
   generated from `tizen`.
 - Not run: the upstream CI steps on Linux and Windows, the web build.
+
+
+### Run on the rebased tip (2026-11-12)
+
+On `9906814ad`, macOS (`../gpui-fast-wt/pr`): `fast::gles::tests::device` 5 passed, `webgl_` 3, `cargo test -p gpui --features test-support` 842 (and its doc tests), `script/check-upstream`, `cargo fmt`, the `gpui_wgpu` clippy, and `cargo +nightly check -p gpui_web --lib --target wasm32-unknown-unknown` (nightly, as upstream's `release.yml` checks the web crate; the stable command above cannot build `wasm_thread`). Logs: `artifacts-temp/agentx/tizen-gpui-platform/t25-gf/gles-instance-path.log`.
 
 ## Updating and opening
 

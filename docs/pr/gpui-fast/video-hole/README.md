@@ -3,11 +3,11 @@
 | | |
 |---|---|
 | Change | the hole: video on the TV's video plane under the window |
-| Upstream PR | not opened |
-| Branch | `video-hole`, local in `/Users/dinko/work-private/projects/dXn/gpui-fast`, not pushed |
-| Base | `upstream/main` `a427a7d` (2026-11-09, #123), the fetched `upstream/main`; 4 commits behind live `main` `c2bec823e` (2026-11-10: #129, #132, #131, #130). #129 and #132 add `mod list_measure;` and `mod truncation;` to `crates/gpui/src/fast/mod.rs` and `fast/tests/mod.rs`, in other hunks than this branch's `mod hole;` (GitHub API; live `main` not fetched, so `git merge-tree` against it has not run). Merges onto `a427a7d` without conflict. Not rebased |
+| Upstream PR | ready, not opened: nothing is opened at `longbridge/gpui-fast` before the owner's agreement with its owners ([../../README.md](../../README.md#prepared-not-opened-2026-11-12)) |
+| Branch | `video-hole` on `dXnSix/gpui-fast`, head `db4848b0f`, pushed 2026-11-12 (rebased from `60ba887`) |
+| Base | `upstream/main` `d1d6286` (#139, fetched 2026-11-12); rebased onto it without conflicts in its own files |
 | Size | 10 files, +477 −1: `crates/gpui/src/fast/hole.rs` (+125), `crates/gpui/src/fast/tests/hole.rs` (+53), two `mod` lines in `gpui`; `crates/gpui_wgpu/src/fast/hole.rs` (+141), `fast/hole/tests.rs` (+126), `fast/frame.rs` (+13, the batch arm), `fast/mod.rs` (+1), `wgpu_renderer.rs` (+5 −1, three hooks); `docs/upstream-sync.md` (+11) |
-| Its commits | `60ba887` gpui, gpui_wgpu: paint holes that replace the window's pixels with transparent black |
+| Its commits | `db4848b` pui, gpui_wgpu: paint holes that replace the window's pixels with transparent black |
 | Text | [PR.md](PR.md) |
 | On `tizen` | `aecc769` (`fast/hole*` identical) |
 | Needs | the maintainers' answer on the API exception (issue, question 2); the issue ([../issue.md](../issue.md)). If `pipeline-cache` merges first, the hole pipeline gets the cache ([../pipeline-cache/README.md](../pipeline-cache/README.md)) |
@@ -61,6 +61,11 @@ itself):
   player linked for armv7 and x86_64 at 11:59 and 12:00 UTC.
 - Not run: `gpui`'s `fast::tests::hole`, `cargo test -p gpui`, the `gpui` clippy, the upstream CI steps on Linux and
   Windows.
+
+
+### Run on the rebased tip (2026-11-12)
+
+On `db4848b0f`, macOS (`../gpui-fast-wt/pr`): `fast::hole::tests` 3 passed (Metal), `fast::tests::hole` 3, `cargo test -p gpui --features test-support` 845, `script/check-upstream`, `cargo fmt`, the `gpui` clippy (`--all-targets`) and the `gpui_wgpu` clippy. Logs: `artifacts-temp/agentx/tizen-gpui-platform/t25-gf/video-hole.log`.
 
 ## Updating and opening
 
