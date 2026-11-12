@@ -20,7 +20,7 @@ docs/pr/<project>/[<area>/]issue*.md   the issues that come before the PRs
 |---|---|---|---|
 | gpui-fast | [gpui-fast/README.md](gpui-fast/README.md) | six renderer changes for GL ES 3.0 TVs (one issue, six PRs) | ready, not opened: rebased onto `d1d6286`, checked, pushed (2026-11-12) |
 | wgpu | [wgpu/README.md](wgpu/README.md) | EGL 1.4 on Wayland, GL program binaries (two PRs) | ready; the owner opens them after the TV run (2026-11-12) |
-| NSH | [nsh/README.md](nsh/README.md) | focus, TV keys and category, one wgpu, `Os::Tizen` and the `tizen` / `tizen-web` targets (three issues and a fourth on the desktop defaults, 22 PRs) and one fork-only CI branch | the fork PRs merged into the fork\'s `main`; `up/` branches ready, not opened (2026-11-12) |
+| NSH | [nsh/README.md](nsh/README.md) | focus, TV keys and category, one wgpu, `Os::Tizen` and the `tizen` / `tizen-web` targets (three issues and a fourth on the desktop defaults, 22 PRs) and one fork-only CI branch | the fork PRs merged into the fork's `main`; `up/` branches ready, not opened (2026-11-12) |
 | nsh-compat | [nsh/compat/README.md](nsh/compat/README.md) | three companions of the NSH PRs | `up/tv-idiom`, `up/focus-props` ready, not opened; `tizen-platform` waits for `UP-5` |
 
 ### NSH
