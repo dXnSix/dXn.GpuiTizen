@@ -578,6 +578,45 @@
           "path": "upstream-pr/README.md"
         }
       ]
+    },
+    {
+      "id": "d35-epic-ends-before-release",
+      "requirementIds": [
+        "UP",
+        "STORE",
+        "PUB"
+      ],
+      "descriptionMarkdown": "The owner's rule (2026-11-13), superseding `d34-upstream-prepare-only` and narrowing `d27-store-publication`: the epic is about Tizen support and rendering, in `dXn.GpuiTizen` and NSH, and ends before anything leaves the owner's forks.\n\n- **Upstream: prepared, never sent.** The agent prepares every upstream branch and its texts in wgpu, NSH, nsh-compat and gpui-fast, and nothing is opened or pushed at `gfx-rs/wgpu`, `longbridge/nsh`, `longbridge/nsh-compat` or `longbridge/gpui-fast`, no issue and no PR. A prepared branch holds only its topic's commits on the latest upstream base, passes its README's checks on its own tip, is pushed to its `dXnSix` fork and is recorded \"ready, not opened\" in its `docs/pr/` folder. NSH and nsh-compat get fresh `up/` branches with the topic's own commits on the latest `upstream/main`, because the fork's `pr/*` branches carry merges of the fork's `main` and are never rebased or force-pushed. The owner opens them later, outside the epic, after their agreement with NSH's and gpui-fast's owners; for wgpu, with the description and \"LLM Use?\" in their own words.\n- **No store submission.** There is no app to submit; `STORE-2` is withdrawn. `cargo xtask store-check` (`STORE-1`) and the multi-architecture packaging stay as tools.\n- **No crates.io publication yet.** Nothing is published until the platform is stable and tested on a real TV, the emulator and (if the owner reaches it) Remote Test Lab; `PUB-2` is deferred. The packaging readiness of `PUB-1` stays.",
+      "rationaleMarkdown": "The owner, 2026-11-13: \"We will NOT do store submission. This epic is about Tizen support/rendering in nsh. There's nothing to submit\"; \"We will prepare PR branches in wgpu, nsh, nsh compat, gpui-fast BUT NOT send anything upstream (yet)\"; \"We will not publish anything to crates.io yet unitl we have something stable and tested on actual TV, emulator and remote test lab\". It replaces `d34`'s exception for the two gfx-rs/wgpu PRs.",
+      "memoryDecisionRefs": [
+        {
+          "repositoryId": "nsh-root",
+          "path": ".agentx/memory/decisions/workspace/agentx-memory/2026-10-23-workspace-agentx-memory-taxonomy.md"
+        }
+      ],
+      "sourceRefs": [
+        {
+          "repositoryId": "nsh-root",
+          "path": "upstream-pr/README.md"
+        }
+      ]
+    },
+    {
+      "id": "d37-launch-settings",
+      "requirementIds": [
+        "DEV",
+        "VID"
+      ],
+      "descriptionMarkdown": "Launch settings travel inside the package as `res/launch.env` (`KEY=VALUE` lines), written by `cargo xtask package --env` and applied by `dxn_gpui_tizen::run` before the platform starts, the same way and at the same point as `GPUI_PIPELINE_CACHE_DIR` (no thread exists yet). Only the platform's, gpui-fast's and wgpu's own controls are allowed, and a variable already in the environment wins. A package without `--env` has no file and behaves as before. Store packages never need it.",
+      "rationaleMarkdown": "Found while writing the TV guide (2026-11-13): `DEV-3` measures both renderer paths and `VID-4` both video outputs, but `DXN_GPUI_TIZEN_RENDERER` is an environment variable and the video example always lets the player choose (`VideoPlayer::new(&uri, None, cx)`). A TV app is started by the launcher or `sdb shell 0 execute`, neither of which passes an environment, and a retail TV's restricted shell runs no `app_launcher`, so without this the owner could test only the default paths."
+    },
+    {
+      "id": "d38-counter-key-echo",
+      "requirementIds": [
+        "DEV"
+      ],
+      "descriptionMarkdown": "The counter echoes the last key on screen, from a key-down observer on its window (not a binding, so the buttons' bindings keep working and the echo sees keys nothing binds). It is the device run's evidence for the grabbed keys; the long list and video examples stay as they are.",
+      "rationaleMarkdown": "Found while writing the TV guide (2026-11-13): no example shows the color or media keys, and the platform's `DXN_GPUI_TIZEN` log is only readable where the TV allows `sdb dlog`."
     }
   ]
 }

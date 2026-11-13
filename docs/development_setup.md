@@ -2,7 +2,8 @@
 
 What the owner sets up by hand before a Tizen app built here runs on a Samsung TV: the certificates, the TV's
 developer mode, and the repository's secrets. [`setup.md`](setup.md) covers the SDK, rootstraps and toolchain,
-which come first. Neither guide uses Tizen Studio.
+which come first. [`testing-on-tv.md`](testing-on-tv.md) then runs the apps on a TV or a Remote Test Lab TV. None of
+them uses Tizen Studio.
 
 | Where the app runs | Certificate | Who sets it up |
 | --- | --- | --- |
@@ -85,6 +86,8 @@ Steps:
    at `~/tizen-studio`, the SDK from [`setup.md`](setup.md), so that `tz` and VS Code share one `profiles.xml`.
 3. Connect the TV in VS Code. Under **Actions**, choose **Connect Device**, then **+ Create Custom Connection**.
    Enter a name, the TV's IP and port `26101`, click **Add**, then select the TV and click **Connect**.
+   Samsung: from September 2025, certificates can only be created with Samsung Certificate Extension 2.0.73 or later,
+   so update the extensions in **Packages** first.
 4. Under **Actions**, choose **Create Certificate**.
    1. **Profile Name**: `tv`. The packaging commands below use this name.
    2. Choose **Create Samsung Certificate**.
@@ -203,7 +206,8 @@ gh secret set TIZEN_DISTRIBUTOR_PASSWORD -R dXnSix/dXn.GpuiTizen
 The last two prompt for the value. Samsung's wizard may use one password for both certificates. Then ask the agent
 to run the emulator job.
 
-Publishing to crates.io (`release-plz.yml`, the last sprint) needs two more. Add them when that sprint comes:
+Publishing to crates.io (`release-plz.yml`) needs two more. Nothing is published until the platform is stable and
+tested on a TV, the emulator and Remote Test Lab, so add them only then:
 
 | Secret | Value | Where to get it |
 | --- | --- | --- |

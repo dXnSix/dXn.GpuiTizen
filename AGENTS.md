@@ -14,6 +14,7 @@ the gpui-fast and wgpu forks and reach builds only through `[patch.crates-io]` o
 - `crates/dxn_gpui_tizen_diag/`: the diagnostic app (`cdylib` + `rlib`).
 - `examples/counter`, `examples/long_list` (packages `example_counter`, `example_long_list`).
 - `docs/setup.md`: installing the Tizen SDK, rootstraps and GCC toolchain on a clean machine.
+- `docs/development_setup.md`, `docs/testing-on-tv.md`: certificates and developer mode; running on a TV or Remote Test Lab.
 - `host/`: the C# host; `targets/`: the Tizen target specs; `xtask/`: build tooling; `scripts/`: Lima and CI helpers.
 
 ## Rules

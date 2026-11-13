@@ -1,12 +1,12 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 380,
-  "planRevision": 61,
+  "revision": 384,
+  "planRevision": 64,
   "specHashes": {
-    "requirements": "b1173f7baf792a1150312abff251fb05a88bf828f424eb674222d7335cc014c8",
-    "design": "86bf3a589f7fb35ce97331571607e4af3f0ffdf88a63e18494863dd0dc88ac77",
-    "plan": "5e63c781381de1e8240f56b1990b0449214caa1a4c35ccec06b10082c556f9e3"
+    "requirements": "fdd7566ee745948ec934a1c140d756e7e79af3480df3d92171600b1da81fb058",
+    "design": "e42a2c7f85ab58d54eba21174125c5126b9886a39667fd171b06d646d2c543ed",
+    "plan": "2439773366583ecf024b36193868babc9d6ca6f5f824a5904658add5f2463a5d"
   },
   "tasks": {
     "t1-workspace": {
@@ -583,6 +583,12 @@
       ]
     },
     "t26-upstream-after-devices": {
+      "status": "pending"
+    },
+    "t25-launch-settings": {
+      "status": "pending"
+    },
+    "t25-key-echo": {
       "status": "pending"
     }
   },
@@ -13840,5 +13846,49 @@
       "nsh:.github/workflows/release*.yml": "614e33e1a3b40dfe8b8964bb00bad6d26b4c6628d99384a4f40a2c72d6800330",
       "nsh:.github/workflows/fork-release.yml": "46b66152e373d2d116e6487488c816e897ebdefa52a53692a4953f026d985c79"
     }
-  }
+  },
+  "dispositions": [
+    {
+      "type": "criterion",
+      "id": "STORE-2",
+      "disposition": "withdrawn",
+      "reasonMarkdown": "The owner, 2026-11-13: \"We will NOT do store submission. This epic is about Tizen support/rendering in nsh. There's nothing to submit\"; \"We will prepare PR branches in wgpu, nsh, nsh compat, gpui-fast BUT NOT send anything upstream (yet)\"; \"We will not publish anything to crates.io yet unitl we have something stable and tested on actual TV, emulator and remote test lab (if I will manage to connect to it)\". Recorded in `d35-epic-ends-before-release`.",
+      "decidedBy": "owner",
+      "recordedAt": "2026-11-13T12:28:51Z"
+    },
+    {
+      "type": "task",
+      "id": "t25-store",
+      "disposition": "withdrawn",
+      "reasonMarkdown": "The owner, 2026-11-13: \"We will NOT do store submission. This epic is about Tizen support/rendering in nsh. There's nothing to submit\"; \"We will prepare PR branches in wgpu, nsh, nsh compat, gpui-fast BUT NOT send anything upstream (yet)\"; \"We will not publish anything to crates.io yet unitl we have something stable and tested on actual TV, emulator and remote test lab (if I will manage to connect to it)\". Recorded in `d35-epic-ends-before-release`.",
+      "decidedBy": "owner",
+      "recordedAt": "2026-11-13T12:28:51Z"
+    },
+    {
+      "type": "criterion",
+      "id": "PUB-2",
+      "disposition": "deferred",
+      "reasonMarkdown": "The owner, 2026-11-13: \"We will NOT do store submission. This epic is about Tizen support/rendering in nsh. There's nothing to submit\"; \"We will prepare PR branches in wgpu, nsh, nsh compat, gpui-fast BUT NOT send anything upstream (yet)\"; \"We will not publish anything to crates.io yet unitl we have something stable and tested on actual TV, emulator and remote test lab (if I will manage to connect to it)\". Recorded in `d35-epic-ends-before-release`.",
+      "decidedBy": "owner",
+      "recordedAt": "2026-11-13T12:28:51Z",
+      "followUpMarkdown": "Publish `dxn_gpui_tizen_sys` and `dxn_gpui_tizen` to crates.io once the platform is stable and tested on a real TV, the TV emulator and (if reached) Remote Test Lab, and gpui-fast has released the renderer changes so the `[patch]` lines can go (`docs/releasing.md`)."
+    },
+    {
+      "type": "task",
+      "id": "t25-crates",
+      "disposition": "withdrawn",
+      "reasonMarkdown": "The owner, 2026-11-13: \"We will NOT do store submission. This epic is about Tizen support/rendering in nsh. There's nothing to submit\"; \"We will prepare PR branches in wgpu, nsh, nsh compat, gpui-fast BUT NOT send anything upstream (yet)\"; \"We will not publish anything to crates.io yet unitl we have something stable and tested on actual TV, emulator and remote test lab (if I will manage to connect to it)\". Recorded in `d35-epic-ends-before-release`.",
+      "decidedBy": "owner",
+      "recordedAt": "2026-11-13T12:28:51Z"
+    },
+    {
+      "type": "decision",
+      "id": "d34-upstream-prepare-only",
+      "disposition": "superseded",
+      "reasonMarkdown": "The owner, 2026-11-13: \"We will NOT do store submission. This epic is about Tizen support/rendering in nsh. There's nothing to submit\"; \"We will prepare PR branches in wgpu, nsh, nsh compat, gpui-fast BUT NOT send anything upstream (yet)\"; \"We will not publish anything to crates.io yet unitl we have something stable and tested on actual TV, emulator and remote test lab (if I will manage to connect to it)\". Recorded in `d35-epic-ends-before-release`.",
+      "decidedBy": "owner",
+      "recordedAt": "2026-11-13T12:28:51Z",
+      "successorId": "d35-epic-ends-before-release"
+    }
+  ]
 }

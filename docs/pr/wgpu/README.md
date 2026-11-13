@@ -11,7 +11,9 @@ Each folder holds the branch's `README.md` (status, base, commits, checks, how t
 ## The PRs, in order
 
 Both on the fork `dXnSix/wgpu` (checkout `/Users/dinko/work-private/projects/dXn/wgpu`), rebased onto `upstream/trunk`
-`c92258fca`, checked and pushed on 2026-11-12; the owner opens them. Each is cut from `upstream/trunk` on its own; they touch different files and
+`c92258fca`, checked and pushed on 2026-11-12. Nothing is opened within the epic (`d35-epic-ends-before-release`): once the code
+has run on a real TV, the branches are rebased and checked again and the TV run goes into each PR's Testing section;
+the owner opens them later. Each is cut from `upstream/trunk` on its own; they touch different files and
 merge with each other cleanly (`git merge-tree`). Either can be opened first. Sizes are
 `git diff --stat upstream/trunk <branch>`.
 

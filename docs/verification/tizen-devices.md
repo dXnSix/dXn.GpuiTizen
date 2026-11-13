@@ -119,3 +119,10 @@ package). And `tz` keeps certificate passwords in the OS keyring, never in `prof
 ## Devices (`HOST-3`, `DIAG-5`, `DEV-2`, `PLAT-7`, `VID-4`, `DEV-3`)
 
 Not run yet.
+
+## Store and crates.io (`STORE-2`, `PUB-2`)
+
+Not part of the epic, by the owner's decision of 2026-11-13 (`d35-epic-ends-before-release`): there is no app to submit,
+so `STORE-2` (Seller Office submission) is withdrawn, and nothing is published to crates.io until the platform is stable
+and tested on a TV, the emulator and Remote Test Lab, so `PUB-2` is deferred. `cargo xtask store-check` and the
+packaging readiness of `PUB-1` stay.

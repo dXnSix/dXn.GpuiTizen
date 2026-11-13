@@ -1,7 +1,7 @@
 {
   "schemaVersion": 7,
   "epicId": "tizen-gpui-platform",
-  "revision": 61,
+  "revision": 64,
   "title": "Tizen for NSH on GPUI and the web: platform, renderer and wgpu changes, NSH targets, store and upstream",
   "repositories": [
     {
@@ -3864,6 +3864,77 @@
       "descriptionMarkdown": "`tests/apps/tv-idiom` as a Tizen web app (TV shim, TV idiom), as fork CI's `tv-specs` runs it. Resolve the exact selector and test-count pattern from the NSH checkout at sprint start (`amend` the check if it differs). The CLI finds or builds the dev web runtime next to its own binary only in a checkout's target directory, and NSH builds into a shared target directory outside the checkout, so the check lays out `runtime/web` as `cargo xtask dist` does (`nsh-dev.wasm`, `nsh.js`, `browser/`) in the worktree's `target/` and names it with `NSH_RUNTIME`.",
       "reuse": false,
       "timeoutSeconds": 3600
+    },
+    {
+      "id": "chk-launch-settings",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "DEV-7"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "dxn_gpui_tizen",
+        "--lib",
+        "launch_settings::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "crates/dxn_gpui_tizen/**",
+        "crates/dxn_gpui_tizen_sys/**"
+      ]
+    },
+    {
+      "id": "chk-xtask-launch-env",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "DEV-7"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "xtask",
+        "--lib",
+        "package::launch_env::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "xtask/**"
+      ]
+    },
+    {
+      "id": "chk-counter-key-echo",
+      "repositoryId": "gpuitizen",
+      "kind": "test",
+      "criterionIds": [
+        "DEV-8"
+      ],
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "example_counter",
+        "--lib",
+        "key_echo::tests"
+      ],
+      "expected": {
+        "exitCode": 0,
+        "minimumTests": 1
+      },
+      "inputs": [
+        "examples/counter/**",
+        "crates/dxn_gpui_tizen/**"
+      ]
     }
   ],
   "finalCheckIds": [
@@ -6159,8 +6230,53 @@
       "dependsOn": [
         "s24-owner-upstream"
       ],
-      "checkIds": [],
+      "checkIds": [
+        "chk-launch-settings",
+        "chk-xtask-launch-env",
+        "chk-counter-key-echo"
+      ],
       "tasks": [
+        {
+          "id": "t25-launch-settings",
+          "title": "Launch settings inside a package",
+          "descriptionMarkdown": "`DEV-7`: `crates/dxn_gpui_tizen/src/launch_settings/` (parser and allowlist, host-testable, with `launch_settings::tests`), applied in `tizen::app::run` from `app_get_resource_path()`; `DXN_GPUI_TIZEN_VIDEO_OUTPUT` read where `VideoPlayer` chooses its output; `cargo xtask package --env KEY=VALUE` in `xtask/src/package/launch_env/` (with `package::launch_env::tests`), staging `res/launch.env`. Document it in `README.md` (Rendering, Video) and `docs/testing-on-tv.md`.",
+          "criterionIds": [
+            "DEV-7"
+          ],
+          "supportingCriterionIds": [
+            "DEV-3",
+            "VID-4"
+          ],
+          "designIds": [
+            "d37-launch-settings",
+            "d21-owner-acceptance"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-launch-settings",
+            "chk-xtask-launch-env"
+          ]
+        },
+        {
+          "id": "t25-key-echo",
+          "title": "The counter shows the last key",
+          "descriptionMarkdown": "`DEV-8`: `examples/counter/src/key_echo/` (the name shown for a keystroke, host-testable, with `key_echo::tests`), a status line under the buttons fed by a key-down observer; the guide's `DEV-2` checklist reads it.",
+          "criterionIds": [
+            "DEV-8"
+          ],
+          "supportingCriterionIds": [
+            "DEV-2"
+          ],
+          "designIds": [
+            "d38-counter-key-echo",
+            "d14-keys",
+            "d21-owner-acceptance"
+          ],
+          "dependsOn": [],
+          "checkIds": [
+            "chk-counter-key-echo"
+          ]
+        },
         {
           "id": "t9-install",
           "title": "Sign, install and launch on the emulator and a TV (owner)",
@@ -6206,6 +6322,7 @@
             "d13-lifecycle-gpu-release"
           ],
           "dependsOn": [
+            "t25-key-echo",
             "t9-install"
           ],
           "checkIds": []
@@ -6222,6 +6339,7 @@
             "d21-owner-acceptance"
           ],
           "dependsOn": [
+            "t25-launch-settings",
             "t9-install"
           ],
           "checkIds": []
@@ -6238,6 +6356,7 @@
             "d13-lifecycle-gpu-release"
           ],
           "dependsOn": [
+            "t25-launch-settings",
             "t9-examples"
           ],
           "checkIds": []
@@ -6275,7 +6394,7 @@
     },
     {
       "id": "s26-owner-store-upstream",
-      "title": "Owner-run: store submission, the after-device upstream branches and crates.io",
+      "title": "The upstream branches that need the devices' results (prepared, not opened)",
       "dependsOn": [
         "s25-owner-devices"
       ],
@@ -6298,13 +6417,13 @@
         {
           "id": "t26-upstream-after-devices",
           "title": "Prepare the upstream branches that need the devices' results",
-          "descriptionMarkdown": "`UP-5`, the same way as `t25-upstream`, opening nothing: the gpui-fast issue and PR texts with the `DEV-3` numbers and their branches ready again on the latest `upstream/main`; the NSH `Os::Tizen` and Tizen targets branches and issue, and the `tizen-web` branch after `DEV-6`'s loader check, ready, their folders naming what they wait for. Owner: after the TV run, opens the two gfx-rs/wgpu PRs on their go (the TV run in their Testing section, the description and \"LLM Use?\" in their own words); the agent rebases them onto the newest `trunk` first and records the links and states.",
+          "descriptionMarkdown": "`UP-5`, the same way as `t25-upstream`, opening nothing anywhere (`d35-epic-ends-before-release`): the gpui-fast issue and PR texts with the `DEV-3` numbers and their branches ready again on the latest `upstream/main`; the NSH `Os::Tizen` and Tizen targets branches and issue, and the `tizen-web` branch after `DEV-6`'s loader check, ready, their folders naming what they wait for; the nsh-compat companions ready again. The two gfx-rs/wgpu branches rebased onto the newest `trunk`, their checks rerun, the TV, emulator and Remote Test Lab runs written into their PR texts' Testing section, recorded \"ready, not opened\". Nothing is opened or pushed at `gfx-rs/*` or `longbridge/*`.",
           "criterionIds": [
             "UP-5"
           ],
           "designIds": [
             "d33-upstream",
-            "d34-upstream-prepare-only",
+            "d35-epic-ends-before-release",
             "d21-owner-acceptance"
           ],
           "dependsOn": [],

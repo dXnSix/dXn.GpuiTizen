@@ -19,7 +19,7 @@ docs/pr/<project>/[<area>/]issue*.md   the issues that come before the PRs
 | Project | Index | What | Status |
 |---|---|---|---|
 | gpui-fast | [gpui-fast/README.md](gpui-fast/README.md) | six renderer changes for GL ES 3.0 TVs (one issue, six PRs) | ready, not opened: rebased onto `d1d6286`, checked, pushed (2026-11-12) |
-| wgpu | [wgpu/README.md](wgpu/README.md) | EGL 1.4 on Wayland, GL program binaries (two PRs) | ready; the owner opens them after the TV run (2026-11-12) |
+| wgpu | [wgpu/README.md](wgpu/README.md) | EGL 1.4 on Wayland, GL program binaries (two PRs) | ready, not opened (2026-11-12); opened later, outside the epic |
 | NSH | [nsh/README.md](nsh/README.md) | focus, TV keys and category, one wgpu, `Os::Tizen` and the `tizen` / `tizen-web` targets (three issues and a fourth on the desktop defaults, 22 PRs) and one fork-only CI branch | the fork PRs merged into the fork's `main`; `up/` branches ready, not opened (2026-11-12) |
 | nsh-compat | [nsh/compat/README.md](nsh/compat/README.md) | three companions of the NSH PRs | `up/tv-idiom`, `up/focus-props` ready, not opened; `tizen-platform` waits for `UP-5` |
 
@@ -37,14 +37,15 @@ docs/pr/<project>/[<area>/]issue*.md   the issues that come before the PRs
 
 ## Prepared, not opened (2026-11-12)
 
-The owner's rule (the epic's `UP-4`, `UP-5`, design `d34-upstream-prepare-only`): the branches below are made ready to
-open, and nothing is opened at `longbridge/nsh`, `longbridge/nsh-compat` or `longbridge/gpui-fast`, no issue, no PR
-and no push there. The owner first makes an agreement with those projects' owners, outside the epic. Ready means the
+The owner's rule (the epic's `UP-4`, `UP-5`, design `d35-epic-ends-before-release`, which on 2026-11-13 replaced
+`d34-upstream-prepare-only`): the branches below are made ready to open, and nothing is opened or pushed upstream at
+`gfx-rs/wgpu`, `longbridge/nsh`, `longbridge/nsh-compat` or `longbridge/gpui-fast`, no issue and no PR. The owner opens
+them later, outside the epic: for NSH and gpui-fast after an agreement with those projects' owners, for wgpu after the
+code has run on a real TV. Ready means the
 branch holds only its topic's commits on the latest upstream base, passes its README's checks on its own tip, is
 pushed to its `dXnSix` fork, and its README says "ready, not opened". NSH and nsh-compat get fresh upstream branches
 with the topic's own commits on the latest `upstream/main`; the fork's `pr/*` branches, which carry merges of the
-fork's `main`, are never rebased. The only upstream PRs the epic opens are wgpu's two (step 5), and the owner opens
-them.
+fork's `main`, are never rebased.
 
 ## The order of opening
 
@@ -62,8 +63,9 @@ owners (design `d33-upstream`). A step starts when the one before it is answered
 4. **gpui-fast.** The issue ([gpui-fast/issue.md](gpui-fast/issue.md), posted where a maintainer says, since issues
    are closed there), then its PRs in [gpui-fast/README.md](gpui-fast/README.md)'s order.
 5. **wgpu.** Its two PRs ([wgpu/README.md](wgpu/README.md)), either first.
-6. **crates.io.** Once a gpui-fast release has the changes: dXn.GpuiTizen moves to it and publishes `dxn_gpui_tizen_sys`
-   and `dxn_gpui_tizen` (the epic's `PUB-2`).
+6. **crates.io.** Once a gpui-fast release has the changes and the platform is tested on a TV, the emulator and Remote
+   Test Lab: dXn.GpuiTizen moves to it and publishes `dxn_gpui_tizen_sys` and `dxn_gpui_tizen`. Not in the epic: its
+   `PUB-2` is deferred (owner, 2026-11-13).
 7. **NSH `Os::Tizen` and the Tizen targets.** Post [nsh/tizen/issue.md](nsh/tizen/issue.md) (it asks whether GPUI may be
    the native backend of packaged apps). Open nsh-compat `tizen-platform`; `pr/tizen/01-os`, `02-gpui-platform-optional`,
    `03-gpui-tizen-cfg` (these three need nothing of steps 4–6 and may go earlier, the owner's call); then

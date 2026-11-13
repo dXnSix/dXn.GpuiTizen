@@ -41,7 +41,8 @@ found under the SDK's `tools/` or through `TIZEN_GCC_TOOLCHAIN_ARMV7` / `_X86_64
 start files and `libgcc_s` the rootstrap leaves out, and its GNU `ld`, since lld rejects the rootstrap's libraries.
 [docs/setup.md](docs/setup.md) installs all of it on a clean macOS or Linux machine;
 [docs/development_setup.md](docs/development_setup.md) covers the certificates, the TV's developer mode and the
-repository's secrets. Rootstraps and Samsung certificates are never committed.
+repository's secrets, and [docs/testing-on-tv.md](docs/testing-on-tv.md) running the apps on a TV or in Samsung's
+Remote Test Lab. Rootstraps and Samsung certificates are never committed.
 
 TV builds take gpui-fast and wgpu from the forks: `Cargo.toml`'s `[patch.crates-io]` takes all nine `gpui-fast-*`
 crates from `dXnSix/gpui-fast` at `tizen-release` and the wgpu stack from `dXnSix/wgpu` at `v30-tizen` (the lockfile
@@ -110,12 +111,13 @@ version, a fourth version number unique to each package, each package's CPU feat
 architecture) and then each package.
 
 The multi-architecture layout follows Seller Office's launch checklist, which leaves details open. These are
-assumptions until the first submission confirms them (the owner's store sprint): the CPU feature keys
+assumptions until a first submission confirms them, which this project does not plan yet (there is no app to
+submit): the CPU feature keys
 (`http://tizen.org/feature/platform.core.cpu.arch.armv7` / `armv8`), that a four-part version is accepted in
 `tizen-manifest.xml`, and that the `.zip` holds the packages at its top level.
 
-Submission itself (Seller Office, the certificates, the answer on native libraries for public sellers) is the
-owner's.
+Submission itself (Seller Office, the answer on native libraries for public sellers) is the owner's, whenever an app
+built on this is ready for it.
 
 ## Continuous integration
 
