@@ -26,16 +26,16 @@ fn gpui_fast_pin_drift_fails() {
     let errors = with_manifest(|m| {
         replace(
             m,
-            r#"version = "=0.1.13", default"#,
-            r#"version = "0.1.13", default"#,
+            r#"version = "=0.1.14", default"#,
+            r#"version = "0.1.14", default"#,
         )
     });
     assert!(errors.iter().any(|e| e.contains("`gpui`")), "{errors:?}");
     let errors = with_manifest(|m| {
         replace(
             m,
-            r#"gpui-fast-wgpu", version = "=0.1.13""#,
             r#"gpui-fast-wgpu", version = "=0.1.14""#,
+            r#"gpui-fast-wgpu", version = "=0.1.15""#,
         )
     });
     assert!(

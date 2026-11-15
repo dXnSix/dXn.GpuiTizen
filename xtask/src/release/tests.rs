@@ -44,15 +44,15 @@ version = "0.1.0"
 
 [[package]]
 name = "gpui-fast"
-version = "0.1.13"
+version = "0.1.14"
 
 [[package]]
 name = "gpui-fast-macros"
-version = "0.1.13"
+version = "0.1.14"
 
 [[package]]
 name = "gpui-fast-wgpu"
-version = "0.1.13"
+version = "0.1.14"
 
 [[package]]
 name = "wgpu"
@@ -69,20 +69,20 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[patch.unused]]
 name = "gpui-fast-linux"
-version = "0.1.13"
+version = "0.1.14"
 
 [[patch.unused]]
 name = "gpui-fast-platform"
-version = "0.1.13"
+version = "0.1.14"
 "#;
 
 #[test]
 fn tree_resolving_to_the_release_workspace_passes() {
     let stdout = format!(
-        "gpui-fast v0.1.13 ({WS}/gpui)\n└── gpui-fast-wgpu v0.1.13 ({WS}/gpui_wgpu)\n    └── dxn_gpui_tizen v0.1.0 (/work/dXn.GpuiTizen/crates/dxn_gpui_tizen)\n"
+        "gpui-fast v0.1.14 ({WS}/gpui)\n└── gpui-fast-wgpu v0.1.14 ({WS}/gpui_wgpu)\n    └── dxn_gpui_tizen v0.1.0 (/work/dXn.GpuiTizen/crates/dxn_gpui_tizen)\n"
     );
     assert_eq!(verify_tree(&stdout, Path::new(WS)), Ok(()));
-    let from_registry = "gpui-fast v0.1.13\n└── dxn_gpui_tizen v0.1.0 (/work/dXn.GpuiTizen/crates/dxn_gpui_tizen)\n";
+    let from_registry = "gpui-fast v0.1.14\n└── dxn_gpui_tizen v0.1.0 (/work/dXn.GpuiTizen/crates/dxn_gpui_tizen)\n";
     assert!(
         verify_tree(from_registry, Path::new(WS))
             .unwrap_err()
@@ -103,7 +103,7 @@ fn the_patched_lock_passes_with_only_desktop_patches_unused() {
 #[test]
 fn an_unused_patch_of_a_crate_the_graph_holds_fails() {
     let lock = format!(
-        "{PATCHED_LOCK}\n[[patch.unused]]\nname = \"gpui-fast-wgpu\"\nversion = \"0.1.13\"\n"
+        "{PATCHED_LOCK}\n[[patch.unused]]\nname = \"gpui-fast-wgpu\"\nversion = \"0.1.14\"\n"
     );
     let err = verify_lock(&lock).unwrap_err();
     assert!(
@@ -115,8 +115,8 @@ fn an_unused_patch_of_a_crate_the_graph_holds_fails() {
 #[test]
 fn gpui_fast_from_the_registry_or_an_empty_graph_fails() {
     let lock = PATCHED_LOCK.replace(
-        "name = \"gpui-fast\"\nversion = \"0.1.13\"\n",
-        "name = \"gpui-fast\"\nversion = \"0.1.13\"\nsource = \"registry+https://github.com/rust-lang/crates.io-index\"\n",
+        "name = \"gpui-fast\"\nversion = \"0.1.14\"\n",
+        "name = \"gpui-fast\"\nversion = \"0.1.14\"\nsource = \"registry+https://github.com/rust-lang/crates.io-index\"\n",
     );
     assert!(verify_lock(&lock).unwrap_err().contains("still comes from"));
     assert!(
@@ -143,11 +143,11 @@ fn the_release_branch_keeps_only_generated_files() {
 fn the_commit_names_its_source() {
     let message = commit_message("babf63e");
     assert!(
-        message.starts_with("release: gpui-fast 0.1.13 for Tizen"),
+        message.starts_with("release: gpui-fast 0.1.14 for Tizen"),
         "{message}"
     );
     assert!(
-        message.contains("--tag v0.1.13") && message.contains("`tizen` at babf63e"),
+        message.contains("--tag v0.1.14") && message.contains("`tizen` at babf63e"),
         "{message}"
     );
     assert!(!message.to_lowercase().contains("claude"));
@@ -220,7 +220,7 @@ fn wgpu_hal_must_resolve_to_the_fork_checkout() {
 #[test]
 fn unused_wgpu_patches_are_reported_but_desktop_gpui_crates_are_not() {
     let stderr = "\
-warning: Patch `gpui-fast-linux v0.1.13 (/work/gpui-fast/target/release-workspace/gpui_linux)` was not used in the crate graph.
+warning: Patch `gpui-fast-linux v0.1.14 (/work/gpui-fast/target/release-workspace/gpui_linux)` was not used in the crate graph.
 warning: Patch `wgpu-core-deps-apple v30.0.1 (/work/wgpu/wgpu-core/platform-deps/apple)` was not used in the crate graph.
 help: Check that the patched package version and available features are compatible
 ";

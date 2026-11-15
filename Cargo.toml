@@ -32,8 +32,8 @@ publish = false
 # GPUI is gpui-fast, imported under GPUI's library names and pinned exactly to the version
 # `nsh-platform-gpui` uses. Renderer changes reach builds only through `[patch.crates-io]` over all
 # nine `gpui-fast-*` crates (never a local path in this committed manifest).
-gpui = { package = "gpui-fast", version = "=0.1.13", default-features = false }
-gpui_wgpu = { package = "gpui-fast-wgpu", version = "=0.1.13" }
+gpui = { package = "gpui-fast", version = "=0.1.14", default-features = false }
+gpui_wgpu = { package = "gpui-fast-wgpu", version = "=0.1.14" }
 
 anyhow = "1"
 serde_json = "1"

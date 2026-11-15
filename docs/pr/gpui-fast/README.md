@@ -115,24 +115,23 @@ git worktree add ../gpui-fast-wt/pr <branch>     # once; later: git -C ../gpui-f
 
 ## `tizen` and `tizen-release`
 
-- **`tizen`** carries all six changes for the TV build and is never sent upstream. It starts at the tag `v0.1.13`
-  (`cd20d12`, 2026-11-02), the release dXn.GpuiTizen and NSH pin (`=0.1.13`), not at `main`, and is rebuilt from the
-  topic branches by cherry-picking their commits. Besides them it holds what 0.1.13 lacks and the TV build needs:
-  the dynamic textures of #86 and #99 (merged upstream after 0.1.13), `e4960b0` (opens `WgpuRendererCore::new`,
-  `render_frame` and `WgpuContext::create_headless`, which `main` already has as `pub(crate)`), and `wgpu-test-lints`
-  (`40d90c9`, see Checks). The files of the topic branches are the same on `tizen` (`fast/damage*`,
-  `fast/external_target*`, `fast/hole*`, `fast/pipeline_cache.rs`, `gpui`'s `fast/scene_padding.rs`); `fast/gles.rs`
-  holds 01 and 02 together. When a topic branch changes, its new commits are cherry-picked onto `tizen`.
-- **`tizen-release`** holds only the output of `bun script/prepare-release.ts --tag v0.1.13` run on `tizen` (through
+- **`tizen`** carries all six changes for the TV build and is never sent upstream. It started at the tag `v0.1.13`
+  (`cd20d12`, 2026-11-02) and was built from the topic branches by cherry-picking their commits; since 2026-11-15 it
+  follows the release dXn.GpuiTizen and NSH pin (`=0.1.14`) by merging its tag (`6705724`, "Merge v0.1.14 into
+  tizen", because NSH's GPUI backend asks for 0.1.14 since longbridge/nsh#2093), not `main`. Besides the changes it
+  holds `e4960b0` (opens `WgpuRendererCore::new`, `render_frame` and `WgpuContext::create_headless`, which `main`
+  already has as `pub(crate)`) and `wgpu-test-lints` (`40d90c9`, see Checks); the dynamic textures of #86 and #99,
+  which it carried ahead of 0.1.13, are 0.1.14's own now. The files of the topic branches are the same on `tizen`
+  (`fast/damage*`, `fast/external_target*`, `fast/hole*`, `fast/pipeline_cache.rs`, `gpui`'s
+  `fast/scene_padding.rs`); `fast/gles.rs` holds 01 and 02 together. When a topic branch changes, its new commits are
+  cherry-picked onto `tizen`; a new release tag is merged into it, never rebased (both branches are pushed).
+- **`tizen-release`** holds only the output of `bun script/prepare-release.ts --tag v0.1.14` run on `tizen` (through
   `cargo xtask gpui-fast-release` in this repository), the `gpui-fast-*` crates with wgpu 30.0.1 from crates.io, never
   edited by hand. TV builds patch all nine `gpui-fast-*` crates from it through `[patch.crates-io]`; local builds use
   `artifacts-temp/gpui-fast-patch.toml`, written by `cargo xtask gpui-fast-release --verify`.
-- `tizen` is at `7047b05` (2026-11-10): besides the six changes it now carries `scene-damage`'s `6b15d78` as `e392162`
-  and `external-target`'s `5ee78d5` as `7047b05`. The committed `tizen-release` is **current**: `53659f0` (2026-11-10
-  19:17 CET), generated from `tizen` at `7047b05` and verified ("gpui-fast patch ok (tizen at 7047b05fdb67, wgpu
-  v30-tizen at 4e3d80d5d)"; `artifacts-temp/agentx/tizen-gpui-platform/gpui-fast-release-{commit2,verify2}.log`), which
-  rewrote dXn.GpuiTizen's `artifacts-temp/gpui-fast-patch.toml`. The two before it were `d09584c` (from `e6ae34b`)
-  and `1515355` (from `3b6ea11`). Neither branch is pushed: `origin` has `main` only.
+- `tizen` is at `6705724` (2026-11-15), the merge of `v0.1.14` into `7047b05`. The committed `tizen-release` is
+  **current**: `5e879b3` (2026-11-15), gpui-fast 0.1.14 generated from `tizen` at `6705724`. Before it: `53659f0`
+  (0.1.13, from `7047b05`), `d09584c` (from `e6ae34b`) and `1515355` (from `3b6ea11`). Both branches are on `origin`.
 - When a gpui-fast release has the changes and NSH requires it, the patch lines and both branches go away.
 
 ## Checks

@@ -2,8 +2,8 @@ use super::*;
 
 const TIZEN_TREE: &str = "\
 dxn_gpui_tizen v0.1.0 (/repo/crates/dxn_gpui_tizen)
-gpui-fast v0.1.13
-gpui-fast-wgpu v0.1.13
+gpui-fast v0.1.14
+gpui-fast-wgpu v0.1.14
 wgpu v30.0.1
 wgpu-hal v30.0.1
 wayland-sys v0.31.11
@@ -30,14 +30,14 @@ fn a_clean_tizen_graph_passes() {
 #[test]
 fn desktop_platform_crates_are_reported() {
     let tree = format!(
-        "{TIZEN_TREE}gpui-fast-platform v0.1.13\ngpui-fast-linux v0.1.13\nfreetype-sys v0.20.1\nyeslogic-fontconfig-sys v6.0.1\n"
+        "{TIZEN_TREE}gpui-fast-platform v0.1.14\ngpui-fast-linux v0.1.14\nfreetype-sys v0.20.1\nyeslogic-fontconfig-sys v6.0.1\n"
     );
     assert_eq!(
         desktop_crates(&parse_tree(&tree)),
         [
             "freetype-sys 0.20.1",
-            "gpui-fast-linux 0.1.13",
-            "gpui-fast-platform 0.1.13",
+            "gpui-fast-linux 0.1.14",
+            "gpui-fast-platform 0.1.14",
             "yeslogic-fontconfig-sys 6.0.1"
         ]
     );
@@ -45,10 +45,10 @@ fn desktop_platform_crates_are_reported() {
 
 #[test]
 fn the_diag_rejects_gpui_and_a_second_or_other_wgpu() {
-    let tree = format!("{DIAG_TREE}gpui-fast v0.1.13\n");
+    let tree = format!("{DIAG_TREE}gpui-fast v0.1.14\n");
     assert_eq!(
         diag_violations(&parse_tree(&tree), Some("30.0.1")),
-        ["GPUI crate gpui-fast 0.1.13 in the diagnostic app"]
+        ["GPUI crate gpui-fast 0.1.14 in the diagnostic app"]
     );
     let tree = format!("{DIAG_TREE}wgpu v29.0.0\n");
     assert_eq!(
@@ -74,7 +74,7 @@ fn the_workspace_graph_holds_one_wgpu() {
         single_wgpu(&parse_tree(&tree)),
         Err("2 wgpu versions in the Tizen graph: 30.0.1, 31.0.0".into())
     );
-    assert!(single_wgpu(&parse_tree("gpui-fast v0.1.13\n")).is_err());
+    assert!(single_wgpu(&parse_tree("gpui-fast v0.1.14\n")).is_err());
 }
 
 #[test]
@@ -209,7 +209,7 @@ version = "30.0.0"
         assert!(foreign_violations(&one).is_empty());
         let none = parse_tree("nsh-core v0.4.0\n");
         assert!(foreign_violations(&none).is_empty());
-        let two = parse_tree("wgpu v29.0.0\nwgpu v30.0.1\ngpui-fast-linux v0.1.13\n");
+        let two = parse_tree("wgpu v29.0.0\nwgpu v30.0.1\ngpui-fast-linux v0.1.14\n");
         let violations = foreign_violations(&two);
         assert_eq!(violations.len(), 2, "{violations:?}");
         assert!(violations.iter().any(|v| v.contains("gpui-fast-linux")));
