@@ -48,8 +48,8 @@ fork's `main` has all three. From NSH, `cargo xtask compat` passed on `up/tv/02-
 ## Where things are
 
 - The fork `dXnSix/nsh-compat` exists (the owner's choice, 2026-11-11). Its clone is
-  `/Users/dinko/work-private/projects/dXn/nsh/nsh-compat`, with `origin` the fork, `upstream` longbridge/nsh-compat
-  and `local` the old clone `/Users/dinko/work-private/projects/dXn/nsh-compat`, no longer used.
+  `/Users/dinko/work-private/projects/dXn/nsh/nsh-compat`, with `origin` the fork and `upstream` longbridge/nsh-compat.
+  It is the only clone: the old one at `/Users/dinko/work-private/projects/dXn/nsh-compat` was removed on 2026-11-18.
 - The crate depends on NSH at `../nsh` (`/Users/dinko/work-private/projects/dXn/nsh/nsh`, the fork's `main` checkout).
   Its tests therefore run against whatever that checkout holds; to test against an NSH branch, use NSH's
   `cargo xtask compat` (which clones nsh-compat into `target/nsh-compat/`, next to the checkout under test).

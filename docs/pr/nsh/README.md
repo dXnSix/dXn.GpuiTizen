@@ -104,7 +104,7 @@ at `/Users/dinko/work-private/projects/dXn/nsh/nsh-compat` (`origin` the fork, `
 is longbridge's `main` (`e56ebce`, #49) with `nsh-tizen` fast-forwarded on, which merges the three companions, each
 first merging that `main` (`99ef2fc`); the companions keep their own branches for the upstream PRs. The NSH fork's
 `compat.yml` checks out `${{ github.repository_owner }}/nsh-compat` (`fork/compat-fork`, dXnSix/nsh#208), so the
-fork runs its own harness and longbridge/nsh its own. The old clone at `dXn/nsh-compat` is no longer used.
+fork runs its own harness and longbridge/nsh its own. The old clone at `dXn/nsh-compat` was removed on 2026-11-18.
 
 ## Merged into the fork's `main` (2026-11-12)
 

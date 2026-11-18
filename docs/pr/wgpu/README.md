@@ -49,7 +49,9 @@ gpui-fast moves to it, the fork's patch goes away.
 
 - Each branch is cut from `upstream/trunk` and never stacked on the other; it holds only its topic's commits.
 - Nothing is pushed to `origin` or upstream, and no PR is opened, without the owner's go. The owner runs the
-  `git push` and `gh` commands in each branch's README.
+  `git push` and `gh` commands in each branch's README. The one standing go (2026-11-18) is the nshx sync's
+  (nsh-root's `nshx-sync-upstream` skill, step 5): it fast-forwards `trunk` with `gh repo sync` and pushes the
+  `v<major>-tizen` line and its `v<major>-*` branches when upstream NSH locks a newer wgpu.
 - `../wgpu` stays on `v30-tizen`: it is the path patch other builds use. Work on these branches in a separate
   worktree, `git -C /Users/dinko/work-private/projects/dXn/wgpu worktree add ../wgpu-wt/trunk <branch>`, and remove it
   afterwards (`git worktree remove ../wgpu-wt/trunk`); the branches stay.
