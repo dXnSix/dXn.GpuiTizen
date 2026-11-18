@@ -20,7 +20,7 @@ gpui.workspace = true
 ttf-parser = "0.25"
 
 # AccessKit's AT-SPI adapter (the `a11y` module), on every Linux so the Lima VM can test it over
-# D-Bus; the version gpui-fast 0.1.14's Linux platform uses. Its `zbus` is no desktop platform.
+# D-Bus; the version gpui-fast 0.1.16's Linux platform uses. Its `zbus` is no desktop platform.
 [target.'cfg(target_os = "linux")'.dependencies]
 accesskit_unix = "0.22"
 # The platform-owned EGL path (the `egl` module): EGL, GL ES and wayland-egl loaded at run time,

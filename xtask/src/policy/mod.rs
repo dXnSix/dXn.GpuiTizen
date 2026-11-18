@@ -7,7 +7,7 @@ use anyhow::{Context, Result};
 use toml::Value;
 
 /// The exact gpui-fast version NSH's `nsh-platform-gpui` uses; it moves only together with NSH's pin.
-pub const GPUI_FAST_VERSION: &str = "=0.1.14";
+pub const GPUI_FAST_VERSION: &str = "=0.1.16";
 
 /// Workspace members every checkout must have.
 pub const REQUIRED_MEMBERS: &[&str] = &[

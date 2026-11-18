@@ -390,14 +390,6 @@ struct PrepaintState {
     selection: Option<PaintQuad>,
 }
 
-impl IntoElement for FieldText {
-    type Element = Self;
-
-    fn into_element(self) -> Self::Element {
-        self
-    }
-}
-
 impl Element for FieldText {
     type RequestLayoutState = ();
     type PrepaintState = PrepaintState;

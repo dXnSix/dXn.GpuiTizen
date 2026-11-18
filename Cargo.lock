@@ -2076,8 +2076,9 @@ dependencies = [
 
 [[package]]
 name = "gpui-fast"
-version = "0.1.14"
-source = "git+https://github.com/dXnSix/gpui-fast?branch=tizen-release#5e879b3c4d611748b63412f0b05e7aa625d5eb8a"
+version = "0.1.16"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7f156153ed82b67b45c6b5ed5d833da14b27eb68ae7828741f64b52691e254d0"
 dependencies = [
  "accesskit",
  "anyhow",
@@ -2146,8 +2147,9 @@ dependencies = [
 
 [[package]]
 name = "gpui-fast-apple"
-version = "0.1.14"
-source = "git+https://github.com/dXnSix/gpui-fast?branch=tizen-release#5e879b3c4d611748b63412f0b05e7aa625d5eb8a"
+version = "0.1.16"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "52c8337a6ca2fcbaf574e3e78495b29ff92a06932523c1e7e005f0fb37c6ce48"
 dependencies = [
  "anyhow",
  "async-task",
@@ -2181,8 +2183,9 @@ dependencies = [
 
 [[package]]
 name = "gpui-fast-linux"
-version = "0.1.14"
-source = "git+https://github.com/dXnSix/gpui-fast?branch=tizen-release#5e879b3c4d611748b63412f0b05e7aa625d5eb8a"
+version = "0.1.16"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "442fb7af8c998c77749ed68d64fccc019ebc9938f42d55e6ebc86ac7f9ef6bec"
 dependencies = [
  "accesskit",
  "accesskit_unix",
@@ -2225,8 +2228,9 @@ dependencies = [
 
 [[package]]
 name = "gpui-fast-macos"
-version = "0.1.14"
-source = "git+https://github.com/dXnSix/gpui-fast?branch=tizen-release#5e879b3c4d611748b63412f0b05e7aa625d5eb8a"
+version = "0.1.16"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bcc07eff9d26477dad2c75809c083bda8ab0fa61a8fee60b46cc28c48b5a7a1d"
 dependencies = [
  "accesskit",
  "accesskit_macos",
@@ -2258,6 +2262,7 @@ dependencies = [
  "parking_lot",
  "raw-window-handle",
  "semver",
+ "serde_json",
  "smallvec",
  "strum",
  "uuid",
@@ -2265,8 +2270,9 @@ dependencies = [
 
 [[package]]
 name = "gpui-fast-macros"
-version = "0.1.14"
-source = "git+https://github.com/dXnSix/gpui-fast?branch=tizen-release#5e879b3c4d611748b63412f0b05e7aa625d5eb8a"
+version = "0.1.17"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a6cb3d6ba41781dad8ea9f4b73e0eb122916e31dc9137c5af80eb06a5e750691"
 dependencies = [
  "heck 0.5.0",
  "proc-macro2",
@@ -2276,8 +2282,9 @@ dependencies = [
 
 [[package]]
 name = "gpui-fast-platform"
-version = "0.1.14"
-source = "git+https://github.com/dXnSix/gpui-fast?branch=tizen-release#5e879b3c4d611748b63412f0b05e7aa625d5eb8a"
+version = "0.1.16"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f635166b148a1d4097d75d41620b5bc477be2e17ca122b56b1ff8a82330f993a"
 dependencies = [
  "anyhow",
  "console_error_panic_hook",
@@ -2291,8 +2298,9 @@ dependencies = [
 
 [[package]]
 name = "gpui-fast-web"
-version = "0.1.14"
-source = "git+https://github.com/dXnSix/gpui-fast?branch=tizen-release#5e879b3c4d611748b63412f0b05e7aa625d5eb8a"
+version = "0.1.16"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a0a5719c2ca90add59e8639886fadbcdebad658e750e8e99ec87b22eaf0ad24c"
 dependencies = [
  "anyhow",
  "async-channel",
@@ -2320,8 +2328,9 @@ dependencies = [
 
 [[package]]
 name = "gpui-fast-wgpu"
-version = "0.1.14"
-source = "git+https://github.com/dXnSix/gpui-fast?branch=tizen-release#5e879b3c4d611748b63412f0b05e7aa625d5eb8a"
+version = "0.1.16"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "846b898f14d55f6e107521fde8ec045a971af6225d6a51410c5514bc2f8bf334"
 dependencies = [
  "anyhow",
  "bytemuck",
@@ -2346,8 +2355,9 @@ dependencies = [
 
 [[package]]
 name = "gpui-fast-windows"
-version = "0.1.14"
-source = "git+https://github.com/dXnSix/gpui-fast?branch=tizen-release#5e879b3c4d611748b63412f0b05e7aa625d5eb8a"
+version = "0.1.16"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "eefc0adacde37f6d5291225177d5ba90e5cf51274b0d9a4ef4201e0a801e8aa9"
 dependencies = [
  "accesskit",
  "accesskit_windows",
@@ -7513,3 +7523,48 @@ dependencies = [
  "syn 3.0.9",
  "winnow 1.0.5",
 ]
+
+[[patch.unused]]
+name = "gpui-fast"
+version = "0.1.14"
+source = "git+https://github.com/dXnSix/gpui-fast?branch=tizen-release#5e879b3c4d611748b63412f0b05e7aa625d5eb8a"
+
+[[patch.unused]]
+name = "gpui-fast-apple"
+version = "0.1.14"
+source = "git+https://github.com/dXnSix/gpui-fast?branch=tizen-release#5e879b3c4d611748b63412f0b05e7aa625d5eb8a"
+
+[[patch.unused]]
+name = "gpui-fast-linux"
+version = "0.1.14"
+source = "git+https://github.com/dXnSix/gpui-fast?branch=tizen-release#5e879b3c4d611748b63412f0b05e7aa625d5eb8a"
+
+[[patch.unused]]
+name = "gpui-fast-macos"
+version = "0.1.14"
+source = "git+https://github.com/dXnSix/gpui-fast?branch=tizen-release#5e879b3c4d611748b63412f0b05e7aa625d5eb8a"
+
+[[patch.unused]]
+name = "gpui-fast-macros"
+version = "0.1.14"
+source = "git+https://github.com/dXnSix/gpui-fast?branch=tizen-release#5e879b3c4d611748b63412f0b05e7aa625d5eb8a"
+
+[[patch.unused]]
+name = "gpui-fast-platform"
+version = "0.1.14"
+source = "git+https://github.com/dXnSix/gpui-fast?branch=tizen-release#5e879b3c4d611748b63412f0b05e7aa625d5eb8a"
+
+[[patch.unused]]
+name = "gpui-fast-web"
+version = "0.1.14"
+source = "git+https://github.com/dXnSix/gpui-fast?branch=tizen-release#5e879b3c4d611748b63412f0b05e7aa625d5eb8a"
+
+[[patch.unused]]
+name = "gpui-fast-wgpu"
+version = "0.1.14"
+source = "git+https://github.com/dXnSix/gpui-fast?branch=tizen-release#5e879b3c4d611748b63412f0b05e7aa625d5eb8a"
+
+[[patch.unused]]
+name = "gpui-fast-windows"
+version = "0.1.14"
+source = "git+https://github.com/dXnSix/gpui-fast?branch=tizen-release#5e879b3c4d611748b63412f0b05e7aa625d5eb8a"

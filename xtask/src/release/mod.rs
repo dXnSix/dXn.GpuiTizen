@@ -1,5 +1,5 @@
 //! `cargo xtask gpui-fast-release [--verify]`: gpui-fast's release workspace from the fork's
-//! `tizen` branch (`bun script/prepare-release.ts --tag v0.1.14`), checked with `cargo check`.
+//! `tizen` branch (`bun script/prepare-release.ts --tag v0.1.16`), checked with `cargo check`.
 //! Without `--verify` its exact output is committed to the fork's local `tizen-release` branch
 //! through a git worktree; with `--verify` nothing is committed, and a Cargo config patching all
 //! nine `gpui-fast-*` crates with `path` entries into the release workspace is written to
@@ -17,7 +17,7 @@
 use std::path::{Path, PathBuf};
 
 /// The release tag `tizen` is built on (design `d05-gpui-fast-pin`).
-pub const TAG: &str = "v0.1.14";
+pub const TAG: &str = "v0.1.16";
 /// The branch the release workspace is generated from, and the one it is committed to.
 pub const SOURCE_BRANCH: &str = "tizen";
 pub const RELEASE_BRANCH: &str = "tizen-release";
