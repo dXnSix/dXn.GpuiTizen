@@ -1,8 +1,8 @@
 //! `cargo xtask gpui-fast-release [--verify]`: gpui-fast's release workspace from the fork's
-//! `tizen` branch (`bun script/prepare-release.ts --tag v0.1.16`), checked with `cargo check`.
+//! `tizen` branch (`bun script/prepare-release.ts --tag v0.1.19`), checked with `cargo check`.
 //! Without `--verify` its exact output is committed to the fork's local `tizen-release` branch
 //! through a git worktree; with `--verify` nothing is committed, and a Cargo config patching all
-//! nine `gpui-fast-*` crates with `path` entries into the release workspace is written to
+//! ten `gpui-fast-*` crates with `path` entries into the release workspace is written to
 //! `artifacts-temp/gpui-fast-patch.toml` and proven with `cargo tree -i gpui-fast`. The same config
 //! patches the wgpu stack with the wgpu fork's `v30-tizen` checkout (`../wgpu`, design
 //! `d22-wgpu-fork`), proven with `cargo tree -i wgpu-hal`.
@@ -17,7 +17,7 @@
 use std::path::{Path, PathBuf};
 
 /// The release tag `tizen` is built on (design `d05-gpui-fast-pin`).
-pub const TAG: &str = "v0.1.16";
+pub const TAG: &str = "v0.1.19";
 /// The branch the release workspace is generated from, and the one it is committed to.
 pub const SOURCE_BRANCH: &str = "tizen";
 pub const RELEASE_BRANCH: &str = "tizen-release";
@@ -28,8 +28,9 @@ pub const PATCH_CONFIG: &str = "artifacts-temp/gpui-fast-patch.toml";
 /// The line the verification prints.
 pub const OK_LINE: &str = "gpui-fast patch ok";
 
-/// The nine crates of a gpui-fast release: (release-workspace directory, crates.io package).
-pub const CRATES: [(&str, &str); 9] = [
+/// The ten crates of a gpui-fast release: (release-workspace directory, crates.io package).
+pub const CRATES: [(&str, &str); 10] = [
+    ("scheduler", "gpui-fast-scheduler"),
     ("gpui_macros", "gpui-fast-macros"),
     ("gpui", "gpui-fast"),
     ("gpui_apple", "gpui-fast-apple"),
@@ -134,7 +135,7 @@ pub const SCRATCH_LOCK: &str = "artifacts-temp/locks/gpui-fast-patch/Cargo.lock"
 /// `wgpu-hal` each appear once and come from a path (the release workspace, the wgpu checkout),
 /// and no patch Cargo left unused (`[[patch.unused]]`) is
 /// for a crate the graph still holds, which would then come from crates.io. Patches of crates the
-/// graph never contains (the desktop platforms) are unused by design: all nine are always patched
+/// graph never contains (the desktop platforms) are unused by design: all ten are always patched
 /// together. The lockfile covers every target, not only the one `cargo tree` printed.
 pub fn verify_lock(lock: &str) -> Result<(), String> {
     let value: toml::Value = lock
@@ -278,7 +279,7 @@ pub fn parse_mode(args: &[String]) -> Result<Mode, String> {
 }
 
 /// Whether a workspace manifest carries the forks' git patch: a `[patch.crates-io]` entry for
-/// `gpui-fast` (the policy check keeps the rest of the nine and the wgpu stack beside it).
+/// `gpui-fast` (the policy check keeps the rest of the ten and the wgpu stack beside it).
 pub fn has_committed_patch(manifest: &str) -> bool {
     manifest
         .parse::<toml::Value>()

@@ -117,9 +117,9 @@ git worktree add ../gpui-fast-wt/pr <branch>     # once; later: git -C ../gpui-f
 
 - **`tizen`** carries all six changes for the TV build and is never sent upstream. It started at the tag `v0.1.13`
   (`cd20d12`, 2026-11-02) and was built from the topic branches by cherry-picking their commits; since 2026-11-15 it
-  follows the release dXn.GpuiTizen and NSH pin (now `=0.1.16`) by merging its tag (`6705724`, "Merge v0.1.14 into
+  follows the release dXn.GpuiTizen and NSH pin (now `=0.1.19`) by merging its tag (`6705724`, "Merge v0.1.14 into
   tizen", because NSH's GPUI backend asked for 0.1.14 in longbridge/nsh#2093; `b8d2486`, "Merge v0.1.16 into tizen",
-  for 0.1.16 in longbridge/nsh#2221), not `main`. Besides the changes it
+  for 0.1.16 in longbridge/nsh#2221; `9ddc7bd`, "Merge v0.1.19 into tizen", for 0.1.19 in longbridge/nsh#3120), not `main`. Besides the changes it
   holds `e4960b0` (opens `WgpuRendererCore::new`, `render_frame` and `WgpuContext::create_headless`, which `main`
   already has as `pub(crate)`) and `wgpu-test-lints` (`40d90c9`, see Checks); the dynamic textures of #86 and #99,
   which it carried ahead of 0.1.13, are 0.1.14's own now. The files of the topic branches are the same on `tizen`
@@ -127,14 +127,15 @@ git worktree add ../gpui-fast-wt/pr <branch>     # once; later: git -C ../gpui-f
   `fast/scene_padding.rs`); `fast/gles.rs` holds 01 and 02 together. 0.1.16 brought upstream's own `fast/native_gl.rs`
   (gpui-fast #141: GL adapters without compute or vertex storage get their own limits and texture instance data),
   which covers part of 01; the merge kept `gles.rs` at both call sites (it also routes GL drivers with no storage
-  buffers, asks for the WebGL2 limits, picks RGBA atlases and reads `WGPU_BACKEND`) and dropped `native_gl.rs`. When a topic branch changes, its new commits are
+  buffers, asks for the WebGL2 limits, picks RGBA atlases and reads `WGPU_BACKEND`) and dropped `native_gl.rs`. 0.1.19 drew paths as tiles (`PathPaint`, `PathCurve`, `PathTile`) instead of a rasterization pass and gave the main pass a depth attachment; the merge kept partial redraws on the new pass (`SceneDraw::clear` an `Option`, `LoadOp::Load` and the scissor for a partial frame), hashes a path's damage by its paint, curves and tiles, gives the hole pipeline the sprites' depth test (its fragment takes the vertex stage's clipping), and frees the depth attachments in `WgpuExternalRenderer::release_targets` (the path intermediates are gone). When a topic branch changes, its new commits are
   cherry-picked onto `tizen`; a new release tag is merged into it, never rebased (both branches are pushed).
-- **`tizen-release`** holds only the output of `bun script/prepare-release.ts --tag v0.1.16` run on `tizen` (through
+- **`tizen-release`** holds only the output of `bun script/prepare-release.ts --tag v0.1.19` run on `tizen` (through
   `cargo xtask gpui-fast-release` in this repository), the `gpui-fast-*` crates with wgpu 30.0.1 from crates.io, never
-  edited by hand. TV builds patch all nine `gpui-fast-*` crates from it through `[patch.crates-io]`; local builds use
+  edited by hand. TV builds patch all ten `gpui-fast-*` crates (0.1.19 added `gpui-fast-scheduler`) from it through `[patch.crates-io]`; local builds use
   `artifacts-temp/gpui-fast-patch.toml`, written by `cargo xtask gpui-fast-release --verify`.
-- `tizen` is at `b8d2486` (2026-11-18), the merge of `v0.1.16` into `6705724`. The committed `tizen-release` is
-  **current**: `1c12533` (2026-11-18), gpui-fast 0.1.16 generated from `tizen` at `b8d2486`. Before it: `5e879b3`
+- `tizen` is at `9ddc7bd` (2026-11-25), the merge of `v0.1.19` into `b8d2486`. The committed `tizen-release` is
+  **current**: `8a51a14` (2026-11-25), gpui-fast 0.1.19 generated from `tizen` at `9ddc7bd`. Before it: `1c12533`
+  (0.1.16, from `b8d2486`), `5e879b3`
   (0.1.14, from `6705724`), `53659f0` (0.1.13, from `7047b05`), `d09584c` (from `e6ae34b`) and `1515355` (from `3b6ea11`). Both branches are on `origin`.
 - When a gpui-fast release has the changes and NSH requires it, the patch lines and both branches go away.
 

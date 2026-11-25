@@ -31,9 +31,9 @@ publish = false
 [workspace.dependencies]
 # GPUI is gpui-fast, imported under GPUI's library names and pinned exactly to the version
 # `nsh-platform-gpui` uses. Renderer changes reach builds only through `[patch.crates-io]` over all
-# nine `gpui-fast-*` crates (never a local path in this committed manifest).
-gpui = { package = "gpui-fast", version = "=0.1.16", default-features = false }
-gpui_wgpu = { package = "gpui-fast-wgpu", version = "=0.1.16" }
+# ten `gpui-fast-*` crates (never a local path in this committed manifest).
+gpui = { package = "gpui-fast", version = "=0.1.19", default-features = false }
+gpui_wgpu = { package = "gpui-fast-wgpu", version = "=0.1.19" }
 
 anyhow = "1"
 serde_json = "1"
@@ -60,12 +60,13 @@ strip = "symbols"
 panic = "abort"
 
 # The renderer changes TV builds need (gpui-fast changes 1-3 and 5, the video hole, the EGL 1.4
-# and program-binary fixes of wgpu) until gpui-fast and wgpu release them: all nine `gpui-fast-*`
+# and program-binary fixes of wgpu) until gpui-fast and wgpu release them: all ten `gpui-fast-*`
 # crates from the gpui-fast fork's `tizen-release` (generated from `tizen` by `cargo xtask
 # gpui-fast-release`) and the wgpu stack from the wgpu fork's `v30-tizen`, always together.
 # `cargo xtask gpui-fast-release --verify` writes a local path config that overrides these with
 # local checkouts while the forks change. Dropped once both release (docs/releasing.md).
 [patch.crates-io]
+gpui-fast-scheduler = { git = "https://github.com/dXnSix/gpui-fast", branch = "tizen-release" }
 gpui-fast-macros = { git = "https://github.com/dXnSix/gpui-fast", branch = "tizen-release" }
 gpui-fast = { git = "https://github.com/dXnSix/gpui-fast", branch = "tizen-release" }
 gpui-fast-apple = { git = "https://github.com/dXnSix/gpui-fast", branch = "tizen-release" }

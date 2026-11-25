@@ -44,7 +44,7 @@ start files and `libgcc_s` the rootstrap leaves out, and its GNU `ld`, since lld
 repository's secrets, and [docs/testing-on-tv.md](docs/testing-on-tv.md) running the apps on a TV or in Samsung's
 Remote Test Lab. Rootstraps and Samsung certificates are never committed.
 
-TV builds take gpui-fast and wgpu from the forks: `Cargo.toml`'s `[patch.crates-io]` takes all nine `gpui-fast-*`
+TV builds take gpui-fast and wgpu from the forks: `Cargo.toml`'s `[patch.crates-io]` takes all ten `gpui-fast-*`
 crates from `dXnSix/gpui-fast` at `tizen-release` and the wgpu stack from `dXnSix/wgpu` at `v30-tizen` (the lockfile
 pins the commits). While changing the forks themselves, run `cargo xtask gpui-fast-release --verify` with
 `../gpui-fast` on `tizen` and `../wgpu` on `v30-tizen`: it writes `artifacts-temp/gpui-fast-patch.toml`, which
